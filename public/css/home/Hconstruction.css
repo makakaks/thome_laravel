@@ -1,0 +1,364 @@
+:root {
+    --primary-blue: #dbeafe;
+    --primary-orange: #f97316;
+    --dark-blue: #1e40af;
+    --light-gray: #f8fafc;
+    --light-orange: #fff7f0;
+}
+
+/* ส่วนหัวข้อหลัก */
+.hero-section {    
+    /* padding: 60px 0 0 0; */
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+    width: 100%;
+    height: calc(100vh - 188.8px);
+}
+
+@media screen and (max-width: 1024px) {
+    .hero-section {
+        height: calc(100vh - 100px);
+    }
+}
+
+.hero-bg {
+    filter: blur(2px) brightness(0.7);
+    object-fit: cover;
+    object-position: center top;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.hero-content {
+    filter: blur(0px) brightness(1);
+    position: relative;
+    z-index: 2;
+
+    max-width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    /* left: 50%;
+    transform: translateX(-50%);
+    top: 0%; */
+}
+
+.logo-container {
+    /* margin-bottom: 30px; */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s ease;
+}
+
+.hero-logo {
+    max-width: 200px;
+    height: auto;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+    transition: all 0.5s ease;
+}
+
+.hero-logo:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.15));
+}
+
+.hero-title {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s ease;
+}
+
+.hero-description {
+    font-size: 1.2rem;
+    max-width: 80%;
+    margin: 0 auto 30px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s ease;
+    transition-delay: 0.2s;
+}
+
+.hero-btn {
+    display: inline-block;
+    background-color: var(--primary-orange);
+    color: white;
+    padding: 12px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+    /* transition-delay: 0.4s; */
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-btn:hover, .submit-btn:hover {
+    background-color: #e65c00;
+    transform: scale(1.05) translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.remove-filter{
+    filter: blur(0px) brightness(1);
+    object-fit: contain;
+    background-color: black;
+}
+
+.hero-detail-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-detail-container > img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    background-color: black;
+}
+
+.carousel-control-next, .carousel-indicators {
+    z-index: 10;
+}
+
+ /* Responsive */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .hero-description {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 1.8rem;
+    }
+}
+
+.hero-btn, .submit-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+
+
+
+
+
+/* ------------------------------------------------------------------------- */
+/* ส่วนบริการ */
+.services-section {
+    padding: 60px 0;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 50px;
+    position: relative;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s ease;
+    width: 100%;
+    font-style: bold;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background-color: var(--primary-orange);
+    margin: 15px auto 0;
+    transition: all 0.5s ease;
+}
+
+.section-title:hover::after {
+    width: 120px;
+}
+
+.services-description {
+    text-align: center;
+    /* max-width: 700px; */
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+    font-size: 1.1rem;
+    color: #555;
+}
+
+.services-description > div {
+    max-width: 90%;
+}
+
+.services-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+.service-card {
+    background-color: #fff;
+    padding: 30px 20px;
+    width: min(20%, 400px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+    border-radius: 12px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    scale: 1.05;
+    cursor: pointer;
+}
+
+.service-icon {
+    font-size: 2.5rem;
+    color: var(--primary-orange);
+    margin-bottom: 15px;
+}
+
+.service-text {
+    font-size: 0.95rem;
+    color: #666;
+}
+
+@media (max-width: 768px) {
+    .services-grid {
+        gap: 15px;
+    }
+    
+    .service-card {
+        width: 45%;
+        /* max-width: 400px; */
+    }
+}
+
+
+/* ------------------------------------------------------------------------- */
+/* ส่วนเกี่ยวกับเรา */
+.about-section {
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    padding: 60px 0;
+    background: 
+        linear-gradient(rgba(255, 247, 240, 0.95), rgba(255, 233, 214, 0.95)), 
+        url('https://www.bhg.com/thmb/U3sY3Up-M6It4eE7wyu6_zKBZN0=/1920x0/filters:no_upscale():strip_icc()/stylemaker-secret-white-den-b21ab396-d2636ff8d24449a99561054dc983475b.jpg') center/cover no-repeat;
+    /* background: 
+        linear-gradient(to bottom right, var(--light-orange), #ffe9d6),
+    url('https://www.bhg.com/thmb/U3sY3Up-M6It4eE7wyu6_zKBZN0=/1920x0/filters:no_upscale():strip_icc()/stylemaker-secret-white-den-b21ab396-d2636ff8d24449a99561054dc983475b.jpg') center/cover no-repeat;; */
+    overflow: hidden;
+    position: relative;
+}
+
+.about-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    /* backdrop-filter: blur(2px); */
+    z-index: 0;
+}
+.about-section .container {
+    position: relative;
+    z-index: 1;
+}
+
+.about-section .container {
+    position: relative;
+    z-index: 1;
+}
+
+.about-container {
+    display: flex;
+    /* align-items: center; */
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 50px;
+}
+
+.about-container > div {
+    min-width: 200px;
+}
+
+.about-image {
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: all 0.8s ease;
+}
+
+.about-image img {
+    height: 300px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.about-content {
+    flex: 1;
+    opacity: 0;
+    transform: translateX(20px);
+    transition: all 0.8s ease;
+}
+
+.about-title {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #000;
+}
+
+.about-description {
+    margin-bottom: 20px;
+}
+
+.about-features {
+    list-style: none;
+    padding-left: 1rem;
+}
+
+.about-feature {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.feature-icon {
+    color: var(--primary-orange);
+    margin-right: 10px;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.about-feature:hover .feature-icon {
+    transform: scale(1.2) rotate(5deg);
+    color: #e65c00;
+}
