@@ -25,7 +25,7 @@
         <div class="table-container">
             <div class="table-header">
                 <h2>จัดการบทความ</h2>
-                <a id="add-article" class="btn btn-primary" href="admin/manage_article/create">เพิ่มบทความ</a>
+                <a id="add-article" class="btn btn-primary" href="/admin/manage_article/create">เพิ่มบทความ</a>
             </div>
             <div class="table-responsive">
                 <table class="table">
@@ -38,7 +38,25 @@
                         </tr>
                     </thead>
                     <tbody id="articles-list">
-                        <!-- จะถูกเติมด้วย JavaScript -->
+                        @foreach ($articles as $article)
+                            <tr class="d-none">
+                                <td>
+                                    {{ $article['id'] }}
+                                </td>
+                                <td>
+                                    {{ $article['title'] }}
+                                </td>
+                                <td>
+                                    @foreach ($article['tags'] as $tag)
+                                        <span class="tag">{{ $tag }}</span>
+                                    @endforeach
+                                </td>
+                                <td class="actions-buttons">
+                                    <a href="/admin/manage_article/edit/{{ $article['id'] }}" class="btn btn-edit">แก้ไข</a>
+                                    <button class="btn btn-danger delete-article" data-id="{{ $article['id'] }}">ลบ</button>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

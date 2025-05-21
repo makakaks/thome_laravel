@@ -1,48 +1,12 @@
 @extends('component.layout_admin')
 
 @section('content')
-
-
-@endsection
-
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
-        integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="icon" type="image/x-icon" href="/HOMESPECTOR/img/favicon1.png">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
-    <!-- <link rel="stylesheet" href="/HOMESPECTOR/CSS/addon/Hconstruction.css"> -->
-    <!-- include libraries(jQuery, bootstrap) -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-    <!-- include summernote css/js-->
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.js"></script>
-    
-    <link rel="stylesheet" href="/HOMESPECTOR/CSS/admin/manage_articles.css">
-    
-    <title>Header Design</title>
-</head>
-
-<body>
-    <?php include_once $_SERVER['DOCUMENT_ROOT'] . '/HOMESPECTOR/Homepage/component/admin_nav.php'; ?>
+    <link rel="stylesheet" href="{{ asset('css/admin/manage_articles.css') }}">
     <div class="container">
         <header>
             <h1>ระบบจัดการรีวิวบ้าน</h1>
         </header>
-        
+
         <div class="search-filter-container">
             <div class="search-box">
                 <input type="text" id="search" placeholder="ค้นหาบทความ...">
@@ -55,26 +19,58 @@
                 </select>
             </div>
         </div>
-        
+
+        {{-- <section class="articles-section d-flex flex-wrap gap-3">
+            @foreach ($houses as $house)
+                <a class="card" style="width: 15.7rem;" href="#">
+                    <img src="/img/after_review/bugaan-bg.jpg" class="card-img-top" alt="...">
+                    <div class="card-title text-center p-2 fs-6">
+                        <div>
+                            {{$house['name']}}
+                        </div>
+                        <div>
+                            <button class="btn btn-edit" onclick="edit({{$house['id']}})">แก้ไข</button>
+                            <button class="btn btn-danger">ลบ</button>
+                        </div>
+                    </div>
+                </a>
+            @endforeach
+        </section> --}}
         <section class="articles-section">
             <div class="table-container">
                 <div class="table-header">
                     <h2>จัดการรีวิวบ้าน</h2>
-                    <a id="add-article" class="btn btn-primary" href="/HOMESPECTOR/Homepage/admin/create_review_home.php">เพิ่มรีวิวบ้าน</a>
+                    <button id="add-article" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop">เพิ่มรีวิว</button>
                 </div>
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>ชื่อหัวข้อ</th>
-                                <th>แท็ก</th>
-                                <th>การจัดการ</th>
+                                <th class="col-3">รูปภาพ</th>
+                                <th class="col-5">ชื่อโครงการ</th>
+                                <th class="col-2">tags</th>
+                                <th class="col-1">การจัดการ</th>
                             </tr>
                         </thead>
                         <tbody id="articles-list">
-                            
-                            <!-- จะถูกเติมด้วย JavaScript -->
+                            @foreach ($houses as $house)
+                                <tr class="d-none">
+                                    <td class="col-3">
+                                        <img src="/img/after_review/bugaan-bg.jpg" class="img" width="100%" alt="...">
+                                    </td>
+                                    <td>
+                                        {{ $house['name'] }}
+                                    </td>
+                                    <td>
+                                        <span class="tag">{{ $house['tag']}}</span>
+                                    </td>
+                                    <td class="actions-buttons">
+                                        <a class="btn btn-edit" href="#">แก้ไข</a>
+                                        <a class="btn btn-danger" href="#">ลบ</a>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -88,8 +84,15 @@
             </div>
         </section>
     </div>
+    {{-- <script>
+        function edit(id){
+            window.location.href = "/admin/manage_review_home/edit/{{$house['id']}}"
+        } --}}
+    </script>
 
-    <script src="/HOMESPECTOR/JS/admin/manage_articles.js" type="module"></script>
+    <script src="/js/admin/manage_review_home.js" type="module"></script>
+@endsection
+
 </body>
-</html>
 
+</html>

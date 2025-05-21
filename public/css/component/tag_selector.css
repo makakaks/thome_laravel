@@ -1,0 +1,199 @@
+/* tag */
+:root {
+    --primary-color: #6366f1;
+    --primary-light: #e0e7ff;
+    --text-color: #4b5563;
+    --border-color: #e5e7eb;
+    --bg-color: #ffffff;
+    --hover-color: #f9fafb;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --radius: 6px;
+    --success-color: #10b981;
+    --success-light: #d1fae5;
+}
+
+
+.tag-input-container {
+    position: relative;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 6px 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    min-height: 50px;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+.tag-input-container:focus-within {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.tag {
+    display: flex;
+    align-items: center;
+    background-color: var(--primary-light);
+    color: var(--primary-color);
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.15s ease;
+}
+
+.tag.new-tag {
+    background-color: var(--success-light);
+    color: var(--success-color);
+}
+
+.tag:hover {
+    background-color: rgba(99, 102, 241, 0.2);
+}
+
+.tag.new-tag:hover {
+    background-color: rgba(16, 185, 129, 0.2);
+}
+
+.tag-remove {
+    margin-left: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 14px;
+    transition: all 0.15s ease;
+}
+
+.tag-remove:hover {
+    background-color: rgba(99, 102, 241, 0.25);
+}
+
+.new-tag .tag-remove:hover {
+    background-color: rgba(16, 185, 129, 0.25);
+}
+
+.tag-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    min-width: 80px;
+    padding: 4px;
+    color: var(--text-color);
+
+    padding: 0 !important;
+    border: 0px solid #d1d5db !important;
+    border-radius: 0px !important;
+    transition: none !important;
+}
+
+.tag-input:focus {
+    border-color: none !important;
+    box-shadow: 0 0 0 0px rgba(99, 102, 241, 0.1) !important;
+}
+
+.tag-input::placeholder {
+    color: #9ca3af;
+    opacity: 0.8;
+}
+
+.options-container {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    max-height: 220px;
+    overflow-y: auto;
+    z-index: 10;
+    display: none;
+    box-shadow: var(--shadow-md);
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 #f1f5f9;
+}
+
+.options-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.options-container::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+.options-container::-webkit-scrollbar-thumb {
+    background-color: #cbd5e1;
+    border-radius: 20px;
+}
+
+.option {
+    padding: 10px 12px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    font-size: 14px;
+    border-bottom: 1px solid #f8fafc;
+}
+
+.option:hover {
+    background-color: var(--hover-color);
+}
+
+.selected {
+    background-color: var(--primary-light);
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+.create-new-option {
+    padding: 10px 12px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    font-size: 14px;
+    border-bottom: 1px solid #f8fafc;
+    background-color: var(--success-light);
+    color: var(--success-color);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+}
+
+.create-new-option:hover {
+    background-color: rgba(16, 185, 129, 0.2);
+}
+
+.create-new-option .plus-icon {
+    margin-right: 6px;
+    font-weight: bold;
+}
+
+.show {
+    display: block;
+    animation: fadeIn 0.2s ease !;
+}
+
+.helper-text {
+    font-size: 13px;
+    color: #6b7280;
+    margin-top: 8px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.tag {
+    animation: scaleIn 0.15s ease;
+}

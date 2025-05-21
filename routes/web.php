@@ -35,31 +35,21 @@ Route::get('/hbutler', function () {
 
 
 
-Route::get('/admin', function () {
-    return view('admin.index');
+Route::prefix('admin')->controller(AdminController::class)->group(function () {
+    Route::get('/', 'index');
+    Route::get('/manage_article', 'article_manage');
+    Route::get('/manage_article/create', 'article_create');
+    Route::get('/manage_article/edit/{id}', 'article_edit');
+    
+    Route::get('/manage_review_home', 'home_manage');
+    Route::get('/manage_review_home/create', 'home_create');
+    Route::get('/manage_review_home/edit/{id}', 'home_edit');
+
+    Route::get('/manage_faq', 'faq_manage');
+    Route::get('/manage_faq/edit/{id}', 'faq_edit');
+
+    Route::get('/change_password', 'change_password');
 });
-
-Route::get('/admin/manage_articles', function () {
-    return view('admin.manage_articles');
-});
-
-Route::get('/admin/manage_articles/create', function () {
-    return view('admin.create_article');
-});
-
-Route::get('/admin/manage_review_home', function () {
-    return view('admin.manage_review_home');
-});
-
-Route::get('/admin/manage_faq', function () {
-    return view('admin.manage_faq');
-});
-
-Route::get('/admin/change_password', function () {
-    return view('admin.change_password');
-});
-
-
 
 
 

@@ -1,4 +1,5 @@
 // import ConfirmDialog from "/HOMESPECTOR/JS/component/confirm_dialog.js"
+import { createTagSelector } from "/js/component/tag_selector.js";
 
 const artList = document.getElementById("articles-list");
 const artFilterSelect = document.getElementById("articles-filter");
@@ -22,6 +23,7 @@ const articleTagsInput = document.getElementById("article-tags");
 const cancelBtn = document.getElementById("cancel-btn");
 const closeBtn = document.querySelector(".close");
 const noResults = document.getElementById("no-results");
+const tagSelectContainer = document.getElementById("tag-selector-container");
 
 let curPage = 1;
 let maxPage = Math.ceil(articles.length / 10);
@@ -52,7 +54,7 @@ function displayArticles(articlesToDisplay) {
     let start = (curPage - 1) * 10;
     let end = start + 10;
 
-    console.log(articlesToDisplay);
+    // console.log(articlesToDisplay);
 
     if (articlesToDisplay.length === 0) {
         noResults.classList.remove("hidden");
@@ -87,9 +89,11 @@ function searchAndFilterArticles() {
             });
 
         // กรองตามคำค้นหา
-        const matchesSearch = article.children[1].textContent
-            .toLowerCase()
-            .includes(searchTerm);
+        const matchesSearch =
+            article.children[1].textContent
+                .toLowerCase()
+                .includes(searchTerm) ||
+            article.children[2].textContent.toLowerCase().includes(searchTerm);
 
         return matchesTag && matchesSearch;
     });
@@ -99,7 +103,6 @@ function searchAndFilterArticles() {
         curPageEle.value = 1;
     }
     maxPage = Math.ceil(filteredArticles.length / 10);
-    console.log(filteredArticles);
     displayArticles(filteredArticles);
 }
 
@@ -144,6 +147,66 @@ function navigatorEventListener() {
     });
 }
 
+function openEdit() {
+    const tagSelectContainer = document.querySelector(
+        "#tag-selector-container"
+    );
+    document.querySelectorAll("btn-edit").forEach((btn) => {
+        btn.addEventListener("click", () => {
+            const parent = btn.parentNode.parentNode;
+            const question = parent.children[1].textContent;
+            const ans = parent.children[2].textContent;
+            const tags = parent.querySelectorAll(".tag");
+            const id = btn.getAttribute("data-id");
+        });
+    });
+}
+
+function tag_selector() {
+    const tagss = ["Art", "Science", "Design"];
+    const tagSelector = createTagSelector(
+        "tag-selector-container",
+        tagss,
+        "หมวด"
+    );
+
+    function clearInput() {
+        document
+            .querySelectorAll(".modal-body .form-group input")
+            .forEach((input) => {
+                input.value = "";
+            });
+    }
+
+    function changeMode(mode) {
+        if (mode == "create") {
+            if (tagSelectContainer.getAttribute("data-mode") == "edit") {
+                tagSelectContainer.setAttribute("data-mode", "create");
+                tagSelector.clearContainer();
+                clearInput();
+            }
+        } else if (mode == "edit") {
+            if (tagSelectContainer.getAttribute("data-mode") == "create") {
+                tagSelectContainer.setAttribute("data-mode", "edit");
+                tagSelector.clearContainer();
+                clearInput();
+            }
+        }
+    }
+
+    document.getElementById("add-article").addEventListener("click", () => {
+        changeMode("create");
+    });
+    document.querySelectorAll(".btn-edit").forEach((btn) => {
+        btn.addEventListener("click", () => {
+            changeMode("edit");
+            
+        });
+    });
+
+    // tagSelector.selectOption('Art')
+}
+
 // Event Listeners
 document.addEventListener("DOMContentLoaded", () => {
     populateFilterOptions();
@@ -159,4 +222,6 @@ document.addEventListener("DOMContentLoaded", () => {
             textarea.style.height = element.scrollHeight + "px";
         });
     });
+
+    tag_selector();
 });

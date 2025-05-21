@@ -3,8 +3,9 @@
 @section('import', 'bootstrap')
 
 @section('content')
+    <link rel="stylesheet" href="/css/admin/create_articles.css">
+    <link rel="stylesheet" href="/css/component/tag_selector.css">
     <div class="container">
-        <link rel="stylesheet" href="/css/admin/create_articles.css">
         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="false">
             <div class="input-group article-input">
                 <div>
@@ -25,13 +26,7 @@
                     <label for="eng-cover">Cover page</label>
                     <input type="file" id="eng-cover" accept="image/*" class="articleCoverImage eng form-control">
                 </div>
-                <div class="">
-                    <label for="หมวด">เลือกหมวด</label>
-                    <div class="tag-input-container" id="tagContainer">
-                        <input type="text" class="tag-input" id="tagInput" placeholder="Search or select tags...">
-                        <div class="options-container" id="optionsContainer"></div>
-                    </div>
-                </div>
+                <div id="tag-selector-container"></div>
             </div>
 
             <div class="carousel-inner" role="listbox">
@@ -122,6 +117,6 @@
             });
         </script>
     </div>
-
+    {{-- <script src="/js/component/tag_selector.js"></script> --}}
     <script src="/js/admin/create_articles.js" type="module"></script>
 @endsection

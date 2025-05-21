@@ -1,0 +1,22 @@
+th:first-child, .article-id{
+    width: 1%;
+    padding-right: 0 !important;
+}
+
+textarea {
+    resize: none;
+    overflow: hidden;
+    min-height: 50px;
+}
+
+.modal-dialog{
+    width: 70vw;
+}
+
+.modal-content {
+    width: 70vw;
+    position: absolute;
+    /* top: 50%;
+    left: 50%; */
+    transform: translate(-25%, 5%);
+}
