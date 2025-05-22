@@ -6,25 +6,28 @@
     <link rel="stylesheet" href="/css/admin/create_articles.css">
     <link rel="stylesheet" href="/css/component/tag_selector.css">
     <div class="container">
-        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="false">
+        <h2 class="text-center">สร้างบทความ</h2>
+        <form id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="false">
             <div class="input-group article-input">
                 <div>
                     <label for="thai-title">ชื่อบทความ</label>
                     <input type="text" id="thai-title" class="articleName thai form-control"
-                        placeholder="กรอกชื่อบทความภาษาไทย">
+                        placeholder="กรอกชื่อบทความภาษาไทย" required>
                 </div>
                 <div>
                     <label for="eng-title">Article name</label>
                     <input type="text" id="eng-title" class="articleName eng form-control"
-                        placeholder="Enter article name in English">
+                        placeholder="Enter article name in English" required>
                 </div>
                 <div class="cover-image-input">
                     <label for="thai-cover">รูปภาพหน้าปก</label>
-                    <input type="file" id="thai-cover" accept="image/*" class="articleCoverImage thai form-control">
+                    <input type="file" id="thai-cover" accept="image/*" class="articleCoverImage thai form-control"
+                        required>
                 </div>
                 <div class="cover-image-input">
                     <label for="eng-cover">Cover page</label>
-                    <input type="file" id="eng-cover" accept="image/*" class="articleCoverImage eng form-control">
+                    <input type="file" id="eng-cover" accept="image/*" class="articleCoverImage eng form-control"
+                        requried>
                 </div>
                 <div id="tag-selector-container"></div>
             </div>
@@ -41,15 +44,15 @@
             </div>
 
             <div class="button-container">
-                <button class="active btn btn-primary" id="btn-prev">ย้อนกลับ</button>
+                <a class="active btn btn-primary" id="btn-prev">ย้อนกลับ</a>
 
                 <div class="navigation-buttons">
                     <button data-target="#carousel-example-generic" data-slide-to="1" class="btn btn-primary"
                         id="btn-next">ถัดไป</button>
-                    <button id="submit" class="btn btn-success">บันทึก</button>
+                    <a id="submit" class="btn btn-success">บันทึก</a>
                 </div>
             </div>
-        </div>
+        </form>
 
 
         <script>
@@ -107,7 +110,7 @@
                     fontNamesIgnoreCheck: ['FCSound'],
                     buttons: {
                         resize75: resize75Btn
-                    }
+                    },
                 }
 
                 $('#summernote1').summernote(settings);
@@ -118,5 +121,5 @@
         </script>
     </div>
     {{-- <script src="/js/component/tag_selector.js"></script> --}}
-    <script src="/js/admin/create_articles.js" type="module"></script>
+    <script src="/js/admin/article/create_articles.js" type="module"></script>
 @endsection

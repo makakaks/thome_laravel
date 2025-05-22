@@ -48,26 +48,23 @@ Route::get('review_home/{id}', function ($id) {
 
 
 Route::prefix('admin')->controller(AdminController::class)->group(function () {
-    Route::get('/', 'index');
-    Route::get('/manage_article', 'article_manage');
-    Route::get('/manage_article/create', 'article_create');
-    Route::get('/manage_article/edit/{id}', 'article_edit');
-    
-    Route::get('/manage_review_home', 'home_manage');
-    Route::get('/manage_review_home/create', 'home_create');
-    Route::get('/manage_review_home/edit/{id}', 'home_edit');
+    Route::get('/', 'index')->name('admin.index');
+    Route::post('/upload_image', 'upload_image')->name('admin.upload');
+    Route::get('/manage_article', 'article_manage')->name('admin.article');
+    Route::get('/manage_article/create', 'article_create')->name('admin.article.create');
+    Route::get('/manage_article/edit/{id}', 'article_edit')->name('admin.article.edit');
 
-    Route::get('/manage_faq', 'faq_manage');
-    Route::get('/manage_faq/edit/{id}', 'faq_edit');
+    Route::get('/manage_review_home', 'home_manage')->name('admin.home');
+    Route::get('/manage_review_home/create', 'home_create')->name('admin.home.create');
+    Route::get('/manage_review_home/edit/{id}', 'home_edit')->name('admin.home.edit');
 
-    Route::get('/change_password', 'change_password');
+    Route::get('/manage_faq', 'faq_manage')->name('admin.faq');
+    Route::get('/manage_faq/edit/{id}', 'faq_edit')->name('admin.faq.edit');
+
+    Route::get('/change_password', 'change_password')->name('admin.change_password');
 });
 
 
 
-Route::get('/about', function () {
-    return "<h1>About Us</h1><p>This is the about page.</p>";
-});
 
-Route::get('/admin', [AdminController::class, 'index']);
-Route::get('/admin/about', [AdminController::class, 'about']);
+

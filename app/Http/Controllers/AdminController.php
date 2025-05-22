@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Article;
 use App\Models\ArticleTranslation;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -14,9 +15,6 @@ class AdminController extends Controller
     {
         $article = Article::where('id', 1)->first();
         $translation = $article->translation('en'); // ได้ title/content ตามภาษา
-        // $translation = $article->translation
-        // echo 'article'.$article;
-    // return view('admin.index', compact('article', 'translation'));
         return view('admin.index', ['translation' => $translation]);
     }
 
@@ -26,6 +24,10 @@ class AdminController extends Controller
         return view('admin.about', compact('name', 'age'));
     }
 
+    function upload_image(Request $request){
+        return Storage::putFile('public', $request->file('image'));
+    }
+
     function article_manage() {
         $articles = [
             ['id' => 1, 'title' => 'สรุป!! จักรวาลการออกแบบสาย LAN ตามบ้าน', 'tags' => ['Roof']],
@@ -33,11 +35,16 @@ class AdminController extends Controller
             ['id' => 3, 'title' => 'สิ่งที่ต้องรู้เกี่ยวกับ EV Charger 3', 'tags' => ['Electrical System']],
         ];
 
-        return view('admin.manage_articles', ['articles' => $articles]);
+        return view('admin.article.manage_articles', ['articles' => $articles]);
     }
 
     function article_create() {
-        return view('admin.create_article');
+        return view('admin.article.create_article');
+    }
+
+    function article_create_store(Request $request) {
+
+        return ;
     }
 
     function article_edit($id) {
@@ -52,9 +59,13 @@ class AdminController extends Controller
             'image-en' => 'https://via.placeholder.com/150',
         ];
         
-        return view('admin.create_article', ['id' => $id]);
+        return view('admin.article.create_article', ['id' => $id]);
     }
 
+
+
+
+    
     function home_manage() {
         $houses = [
             ['id' => 1, 'name' => 'House 1', 'tag' => 'tag1'],
@@ -69,15 +80,15 @@ class AdminController extends Controller
             ['id' => 10, 'name' => 'House 10', 'tag' => 'tag3'],
             ['id' => 11, 'name' => 'House 11', 'tag' => 'tag3'],
         ];
-        return view('admin.manage_review_home', ['houses' => $houses]);
+        return view('admin.review_home.manage_review_home', ['houses' => $houses]);
     }
 
     function home_create() {
-        return view('admin.create_review_home');
+        return view('admin.review_home.create_review_home');
     }
 
     function home_edit() {
-        return view('admin.create_review_home');
+        return view('admin.review_home.create_review_home');
     }
 
     
@@ -96,7 +107,7 @@ class AdminController extends Controller
             ['id' => 11, 'question' => 'How do I create an account?', 'tags' => ['tag1', 'tag2'], 'answer' => 'You can create an account by clicking on the "Sign Up" button on our website.'],
             ['id' => 12, 'question' => 'What if I forget my password?', 'tags' => ['tag1', 'tag2'], 'answer' => 'You can reset your password by clicking on the "Forgot Password" link on the login page.'],
         ];
-        return view('admin.manage_faq', ['faqs' => $faqs]);
+        return view('admin.faq.manage_faq', ['faqs' => $faqs]);
     }
 
     function change_password() {

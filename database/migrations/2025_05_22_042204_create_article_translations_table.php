@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('article_id')->constrined()->onDelete('cascade');
             $table->string('locale', 5);
             $table->string('title');
+            $table->text('coverPageImg');
             $table->text('content');
             $table->timestamps();
 
