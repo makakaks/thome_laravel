@@ -3,13 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Article;
+use App\Models\ArticleTranslation;
 
 class AdminController extends Controller
 {
     //
+
     function index()
     {
-        return view('admin.index');
+        $article = Article::where('id', 1)->first();
+        $translation = $article->translation('en'); // ได้ title/content ตามภาษา
+        // $translation = $article->translation
+        // echo 'article'.$article;
+    // return view('admin.index', compact('article', 'translation'));
+        return view('admin.index', ['translation' => $translation]);
     }
 
     function about(){
