@@ -18,19 +18,31 @@ Route::get('/', function () {
 });
 
 Route::get('/hinspector', function () {
-    return view('home.Hinspector');
+    return view('home.service.Hinspector');
 });
 
 Route::get('/hinterior', function () {
-    return view('home.Hinterior');
+    return view('home.service.Hinterior');
 });
 
 Route::get('/hconstruction', function () {
-    return view('home.Hconstruction');
+    return view('home.service.Hconstruction');
 });
 
 Route::get('/hbutler', function () {
-    return view('home.Hbutler');
+    return view('home.service.Hbutler');
+});
+
+Route::get('/article', function () {
+    return view('home.article.article');
+});
+
+Route::get('article/{id}', function ($id) {
+    return view('home.article.article', ['id' => $id]);
+});
+
+Route::get('review_home/{id}', function ($id) {
+    return view('home.article.review_home', ['id' => $id]);
 });
 
 

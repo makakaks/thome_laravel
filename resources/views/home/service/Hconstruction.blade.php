@@ -3,7 +3,7 @@
 
 @section('content')
 
-<link rel="stylesheet" href="css/home/Hconstruction.css">
+<link rel="stylesheet" href="/css/home/service/Hconstruction.css">
 
 <section class="hero-section">
     <div id="carouselExampleIndicators" class="carousel slide h-100" data-bs-ride="carousel" data-bs-interval="3000">
@@ -167,7 +167,7 @@
     </div>
 </section>
 
-<script src="js/home/Hconstruction.js"></script>
+<script src="/js/home/service/Hconstruction.js"></script>
 
 @endsection
 

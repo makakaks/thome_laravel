@@ -44,6 +44,14 @@
                             <!-- จะถูกเติมด้วย JavaScript -->
                             @foreach ($faqs as $faq)
                                 <tr class="d-none">
+                                    {{-- <div class="d-none" 
+                                        data-id="{{$faq['id']}}"
+                                        data-question="{{$faq['question']}}"
+                                        data-question-eng="{{$faq['question_eng']}}"
+                                        data-answer="{{$faq['answer']}}"
+                                        data-answer-eng="{{$faq['answer_eng']}}"
+                                        data-tags="{{ implode(',', $faq['tags']) }}"    
+                                    ></div> --}}
                                     <td>
                                         {{ $faq['id'] }}
                                     </td>
