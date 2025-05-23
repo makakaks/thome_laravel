@@ -94,7 +94,7 @@ header {
     position: fixed !important;
     padding: 10px 20px !important;
     text-align: center !important;
-    transition: transform 0.3s ease-in-out !important;
+    transition: all 0.3s ease-in-out !important;
     border-bottom: none !important;
 }
 
@@ -256,8 +256,9 @@ header {
 }
 
 .top-bar.hidden {
-    transform: translateY(-100%);
+    transform: translateY(-100%) !important;
     /* เลื่อน Top-bar ขึ้นไปซ่อนเมื่อเลื่อนลง */
+    display: block !important;
     transform-origin: top left;
 }
 
@@ -283,7 +284,7 @@ header {
 
 @media (max-width: 1024px) {
     .top-bar.hidden {
-        transform: none;
+        transform: none !important;
         /* เลื่อน Top-bar ขึ้นไปซ่อนเมื่อเลื่อนลง */
     }
 

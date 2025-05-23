@@ -81,7 +81,7 @@
                 </ul>
             </li>
             <!-- Dropdown Menu -->
-            <li class="dropdown">
+            {{-- <li class="dropdown">
                 <a href="#" class="menu-item" data-translate="nav.articles">
                     บทความ <span class="dropdown-icon"><i class="fa-solid fa-caret-down"></i></span>
                 </a>
@@ -91,7 +91,8 @@
                     <li><a href="/Review-home" data-translate="nav.reviewHome">รีวิวบ้าน</a>
                     </li>
                 </ul>
-            </li>
+            </li> --}}
+            <li><a href="/articles" data-translate="nav.articles">บทความ</a></li>
             <li><a href="/projects_media.html" data-translate="nav.projects">ผลงาน</a></li>
             <!-- Dropdown Menu -->
             <li class="dropdown">
@@ -139,14 +140,14 @@
 
             <li class="nav-item"><a href="/" class="nav-link">ผลงาน</a></li>
 
-            <li class="nav-item has-dropdown">
+            {{-- <li class="nav-item has-dropdown">
                 <a href="#" class="nav-link">บทความ</a>
                 <ul class="dropdown">
                     <li><a href="/articles">ความรู้ทั่วไป</a></li>
                     <li><a href="/review_home">รีวิวบ้าน</a></li>
                 </ul>
-            </li>
-
+            </li> --}}
+            <li><a href="/articles">ความรู้ทั่วไป</a></li>
             <li class="nav-item has-dropdown">
                 <a href="#" class="nav-link">เกี่ยวกับเรา</a>
                 <ul class="dropdown">

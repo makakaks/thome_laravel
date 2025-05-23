@@ -22,8 +22,8 @@
         <div class="footer-center">
             <h2>เกี่ยวกับเรา <span class="toggle-icon">+</span></h2>
             <ul>
-                <li><a href="/Homepage/ourstory.php">ประวัติของเรา</a></li>
-                <li><a href="/Homepage/ourteam.php">ทีมงานของเรา</a></li>
+                <li><a href="/ourstory">ประวัติของเรา</a></li>
+                <li><a href="/ourteam">ทีมงานของเรา</a></li>
             </ul>
         </div>
 
@@ -31,13 +31,13 @@
         <div class="footer-right">
             <h2>บริการของเรา <span class="toggle-icon">+</span></h2>
             <ul>
-                <li><a href="/Homepage/Hinspector.php">ต.ตรวจบ้าน</a></li>
-                <li><a href="/Homepage/Hinterior.php">ต.ตงแต่ง</a></li>
-                <li><a href="/Homepage/Hconstruction.php">ต.เติม</a></li>
-                <li><a href="/Homepage/Hbulter.php">H.Bulter</a></li>
-                <li><a href="/Homepage/cal-electric.php">ตรวจสอบระบบไฟฟ้า</a></li>
-                <li><a href="/Homepage/app-inspector.php">ตรวจบ้านเอง</a></li>
-                <li><a href="/Homepage/checklist.php">เทียบสเปกบ้าน</a></li>
+                <li><a href="/Hinspector">ต.ตรวจบ้าน</a></li>
+                <li><a href="/Hinterior">ต.ตงแต่ง</a></li>
+                <li><a href="/Hconstruction">ต.เติม</a></li>
+                <li><a href="/Hbulter">H.Bulter</a></li>
+                <li><a href="/cal-electric">ตรวจสอบระบบไฟฟ้า</a></li>
+                <li><a href="/app-inspector">ตรวจบ้านเอง</a></li>
+                <li><a href="/checklist">เทียบสเปกบ้าน</a></li>
             </ul>
         </div>
 
@@ -45,10 +45,10 @@
         <div class="footer-help">
             <h2>ช่วยเหลือ <span class="toggle-icon">+</span></h2>
             <ul>
-                <li><a href="/Homepage/index.php#faq">คำถามที่พบบ่อย (FAQ)</a></li>
-                <li><a href="/Homepage/joinwithus.php">รวมงานกับเรา</a></li>
-                <li><a href="/Homepage/promotion.php">โปรโมชั่น</a></li>
-                <li><a href="/Homepage/Contactus.php">ติดต่อเรา</a></li>
+                <li><a href="/index#faq">คำถามที่พบบ่อย (FAQ)</a></li>
+                <li><a href="/joinwithus">รวมงานกับเรา</a></li>
+                <li><a href="/promotion">โปรโมชั่น</a></li>
+                <li><a href="/Contactus">ติดต่อเรา</a></li>
             </ul>
         </div>
 
