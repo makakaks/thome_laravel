@@ -69,7 +69,7 @@ btnSubmit.addEventListener("click", function () {
                             body: formData,
                         });
                         const data = await response.text();
-                        img.setAttribute("src", data);
+                        img.setAttribute("src", '/'+data);
                     }
                 }
 
