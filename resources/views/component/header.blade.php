@@ -1,4 +1,3 @@
-
 <header class="navbar-container">
     <div class="top-bar">
         <div class="container row">
@@ -19,7 +18,7 @@
             </div>
             <!-- Logo -->
             <div class="logo col justify-content-center">
-                <a href="Homepage/index.php">
+                <a href="/index">
                     <img src="img/s1.png" alt="T. Home Inspector Logo">
                 </a>
             </div>
@@ -49,22 +48,22 @@
 
     <div class="nav-links" id="nav-links">
         <ul>
-            <li><a href="Homepage/index.php" data-translate="nav.home">หน้าหลัก</a>
+            <li><a href="/" data-translate="nav.home">หน้าหลัก</a>
             </li>
-            <!-- <li><a href="Homepage/service.php" data-translate="nav.services">บริการ</a></li> -->
+            <!-- <li><a href="/service" data-translate="nav.services">บริการ</a></li> -->
             <!-- Dropdown Menu -->
             <li class="dropdown">
-                <a href="Homepage/service.php" class="menu-item" data-translate="nav.services">
+                <a href="/service" class="menu-item" data-translate="nav.services">
                     บริการ <span class="dropdown-icon"><i class="fa-solid fa-caret-down"></i></span>
                 </a>
                 <ul class="dropdown-menu d-block">
-                    <li><a href="Homepage/service1.php">ตรวจบ้าน</a>
+                    <li><a href="/service1">ตรวจบ้าน</a>
                     </li>
-                    <li><a href="Homepage/Hinterior.php">ตกแต่งภายใน</a>
+                    <li><a href="/hinterior">ตกแต่งภายใน</a>
                     </li>
-                    <li><a href="Homepage/Hconstruction.php" data-translate="nav.articles">รีโนเวท</a>
+                    <li><a href="/hconstruction" data-translate="nav.articles">รีโนเวท</a>
                     </li>
-                    <li><a href="Homepage/Hbulter.php">ทำความสะอาด</a>
+                    <li><a href="/hbulter">ทำความสะอาด</a>
                     </li>
                 </ul>
             </li>
@@ -73,12 +72,11 @@
                     บริการเสริม <span class="dropdown-icon"><i class="fa-solid fa-caret-down"></i></span>
                 </a>
                 <ul class="dropdown-menu d-block">
-                    <li><a href="Homepage/app-inspector.php"
-                            data-translate="nav.app-inspector">ตรวจบ้านเอง</a>
+                    <li><a href="/app-inspector" data-translate="nav.app-inspector">ตรวจบ้านเอง</a>
                     </li>
-                    <li><a href="cal-electric.php" data-translate="nav.cal-electric">คำนวณไฟฟ้า</a>
+                    <li><a href="cal-electric" data-translate="nav.cal-electric">คำนวณไฟฟ้า</a>
                     </li>
-                    <li><a href="checklist.php" data-translate="nav.checklist">เทียบสเปกบ้าน</a>
+                    <li><a href="checklist" data-translate="nav.checklist">เทียบสเปกบ้าน</a>
                     </li>
                 </ul>
             </li>
@@ -88,29 +86,29 @@
                     บทความ <span class="dropdown-icon"><i class="fa-solid fa-caret-down"></i></span>
                 </a>
                 <ul class="dropdown-menu d-block">
-                    <li><a href="Homepage/articles.php" data-translate="nav.articles">ความรู้ทั่วไป</a>
+                    <li><a href="/articles" data-translate="nav.articles">ความรู้ทั่วไป</a>
                     </li>
-                    <li><a href="Homepage/Review-home.php" data-translate="nav.reviewHome">รีวิวบ้าน</a>
+                    <li><a href="/Review-home" data-translate="nav.reviewHome">รีวิวบ้าน</a>
                     </li>
                 </ul>
             </li>
-            <li><a href="Homepage/projects_media.html" data-translate="nav.projects">ผลงาน</a></li>
+            <li><a href="/projects_media.html" data-translate="nav.projects">ผลงาน</a></li>
             <!-- Dropdown Menu -->
             <li class="dropdown">
                 <a href="#" class="menu-item" data-translate="nav.aboutUs">
                     เกี่ยวกับเรา <span class="dropdown-icon"><i class="fa-solid fa-caret-down"></i></span>
                 </a>
                 <ul class="dropdown-menu d-block">
-                    <li><a href="Homepage/ourstory.php" data-translate="nav.ourStory">ประวัติของเรา</a>
+                    <li><a href="/ourstory" data-translate="nav.ourStory">ประวัติของเรา</a>
                     </li>
-                    <li><a href="Homepage/ourteam.php" data-translate="nav.ourTeam">ทีมงานของเรา</a></li>
+                    <li><a href="/ourteam" data-translate="nav.ourTeam">ทีมงานของเรา</a></li>
                 </ul>
             </li>
-            <li><a href="Homepage/projects_media.html" data-translate="nav.joinUs">ผลงาน</a>
+            <li><a href="/projects_media.html" data-translate="nav.joinUs">ผลงาน</a>
             </li>
-            <li><a href="Homepage/joinwithus.php" data-translate="nav.joinUs">ร่วมงานกับเรา</a>
+            <li><a href="/joinwithus" data-translate="nav.joinUs">ร่วมงานกับเรา</a>
             </li>
-            <li><a href="Homepage/Contactus.php" data-translate="nav.contact">ติดต่อเรา</a>
+            <li><a href="/contactus" data-translate="nav.contact">ติดต่อเรา</a>
             </li>
         </ul>
     </div>
@@ -123,46 +121,46 @@
             <li class="nav-item has-dropdown">
                 <a href="#" class="nav-link">บริการ</a>
                 <ul class="dropdown">
-                    <li><a href="Homepage/service1.php">ตรวจบ้าน</a></li>
-                    <li><a href="Homepage/Hinterior.php">ตกแต่ง</a></li>
-                    <li><a href="Homepage/Hconstruction.php">ต่อเติม</a></li>
-                    <li><a href="Homepage/Hbulter.php">ทำความสะอาด</a></li>
+                    <li><a href="/service1">ตรวจบ้าน</a></li>
+                    <li><a href="/hinterior">ตกแต่ง</a></li>
+                    <li><a href="/hconstruction">ต่อเติม</a></li>
+                    <li><a href="/hbulter">ทำความสะอาด</a></li>
                 </ul>
             </li>
 
-            <li class="nav-item"><a href="Homepage/" class="nav-link">สิทธิพิเศษ</a></li>
+            <li class="nav-item"><a href="/" class="nav-link">สิทธิพิเศษ</a></li>
 
-            <li class="nav-item"><a href="Homepage/" class="nav-link">ผลงาน</a></li>
+            <li class="nav-item"><a href="/" class="nav-link">ผลงาน</a></li>
 
             <li class="nav-item has-dropdown">
                 <a href="#" class="nav-link">บริการเสริม</a>
                 <ul class="dropdown">
-                    <li><a href="Homepage/">ตรวจบ้านเอง</a></li>
-                    <li><a href="Homepage/">คำนวณไฟฟ้า</a></li>
-                    <li><a href="Homepage/">เทียบสเปคบ้าน</a></li>
+                    <li><a href="/">ตรวจบ้านเอง</a></li>
+                    <li><a href="/">คำนวณไฟฟ้า</a></li>
+                    <li><a href="/">เทียบสเปคบ้าน</a></li>
                 </ul>
             </li>
 
             <li class="nav-item has-dropdown">
                 <a href="#" class="nav-link">บทความ</a>
                 <ul class="dropdown">
-                    <li><a href="Homepage/articles.php">ความรู้ทั่วไป</a></li>
-                    <li><a href="Homepage/Review-home.php">รีวิวบ้าน</a></li>
+                    <li><a href="/articles">ความรู้ทั่วไป</a></li>
+                    <li><a href="/review_home">รีวิวบ้าน</a></li>
                 </ul>
             </li>
 
             <li class="nav-item has-dropdown">
                 <a href="#" class="nav-link">เกี่ยวกับเรา</a>
                 <ul class="dropdown">
-                    <li><a href="Homepage/ourstory.php">ประวัติของเรา</a></li>
-                    <li><a href="Homepage/ourteam.php">ทีมงานของเรา</a></li>
+                    <li><a href="/ourstory">ประวัติของเรา</a></li>
+                    <li><a href="/ourteam">ทีมงานของเรา</a></li>
                 </ul>
             </li>
 
-            <li class="nav-item"><a href="Homepage/projects_media.html" class="nav-link">ผลงาน</a></li>
-            <li class="nav-item"><a href="Homepage/joinwithus.php" class="nav-link">ร่วมงานกับเรา</a>
+            <li class="nav-item"><a href="/projects_media.html" class="nav-link">ผลงาน</a></li>
+            <li class="nav-item"><a href="/joinwithus" class="nav-link">ร่วมงานกับเรา</a>
             </li>
-            <li class="nav-item"><a href="Homepage/Contactus.php" class="nav-link">ติดต่อเรา</a></li>
+            <li class="nav-item"><a href="/Contactus" class="nav-link">ติดต่อเรา</a></li>
             <li class="nav-item">
                 <div class="language-switcher">
                     <a href="?lang=th" class="lang-link">
@@ -221,7 +219,7 @@
         // Close mobile menu when clicking outside
         document.addEventListener('click', function(e) {
             if (!navbar.contains(e.target) && !menuToggle.contains(e.target) && navbar.classList.contains(
-                'active')) {
+                    'active')) {
                 toggleNav();
                 // menuToggle.classList.remove('active');
             }
