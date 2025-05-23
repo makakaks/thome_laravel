@@ -18,7 +18,7 @@ Route::get('/', function () {
 });
 
 Route::get('/hinspector', function () {
-    return view('home.service.Hinspector');
+    return view('home.service.hinspector');
 });
 
 Route::get('/hinterior', function () {
@@ -33,12 +33,57 @@ Route::get('/hbutler', function () {
     return view('home.service.Hbutler');
 });
 
-Route::get('/article', function () {
+
+Route::get('/Review-home', function () {
+    return view('home.review-home');
+});
+
+Route::get('/contactus', function () {
+    return view('home.contactus');
+});
+
+
+Route::get('/ourteam', function () {
+    return view('home.aboutus.ourteam');
+});
+
+Route::get('/ourstory', function () {
+    return view('home.aboutus.ourstory');
+});
+// Route::get('/', function () {
+//     return view('home.');
+// });
+// Route::get('/', function () {
+//     return view('home.');
+// });
+// Route::get('/', function () {
+//     return view('home.');
+// });
+// Route::get('/', function () {
+//     return view('home.');
+// });
+// Route::get('/', function () {
+//     return view('home.');
+// });
+
+
+
+
+
+
+
+
+
+
+
+
+
+Route::get('/articles', function () {
     return view('home.article.article');
 });
 
-Route::get('article/{id}', function ($id) {
-    return view('home.article.article', ['id' => $id]);
+Route::get('articles/{id}', function ($id) {
+    return view('home.article.test_article', ['id' => $id]);
 });
 
 Route::get('review_home/{id}', function ($id) {

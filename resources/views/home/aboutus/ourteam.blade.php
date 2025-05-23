@@ -1,729 +1,532 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('component.layout  ')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
-        integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="/HOMESPECTOR/CSS/ourteam.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
-    <title>Header Design</title>
-</head>
-<style>
-    .team-container {
-        padding: 40px 20px;
-        max-width: 1200px;
-        margin: auto;
-        border-radius: 12px;
-        margin-bottom: 50px;
-    }
+@section('content')
+    <!DOCTYPE html>
+    <html lang="th">
 
-    .heading {
-        text-align: center;
-        margin-bottom: 40px;
-        font-size: 28px;
-        color: #1a237e;
-        font-weight: bold;
-    }
-
-    .team-member {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 50px;
-        text-align: center;
-        border-radius: 12px;
-    }
-
-    .team-member img {
-        width: 100%;
-        max-width: 250px;
-        border-radius: 15px;
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
-        margin-bottom: 12px;
-    }
-
-    .team-member h4 {
-        margin: 12px 0 6px;
-        font-size: 20px;
-        color: #0d47a1;
-        text-align: center;
-        font-weight: bold;
-    }
-
-    .team-member p {
-        color: #444;
-        font-size: 15px;
-        font-weight: bold;
-    }
-
-    .team-groups {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        gap: 40px;
-    }
-
-    .team-group {
-        flex: 1 1 45%;
-    }
-
-    .group-heading {
-        font-size: 22px;
-        font-weight: bold;
-        color: #1a237e;
-        margin-bottom: 20px;
-        text-align: center;
-    }
-
-    .team-grid {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 30px;
-    }
-
-    .team-card {
-        flex: 1 1 230px;
-        max-width: 230px;
-        height: 348px;
-        border-radius: 12px;
-        padding: 15px;
-        text-align: center;
-    }
-
-
-    .team-card:hover {
-        transform: translateY(-5px);
-    }
-
-    .team-card img {
-        width: 100%;
-        max-width: 200px;
-        height: 250px;
-        border-radius: 10px;
-        margin-bottom: 10px;
-    }
-
-    .team-card h4 {
-        font-size: 17px;
-        color: #0d47a1;
-        margin: 8px 0 4px;
-        font-weight: bold;
-    }
-
-    .team-card p {
-        color: #666;
-        font-size: 14px;
-        font-weight: bold;
-    }
-
-    @media (max-width: 768px) {
-        .team-groups {
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .team-grid {
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .team-member img {
-            max-width: 90%;
-        }
-
-        .team-card {
-            width: 90%;
-            max-width: 90%;
-        }
-    }
-</style>
-
-<body>
-    <div class="content-box">
-        <div class="content-box">
-            <div class="header">
-                <header class="top-bar">
-                    <div class="container">
-                        <!-- Social Icons -->
-                        <div class="social-icons">
-                            <a href="https://www.facebook.com/t.homeinspector/?locale=th_TH">
-                                <img src="/HOMESPECTOR/icon/ICON/Fb.png" alt="Facebook">
-                            </a>
-                            <a href="https://www.instagram.com/t.homeinspector/">
-                                <img src="/HOMESPECTOR/icon/ICON/IG.png" alt="Instagram">
-                            </a>
-                            <a href="https://page.line.me/t.home?openQrModal=true">
-                                <img src="/HOMESPECTOR/icon/ICON/line.png" alt="Line">
-                            </a>
-                            <a href="tel:082-045-6165">
-                                <img src="/HOMESPECTOR/icon/ICON/phone.png" alt="Phone">
-                            </a>
-                        </div>
-                        <!-- Logo -->
-                        <div class="logo">
-                            <a href="/HOMESPECTOR/Homepage/index.php">
-                                <img src="/HOMESPECTOR/img/s1.png" alt="T. Home Inspector Logo">
-                            </a>
-                        </div>
-
-                        <div class="actions">
-                            <!-- Language Switcher -->
-                            <div class="language-switcher">
-                                <a href="?lang=th" class="lang-link">
-                                    <img src="/HOMESPECTOR/icon/ICON/thai.png" alt="Thai" title="ภาษาไทย">
-                                </a>
-                                <a href="?lang=en" class="lang-link">
-                                    <img src="/HOMESPECTOR/icon/ICON/eng.png" alt="English" title="English">
-                                </a>
-                            </div>
-
-                            <!-- Search Icon -->
-                            <i id="search-icon" class="fas fa-search"></i>
-                            <div id="search-bar" class="search-bar">
-                                <input type="text" placeholder="Search..." />
-                                <button onclick="searchFunction()">Search</button>
-                            </div>
-                            <!-- Hamburger Icon -->
-                            <i id="hamburger-icon" class="fas fa-bars hamburger-icon" onclick="toggleMenu()"></i>
-                        </div>
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>ผังสมาชิกบริษัท</title>
+            <link rel="stylesheet" href="css/page/member.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+            <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap"
+                rel="stylesheet">
+        </head>
+        <>
+            <div class="container">
+                <header class="main-header">
+                    <h1 class="title">สมาชิกทีมงาน ต ตรวจบ้านของเรา</h1>
+                    <div class="title-underline"></div>
                 </header>
-                <nav class="nav-links" id="nav-links">
-                    <ul>
-                        <li><a href="/HOMESPECTOR/Homepage/index.php" data-translate="nav.home">หน้าหลัก</a>
-                        </li>
-                        <li><a href="/HOMESPECTOR/Homepage/service.php" data-translate="nav.services">บริการ</a></li>
-                        <li><a href="/HOMESPECTOR/Homepage/promotion.php" data-translate="nav.promotion">สิทธิพิเศษ</a>
-                        </li>
-                        <li><a href="/HOMESPECTOR/Homepage/projects_media.html" data-translate="nav.projects">ผลงาน</a>
-                        </li>
 
-                        <!-- Dropdown Menu -->
-                        <li class="dropdown">
-                            <a href="#" class="menu-item" data-translate="nav.aboutUs">
-                                เกี่ยวกับเรา <span class="dropdown-icon"><i class="fa-solid fa-caret-down"></i></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="/HOMESPECTOR/Homepage/ourstory.php"
-                                        data-translate="nav.ourStory">ประวัติของเรา</a>
-                                </li>
-                                <li><a href="/HOMESPECTOR/Homepage/ourteam.php"
-                                        data-translate="nav.ourTeam">ทีมงานของเรา</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="menu-item" data-translate="nav.service">
-                                บริการเสริม <span class="dropdown-icon"><i class="fa-solid fa-caret-down"></i></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="/HOMESPECTOR/Homepage/app-inspector.php"
-                                        data-translate="nav.app-inspector">ตรวจบ้านเอง</a>
-                                </li>
-                                <li><a href="cal-electric.php" data-translate="nav.cal-electric">คำนวณไฟฟ้า</a>
-                                </li>
-                                <li><a href="checklist.php" data-translate="nav.checklist">เทียบสเปกบ้าน</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li><a href="/HOMESPECTOR/Homepage/articles.php" data-translate="nav.articles">บทความ</a></li>
-                        <li><a href="/HOMESPECTOR/Homepage/Review-home.php"
-                                data-translate="nav.reviewHome">รีวิวบ้าน</a></li>
-                        <li><a href="/HOMESPECTOR/Homepage/review_interior.php"
-                                data-translate="nav.reviewInterior">บริการตกแต่งภายใน</a></li>
-                        <li><a href="/HOMESPECTOR/Homepage/joinwithus.php" data-translate="nav.joinUs">รวมงานกับเรา</a>
-                        </li>
-                        <li><a href="/HOMESPECTOR/Homepage/Contactus.php" data-translate="nav.contact">ติดต่อเรา</a>
-                        </li>
-                    </ul>
-                </nav>
-                <!-- Fullscreen Navigation -->
-                <div id="fullscreen-menu" class="fullscreen-menu">
-                    <!-- Close Icon -->
-                    <i id="close-icon" class="fas fa-times"></i>
-                    <header class="top-bar">
-                        <div class="container">
-                            <!-- Social Icons -->
-                            <div class="social-icons">
-                                <a href="https://www.facebook.com/t.homeinspector/?locale=th_TH">
-                                    <img src="/HOMESPECTOR/icon/ICON/Fb.png" alt="Facebook">
-                                </a>
-                                <a href="https://www.instagram.com/t.homeinspector/">
-                                    <img src="/HOMESPECTOR/icon/ICON/IG.png" alt="Instagram">
-                                </a>
-                                <a href="https://page.line.me/t.home?openQrModal=true">
-                                    <img src="/HOMESPECTOR/icon/ICON/line.png" alt="Line">
-                                </a>
-                                <a href="tel:082-045-6165">
-                                    <img src="/HOMESPECTOR/icon/ICON/phone.png" alt="Phone">
-                                </a>
+                <div class="filter-container">
+                    <div class="filter-header">
+                        <i class="fas fa-filter"></i>
+                        <h2>กรองตามแผนก</h2>
+                    </div>
+                    <div class="filter-tabs">
+                        <button class="filter-btn active" data-department="all">ทั้งหมด</button>
+                        <button class="filter-btn" data-department="executive">ผู้บริหาร</button>
+                        <button class="filter-btn" data-department="marketing">การตลาด</button>
+                        <button class="filter-btn" data-department="technology">เทคโนโลยี</button>
+                        <button class="filter-btn" data-department="customer-service">บริการลูกค้า</button>
+                        <button class="filter-btn" data-department="sales">ฝ่ายขาย</button>
+                    </div>
+                </div>
+
+                <!-- แผนกผู้บริหาร -->
+                <section class="department-section" data-department="executive">
+                    <div class="department-header">
+                        <h2 class="department-title">ผู้บริหาร</h2>
+                        <div class="department-line"></div>
+                        <span class="department-count">3 คน</span>
+                    </div>
+
+                    <div class="team-grid">
+                        <div class="team-card" data-id="1">
+                            <div class="card-image">
+                                <div class="image-overlay"></div>
+                                <img src="https://via.placeholder.com/300x400/1a75ff/ffffff?text=ธนพล"
+                                    alt="ธนพล สุขสวัสดิ์">
+                                <div class="card-image-content">
+                                    <span class="department-badge">ผู้บริหาร</span>
+                                    <h3>ธนพล สุขสวัสดิ์</h3>
+                                    <p>ประธานเจ้าหน้าที่บริหาร</p>
+                                </div>
                             </div>
-
-                            <!-- Logo -->
-                            <div class="logo">
-                                <a href="/HOMESPECTOR/Homepage/index.php">
-                                    <img src="/HOMESPECTOR/img/s1.png" alt="T. Home Inspector Logo">
-                                </a>
+                            <div class="card-content">
+                                <div class="contact-info">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>thanapon@company.com</span>
+                                </div>
+                                <div class="skills">
+                                    <span class="skill-badge">ภาวะผู้นำ</span>
+                                    <span class="skill-badge">วางแผนกลยุทธ์</span>
+                                </div>
+                                <button class="view-profile-btn">ดูโปรไฟล์</button>
                             </div>
+                        </div>
 
-                            <!-- Actions -->
-                            <div class="actions">
-                                <!-- Language Switcher -->
-                                <div class="language-switcher">
-                                    <a href="?lang=th" class="lang-link">
-                                        <img src="/HOMESPECTOR/icon/ICON/thai.png" alt="Thai" title="ภาษาไทย">
-                                    </a>
-                                    <a href="?lang=en" class="lang-link">
-                                        <img src="/HOMESPECTOR/icon/ICON/eng.png" alt="English" title="English">
-                                    </a>
+                        <div class="team-card" data-id="2">
+                            <div class="card-image">
+                                <div class="image-overlay"></div>
+                                <img src="https://via.placeholder.com/300x400/1a75ff/ffffff?text=สุนิสา"
+                                    alt="สุนิสา จันทร์เพ็ญ">
+                                <div class="card-image-content">
+                                    <span class="department-badge">ผู้บริหาร</span>
+                                    <h3>สุนิสา จันทร์เพ็ญ</h3>
+                                    <p>ประธานเจ้าหน้าที่ฝ่ายปฏิบัติการ</p>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="contact-info">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>sunisa@company.com</span>
+                                </div>
+                                <div class="skills">
+                                    <span class="skill-badge">การจัดการ</span>
+                                    <span class="skill-badge">พัฒนาทีม</span>
+                                </div>
+                                <button class="view-profile-btn">ดูโปรไฟล์</button>
+                            </div>
+                        </div>
+
+                        <div class="team-card" data-id="3">
+                            <div class="card-image">
+                                <div class="image-overlay"></div>
+                                <img src="https://via.placeholder.com/300x400/1a75ff/ffffff?text=วิชัย"
+                                    alt="วิชัย รักษ์ไทย">
+                                <div class="card-image-content">
+                                    <span class="department-badge">ผู้บริหาร</span>
+                                    <h3>วิชัย รักษ์ไทย</h3>
+                                    <p>ประธานเจ้าหน้าที่ฝ่ายการเงิน</p>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="contact-info">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>wichai@company.com</span>
+                                </div>
+                                <div class="skills">
+                                    <span class="skill-badge">วิเคราะห์การเงิน</span>
+                                    <span class="skill-badge">บริหารความเสี่ยง</span>
+                                </div>
+                                <button class="view-profile-btn">ดูโปรไฟล์</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- แผนกการตลาด -->
+                <section class="department-section" data-department="marketing">
+                    <div class="department-header">
+                        <h2 class="department-title">การตลาด</h2>
+                        <div class="department-line"></div>
+                        <span class="department-count">3 คน</span>
+                    </div>
+
+                    <div class="team-grid">
+                        <div class="team-card" data-id="4">
+                            <div class="card-image">
+                                <div class="image-overlay"></div>
+                                <img src="https://via.placeholder.com/300x400/1a75ff/ffffff?text=พิมพ์มาดา"
+                                    alt="พิมพ์มาดา วงศ์สุวรรณ">
+                                <div class="card-image-content">
+                                    <span class="department-badge">การตลาด</span>
+                                    <h3>พิมพ์มาดา วงศ์สุวรรณ</h3>
+                                    <p>ผู้อำนวยการฝ่ายการตลาด</p>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="contact-info">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>pimmada@company.com</span>
+                                </div>
+                                <div class="skills">
+                                    <span class="skill-badge">ดิจิทัลมาร์เก็ตติ้ง</span>
+                                    <span class="skill-badge">กลยุทธ์แบรนด์</span>
+                                </div>
+                                <button class="view-profile-btn">ดูโปรไฟล์</button>
+                            </div>
+                        </div>
+
+                        <div class="team-card" data-id="5">
+                            <div class="card-image">
+                                <div class="image-overlay"></div>
+                                <img src="https://via.placeholder.com/300x400/1a75ff/ffffff?text=ธนกร"
+                                    alt="ธนกร กิจเจริญ">
+                                <div class="card-image-content">
+                                    <span class="department-badge">การตลาด</span>
+                                    <h3>ธนกร กิจเจริญ</h3>
+                                    <p>ผู้จัดการโซเชียลมีเดีย</p>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="contact-info">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>thanakorn@company.com</span>
+                                </div>
+                                <div class="skills">
+                                    <span class="skill-badge">โซเชียลมีเดีย</span>
+                                    <span class="skill-badge">สร้างคอนเทนต์</span>
+                                </div>
+                                <button class="view-profile-btn">ดูโปรไฟล์</button>
+                            </div>
+                        </div>
+
+                        <div class="team-card" data-id="6">
+                            <div class="card-image">
+                                <div class="image-overlay"></div>
+                                <img src="https://via.placeholder.com/300x400/1a75ff/ffffff?text=จิราภา"
+                                    alt="จิราภา พัฒนาดี">
+                                <div class="card-image-content">
+                                    <span class="department-badge">การตลาด</span>
+                                    <h3>จิราภา พัฒนาดี</h3>
+                                    <p>นักกลยุทธ์คอนเทนต์</p>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="contact-info">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>jirapa@company.com</span>
+                                </div>
+                                <div class="skills">
+                                    <span class="skill-badge">กลยุทธ์คอนเทนต์</span>
+                                    <span class="skill-badge">SEO</span>
+                                </div>
+                                <button class="view-profile-btn">ดูโปรไฟล์</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- แผนกเทคโนโลยี -->
+                <section class="department-section" data-department="technology">
+                    <div class="department-header">
+                        <h2 class="department-title">เทคโนโลยี</h2>
+                        <div class="department-line"></div>
+                        <span class="department-count">4 คน</span>
+                    </div>
+
+                    <div class="team-grid">
+                        <div class="team-card" data-id="7">
+                            <div class="card-image">
+                                <div class="image-overlay"></div>
+                                <img src="https://via.placeholder.com/300x400/1a75ff/ffffff?text=ภาณุพงศ์"
+                                    alt="ภาณุพงศ์ ทองดี">
+                                <div class="card-image-content">
+                                    <span class="department-badge">เทคโนโลยี</span>
+                                    <h3>ภาณุพงศ์ ทองดี</h3>
+                                    <p>ประธานเจ้าหน้าที่ฝ่ายเทคโนโลยี</p>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="contact-info">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>panupong@company.com</span>
+                                </div>
+                                <div class="skills">
+                                    <span class="skill-badge">สถาปัตยกรรมซอฟต์แวร์</span>
+                                    <span class="skill-badge">คลาวด์คอมพิวติ้ง</span>
+                                </div>
+                                <button class="view-profile-btn">ดูโปรไฟล์</button>
+                            </div>
+                        </div>
+
+                        <div class="team-card" data-id="8">
+                            <div class="card-image">
+                                <div class="image-overlay"></div>
+                                <img src="https://via.placeholder.com/300x400/1a75ff/ffffff?text=อรุณี"
+                                    alt="อรุณี มั่นคง">
+                                <div class="card-image-content">
+                                    <span class="department-badge">เทคโนโลยี</span>
+                                    <h3>อรุณี มั่นคง</h3>
+                                    <p>หัวหน้านักพัฒนา</p>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="contact-info">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>arunee@company.com</span>
+                                </div>
+                                <div class="skills">
+                                    <span class="skill-badge">Full-Stack</span>
+                                    <span class="skill-badge">Agile</span>
+                                </div>
+                                <button class="view-profile-btn">ดูโปรไฟล์</button>
+                            </div>
+                        </div>
+
+                        <div class="team-card" data-id="9">
+                            <div class="card-image">
+                                <div class="image-overlay"></div>
+                                <img src="https://via.placeholder.com/300x400/1a75ff/ffffff?text=ชัยวัฒน์"
+                                    alt="ชัยวัฒน์ วิจิตรศิลป์">
+                                <div class="card-image-content">
+                                    <span class="department-badge">เทคโนโลยี</span>
+                                    <h3>ชัยวัฒน์ วิจิตรศิลป์</h3>
+                                    <p>นักออกแบบ UX/UI</p>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="contact-info">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>chaiwat@company.com</span>
+                                </div>
+                                <div class="skills">
+                                    <span class="skill-badge">UX Research</span>
+                                    <span class="skill-badge">UI Design</span>
+                                </div>
+                                <button class="view-profile-btn">ดูโปรไฟล์</button>
+                            </div>
+                        </div>
+
+                        <div class="team-card" data-id="10">
+                            <div class="card-image">
+                                <div class="image-overlay"></div>
+                                <img src="https://via.placeholder.com/300x400/1a75ff/ffffff?text=สุภาพร"
+                                    alt="สุภาพร ใจดี">
+                                <div class="card-image-content">
+                                    <span class="department-badge">เทคโนโลยี</span>
+                                    <h3>สุภาพร ใจดี</h3>
+                                    <p>วิศวกร QA</p>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="contact-info">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>supaporn@company.com</span>
+                                </div>
+                                <div class="skills">
+                                    <span class="skill-badge">Automated Testing</span>
+                                    <span class="skill-badge">QA</span>
+                                </div>
+                                <button class="view-profile-btn">ดูโปรไฟล์</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- แผนกบริการลูกค้า -->
+                <section class="department-section" data-department="customer-service">
+                    <div class="department-header">
+                        <h2 class="department-title">บริการลูกค้า</h2>
+                        <div class="department-line"></div>
+                        <span class="department-count">3 คน</span>
+                    </div>
+
+                    <div class="team-grid">
+                        <div class="team-card" data-id="11">
+                            <div class="card-image">
+                                <div class="image-overlay"></div>
+                                <img src="https://via.placeholder.com/300x400/1a75ff/ffffff?text=ดนัย"
+                                    alt="ดนัย ธรรมรักษ์">
+                                <div class="card-image-content">
+                                    <span class="department-badge">บริการลูกค้า</span>
+                                    <h3>ดนัย ธรรมรักษ์</h3>
+                                    <p>ผู้อำนวยการฝ่ายบริการลูกค้า</p>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="contact-info">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>danai@company.com</span>
+                                </div>
+                                <div class="skills">
+                                    <span class="skill-badge">ประสบการณ์ลูกค้า</span>
+                                    <span class="skill-badge">บริหารทีม</span>
+                                </div>
+                                <button class="view-profile-btn">ดูโปรไฟล์</button>
+                            </div>
+                        </div>
+
+                        <div class="team-card" data-id="12">
+                            <div class="card-image">
+                                <div class="image-overlay"></div>
+                                <img src="https://via.placeholder.com/300x400/1a75ff/ffffff?text=นภัสวรรณ"
+                                    alt="นภัสวรรณ วงศ์สกุล">
+                                <div class="card-image-content">
+                                    <span class="department-badge">บริการลูกค้า</span>
+                                    <h3>นภัสวรรณ วงศ์สกุล</h3>
+                                    <p>ผู้เชี่ยวชาญด้านการสนับสนุนอาวุโส</p>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="contact-info">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>napatsawan@company.com</span>
+                                </div>
+                                <div class="skills">
+                                    <span class="skill-badge">สนับสนุนทางเทคนิค</span>
+                                    <span class="skill-badge">การฝึกอบรม</span>
+                                </div>
+                                <button class="view-profile-btn">ดูโปรไฟล์</button>
+                            </div>
+                        </div>
+
+                        <div class="team-card" data-id="13">
+                            <div class="card-image">
+                                <div class="image-overlay"></div>
+                                <img src="https://via.placeholder.com/300x400/1a75ff/ffffff?text=รัชพล"
+                                    alt="รัชพล การุณย์">
+                                <div class="card-image-content">
+                                    <span class="department-badge">บริการลูกค้า</span>
+                                    <h3>รัชพล การุณย์</h3>
+                                    <p>ผู้จัดการความสำเร็จของลูกค้า</p>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="contact-info">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>ratchapon@company.com</span>
+                                </div>
+                                <div class="skills">
+                                    <span class="skill-badge">บริหารบัญชี</span>
+                                    <span class="skill-badge">สร้างความสัมพันธ์</span>
+                                </div>
+                                <button class="view-profile-btn">ดูโปรไฟล์</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- แผนกฝ่ายขาย -->
+                <section class="department-section" data-department="sales">
+                    <div class="department-header">
+                        <h2 class="department-title">ฝ่ายขาย</h2>
+                        <div class="department-line"></div>
+                        <span class="department-count">3 คน</span>
+                    </div>
+
+                    <div class="team-grid">
+                        <div class="team-card" data-id="14">
+                            <div class="card-image">
+                                <div class="image-overlay"></div>
+                                <img src="https://via.placeholder.com/300x400/1a75ff/ffffff?text=ลลิตา"
+                                    alt="ลลิตา จันทร์เรือง">
+                                <div class="card-image-content">
+                                    <span class="department-badge">ฝ่ายขาย</span>
+                                    <h3>ลลิตา จันทร์เรือง</h3>
+                                    <p>ผู้อำนวยการฝ่ายขาย</p>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="contact-info">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>lalita@company.com</span>
+                                </div>
+                                <div class="skills">
+                                    <span class="skill-badge">กลยุทธ์การขาย</span>
+                                    <span class="skill-badge">ภาวะผู้นำทีม</span>
+                                </div>
+                                <button class="view-profile-btn">ดูโปรไฟล์</button>
+                            </div>
+                        </div>
+
+                        <div class="team-card" data-id="15">
+                            <div class="card-image">
+                                <div class="image-overlay"></div>
+                                <img src="https://via.placeholder.com/300x400/1a75ff/ffffff?text=ธีรพงษ์"
+                                    alt="ธีรพงษ์ บุญมา">
+                                <div class="card-image-content">
+                                    <span class="department-badge">ฝ่ายขาย</span>
+                                    <h3>ธีรพงษ์ บุญมา</h3>
+                                    <p>ผู้บริหารบัญชีอาวุโส</p>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="contact-info">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>teerapong@company.com</span>
+                                </div>
+                                <div class="skills">
+                                    <span class="skill-badge">การขายองค์กร</span>
+                                    <span class="skill-badge">การขายโซลูชั่น</span>
+                                </div>
+                                <button class="view-profile-btn">ดูโปรไฟล์</button>
+                            </div>
+                        </div>
+
+                        <div class="team-card" data-id="16">
+                            <div class="card-image">
+                                <div class="image-overlay"></div>
+                                <img src="https://via.placeholder.com/300x400/1a75ff/ffffff?text=กรรณิการ์"
+                                    alt="กรรณิการ์ ลิขิตสุข">
+                                <div class="card-image-content">
+                                    <span class="department-badge">ฝ่ายขาย</span>
+                                    <h3>กรรณิการ์ ลิขิตสุข</h3>
+                                    <p>ผู้จัดการปฏิบัติการขาย</p>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="contact-info">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>kannika@company.com</span>
+                                </div>
+                                <div class="skills">
+                                    <span class="skill-badge">ปฏิบัติการขาย</span>
+                                    <span class="skill-badge">วิเคราะห์ข้อมูล</span>
+                                </div>
+                                <button class="view-profile-btn">ดูโปรไฟล์</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal" id="profileModal">
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    <div class="modal-header">
+                        <h2 id="modal-name">ชื่อพนักงาน</h2>
+                        <p id="modal-position">ตำแหน่ง - แผนก</p>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-profile">
+                            <div class="modal-avatar">
+                                <img id="modal-image" src="https://via.placeholder.com/300x400" alt="พนักงาน">
+                                <div class="modal-contact">
+                                    <div class="modal-contact-item">
+                                        <i class="fas fa-envelope"></i>
+                                        <span id="modal-email">email@company.com</span>
+                                    </div>
+                                    <div class="modal-contact-item">
+                                        <i class="fas fa-phone"></i>
+                                        <span id="modal-phone">+66 89 123 4567</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-info">
+                                <div class="modal-section">
+                                    <h3><i class="fas fa-user"></i> ประวัติ</h3>
+                                    <p id="modal-bio">ประวัติพนักงาน...</p>
+                                </div>
+                                <div class="modal-section">
+                                    <h3><i class="fas fa-award"></i> ความสำเร็จ</h3>
+                                    <ul id="modal-achievements">
+                                        <li>ความสำเร็จ 1</li>
+                                        <li>ความสำเร็จ 2</li>
+                                        <li>ความสำเร็จ 3</li>
+                                    </ul>
+                                </div>
+                                <div class="modal-section">
+                                    <h3>ทักษะ</h3>
+                                    <div id="modal-skills" class="modal-skills">
+                                        <span class="skill-badge">ทักษะ 1</span>
+                                        <span class="skill-badge">ทักษะ 2</span>
+                                        <span class="skill-badge">ทักษะ 3</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </header>
-                    <!-- Navigation Content -->
-                    <div class="menu-content">
-                        <!-- Topics Section -->
-                        <div class="menu-section">
-                            <h3>Navigation</h3>
-                            <ul>
-                                <li><a href="/HOMESPECTOR/Homepage/index.php" data-translate="nav.home">หน้าหลัก</a>
-                                </li>
-                                <li><a href="/HOMESPECTOR/Homepage/service.php" data-translate="nav.services">บริการ</a>
-                                </li>
-                                <li><a href="/HOMESPECTOR/Homepage/promotion.php"
-                                        data-translate="nav.promotion">สิทธิพิเศษ</a></li>
-                                <li><a href="/HOMESPECTOR/Homepage/projects_media.html"
-                                        data-translate="nav.projects">ผลงาน</a></li>
-
-                                <!-- Dropdown Menu -->
-                                <li class="dropdown1">
-                                    <a href="#" class="menu-item1" data-translate="nav.aboutUs">
-                                        เกี่ยวกับเรา <span class="dropdown-icon1"><i
-                                                class="fa-solid fa-caret-down"></i></span>
-                                    </a>
-                                    <ul class="dropdown-menu1">
-                                        <li><a href="/HOMESPECTOR/Homepage/ourstory.php"
-                                                data-translate="nav.ourStory">ประวัติของเรา</a>
-                                        </li>
-                                        <li><a href="/HOMESPECTOR/Homepage/ourteam.php"
-                                                data-translate="nav.ourTeam">ทีมงานของเรา</a></li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#" class="menu-item" data-translate="nav.service">
-                                        บริการเสริม <span class="dropdown-icon"><i
-                                                class="fa-solid fa-caret-down"></i></span>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="/HOMESPECTOR/Homepage/app-inspector.php"
-                                                data-translate="nav.app-inspector">ตรวจบ้านเอง</a>
-                                        </li>
-                                        <li><a href="cal-electric.php" data-translate="nav.cal-electric">คำนวณไฟฟ้า</a>
-                                        </li>
-                                        <li><a href="checklist.php" data-translate="nav.checklist">เทียบสเปกบ้าน</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li><a href="/HOMESPECTOR/Homepage/articles.php"
-                                        data-translate="nav.articles">บทความ</a></li>
-                                <li><a href="/HOMESPECTOR/Homepage/Review-home.php"
-                                        data-translate="nav.reviewHome">รีวิวบ้าน</a></li>
-                                <li><a href="/HOMESPECTOR/Homepage/review_interior.php"
-                                        data-translate="nav.reviewInterior">บริการตกแต่งภายใน</a></li>
-                                <li><a href="/HOMESPECTOR/Homepage/joinwithus.php"
-                                        data-translate="nav.joinUs">รวมงานกับเรา</a></li>
-                                <li><a href="/HOMESPECTOR/Homepage/Contactus.php"
-                                        data-translate="nav.contact">ติดต่อเรา</a></li>
-                            </ul>
-                        </div>
-
-                        <!-- Series & Podcast Section -->
-                        <div class="menu-section">
-                            <h3>Content/Articles</h3>
-                            <ul>
-                                <li><a href="#">รายการทั้งหมด</a></li>
-                                <li><a href="#">มนุษย์ต่างวัย Talk</a></li>
-                                <li><a href="#">บพุทธ์ที่โครฟ</a></li>
-                                <li><a href="#">Life Long Investing</a></li>
-                                <li><a href="#">มนุษย์ต่างวัย Podcast</a></li>
-                                <li><a href="#">ชีวิตชีวา 2</a></li>
-                                <li><a href="#">The O Idol</a></li>
-                                <li><a href="#">มนุษย์ต่างวัย Talk</a></li>
-                            </ul>
-                        </div>
-
-                        <!-- Other Sections -->
-                        <div class="menu-section">
-                            <h3><a href="/HOMESPECTOR/Homepage/Contactus.php" class="menu-link">Contact</a></h3>
-                            <h3><a href="/HOMESPECTOR/Homepage/projects_media.html" class="menu-link">Projects</a></h3>
-                            <h3><a href="/HOMESPECTOR/Homepage/joinwithus.php" class="menu-link">joinwithus</a></h3>
-                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="close-btn">ปิด</button>
                     </div>
                 </div>
             </div>
 
-            <!-- line -->
-            <div class="contact-container">
-                <a id="phone-link" href="#" class="contact-item" data-aos="fade-up-left">
-                    <div class="icon">
-                        <i class="fa-solid fa-phone"></i>
-                    </div>
-                    <span id="phone-text">โทร ...</span>
-                </a>
-
-                <a id="line-link" href="#" target="_blank" class="contact-item" data-aos="fade-up-right">
-                    <div class="icon">
-                        <i class="fa-brands fa-line" style="color: #00a347;"></i>
-                    </div>
-                    <span id="line-text">@line.id</span>
-                </a>
-            </div>
-            <script>
-                document.addEventListener("DOMContentLoaded", function () {
-                    fetch('/HOMESPECTOR/backend/panel/get_line_section.php')
-                        .then(response => response.json())
-                        .then(data => {
-                            // อัปเดตเบอร์โทร
-                            const phoneLink = document.getElementById('phone-link');
-                            const phoneText = document.getElementById('phone-text');
-                            phoneLink.href = 'tel:' + data.phone_number;
-                            phoneText.textContent = 'โทร ' + data.phone_number;
-
-                            // อัปเดต Line ID
-                            const lineLink = document.getElementById('line-link');
-                            const lineText = document.getElementById('line-text');
-                            lineLink.href = 'https://line.me/R/ti/p/' + encodeURIComponent(data.line_id);
-                            lineText.textContent = data.line_id;
-                        })
-                        .catch(error => {
-                            console.error('เกิดข้อผิดพลาดในการโหลดข้อมูลติดต่อ:', error);
-                        });
-                });
-            </script>
-
-
-            <section class="about">
-                <div class="about-container">
-                </div>
-            </section>
-
-            <section class="our-founders">
-                <div class="founders-container">
-                    
-                </div>
-            </section>
-            <section class="team-container">
-                <div class="team-groups">
-                    
-                </div>
-            </section>
-            <!-- <section class="our-founders">
-                <h2 data-aos="fade-up">Our Founders</h2>
-                <div class="founders-container">
-                    <div class="founder" data-aos="fade-right">
-                        <img src="/HOMESPECTOR/img/staff/CEO.jpg" alt="Sumes Chetthamrongchai" class="founder-photo">
-                        <h3>Sumes Chetthamrongchai</h3>
-                        <p>Founder & Managing Director, NACHI Certified Inspector</p>
-                        <div class="certification-container">
-                            <p class="certification">
-                                ได้รับการรับรองผู้ตรวจสอบบ้านจากสมาคมระดับโลกอย่าง INTERNACHI
-                            </p>
-                            <img src="/HOMESPECTOR/img/certified3.png" alt="Certification Badge"
-                                class="certification-badge">
-                        </div>
-                    </div>
-                    <div class="founder" data-aos="fade-left">
-                        <img src="/HOMESPECTOR/img/staff/Co-founder.jpg" alt="Suthep Chetthamrongchai"
-                            class="founder-photo">
-                        <h3>Suthep Chetthamrongchai</h3>
-                        <p>Co-Founder & Civil Engineer</p>
-                    </div>
-                </div>
-            </section> -->
-
-            <!-- <div class="team-container">
-                <h2 class="heading">Our Valuable Team Members</h2>
-
-                <div class="team-member" data-aos="fade-up">
-                    <img src="/HOMESPECTOR/img/staff/Sumes.jpg" alt="Sumes Chetthamrongchai" />
-                    <h4>Sumes Chetthamrongchai</h4>
-                    <p>Founder & Managing Director, NACHI Certified Inspector</p>
-                </div>
-                <div class="team-groups">
-                    <div class="team-group">
-                        <div class="team-grid">
-                            <div class="team-card" data-aos="fade-up-right">
-                                <img src="/HOMESPECTOR/img/staff/Co-founder.jpg" alt="Suthep J.">
-                                <h4>Suthep J.</h4>
-                                <p>Engineering Manager, T.Home Inspector</p>
-                            </div>
-                            <div class="team-card" data-aos="fade-up">
-                                <img src="/HOMESPECTOR/img/staff/Charnthawat.jpg" alt="Charnthawat">
-                                <h4>Charnthawat C.</h4>
-                                <p>Engineering Manage, T.Home Inspector</p>
-                            </div>
-                            <div class="team-card" data-aos="fade-up-right">
-                                <img src="/HOMESPECTOR/img/staff/Jakkarin.jpg" alt="Jakkarin">
-                                <h4>Jakkarin S.</h4>
-                                <p>Inspector, T.Home Inspector</p>
-                            </div>
-                            <div class="team-card" data-aos="fade-up">
-                                <img src="/HOMESPECTOR/img/staff/Phonthewa.JPG" alt="Phonthewa">
-                                <h4>Phonthewa K.</h4>
-                                <p>Inspector, T.Home Inspector</p>
-                            </div>
-                            <div class="team-card" data-aos="fade-up-right">
-                                <img src="/HOMESPECTOR/img/staff/Waroj.jpg" alt="Waroj">
-                                <h4>Waroj T.</h4>
-                                <p>Inspector, T.Home Inspector</p>
-                            </div>
-                            <div class="team-card" data-aos="fade-up">
-                                <img src="/HOMESPECTOR/img/staff/Chagkrit.jpg" alt="Chagkrit">
-                                <h4>Chagkrit S.</h4>
-                                <p>Inspector, T.Home Inspector</p>
-                            </div>
-                            <div class="team-card" data-aos="fade-up-right">
-                                <img src="/HOMESPECTOR/img/staff/Chonsawat.jpg" alt="Chonsawat">
-                                <h4>Chonsawat C.</h4>
-                                <p>Inspector, T.Home Inspector</p>
-                            </div>
-                            <div class="team-card" data-aos="fade-up">
-                                <img src="/HOMESPECTOR/img/staff/Watanon.JPG" alt="Watanon">
-                                <h4>Watanon L.</h4>
-                                <p>Inspector, T.Home Inspector</p>
-                            </div>
-                            <div class="team-card" data-aos="fade-up-right">
-                                <img src="/HOMESPECTOR/img/staff/peerapat.jpg" alt="Charnthawat">
-                                <h4>Peerapat P.</h4>
-                                <p>Inspector, T.Home Inspector</p>
-                            </div>
-                            <div class="team-card" data-aos="fade-up">
-                                <img src="/HOMESPECTOR/img/staff/cho.jpg" alt="Charnthawat">
-                                <h4>Vatanyu T.</h4>
-                                <p>Junior Inspector, T.Home Inspector</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="team-group">
-                        <div class="team-grid">
-                            <div class="team-card" data-aos="fade-up">
-                                <img src="/HOMESPECTOR/img/staff/Punpun.JPG" alt="PunPun">
-                                <h4>Punpun W.</h4>
-                                <p>General Manager, T.Home Inspector</p>
-                            </div>
-                            <div class="team-card" data-aos="fade-up-left">
-                                <img src="/HOMESPECTOR/img/staff/Fongmany.JPG" alt="Fongmany">
-                                <h4>Fongmany L.</h4>
-                                <p>Marketing Manager, T.Home Inspector</p>
-                            </div>
-                            <div class="team-card" data-aos="fade-up">
-                                <img src="/HOMESPECTOR/img/staff/Nutnaree.JPG" alt="Nutnaree M.">
-                                <h4>Nutnaree M.</h4>
-                                <p>Admin, T.Home Inspector</p>
-                            </div>
-                            <div class="team-card" data-aos="fade-up-left">
-                                <img src="/HOMESPECTOR/img/staff/pun.JPG" alt="Puntharika A.">
-                                <h4>Puntharika A.</h4>
-                                <p>Creative Content Creator, T.Home Inspector</p>
-                            </div>
-                            <div class="team-card" data-aos="fade-up">
-                                <img src="/HOMESPECTOR/img/staff/Sorawit.JPG" alt="Sorawit W.">
-                                <h4>Sorawit W.</h4>
-                                <p>Video Editor, T.Home Inspector</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="team-container">
-
-                <div class="team-grid">
-                    <div class="team-card" data-aos="fade-up-right">
-                        <img src="/HOMESPECTOR/img/staff/Co-founder1.jpg" alt="Suthep">
-                        <h4>Suthep J.</h4>
-                        <p>Project Manager, T.Construction</p>
-                    </div>
-                    <div class="team-card" data-aos="fade-up">
-                        <img src="/HOMESPECTOR/img/staff/sarayut.jpg" alt="Sarayut">
-                        <h4>Sarayut T.</h4>
-                        <p>Project Consultant, T.Construction</p>
-                    </div>
-                    <div class="team-card" data-aos="fade-up-left">
-                        <img src="https://img.freepik.com/free-photo/smiling-asian-man-using-tablet-computer_1262-18324.jpg?t=st=1744191496~exp=1744195096~hmac=f62495ae433146723b2c2d5ce529d1d5da87c6712d087ef6c5af4fcacc603c56&w=996"
-                            alt="Pikanet">
-                        <h4>Pikanet P.</h4>
-                        <p>Site Manager, T.Construction</p>
-                    </div>
-                </div>
-            </div> -->
-
-            <!-- <div class="team-container">
-                <div class="team-groups">
-                    <div class="team-group">
-                        <div class="team-grid">
-                            <div class="team-card" data-aos="fade-up-right">
-                                <img src="/HOMESPECTOR/img/staff/akkarin.jpg" alt="Akkarin">
-                                <h4>Akkarin S.</h4>
-                                <p>Project Manager, T.Interior</p>
-                            </div>
-                            <div class="team-card" data-aos="fade-up">
-                                <img src="/HOMESPECTOR/img/staff/nattawee.jpg" alt="Nattawee">
-                                <h4>Nattawee K.</h4>
-                                <p>Engineering, T.Interior</p>
-                            </div>
-                            <div class="team-card" data-aos="fade-up-right">
-                                <img src="/HOMESPECTOR/img/staff/phattawat.png" alt="Phattawat">
-                                <h4>Phattawat V.</h4>
-                                <p>Foreman, T.Interior</p>
-                            </div>
-                            <div class="team-card" data-aos="fade-up">
-                                <img src="/HOMESPECTOR/img/staff/pilaiwan.jpg" alt="Pilaiwan">
-                                <h4>Pilaiwan P. </h4>
-                                <p>Graphic, T.Interior</p>
-                            </div>
-                            <div class="team-card" data-aos="fade-up">
-                                <img src="/HOMESPECTOR/img/staff/technic.jpg" alt="technic">
-                                <h4>Technic K.</h4>
-                                <p>Video Editor, T.Interior</p>
-                            </div>
-                        </div>
-                    </div> -->
-
-                    <!-- Right: Admin/Creative Team -->
-                    <!-- <div class="team-group">
-                        <div class="team-grid">
-                            <div class="team-card" data-aos="fade-up">
-                                <img src="https://img.freepik.com/free-photo/cheerful-asian-woman-sitting-desk-office-writing-posing-camera_1098-20494.jpg?t=st=1744251417~exp=1744255017~hmac=40806272eb9e24671b56271fdf838728f787967c14a48e48b7734c0eef75194a&w=740"
-                                    alt="Srunraz">
-                                <h4>Srunraz K.</h4>
-                                <p>Designer Supervisor, T.Interior</p>
-                            </div>
-                            <div class="team-card" data-aos="fade-up-left">
-                                <img src="/HOMESPECTOR/img/staff/vaitaya.png" alt="Vaitaya">
-                                <h4>Vaitaya K.</h4>
-                                <p>Interior Designer, T.Interior</p>
-                            </div>
-                            <div class="team-card" data-aos="fade-up">
-                                <img src="/HOMESPECTOR/img/staff/watcharakorn.png" alt="Watcharakorn">
-                                <h4>Watcharakorn S.</h4>
-                                <p>Interior Designer, T.Interior</p>
-                            </div>
-                            <div class="team-card" data-aos="fade-up-left">
-                                <img src="/HOMESPECTOR/img/staff/khanawat.png" alt="Khanawat">
-                                <h4>Khanawat B.</h4>
-                                <p>Interior Designer, T.Interior</p>
-                            </div>
-                            <div class="team-card" data-aos="fade-up">
-                                <img src="/HOMESPECTOR/img/staff/kewalee.png" alt="Kewalee">
-                                <h4>Kewalee P.</h4>
-                                <p>Interior Designer, T.Interior</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-
-
-
-
-            <footer class="footer">
-                <div class="footer-container">
-                    <!-- Left Section: Social Media & Branding -->
-                    <div class="footer-left">
-                        <!-- <h2>HomeInspector</h2> -->
-                        <img src="/HOMESPECTOR/img/footer_logo.png" alt="HomeInspector Logo" class="footer-logo">
-                        <div class="social-icons">
-                            <a href="https://www.facebook.com/t.homeinspector/" target="_blank"><img
-                                    src="/HOMESPECTOR/icon/ICON/Fb.png" alt="Facebook"></a>
-                            <a href="https://www.instagram.com/t.homeinspector/" target="_blank"><img
-                                    src="/HOMESPECTOR/icon/ICON/IG.png" alt="Instagram"></a>
-                            <a href="https://page.line.me/t.home?openQrModal=true" target="_blank"><img
-                                    src="/HOMESPECTOR/icon/ICON/line.png" alt="Line"></a>
-                            <a href="https://www.tiktok.com/@thomeinspector" target="_blank"><img
-                                    src="/HOMESPECTOR/icon/ICON/Tiktok.png" alt="TikTok"></a>
-                            <a href="https://www.youtube.com/channel/UC1BPUCVPBW4-ml7MrxQWjug" target="_blank"><img
-                                    src="/HOMESPECTOR/icon/ICON/YB.png" alt="YouTube"></a>
-                        </div>
-                    </div>
-
-                    <!-- Center Section: Company -->
-                    <div class="footer-center">
-                        <h2>เกี่ยวกับเรา <span class="toggle-icon">+</span></h2>
-                        <ul>
-                            <li><a href="/HOMESPECTOR/Homepage/ourstory.php">ประวัติของเรา</a></li>
-                            <li><a href="/HOMESPECTOR/Homepage/ourteam.php">ทีมงานของเรา</a></li>
-                        </ul>
-                    </div>
-
-                    <!-- Right Section: Our Services -->
-                    <div class="footer-right">
-                        <h2>บริการของเรา <span class="toggle-icon">+</span></h2>
-                        <ul>
-                            <li><a href="/HOMESPECTOR/Homepage/Hinspector.php">ต.ตรวจบ้าน</a></li>
-                            <li><a href="/HOMESPECTOR/Homepage/Hinterior.php">ต.ตงแต่ง</a></li>
-                            <li><a href="/HOMESPECTOR/Homepage/Hconstruction.php">ต.เติม</a></li>
-                            <li><a href="/HOMESPECTOR/Homepage/Hbulter.php">H.Bulter</a></li>
-                            <li><a href="/HOMESPECTOR/Homepage/cal-electric.php">ตรวจสอบระบบไฟฟ้า</a></li>
-                            <li><a href="/HOMESPECTOR/Homepage/app-inspector.php">ตรวจบ้านเอง</a></li>
-                            <li><a href="/HOMESPECTOR/Homepage/checklist.php">เทียบสเปกบ้าน</a></li>
-                        </ul>
-                    </div>
-
-                    <!-- Extra Section: Customer Help -->
-                    <div class="footer-help">
-                        <h2>ช่วยเหลือ <span class="toggle-icon">+</span></h2>
-                        <ul>
-                            <li><a href="/HOMESPECTOR/Homepage/index.php#faq">คำถามที่พบบ่อย (FAQ)</a></li>
-                            <li><a href="/HOMESPECTOR/Homepage/joinwithus.php">รวมงานกับเรา</a></li>
-                            <li><a href="/HOMESPECTOR/Homepage/promotion.php">โปรโมชั่น</a></li>
-                            <li><a href="/HOMESPECTOR/Homepage/Contactus.php">ติดต่อเรา</a></li>
-                        </ul>
-                    </div>
-
-                    <!-- Payment Logos -->
-                    <div class="footer-payment">
-                        <h2>ชำระเงินด้วย</h2>
-                        <div class="payment-logos">
-                            <img src="/HOMESPECTOR/img/visacard.png" alt="Visa">
-                            <img src="/HOMESPECTOR/img/Mastercard.webp" alt="MasterCard">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Footer Bottom -->
-                <div class="footer-bottom">
-                    <p>© 2024 HomeInspector. All Rights Reserved.</p>
-                </div>
-            </footer>
-
-        </div>
-    </div>
-
-
-    <script src="/HOMESPECTOR/JS/Toggle_Navbar.js"></script>
-    <!-- <script src="/HOOMESPECTOR/JS/dropdown.js"></script> -->
-    <script src="/HOMESPECTOR/JS/ourteam.js"></script>
-    <script src="/HOMESPECTOR/JS/search_ham.js"></script>
-    <script src="/HOMESPECTOR/JS/footer.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-    <script>
-        AOS.init();
-    </script>
-
-</body>
-
-</html>
+            <script src="js/page/member.js"></script>
+        @endsection

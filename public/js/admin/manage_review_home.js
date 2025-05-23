@@ -1,4 +1,4 @@
-// import ConfirmDialog from "/HOMESPECTOR/JS/component/confirm_dialog.js"
+// import ConfirmDialog from "/JS/component/confirm_dialog.js"
 
 const artList = document.getElementById("articles-list");
 const artFilterSelect = document.getElementById("articles-filter");
@@ -33,13 +33,13 @@ function populateFilterOptions() {
     // สร้างตัวเลือก "ทั้งหมด"
     articles.forEach((article) => {
         const tag = article.children[2].textContent.trim();
-        console.log(tag)
+        console.log(tag);
         artTags.add(tag);
     });
 
     // เพิ่มตัวเลือกในการกรอง
     artTags.forEach((tag) => {
-        console.log('add : ', tag)
+        console.log("add : ", tag);
         const option = document.createElement("option");
         option.value = tag;
         option.textContent = tag;

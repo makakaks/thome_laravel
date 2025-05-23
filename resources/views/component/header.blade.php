@@ -4,22 +4,22 @@
             <!-- Social Icons -->
             <div class="social-icons col justify-content-start">
                 <a href="https://www.facebook.com/t.homeinspector/?locale=th_TH">
-                    <img src="icon/ICON/Fb.png" alt="Facebook">
+                    <img src="/icon/ICON/Fb.png" alt="Facebook">
                 </a>
                 <a href="https://www.instagram.com/t.homeinspector/">
-                    <img src="icon/ICON/IG.png" alt="Instagram">
+                    <img src="/icon/ICON/IG.png" alt="Instagram">
                 </a>
                 <a href="https://page.line.me/t.home?openQrModal=true">
-                    <img src="icon/ICON/line.png" alt="Line">
+                    <img src="/icon/ICON/line.png" alt="Line">
                 </a>
                 <a href="tel:082-045-6165">
-                    <img src="icon/ICON/phone.png" alt="Phone">
+                    <img src="/icon/ICON/phone.png" alt="Phone">
                 </a>
             </div>
             <!-- Logo -->
             <div class="logo col justify-content-center">
                 <a href="/index">
-                    <img src="img/s1.png" alt="T. Home Inspector Logo">
+                    <img src="/img/s1.png" alt="T. Home Inspector Logo">
                 </a>
             </div>
 
@@ -27,10 +27,10 @@
                 <!-- Language Switcher -->
                 <div class="language-switcher">
                     <a href="?lang=th" class="lang-link">
-                        <img src="icon/ICON/thai.png" alt="Thai" title="ภาษาไทย">
+                        <img src="/icon/ICON/thai.png" alt="Thai" title="ภาษาไทย">
                     </a>
                     <a href="?lang=en" class="lang-link">
-                        <img src="icon/ICON/eng.png" alt="English" title="English">
+                        <img src="/icon/ICON/eng.png" alt="English" title="English">
                     </a>
                 </div>
 
@@ -63,7 +63,7 @@
                     </li>
                     <li><a href="/hconstruction" data-translate="nav.articles">รีโนเวท</a>
                     </li>
-                    <li><a href="/hbulter">ทำความสะอาด</a>
+                    <li><a href="/hbutler">ทำความสะอาด</a>
                     </li>
                 </ul>
             </li>
@@ -104,8 +104,6 @@
                     <li><a href="/ourteam" data-translate="nav.ourTeam">ทีมงานของเรา</a></li>
                 </ul>
             </li>
-            <li><a href="/projects_media.html" data-translate="nav.joinUs">ผลงาน</a>
-            </li>
             <li><a href="/joinwithus" data-translate="nav.joinUs">ร่วมงานกับเรา</a>
             </li>
             <li><a href="/contactus" data-translate="nav.contact">ติดต่อเรา</a>
@@ -116,21 +114,17 @@
     <!-- Fullscreen Navigation -->
     <div class="nav-fullscreen">
         <ul class="nav-menu">
-            <li class="nav-item"><a href="#" class="nav-link">หน้าหลัก</a></li>
+            <li class="nav-item"><a href="/" class="nav-link">หน้าหลัก</a></li>
 
             <li class="nav-item has-dropdown">
                 <a href="#" class="nav-link">บริการ</a>
                 <ul class="dropdown">
-                    <li><a href="/service1">ตรวจบ้าน</a></li>
+                    <li><a href="/hinspector">ตรวจบ้าน</a></li>
                     <li><a href="/hinterior">ตกแต่ง</a></li>
                     <li><a href="/hconstruction">ต่อเติม</a></li>
-                    <li><a href="/hbulter">ทำความสะอาด</a></li>
+                    <li><a href="/hbutler">ทำความสะอาด</a></li>
                 </ul>
             </li>
-
-            <li class="nav-item"><a href="/" class="nav-link">สิทธิพิเศษ</a></li>
-
-            <li class="nav-item"><a href="/" class="nav-link">ผลงาน</a></li>
 
             <li class="nav-item has-dropdown">
                 <a href="#" class="nav-link">บริการเสริม</a>
@@ -140,6 +134,10 @@
                     <li><a href="/">เทียบสเปคบ้าน</a></li>
                 </ul>
             </li>
+
+            <li class="nav-item"><a href="/" class="nav-link">สิทธิพิเศษ</a></li>
+
+            <li class="nav-item"><a href="/" class="nav-link">ผลงาน</a></li>
 
             <li class="nav-item has-dropdown">
                 <a href="#" class="nav-link">บทความ</a>
@@ -157,17 +155,16 @@
                 </ul>
             </li>
 
-            <li class="nav-item"><a href="/projects_media.html" class="nav-link">ผลงาน</a></li>
             <li class="nav-item"><a href="/joinwithus" class="nav-link">ร่วมงานกับเรา</a>
             </li>
             <li class="nav-item"><a href="/Contactus" class="nav-link">ติดต่อเรา</a></li>
             <li class="nav-item">
                 <div class="language-switcher">
                     <a href="?lang=th" class="lang-link">
-                        <img src="icon/ICON/thai.png" alt="Thai" title="ภาษาไทย">
+                        <img src="/icon/ICON/thai.png" alt="Thai" title="ภาษาไทย">
                     </a>
                     <a href="?lang=en" class="lang-link">
-                        <img src="icon/ICON/eng.png" alt="English" title="English">
+                        <img src="/icon/ICON/eng.png" alt="English" title="English">
                     </a>
                 </div>
             </li>
@@ -263,3 +260,21 @@
         lastScrollTop = scrollTop;
     });
 </script>
+
+
+<!-- line -->
+<div class="contact-container-float">
+    <a id="phone-link" href="#" class="contact-item" data-aos="fade-up-left">
+        <div class="icon">
+            <i class="fa-solid fa-phone"></i>
+        </div>
+        <span id="phone-text">โทร test</span>
+    </a>
+
+    <a id="line-link" href="#" target="_blank" class="contact-item" data-aos="fade-up-right">
+        <div class="icon">
+            <i class="fa-brands fa-line" style="color: #00a347;"></i>
+        </div>
+        <span id="line-text">@line.id</span>
+    </a>
+</div>

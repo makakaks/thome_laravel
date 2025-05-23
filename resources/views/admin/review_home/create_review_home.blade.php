@@ -122,9 +122,8 @@
                 $('#summernote2').summernote(settings);
             });
         </script>
-        <script src="/HOMESPECTOR/JS/admin/create_articles.JS" type="module"></script>
+        <script src="/JS/admin/create_articles.JS" type="module"></script>
     </div>
-    
+
     <script src="/js/admin/create_review_home.js"></script>
 @endsection
-

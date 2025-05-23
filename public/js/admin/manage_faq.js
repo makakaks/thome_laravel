@@ -1,4 +1,4 @@
-// import ConfirmDialog from "/HOMESPECTOR/JS/component/confirm_dialog.js"
+// import ConfirmDialog from "/JS/component/confirm_dialog.js"
 import { createTagSelector } from "/js/component/tag_selector.js";
 
 const artList = document.getElementById("articles-list");
@@ -200,7 +200,6 @@ function tag_selector() {
     document.querySelectorAll(".btn-edit").forEach((btn) => {
         btn.addEventListener("click", () => {
             changeMode("edit");
-            
         });
     });
 

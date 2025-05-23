@@ -1,4 +1,4 @@
-// import ConfirmDialog from "/HOMESPECTOR/JS/component/confirm_dialog.js"
+// import ConfirmDialog from "/JS/component/confirm_dialog.js"
 
 const artList = document.getElementById("articles-list");
 const artFilterSelect = document.getElementById("articles-filter");
