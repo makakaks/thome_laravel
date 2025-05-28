@@ -34,7 +34,7 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>รูปภาพ</th>
                                 <th>ชื่อหัวข้อ</th>
                                 <th>แท็ก</th>
                                 <th>การจัดการ</th>
@@ -43,17 +43,13 @@
                         <tbody id="articles-list">
                             @foreach ($articles as $article)
                                 <tr class="d-none">
-                                    <td>
-                                        {{ $article['id'] }}
+                                    <td class="col-2">
+                                        <img src="{{ $article->translation->coverPageImg }}" alt="" width="100%">
                                     </td>
                                     <td>
-                                        {{ $article}}
-                                    </td>
-                                    {{-- <td>
-                                        {{ $article}}
                                         {{ $article->translation->title }}
                                     </td>
-                                    <td>
+                                    <td class="col-3">
                                         @foreach ($article['tags'] as $tag)
                                             <span class="tag">{{ $tag['name'] }}</span>
                                         @endforeach
@@ -63,7 +59,7 @@
                                             class="btn btn-edit">แก้ไข</a>
                                         <button class="btn btn-danger delete-article"
                                             data-id="{{ $article['id'] }}">ลบ</button>
-                                    </td> --}}
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -80,5 +76,5 @@
         </section>
     </div>
 
-    <script src="{{ asset('js/admin/manage_articles.js') }}" type="module"></script>
+    <script src="{{ asset('js/admin/article/manage_articles.js') }}" type="module"></script>
 @endsection

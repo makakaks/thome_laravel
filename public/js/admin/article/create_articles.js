@@ -6,6 +6,13 @@ const confirmDialog = new ConfirmDialog();
 const btnNext = document.getElementById("btn-next");
 const btnPrev = document.getElementById("btn-prev");
 const btnSubmit = document.getElementById("submit");
+
+const titleThEle = document.getElementById("thai-title");
+const titleEnEle = document.getElementById("eng-title");
+
+const coverThai = document.getElementById('thai-cover');
+const coverEng = document.getElementById('eng-cover');
+
 let tagSelector;
 
 btnNext.addEventListener("click", function () {
@@ -37,21 +44,28 @@ btnPrev.addEventListener("click", function () {
 });
 
 btnSubmit.addEventListener("click", function () {
+    const titleTh = titleThEle.value;
+    const titleEn = titleEnEle.value;
+    const slug = titleEn.replace(" ", "-");
+
+    if (titleTh === "" || titleEn === "" || coverThai.files.length === 0 || coverEng.files.length === 0) {
+        window.showToast(
+            'กรุณาใส่ชื่อบทความและอัปโหลดภาพหน้าปก',
+            "error"
+        )
+        return
+    }
     confirmDialog.confirmAction(
-        "ยืนยันการส่งข้อมูล",
-        "คุณต้องการส่งข้อมูลหรือไม่",
+        "ยืนยันการสร้างบทความ",
+        "คุณต้องการสร้างหรือไม่",
         "ไม่",
-        "ส่งข้อมูล",
+        "ยืนยัน",
         "",
         async () => {
             btnNext.style.display = "inline-block";
             btnSubmit.style.display = "none";
             this.style.display = "none";
             window.showLoading();
-
-            const titleTh = document.getElementById("thai-title").value;
-            const titleEn = document.getElementById("eng-title").value;
-            const slug = titleEn.replace(" ", "-");
 
             async function uploadImg(formData) {
                 formData.append("folder", `article/${slug}`);
@@ -140,8 +154,8 @@ btnSubmit.addEventListener("click", function () {
                     if (response.ok) {
                         return response.json();
                     } else {
-                        console.log("error")
-                        return response.text()
+                        console.log("error");
+                        return response.text();
                     }
                 })
                 .then((data) => {

@@ -279,5 +279,6 @@
             <i class="fa-brands fa-line" style="color: #00a347;"></i>
         </div>
         <span id="line-text">@t.home</span>
+        {{-- <span>{{ app()->getLocale() }}</span> --}}
     </a>
 </div>

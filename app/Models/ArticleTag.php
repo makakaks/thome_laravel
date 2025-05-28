@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\App;
 
 class ArticleTag extends Model
 {
@@ -24,7 +24,7 @@ class ArticleTag extends Model
 
     public function translation($locale = null)
     {
-        $locale = $locale ?? Session::get('locale');
+        $locale = $locale ?? App::getLocale();
         return $this->translations()->where('locale', $locale)->first();
     }
 }

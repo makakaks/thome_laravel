@@ -15,8 +15,10 @@ class TestController extends Controller
     //
     function setLocale($locale)
     {
+        if (! in_array($locale, ['en', 'th'])) {
+            abort(400);
+        }
         Session::put('locale', $locale);
-        App::setLocale($locale);
         return redirect()->back();
     }
 
