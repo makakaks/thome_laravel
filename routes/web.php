@@ -2,6 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\TestController;
+use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
+use PHPUnit\Framework\Test;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,6 +19,8 @@ use App\Http\Controllers\AdminController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/lang/{locale}', [TestController::class, 'setLocale'])->name('lang.change');
 
 Route::get('/', function () {
     return view('home.index');
@@ -33,7 +42,6 @@ Route::get('/hbutler', function () {
     return view('home.service.Hbutler');
 });
 
-
 Route::get('/Review-home', function () {
     return view('home.review-home');
 });
@@ -50,46 +58,16 @@ Route::get('/ourteam', function () {
 Route::get('/ourstory', function () {
     return view('home.aboutus.ourstory');
 });
-// Route::get('/', function () {
-//     return view('home.');
-// });
-// Route::get('/', function () {
-//     return view('home.');
-// });
-// Route::get('/', function () {
-//     return view('home.');
-// });
-// Route::get('/', function () {
-//     return view('home.');
-// });
-// Route::get('/', function () {
-//     return view('home.');
-// });
 
-
-
-
-
-
-
-
-
-
-
-
-
-Route::get('/articles', function () {
-    return view('home.article.article');
-});
-
-Route::get('articles/{id}', function ($id) {
-    return view('home.article.test_article', ['id' => $id]);
-});
 
 Route::get('review_home/{id}', function ($id) {
     return view('home.article.review_home', ['id' => $id]);
 });
 
+Route::prefix('articles')->controller(ArticleController::class)->group(function () {
+    // Route::get('/', 'index')->name('admin.index');
+    Route::get('/{slug}', 'show_article')->name('article.show');
+});
 
 
 Route::prefix('admin')->controller(AdminController::class)->group(function () {
@@ -97,6 +75,7 @@ Route::prefix('admin')->controller(AdminController::class)->group(function () {
     Route::post('/upload_image', 'upload_image')->name('admin.upload');
     Route::get('/manage_article', 'article_manage')->name('admin.article');
     Route::get('/manage_article/create', 'article_create')->name('admin.article.create');
+    Route::post('/manage_article/create', 'article_create_store')->name('admin.article.create.post');
     Route::get('/manage_article/edit/{id}', 'article_edit')->name('admin.article.edit');
 
     Route::get('/manage_review_home', 'home_manage')->name('admin.home');
@@ -113,3 +92,9 @@ Route::prefix('admin')->controller(AdminController::class)->group(function () {
 
 
 
+Route::prefix('test')->controller(TestController::class)->group(function () {
+    Route::get('/create', 'create_article')->name('test.create_article');
+    Route::get('/create_tag', 'create_tag')->name('test.create_tag');
+    Route::get('/delete_tag', 'delete_tag')->name('test.delete_tag');
+    Route::get('/create_tag_article', 'create_tag_article')->name('test.create_tag_article');
+});

@@ -18,7 +18,7 @@
             </div>
             <!-- Logo -->
             <div class="logo col justify-content-center">
-                <a href="/index">
+                <a href="/">
                     <img src="/img/s1.png" alt="T. Home Inspector Logo">
                 </a>
             </div>
@@ -26,10 +26,10 @@
             <div class="actions col justify-content-end">
                 <!-- Language Switcher -->
                 <div class="language-switcher">
-                    <a href="?lang=th" class="lang-link">
+                    <a href="{{url('lang/th')}}" class="lang-link">
                         <img src="/icon/ICON/thai.png" alt="Thai" title="ภาษาไทย">
                     </a>
-                    <a href="?lang=en" class="lang-link">
+                    <a href="{{url('lang/en')}}" class="lang-link">
                         <img src="/icon/ICON/eng.png" alt="English" title="English">
                     </a>
                 </div>
@@ -93,6 +93,7 @@
                 </ul>
             </li> --}}
             <li><a href="/articles" data-translate="nav.articles">บทความ</a></li>
+            <li><a href="/Review-home" data-translate="nav.reviewHome">รีวิวบ้าน</a></li>
             <li><a href="/projects_media.html" data-translate="nav.projects">ผลงาน</a></li>
             <!-- Dropdown Menu -->
             <li class="dropdown">
@@ -147,7 +148,8 @@
                     <li><a href="/review_home">รีวิวบ้าน</a></li>
                 </ul>
             </li> --}}
-            <li><a href="/articles">ความรู้ทั่วไป</a></li>
+            <li class="nav-item"><a href="/articles" class="nav-link">บทความ</a></li>
+            <li class="nav-item"><a href="/review_home" class="nav-link">รีวิวบ้าน</a></li>
             <li class="nav-item has-dropdown">
                 <a href="#" class="nav-link">เกี่ยวกับเรา</a>
                 <ul class="dropdown">
@@ -161,10 +163,10 @@
             <li class="nav-item"><a href="/Contactus" class="nav-link">ติดต่อเรา</a></li>
             <li class="nav-item">
                 <div class="language-switcher">
-                    <a href="?lang=th" class="lang-link">
+                    <a href="{{url('lang/th')}}" class="lang-link">
                         <img src="/icon/ICON/thai.png" alt="Thai" title="ภาษาไทย">
                     </a>
-                    <a href="?lang=en" class="lang-link">
+                    <a href="{{url('lang/en')}}" class="lang-link">
                         <img src="/icon/ICON/eng.png" alt="English" title="English">
                     </a>
                 </div>
@@ -269,13 +271,13 @@
         <div class="icon">
             <i class="fa-solid fa-phone"></i>
         </div>
-        <span id="phone-text">โทร test</span>
+        <span id="phone-text">โทร 02-454-2043</span>
     </a>
 
     <a id="line-link" href="#" target="_blank" class="contact-item" data-aos="fade-up-right">
         <div class="icon">
             <i class="fa-brands fa-line" style="color: #00a347;"></i>
         </div>
-        <span id="line-text">@line.id</span>
+        <span id="line-text">@t.home</span>
     </a>
 </div>

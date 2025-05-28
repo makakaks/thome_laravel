@@ -34,7 +34,9 @@ export function createTagSelector(containerId, artTags = [], tagInputName = 'ห
             if (selectedTags.includes(option)) {
                 optionElement.classList.add('selected');
             }
-            optionElement.textContent = option;
+            optionElement.textContent = option.name;
+            optionElement.setAttribute('data-value', option.name);
+            optionElement.setAttribute('data-id', option.id);
             optionElement.addEventListener('click', () => selectOption(option));
             optionsContainer.appendChild(optionElement);
         });
@@ -44,7 +46,7 @@ export function createTagSelector(containerId, artTags = [], tagInputName = 'ห
         optionsContainer.innerHTML = '';
 
         if (query?.trim() !== '') {
-            const exactMatch = options.find(opt => opt.toLowerCase() === query.toLowerCase());
+            const exactMatch = options.find(opt => opt.name.toLowerCase() === query.toLowerCase());
             if (!exactMatch) {
                 const createOption = document.createElement('div');
                 createOption.className = 'create-new-option';
@@ -54,7 +56,7 @@ export function createTagSelector(containerId, artTags = [], tagInputName = 'ห
             }
         }
 
-        const filteredOptions = options.filter(opt => opt.toLowerCase().includes(query.toLowerCase()));
+        const filteredOptions = options.filter(opt => opt.name.toLowerCase().includes(query.toLowerCase()));
         if (filteredOptions.length === 0 && !query) {
             const noResult = document.createElement('div');
             noResult.className = 'option';
@@ -73,15 +75,15 @@ export function createTagSelector(containerId, artTags = [], tagInputName = 'ห
             }
 
             if (query) {
-                const index = option.toLowerCase().indexOf(query.toLowerCase());
+                const index = option.name.toLowerCase().indexOf(query.toLowerCase());
                 if (index >= 0) {
-                    const before = option.substring(0, index);
-                    const match = option.substring(index, index + query.length);
-                    const after = option.substring(index + query.length);
+                    const before = option.name.substring(0, index);
+                    const match = option.name.substring(index, index + query.length);
+                    const after = option.name.substring(index + query.length);
                     optionElement.innerHTML = `${before}<strong style="color: var(--primary-color)">${match}</strong>${after}`;
                 }
             } else {
-                optionElement.textContent = option;
+                optionElement.textContent = option.name;
             }
             optionElement.addEventListener('click', () => selectOption(option));
             optionsContainer.appendChild(optionElement);
@@ -91,7 +93,7 @@ export function createTagSelector(containerId, artTags = [], tagInputName = 'ห
     function createNewTag(tagName) {
         if (!tagName?.trim()) return;
         tagName = tagName.trim();
-        const tagExists = options.some(opt => opt.toLowerCase() === tagName.toLowerCase());
+        const tagExists = options.some(opt => opt.name.toLowerCase() === tagName.toLowerCase());
 
         if (!tagExists) {
             options.push(tagName);
@@ -124,13 +126,15 @@ export function createTagSelector(containerId, artTags = [], tagInputName = 'ห
         selectedTags.forEach(tag => {
             const tagElement = document.createElement('div');
             tagElement.className = 'tag';
+            tagElement.setAttribute('data-value', tag.name);
+            tagElement.setAttribute('data-id', tag.id); // Use name as id if not provided
 
             if (customTags.has(tag)) {
                 tagElement.classList.add('new-tag');
             }
 
             tagElement.innerHTML = `
-                ${tag}
+                ${tag.name}
                 <span class="tag-remove">×</span>
             `;
 
@@ -188,7 +192,7 @@ export function createTagSelector(containerId, artTags = [], tagInputName = 'ห
     initOptions();
 
     return {
-        getSelectedTags: () => [...selectedTags],
+        getSelectedTags: () => selectedTags.map(tag => Number(tag.id)),
         selectOption: (option) => selectOption(option),
         clearContainer: () => clearContainer(),
     };

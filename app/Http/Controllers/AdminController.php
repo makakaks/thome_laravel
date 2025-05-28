@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Article;
+use App\Models\ArticleTag;
 use App\Models\ArticleTranslation;
+use Exception;
 use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
@@ -14,43 +16,62 @@ class AdminController extends Controller
     function index()
     {
         $article = Article::where('id', 1)->first();
-        $translation = $article->translation('en'); // ได้ title/content ตามภาษา
+        $translation = $article->translation(); // ได้ title/content ตามภาษา
         return view('admin.index', ['translation' => $translation]);
     }
 
-    function about(){
-        $name = "Jojo";
-        $age = 25;
-        return view('admin.about', compact('name', 'age'));
+    function upload_image(Request $request)
+    {
+        return Storage::putFile('public/' . $request['folder'], $request->file('image'));
     }
 
-    function upload_image(Request $request){
-        return Storage::putFile('public', $request->file('image'));
-    }
+    function article_manage()
+    {
+        // $article = Article::chunk(10, function ($articles) {
+        //     foreach ($articles as $article) {
+        //         $article->translation = $article->translation();
+        //         $article->tags = $article->articleTags->map(function($tag){
+        //             return $tag->translation();
+        //         });
+        //     }
+        // });
 
-    function article_manage() {
-        $articles = [
-            ['id' => 1, 'title' => 'สรุป!! จักรวาลการออกแบบสาย LAN ตามบ้าน', 'tags' => ['Roof']],
-            ['id' => 2, 'title' => 'สิ่งที่ต้องรู้เกี่ยวกับ EV Charger', 'tags' => ['Electrical System']],
-            ['id' => 3, 'title' => 'สิ่งที่ต้องรู้เกี่ยวกับ EV Charger 3', 'tags' => ['Electrical System']],
-        ];
+        // $articles = Article::with(['translations', 'articleTags.translations'])->get();
+        // foreach ($articles as $article) {
+        //     $article->setAttribute('translation', $article->translation());
+        //     $article->setAttribute('tags' , $article->articleTags->map(function($tag){
+        //         return $tag->translation();
+        //     }));
+        // }
+
+        $articles = Article::all();
+        foreach ($articles as $article) {
+            $article = tap($article, function ($article) {
+                $article->translation = $article->translation();
+                $article->tags = $article->articleTags->map(function ($tag) {
+                    return $tag->translation();
+                });
+            });
+        }
+        // foreach ($articles as $article) {
+        //     $tran = $article->translation();
+        //     dump($tran);
+        // }
 
         return view('admin.article.manage_articles', ['articles' => $articles]);
     }
 
-    function article_create() {
-        return view('admin.article.create_article');
+    function article_create()
+    {
+        $tag = ArticleTag::with('translations')->get();
+        return view('admin.article.create_article', compact('tag'));
     }
 
-    function article_create_store(Request $request) {
-
-        return ;
-    }
-
-    function article_edit($id) {
+    function article_edit($id)
+    {
         $article = [
-            'id' => 1, 
-            'title' => 'สรุป!! จักรวาลการออกแบบสาย LAN ตามบ้าน', 
+            'id' => 1,
+            'title' => 'สรุป!! จักรวาลการออกแบบสาย LAN ตามบ้าน',
             'title-en' => 'Summary!! The Universe of LAN Cable Design in the House',
             'tags' => ['Roof'],
             'content' => 'บลาบลา',
@@ -58,15 +79,13 @@ class AdminController extends Controller
             'image' => 'https://via.placeholder.com/150',
             'image-en' => 'https://via.placeholder.com/150',
         ];
-        
+
         return view('admin.article.create_article', ['id' => $id]);
     }
 
 
-
-
-    
-    function home_manage() {
+    function home_manage()
+    {
         $houses = [
             ['id' => 1, 'name' => 'House 1', 'tag' => 'tag1'],
             ['id' => 2, 'name' => 'House 2', 'tag' => 'tag2'],
@@ -83,18 +102,21 @@ class AdminController extends Controller
         return view('admin.review_home.manage_review_home', ['houses' => $houses]);
     }
 
-    function home_create() {
+    function home_create()
+    {
         return view('admin.review_home.create_review_home');
     }
 
-    function home_edit() {
+    function home_edit()
+    {
         return view('admin.review_home.create_review_home');
     }
 
-    
-    function faq_manage() {
+
+    function faq_manage()
+    {
         $faqs = [
-            ['id' => 1, 'question' => 'เราแตกต่างจากที่อื่นอย่างไร', 'tags' => ['tag1', 'tag3'],'answer' => 'เราเป็นผู้นำด้านการตรวจบ้านอันดับต้นๆ ของประเทศ และเป็นบริษัทตรวจบ้านเจ้าแรกและเจ้าเดียวที่ออกแบบและพัฒนาระบบ Web-Application ในการตรวจบ้านเป็นของตัวเอง จดทะเบียนเป็นบริษัทและได้รับอนุญาตประกอบวิชาชีพวิศวกรรมควบคุมในรูปแบบนิติบุคคล มีมาตรฐานสากล ISO29110-4-3 Service Delivery รองรับ'],
+            ['id' => 1, 'question' => 'เราแตกต่างจากที่อื่นอย่างไร', 'tags' => ['tag1', 'tag3'], 'answer' => 'เราเป็นผู้นำด้านการตรวจบ้านอันดับต้นๆ ของประเทศ และเป็นบริษัทตรวจบ้านเจ้าแรกและเจ้าเดียวที่ออกแบบและพัฒนาระบบ Web-Application ในการตรวจบ้านเป็นของตัวเอง จดทะเบียนเป็นบริษัทและได้รับอนุญาตประกอบวิชาชีพวิศวกรรมควบคุมในรูปแบบนิติบุคคล มีมาตรฐานสากล ISO29110-4-3 Service Delivery รองรับ'],
             ['id' => 2, 'question' => 'มีรับประกันตรวจสอบไหม', 'tags' => ['tag1', 'tag2'], 'answer' => 'การตรวจบ้านไม่สามารถรับประกันการตรวจสอบ การันตี หรือการประกันภัยใดๆ ที่เกี่ยวกับงานโครงสร้างและระบบของตัวบ้านได้ การตรวจสอบนี้ไม่ใช่การประกอบวิชาชีพทางวิศวกรรมหรือสถาปัตยกรรม ไม่สามารถพยากรณ์หรือคาดคะเนได้ถึงสภาพของบ้านในอนาคตภายหน้าในทุกสภาวะ เนื่องด้วยอาจมีปัจจัยแวดล้อมอื่นๆ ที่ไม่สามารถควบคุมได้'],
             ['id' => 3, 'question' => 'What payment methods are accepted?', 'tags' => ['tag1', 'tag4'], 'answer' => 'We accept credit cards, PayPal, and bank transfers.'],
             ['id' => 4, 'question' => 'How do I contact customer service?', 'tags' => ['tag1', 'tag2'], 'answer' => 'You can contact us via email or phone.'],
@@ -110,8 +132,71 @@ class AdminController extends Controller
         return view('admin.faq.manage_faq', ['faqs' => $faqs]);
     }
 
-    function change_password() {
+    function change_password()
+    {
         return view('admin.change_password');
     }
-    
+
+
+
+    function article_create_store(Request $request)
+    {
+        try {
+            $article = Article::create([
+                'slug' => $request->slug,
+                'status' => '1',
+            ]);
+
+            foreach ($request['locale'] as $lang) {
+                $article->translations()->create([
+                    'locale' => $lang['locale'],
+                    'title' => $lang["title"],
+                    'content' => $lang["content"],
+                    'coverPageImg' => $lang['coverPageImg'],
+                ]);
+            }
+
+            // $request['tags'];
+            $article->articleTags()->attach($request['tags']);
+            // foreach ($request['tags'] as $tag) {
+            //     $articleTag = ArticleTag::where('id', $tag)->first();
+            //     if ($articleTag) {
+            //         $article->articleTags()->attach($tag);
+            //     }
+            // }
+            return response()->json(['message' => 'Article created successfully.'], 200);
+        } catch (Exception $e) {
+            return response()->json($request['tags'], 500);
+        }
+    }
+
+    function artilce_edit_store(Request $request, $id)
+    {
+        $article = Article::where('id', $id)->first();
+        $article->update([
+            'slug' => $request->slug,
+            'thumbnail' => $request->thumbnail,
+        ]);
+
+        $translate = $article->translations();
+
+        $translate->where('local')->updateOrCreate(
+            ['locale' => 'en'],
+            [
+                'title' => $request->title['en'],
+                'description' => $request->description['en'],
+                'image' => $request->image['en'],
+            ]
+        );
+    }
+
+    function article_delete($id)
+    {
+        // ลบบทความตาม ID
+        Article::destroy($id);
+        return redirect()->route('admin.article.manage');
+    }
+
+
+    function test_create_tag() {}
 }

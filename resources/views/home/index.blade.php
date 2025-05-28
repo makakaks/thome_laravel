@@ -66,7 +66,7 @@
     </script>
 
     <!-- Services Section -->
-    <section class="services">
+    {{-- <section class="services">
         <div class="services-header" data-aos="fade-up">
             <h2>บริการของเรา</h2>
         </div>
@@ -130,9 +130,9 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
-    <script>
+    {{-- <script>
         document.addEventListener("DOMContentLoaded", function() {
             const servicesSection = document.querySelector(".services");
             const images = [
@@ -153,7 +153,7 @@
                 setInterval(changeBackground, 5000);
             }
         });
-    </script>
+    </script> --}}
 
     <!-- why choose us -->
     <section class="why-choose-us">
@@ -209,7 +209,7 @@
             </div>
         </div>
     </section>
-    <script>
+    {{-- <script>
         document.addEventListener("DOMContentLoaded", function() {
             fetch('/backend/panel/get_why_choose_us')
                 .then(res => res.json())
@@ -218,7 +218,7 @@
                 })
                 .catch(err => console.error("โหลดเนื้อหาผิดพลาด:", err));
         });
-    </script>
+    </script> --}}
 
     <div class="cal-container" data-aos="zoom-in-down">
         <div class="cal">

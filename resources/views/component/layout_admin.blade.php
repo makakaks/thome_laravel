@@ -137,6 +137,28 @@
 
     @yield('content')
 
+    <div id="loading-indicator" style="display: none;">
+        <img src="https://i.gifer.com/ZKZg.gif" alt="กำลังโหลด...">
+    </div>
+    
+    <script>
+        // Global function to show loading indicator
+        window.showLoading = function () {
+            document.getElementById('loading-indicator').style.display = 'flex';
+            document.querySelector("body").classList.add('hide-over') // Prevent scrolling while loading
+        }
+
+        // Global function to hide loading indicator
+        window.hideLoading = function() {
+            document.getElementById('loading-indicator').style.display = 'none';
+            document.querySelector("body").classList.remove('hide-over') // Restore scrolling after loading
+        }
+
+        // Sidebar toggle functionality
+        document.getElementById('closeSidebar').addEventListener('click', function() {
+            document.getElementById('sidebar').style.display = 'none';
+        });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 </body>
 <script>

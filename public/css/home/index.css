@@ -1099,9 +1099,10 @@ header {
 
 /* General Section Styling */
 .why-choose-us {
-    max-width: 1200px;
+    max-width: min(1200px, 100vw);
     margin: 0 auto;
     padding: 40px 20px;
+    background-color: black;
 }
 
 .section-title {

@@ -54,6 +54,16 @@
             </div>
         </form>
 
+        <div class="tag-fetch hidden">
+            @foreach ($tag as $t)
+                <div data-id="{{$t['id']}}">
+                    @foreach ($t['translations'] as $singleTag)
+                        <span data-locale="{{$singleTag['locale']}}">{{$singleTag['name']}}</span>
+                    @endforeach
+                </div>
+            @endforeach
+        </div>
+
 
         <script>
             $(document).ready(function() {

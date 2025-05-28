@@ -1,4 +1,4 @@
-// import ConfirmDialog from "/JS/component/confirm_dialog.js"
+import ConfirmDialog from "/JS/component/confirm_dialog.js";
 
 const artList = document.getElementById("articles-list");
 const artFilterSelect = document.getElementById("articles-filter");
@@ -144,6 +144,36 @@ function navigatorEventListener() {
     });
 }
 
+function addTag() {
+    const btn = document.getElementById("add-tag");
+    btn.addEventListener("click", () => {
+        const confirmDialog = new ConfirmDialog();
+        confirmDialog.confirmAction(
+            "กลับไปใช่ไหม",
+            `<div class="mt-3">
+                <div class="form-group mb-3">
+                    <label for="tag-name">ชื่อแท็ก:</label>
+                    <input type="text" id="add-tag-name" class="form-control" placeholder="ป้อนชื่อแท็ก">
+                </div>
+                <div class="form-group">
+                    <label for="tag-name">ชื่อแท็ก(en):</label>
+                    <input type="text" id="add-tag-name-en" class="form-control" placeholder="ป้อนชื่อแท็ก">
+                </div>
+            </div>`,
+            "ไม่",
+            "กลับไป",
+            '<button class="confirm-btn active confirm-yes" id="confirmYes"> Yes </button>',
+            async () => {
+                const tagName = document.getElementById("add-tag-name").value.trim();
+                const tagNameEn = document.getElementById("add-tag-name-en").value.trim();
+                await fetch("/admin/add_tag", {
+
+                }).then((res) => res.json())
+            }
+        );
+    });
+}
+
 // Event Listeners
 document.addEventListener("DOMContentLoaded", () => {
     populateFilterOptions();
@@ -159,4 +189,6 @@ document.addEventListener("DOMContentLoaded", () => {
             textarea.style.height = element.scrollHeight + "px";
         });
     });
+
+    addTag();
 });

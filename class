@@ -1,0 +1,43 @@
+ArticleTag
+- id
+ArticleTagTranslate
+- id
+- name
+- locale
+
+Article
+- slug
+- status
+ArticleTranslate
+- coverPageImg
+- title
+- content
+- locale
+
+ArticleWithTag
+- articleId
+- tagId
+
+
+Project
+- 
+
+ReviewHome
+ReviewHomeTranslate
+- coverImg
+- title
+- content
+- - homespec
+- locale
+
+
+Faq
+FaqTranslate
+- title
+- ans
+- locale
+
+
+UserAdmin
+- username
+- password
