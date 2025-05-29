@@ -11,18 +11,26 @@ use Illuminate\Support\Facades\Session;
 class ArticleController extends Controller
 {
     //
-    public function index(){
-        return 'test jajaaa';
-    }
-
-    public function show_article($slug){
+    public function show_article($slug)
+    {
         $article = tap(Article::with('articleTags')->where('slug', $slug)->firstOrFail(), function ($article) {
             $article->translation = $article->translation();
-            $article->tags = $article->articleTags->map(function($tag){
+            $article->tags = $article->articleTags->map(function ($tag) {
                 return $tag->translation();
             });
         });
-        
+
         return view('home.article.show_article', ['article' => $article, 'locale' => Session::get('locale')]);
+    }
+
+    public function article_delete($id)
+    {
+        try {
+            $article = Article::findOrFail($id);
+            $article->delete();
+            return response()->json(['message' => 'Article deleted successfully.']);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Article not found.'], 404);
+        }
     }
 }

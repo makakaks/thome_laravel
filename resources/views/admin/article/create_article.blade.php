@@ -9,13 +9,16 @@
         <h2 class="text-center">สร้างบทความ</h2>
         <form id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="false">
             <div class="input-group article-input">
+                {{-- @if (request()->url() == 'xxx')
+                    {}
+                @endif --}}
                 <div>
                     <label for="thai-title">ชื่อบทความ</label>
                     <input type="text" id="thai-title" class="articleName thai form-control"
                         placeholder="กรอกชื่อบทความภาษาไทย" required>
                 </div>
                 <div>
-                    <label for="eng-title">Article name</label>
+                    <label for="eng-title">ชื่อบทความ(อังกฤษ)</label>
                     <input type="text" id="eng-title" class="articleName eng form-control"
                         placeholder="Enter article name in English" required>
                 </div>
@@ -25,7 +28,7 @@
                         required>
                 </div>
                 <div class="cover-image-input">
-                    <label for="eng-cover">Cover page</label>
+                    <label for="eng-cover">รูปภาพหน้าปก(อังกฤษ)</label>
                     <input type="file" id="eng-cover" accept="image/*" class="articleCoverImage eng form-control"
                         requried>
                 </div>
@@ -34,11 +37,11 @@
 
             <div class="carousel-inner" role="listbox">
                 <div class="item active thai">
-                    <h2>ภาษาไทย</h2>
+                    <h2>เนื้อหาภาษาไทย</h2>
                     <div id="summernote1"></div>
                 </div>
                 <div class="item eng">
-                    <h2>ภาษาอังกฤษ</h2>
+                    <h2>เนื้อหาภาษาอังกฤษ</h2>
                     <div id="summernote2"></div>
                 </div>
             </div>

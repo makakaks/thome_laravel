@@ -27,23 +27,6 @@ class AdminController extends Controller
 
     function article_manage()
     {
-        // $article = Article::chunk(10, function ($articles) {
-        //     foreach ($articles as $article) {
-        //         $article->translation = $article->translation();
-        //         $article->tags = $article->articleTags->map(function($tag){
-        //             return $tag->translation();
-        //         });
-        //     }
-        // });
-
-        // $articles = Article::with(['translations', 'articleTags.translations'])->get();
-        // foreach ($articles as $article) {
-        //     $article->setAttribute('translation', $article->translation());
-        //     $article->setAttribute('tags' , $article->articleTags->map(function($tag){
-        //         return $tag->translation();
-        //     }));
-        // }
-
         $articles = Article::all();
         foreach ($articles as $article) {
             $article = tap($article, function ($article) {
@@ -53,11 +36,6 @@ class AdminController extends Controller
                 });
             });
         }
-        // foreach ($articles as $article) {
-        //     $tran = $article->translation();
-        //     dump($tran);
-        // }
-
         return view('admin.article.manage_articles', ['articles' => $articles]);
     }
 
@@ -69,18 +47,16 @@ class AdminController extends Controller
 
     function article_edit($id)
     {
-        $article = [
-            'id' => 1,
-            'title' => 'สรุป!! จักรวาลการออกแบบสาย LAN ตามบ้าน',
-            'title-en' => 'Summary!! The Universe of LAN Cable Design in the House',
-            'tags' => ['Roof'],
-            'content' => 'บลาบลา',
-            'content-en' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-            'image' => 'https://via.placeholder.com/150',
-            'image-en' => 'https://via.placeholder.com/150',
-        ];
+        $article = tap(Article::with('articleTags')->where('id', $id)->firstOrFail(), function ($article) {
+            $article->translation = $article->translation();
+            $article->tags = $article->articleTags->map(function($tag){
+                return $tag->translation();
+            });
+        });
+        
+        $tag = ArticleTag::with('translations')->get();
 
-        return view('admin.article.create_article', ['id' => $id]);
+        return view('admin.article.create_article', compact('article', 'tag'));
     }
 
 
@@ -192,11 +168,14 @@ class AdminController extends Controller
 
     function article_delete($id)
     {
-        // ลบบทความตาม ID
-        Article::destroy($id);
-        return redirect()->route('admin.article.manage');
+        try {
+            $article = Article::findOrFail($id);
+            $article->delete();
+            return response()->json(['message' => 'Article deleted successfully.']);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Article not found.'], 404);
+        }
     }
 
 
-    function test_create_tag() {}
 }

@@ -104,12 +104,50 @@ function searchAndFilterArticles() {
 }
 
 // ลบบทความ
-function deleteArticle(id) {
-    if (confirm("คุณแน่ใจหรือไม่ที่จะลบบทความนี้?")) {
-        articles = articles.filter((article) => article.id !== id);
-        maxPage = Math.ceil(articles.length / 10);
-        searchAndFilterArticles();
-    }
+function deleteArticle() {
+    document.querySelectorAll('.actions-buttons .delete-article').forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+            const id = e.target.getAttribute("data-id");
+            const confirmDialog = new ConfirmDialog();
+            confirmDialog.confirmAction(
+                "คุณแน่ใจหรือไม่ที่จะลบบทความนี้?",
+                "บทความนี้จะถูกลบอย่างถาวร",
+                "ไม่",
+                "ลบ",
+                '<button class="confirm-btn active confirm-yes" id="confirmYes"> ลบ </button>',
+                async () => {
+                    console.log("Deleting article with ID:", id);
+                    window.showLoading();
+                    
+                    await fetch(`/admin/manage_article/delete/${id}`, {
+                        method: "DELETE",
+                        headers: {
+                            "X-CSRF-TOKEN": document.querySelector(
+                                'meta[name="csrf-token"]'
+                            ).content,
+                        }
+                    }).then((res) => {
+                        if (!res.ok){
+                            window.showToast("ไม่สามารถลบบทความได้", "error");
+                        }
+                        else {
+                            window.showToast("ลบบทความเรียบร้อยแล้ว", "success");
+                            articles = articles.filter((article) => article.id !== id);
+                            maxPage = Math.ceil(articles.length / 10);
+                            searchAndFilterArticles();
+                        }
+                    })
+
+                    window.hideLoading();
+                }
+            );
+        });
+    })
+    // if (confirm("คุณแน่ใจหรือไม่ที่จะลบบทความนี้?")) {
+    //     articles = articles.filter((article) => article.id !== id);
+    //     maxPage = Math.ceil(articles.length / 10);
+    //     searchAndFilterArticles();
+    // }
 }
 
 function goToPage(page) {
@@ -191,4 +229,5 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     addTag();
+    deleteArticle();
 });

@@ -75,8 +75,9 @@ Route::prefix('admin')->controller(AdminController::class)->group(function () {
     Route::post('/upload_image', 'upload_image')->name('admin.upload');
     Route::get('/manage_article', 'article_manage')->name('admin.article');
     Route::get('/manage_article/create', 'article_create')->name('admin.article.create');
-    Route::post('/manage_article/create', 'article_create_store')->name('admin.article.create.post');
+    Route::post('/manage_article/create', 'article_create_store')->name('admin.article.create-post');
     Route::get('/manage_article/edit/{id}', 'article_edit')->name('admin.article.edit');
+    Route::delete('/manage_article/delete/{id}', 'article_delete')->name('admin.article.delete');
 
     Route::get('/manage_review_home', 'home_manage')->name('admin.home');
     Route::get('/manage_review_home/create', 'home_create')->name('admin.home.create');

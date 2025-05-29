@@ -6,12 +6,24 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Storage;
 
 class Article extends Model
 {
     use HasFactory;
 
     protected $fillable = ['slug', 'status'];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($article) {
+            Storage::deleteDirectory('public/' . $article->slug); // ลบไดเรกทอรีที่เก็บภาพของบทความ
+            $article->translations()->delete();
+            $article->articleTags()->detach();
+        });
+    }
 
     public function translations()
     {
