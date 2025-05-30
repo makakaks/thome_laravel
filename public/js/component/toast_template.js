@@ -9,6 +9,7 @@ export default class ToastTemplate{
         let style = document.createElement("style");
         style.textContent = `
             .toast {
+                display: block !important;
                 visibility: hidden;
                 min-width: 250px;
                 color: black;

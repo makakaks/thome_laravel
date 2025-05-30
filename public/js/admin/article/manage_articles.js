@@ -119,7 +119,7 @@ function deleteArticle() {
                     console.log("Deleting article with ID:", id);
                     window.showLoading();
                     
-                    await fetch(`/admin/manage_article/delete/${id}`, {
+                    await fetch(`/admin/manage_article/${id}`, {
                         method: "DELETE",
                         headers: {
                             "X-CSRF-TOKEN": document.querySelector(
@@ -132,7 +132,7 @@ function deleteArticle() {
                         }
                         else {
                             window.showToast("ลบบทความเรียบร้อยแล้ว", "success");
-                            articles = articles.filter((article) => article.id !== id);
+                            articles = articles.filter((article) => article.id != id);
                             maxPage = Math.ceil(articles.length / 10);
                             searchAndFilterArticles();
                         }
@@ -143,11 +143,6 @@ function deleteArticle() {
             );
         });
     })
-    // if (confirm("คุณแน่ใจหรือไม่ที่จะลบบทความนี้?")) {
-    //     articles = articles.filter((article) => article.id !== id);
-    //     maxPage = Math.ceil(articles.length / 10);
-    //     searchAndFilterArticles();
-    // }
 }
 
 function goToPage(page) {

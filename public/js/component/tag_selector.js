@@ -114,6 +114,18 @@ export function createTagSelector(containerId, artTags = [], tagInputName = 'ห
         }
     }
 
+    function selectOptionById(id){
+        const option = options.find(opt => opt.id == id);
+        console.log('selectOption', option);
+        if (!selectedTags.includes(option)) {
+            selectedTags.push(option);
+            renderTags();
+            tagInput.value = '';
+            filterOptions('');
+            tagInput.focus();
+        }
+    }
+
     function removeTag(tag) {
         selectedTags = selectedTags.filter(t => t !== tag);
         renderTags();
@@ -194,6 +206,7 @@ export function createTagSelector(containerId, artTags = [], tagInputName = 'ห
     return {
         getSelectedTags: () => selectedTags.map(tag => Number(tag.id)),
         selectOption: (option) => selectOption(option),
+        selectOptionById: (id) => selectOptionById(id),
         clearContainer: () => clearContainer(),
     };
 }

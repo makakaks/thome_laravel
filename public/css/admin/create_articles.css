@@ -60,12 +60,17 @@
   position: relative;
 }
 
+.cover-image-input div {
+  display: flex;
+  column-gap: 20px;
+}
+
 .cover-image-input input[type="file"] {
   padding: 8px;
   border: 1px dashed #d1d5db;
   border-radius: 6px;
   background-color: #f9fafb;
-  width: 100%;
+  flex: 4;
   cursor: pointer;
   transition: border-color 0.2s;
 }
@@ -73,6 +78,12 @@
 .cover-image-input input[type="file"]:hover {
   border-color: #6366f1;
 }
+
+.cover-image-input button {
+  flex: 1;
+  padding: 0px 4px;
+}
+
 
 /* Editor section */
 .item {

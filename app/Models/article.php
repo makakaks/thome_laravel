@@ -19,7 +19,7 @@ class Article extends Model
         parent::boot();
 
         static::deleting(function ($article) {
-            Storage::deleteDirectory('public/' . $article->slug); // ลบไดเรกทอรีที่เก็บภาพของบทความ
+            Storage::deleteDirectory('public/article/' . $article->slug); // ลบไดเรกทอรีที่เก็บภาพของบทความ
             $article->translations()->delete();
             $article->articleTags()->detach();
         });

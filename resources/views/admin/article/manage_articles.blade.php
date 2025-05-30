@@ -47,7 +47,7 @@
                                         <img src="{{ $article->translation->coverPageImg }}" alt="" width="100%">
                                     </td>
                                     <td>
-                                        {{ $article->translation->title }}
+                                        <a href="/articles/{{ $article->slug }}">{{ $article->translation->title }}</a>
                                     </td>
                                     <td class="col-3">
                                         @foreach ($article['tags'] as $tag)

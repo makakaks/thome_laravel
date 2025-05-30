@@ -18,9 +18,9 @@
                     <div class="logo-container">
                         <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/s3-3bLs5HKnwRUrK4px4T8zPO4uMNVUmo.png" alt="T. HOME CONSTRUCTION Logo" class="hero-logo">
                     </div>
-                    <h1 class="hero-title">บริการต่อเติมบ้านคุณภาพ</h1>
-                    <div class="hero-description">ต.ต่อเติม มุ่งมั่นที่จะมอบบริการต่อเติมบ้านที่มีคุณภาพสูงสุด ด้วยทีมงานมืออาชีพและประสบการณ์มากกว่า 10 ปี</div>
-                    <a href="Homepage/Contactus.php" class="hero-btn">ติดต่อเรา</a>
+                    <h1 class="hero-title">ต.ต่อเติม </h1>
+                    <div class="hero-description">บริการรับเหมาก่อสร้าง ต่อเติมบ้าน ห้องครัว โครงหลังคาโรงรถ ลงเสาเข็ม ต่อเติมครบ ฟังก์ชั่นเยอะ พร้อมเข้าอยู่ พร้อมบริการแบบ One Stop Service ที่ช่วยดูแลคุณตั้งแต่เริ่มงานจนจบงาน</div>
+                    <a href="Homepage/Contactus.php" class="hero-btn">ติดต่อเราตอนนี้ 066-168-8181 </a>
                 </div>
             </div>
             <div class="carousel-item h-100 p-0">
@@ -86,9 +86,9 @@
 <!-- ส่วนเกี่ยวกับเรา -->
 <section class="about-section" id="about" data-aos="fade-up">
     <div class="container">
-        <h2 class="section-title">ทำไมต้องเลือกเรา</h2>
-        <div class="about-container">
-            <figure class="about-image">
+        <h2 class="section-title">ที่ ต.ต่อเติม</h2>
+        <div class="about-container gap-sm-4 gap-md-5">
+            <figure class="about-image justify-content-sm-center justify-content-md-end">
                 <img src="img/Hconstruction-bg.jpg" alt="ทีมงานของเรา">
             </figure>
             <div class="about-content">
@@ -96,23 +96,19 @@
                 <ul class="about-features">
                     <li class="about-feature">
                         <span class="feature-icon"><i class="fas fa-check-circle"></i></span>
-                        <span>ทีมงานมืออาชีพ ประสบการณ์สูง</span>
+                        <span>ออกแบบ 3D ฟรี เมื่อชำระยอดมัดจำ ค่าแบบงานหลังคาหัก 3,000 บาท </span>
                     </li>
                     <li class="about-feature">
                         <span class="feature-icon"><i class="fas fa-check-circle"></i></span>
-                        <span>วัสดุคุณภาพสูง ได้มาตรฐาน</span>
+                        <span>ระยะเวลาในการต่อเติมส่วนหลังคา 7 วัน สำหรับงานรางน้ำและฝ้าระแนงไม้เทียม 7-14 วัน</span>
                     </li>
                     <li class="about-feature">
                         <span class="feature-icon"><i class="fas fa-check-circle"></i></span>
-                        <span>ราคายุติธรรม โปร่งใส</span>
+                        <span>ในกรณีต่อเติมหลังคาพื้นที่ขั้นต่ำกว่า 15 ตร.ม. จะคิดเป็นราคา 15 ตร.ม. </span>
                     </li>
                     <li class="about-feature">
                         <span class="feature-icon"><i class="fas fa-check-circle"></i></span>
-                        <span>รับประกันผลงาน</span>
-                    </li>
-                    <li class="about-feature">
-                        <span class="feature-icon"><i class="fas fa-check-circle"></i></span>
-                        <span>บริการหลังการขายที่ดีเยี่ยม</span>
+                        <span>ต่อเติมหลังคากันสาด 30 ตร.ม. ขึ้นไป แถมเสาระแนงตกแต่งหรือไฟดาวน์ไลท์ 2 จุด</span>
                     </li>
                 </ul>
             </div>
@@ -121,51 +117,6 @@
 </section>
 
 
-<!-- 🎞️ Carousel Section -->
-<section class="carousel2 py-4 aos-init aos-animate" data-aos="fade-up" data-aos-duration="3000">
-    <div id="customCarousel" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <!-- First Slide -->
-            <div class="carousel-item">
-                <div class="carousel-content mx-auto text-center">
-                    <div class="carousel-heading">ราคาค่าบริการตรวจบ้านทาวน์โฮม</div>
-                    <img src="img/servicecharge1.png" alt="Service Pricing 1" class="img-fluid">
-                </div>
-            </div>
-            <!-- Second Slide -->
-            <div class="carousel-item active">
-                <div class="carousel-content mx-auto text-center">
-                    <div class="carousel-heading">ราคาค่าบริการตรวจบ้านทาวน์โฮม</div>
-                    <img src="img/servicecharge2.png" alt="Service Pricing 2" class="img-fluid">
-                </div>
-            </div>
-            <!-- Third Slide -->
-            <div class="carousel-item">
-                <div class="carousel-content mx-auto text-center">
-                    <div class="carousel-heading">ราคาค่าบริการตรวจบ้านทาวน์โฮม</div>
-                    <img src="img/servicecharge3.png" alt="Service Details" class="img-fluid">
-                </div>
-            </div>
-            <!-- Fourth Slide -->
-            <div class="carousel-item">
-                <div class="carousel-content mx-auto text-center">
-                    <div class="carousel-heading">ราคาค่าบริการตรวจบ้านทาวน์โฮม</div>
-                    <img src="img/servicecharge4.png" alt="Service Details" class="img-fluid">
-                </div>
-            </div>
-        </div>
-        <!-- Previous Button -->
-        <button class="carousel-control-prev" type="button" data-bs-target="#customCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true" style="background-color: rgba(0, 0, 0, 0.5); border-radius: 50%; width: 40px; height: 40px;"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <!-- Next Button -->
-        <button class="carousel-control-next" type="button" data-bs-target="#customCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true" style="background-color: rgba(0, 0, 0, 0.5); border-radius: 50%; width: 40px; height: 40px;"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>
-</section>
 
 <script src="/js/home/service/Hconstruction.js"></script>
 

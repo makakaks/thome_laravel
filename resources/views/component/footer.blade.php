@@ -1,6 +1,6 @@
 <footer class="footer">
     <div class="footer-container">
-        <!-- Left Section: Social Media & Branding -->
+        <!-- Left Section: Social Branding -->
         <div class="footer-left">
             <!-- <h2>HomeInspector</h2> -->
             <img src="/img/footer_logo.png" alt="HomeInspector Logo" class="footer-logo">
@@ -45,7 +45,7 @@
         <div class="footer-help">
             <h2>ช่วยเหลือ <span class="toggle-icon">+</span></h2>
             <ul>
-                <li><a href="/index#faq">คำถามที่พบบ่อย (FAQ)</a></li>
+                <li><a href="#faq">คำถามที่พบบ่อย (FAQ)</a></li>
                 <li><a href="/joinwithus">รวมงานกับเรา</a></li>
                 <li><a href="/promotion">โปรโมชั่น</a></li>
                 <li><a href="/Contactus">ติดต่อเรา</a></li>
@@ -58,6 +58,11 @@
             <div class="payment-logos">
                 <img src="/img/visacard.png" alt="Visa">
                 <img src="/img/Mastercard.webp" alt="MasterCard">
+                <img src="/img/prompt.png" alt="prompt">
+                <img src="/img/kbank.png" alt="kbank">
+                <img src="/img/scb.png" alt="scb">
+                <img src="/img/ttb.jpg" alt="ttb">
+                <img src="/img/krungthai.jpg" alt="krungthai">
             </div>
         </div>
     </div>

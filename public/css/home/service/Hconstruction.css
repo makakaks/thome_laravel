@@ -324,7 +324,7 @@
 }
 
 .about-content {
-    flex: 1;
+    flex: 2;
     opacity: 0;
     transform: translateX(20px);
     transition: all 0.8s ease;
@@ -361,4 +361,8 @@
 .about-feature:hover .feature-icon {
     transform: scale(1.2) rotate(5deg);
     color: #e65c00;
+}
+
+h2 {
+    font-weight: 700;
 }

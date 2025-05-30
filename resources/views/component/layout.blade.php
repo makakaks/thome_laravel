@@ -18,8 +18,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="{{ asset('css/component/header.css')}}">
-    <link rel="stylesheet" href="{{ asset('css/component/footer.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/component/header.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/component/footer.css') }}">
 
 </head>
 
@@ -29,11 +29,27 @@
     @include('component.footer')
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script></body>
-    <script>
-        AOS.init();
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
-</html>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+</body>
+<script type="module">
+    // Global function to show loading indicator
+    import ToastTemplate from "/js/component/toast_template.js"
+    const toastTemplate = new ToastTemplate();
 
+    window.showToast = async (content, type) => {
+        await toastTemplate.changeToast(content, "");
+        await toastTemplate.showToast(type);
+    }
+
+    window.changePage = async (content, redirectPath, type) => {
+        await toastTemplate.changeToast(content, redirectPath);
+        await toastTemplate.redirect(type);
+    }
+</script>
+<script>
+    AOS.init();
+</script>
+
+</html>

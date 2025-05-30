@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\FaqController;
+use App\Http\Controllers\ReviewHomeController;
+
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
@@ -39,7 +42,7 @@ Route::get('/hconstruction', function () {
 });
 
 Route::get('/hbutler', function () {
-    return view('home.service.Hbutler');
+    return view('home.service.HbutlerComingSoon');
 });
 
 Route::get('/Review-home', function () {
@@ -65,37 +68,51 @@ Route::get('review_home/{id}', function ($id) {
 });
 
 Route::prefix('articles')->controller(ArticleController::class)->group(function () {
-    // Route::get('/', 'index')->name('admin.index');
     Route::get('/{slug}', 'show_article')->name('article.show');
 });
 
 
-Route::prefix('admin')->controller(AdminController::class)->group(function () {
-    Route::get('/', 'index')->name('admin.index');
-    Route::post('/upload_image', 'upload_image')->name('admin.upload');
-    Route::get('/manage_article', 'article_manage')->name('admin.article');
-    Route::get('/manage_article/create', 'article_create')->name('admin.article.create');
-    Route::post('/manage_article/create', 'article_create_store')->name('admin.article.create-post');
-    Route::get('/manage_article/edit/{id}', 'article_edit')->name('admin.article.edit');
-    Route::delete('/manage_article/delete/{id}', 'article_delete')->name('admin.article.delete');
+Route::prefix('admin')->group(function () {
+    Route::prefix('manage_article')->controller(ArticleController::class)->group(function () {
+        Route::get('/', 'manage')->name('admin.article.manage');
+        Route::delete('/{id}', 'delete')->name('admin.article.delete');
+        
+        Route::get('/create', 'create_view')->name('admin.article.create_view');
+        Route::post('/create', 'create_store')->name('admin.article.create_store');
 
-    Route::get('/manage_review_home', 'home_manage')->name('admin.home');
-    Route::get('/manage_review_home/create', 'home_create')->name('admin.home.create');
-    Route::get('/manage_review_home/edit/{id}', 'home_edit')->name('admin.home.edit');
+        Route::get('/edit/{id}', 'edit_view')->name('admin.article.edit_view');
+        Route::put('/edit/{id}', 'edit_store')->name('admin.article.edit_store');
+    });
 
-    Route::get('/manage_faq', 'faq_manage')->name('admin.faq');
-    Route::get('/manage_faq/edit/{id}', 'faq_edit')->name('admin.faq.edit');
+    Route::prefix('manage_review_home')->controller(ArticleController::class)->group(function () {
+        Route::get('/', 'manage')->name('admin.home.manage');
+        Route::delete('/{id}', 'delete')->name('admin.home.delete');
+        
+        Route::get('/create', 'create_view')->name('admin.home.create_view');
+        Route::post('/create', 'create_store')->name('admin.home.create_store');
 
-    Route::get('/change_password', 'change_password')->name('admin.change_password');
+        Route::get('/edit/{id}', 'edit_view')->name('admin.home.edit_view');
+        Route::put('/edit/{id}', 'edit_store')->name('admin.home.edit_store');
+    });
+
+    Route::prefix('manage_faq')->controller(FaqController::class)->group(function () {
+        Route::get('/', 'manage')->name('admin.faq.manage');
+        Route::delete('/{id}', 'delete')->name('admin.faq.delete');
+        Route::post('/', 'create_store')->name('admin.faq.create');
+        Route::put('/{id}', 'edit_store')->name('admin.faq.edit');
+    });
+
+    Route::post('/upload_image', [AdminController::class, 'upload_image'])->name('admin.upload');
+    Route::get('/change_password', [AdminController::class, 'change_password_view'])->name('admin.change_password');
 });
 
 
 
 
 
-Route::prefix('test')->controller(TestController::class)->group(function () {
-    Route::get('/create', 'create_article')->name('test.create_article');
-    Route::get('/create_tag', 'create_tag')->name('test.create_tag');
-    Route::get('/delete_tag', 'delete_tag')->name('test.delete_tag');
-    Route::get('/create_tag_article', 'create_tag_article')->name('test.create_tag_article');
-});
+// Route::prefix('test')->controller(TestController::class)->group(function () {
+//     Route::get('/create', 'create_article')->name('test.create_article');
+//     Route::get('/create_tag', 'create_tag')->name('test.create_tag');
+//     Route::get('/delete_tag', 'delete_tag')->name('test.delete_tag');
+//     Route::get('/create_tag_article', 'create_tag_article')->name('test.create_tag_article');
+// });
