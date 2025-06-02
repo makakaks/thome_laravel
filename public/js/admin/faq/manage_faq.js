@@ -1,5 +1,4 @@
-// import ConfirmDialog from "/JS/component/confirm_dialog.js"
-import { createTagSelector } from "/js/component/tag_selector.js";
+import ConfirmDialog from "/JS/component/confirm_dialog.js";
 
 const artList = document.getElementById("articles-list");
 const artFilterSelect = document.getElementById("articles-filter");
@@ -23,7 +22,6 @@ const articleTagsInput = document.getElementById("article-tags");
 const cancelBtn = document.getElementById("cancel-btn");
 const closeBtn = document.querySelector(".close");
 const noResults = document.getElementById("no-results");
-const tagSelectContainer = document.getElementById("tag-selector-container");
 
 let curPage = 1;
 let maxPage = Math.ceil(articles.length / 10);
@@ -54,7 +52,7 @@ function displayArticles(articlesToDisplay) {
     let start = (curPage - 1) * 10;
     let end = start + 10;
 
-    // console.log(articlesToDisplay);
+    console.log(articlesToDisplay);
 
     if (articlesToDisplay.length === 0) {
         noResults.classList.remove("hidden");
@@ -89,11 +87,9 @@ function searchAndFilterArticles() {
             });
 
         // กรองตามคำค้นหา
-        const matchesSearch =
-            article.children[1].textContent
-                .toLowerCase()
-                .includes(searchTerm) ||
-            article.children[2].textContent.toLowerCase().includes(searchTerm);
+        const matchesSearch = article.children[1].textContent
+            .toLowerCase()
+            .includes(searchTerm);
 
         return matchesTag && matchesSearch;
     });
@@ -103,16 +99,50 @@ function searchAndFilterArticles() {
         curPageEle.value = 1;
     }
     maxPage = Math.ceil(filteredArticles.length / 10);
+    console.log(filteredArticles);
     displayArticles(filteredArticles);
 }
 
 // ลบบทความ
-function deleteArticle(id) {
-    if (confirm("คุณแน่ใจหรือไม่ที่จะลบบทความนี้?")) {
-        articles = articles.filter((article) => article.id !== id);
-        maxPage = Math.ceil(articles.length / 10);
-        searchAndFilterArticles();
-    }
+function deleteArticle() {
+    document.querySelectorAll('.actions-buttons .delete-article').forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+            const id = e.target.getAttribute("data-id");
+            const confirmDialog = new ConfirmDialog();
+            confirmDialog.confirmAction(
+                "คุณแน่ใจหรือไม่ที่จะลบบทความนี้?",
+                "บทความนี้จะถูกลบอย่างถาวร",
+                "ไม่",
+                "ลบ",
+                '<button class="confirm-btn active confirm-yes" id="confirmYes"> ลบ </button>',
+                async () => {
+                    console.log("Deleting article with ID:", id);
+                    window.showLoading();
+                    
+                    await fetch(`/admin/manage_article/${id}`, {
+                        method: "DELETE",
+                        headers: {
+                            "X-CSRF-TOKEN": document.querySelector(
+                                'meta[name="csrf-token"]'
+                            ).content,
+                        }
+                    }).then((res) => {
+                        if (!res.ok){
+                            window.showToast("ไม่สามารถลบบทความได้", "error");
+                        }
+                        else {
+                            window.showToast("ลบบทความเรียบร้อยแล้ว", "success");
+                            articles = articles.filter((article) => article.id != id);
+                            maxPage = Math.ceil(articles.length / 10);
+                            searchAndFilterArticles();
+                        }
+                    })
+
+                    window.hideLoading();
+                }
+            );
+        });
+    })
 }
 
 function goToPage(page) {
@@ -147,63 +177,60 @@ function navigatorEventListener() {
     });
 }
 
-function openEdit() {
-    const tagSelectContainer = document.querySelector(
-        "#tag-selector-container"
-    );
-    document.querySelectorAll("btn-edit").forEach((btn) => {
-        btn.addEventListener("click", () => {
-            const parent = btn.parentNode.parentNode;
-            const question = parent.children[1].textContent;
-            const ans = parent.children[2].textContent;
-            const tags = parent.querySelectorAll(".tag");
-            const id = btn.getAttribute("data-id");
-        });
-    });
-}
+function addTag() {
+    const btn = document.getElementById("add-tag");
+    btn.addEventListener("click", () => {
+        const confirmDialog = new ConfirmDialog();
+        confirmDialog.confirmAction(
+            "เพิ่มแท็ก",
+            `<div class="mt-3">
+                <div class="form-group mb-3">
+                    <label for="tag-name">ชื่อแท็ก:</label>
+                    <input type="text" id="add-tag-name" class="form-control" placeholder="ป้อนชื่อแท็ก">
+                </div>
+                <div class="form-group">
+                    <label for="tag-name">ชื่อแท็ก(en):</label>
+                    <input type="text" id="add-tag-name-en" class="form-control" placeholder="ป้อนชื่อแท็ก">
+                </div>
+            </div>`,
+            "ไม่",
+            "ใช่",
+            '<button class="confirm-btn active confirm-yes" id="confirmYes"> Yes </button>',
+            async () => {
+                const tagName = document.getElementById("add-tag-name").value.trim();
+                const tagNameEn = document.getElementById("add-tag-name-en").value.trim();
+                
+                window.showLoading();
 
-function tag_selector() {
-    const tagss = ["Art", "Science", "Design"];
-    const tagSelector = createTagSelector(
-        "tag-selector-container",
-        tagss,
-        "หมวด"
-    );
-
-    function clearInput() {
-        document
-            .querySelectorAll(".modal-body .form-group input")
-            .forEach((input) => {
-                input.value = "";
-            });
-    }
-
-    function changeMode(mode) {
-        if (mode == "create") {
-            if (tagSelectContainer.getAttribute("data-mode") == "edit") {
-                tagSelectContainer.setAttribute("data-mode", "create");
-                tagSelector.clearContainer();
-                clearInput();
+                await fetch("/admin/manage_article/add_tag", {
+                    method: "POST",
+                    headers: {
+                        "content-Type": "application/json",
+                        "X-CSRF-TOKEN": document.querySelector(
+                            'meta[name="csrf-token"]'
+                        ).content
+                    },
+                    body: JSON.stringify([
+                        {
+                            locale: "th",
+                            name: tagName
+                        },
+                        {
+                            locale: "en",
+                            name: tagNameEn
+                        }
+                    ])
+                }).then((res) => {
+                    window.hideLoading();
+                    if (!res.ok) {
+                        window.showToast("ไม่สามารถเพิ่มแท็กได้", "error");
+                    } else {
+                        window.showToast("เพิ่มแท็กเรียบร้อยแล้ว", "success");
+                    }
+                })
             }
-        } else if (mode == "edit") {
-            if (tagSelectContainer.getAttribute("data-mode") == "create") {
-                tagSelectContainer.setAttribute("data-mode", "edit");
-                tagSelector.clearContainer();
-                clearInput();
-            }
-        }
-    }
-
-    document.getElementById("add-article").addEventListener("click", () => {
-        changeMode("create");
+        );
     });
-    document.querySelectorAll(".btn-edit").forEach((btn) => {
-        btn.addEventListener("click", () => {
-            changeMode("edit");
-        });
-    });
-
-    // tagSelector.selectOption('Art')
 }
 
 // Event Listeners
@@ -222,5 +249,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    tag_selector();
+    addTag();
+    deleteArticle();
 });

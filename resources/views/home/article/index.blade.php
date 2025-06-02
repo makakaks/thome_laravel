@@ -148,7 +148,6 @@
             </div>
         </div>
     </div>
-
     {{-- <script src="/JS/filter.js"></script>
     <script src="/JS/article.js"></script>
     <script src="/JS/upload_date.js"></script> --}}
@@ -179,5 +178,8 @@
             });
         });
     </script>
-
+    <script>
+        const jj = @json($articles);
+        console.log(jj);
+    </script>
 @endsection

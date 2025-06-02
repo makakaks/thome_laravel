@@ -26,8 +26,12 @@
             <div class="table-container">
                 <div class="table-header">
                     <h2>จัดการคำถามที่พบบ่อย</h2>
-                    <button id="add-article" class="btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#staticBackdrop">เพิ่มคำถามที่พบบ่อย</button>
+                    <div>
+                        <a id="add-tag" class="btn btn-outline-success border">เพิ่มtag</a>
+                        <button id="add-article" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop">เพิ่มคำถามที่พบบ่อย</button>
+                    </div>
+
                 </div>
                 <div class="table-responsive">
                     <table class="table">
@@ -111,14 +115,14 @@
                             <label for="ans">Answer</label>
                             <textarea type="text" id="ans-eng" class="form-control" placeholder="Please enter the answer"></textarea>
                         </div>
-                        {{-- <div>
+                        <div>
                             <label for="tags">tags</label>
                             <div class="tag-input-container" id="tagContainer">
                                 <input type="text" class="tag-input" id="tagInput"
                                     placeholder="Search or select tags...">
                                 <div class="options-container" id="optionsContainer"></div>
                             </div>
-                        </div> --}}
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
@@ -129,5 +133,5 @@
         </div>
 
     </div>
-    <script src="/js/admin/manage_faq.js" type="module"></script>
+    <script src="/js/admin/faq/manage_faq.js" type="module"></script>
 @endsection

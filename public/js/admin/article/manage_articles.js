@@ -199,6 +199,9 @@ function addTag() {
             async () => {
                 const tagName = document.getElementById("add-tag-name").value.trim();
                 const tagNameEn = document.getElementById("add-tag-name-en").value.trim();
+                
+                window.showLoading();
+
                 await fetch("/admin/manage_article/add_tag", {
                     method: "POST",
                     headers: {
@@ -217,14 +220,13 @@ function addTag() {
                             name: tagNameEn
                         }
                     ])
-                }).then((res) => res.text())
-                .then((data) => {
-                    console.log(data);
-                    // if (data.success) {
-                    //     window.showToast("เพิ่มแท็กเรียบร้อยแล้ว", "success");
-                    // } else {
-                    //     window.showToast(data.message, "error");
-                    // }
+                }).then((res) => {
+                    window.hideLoading();
+                    if (!res.ok) {
+                        window.showToast("ไม่สามารถเพิ่มแท็กได้", "error");
+                    } else {
+                        window.showToast("เพิ่มแท็กเรียบร้อยแล้ว", "success");
+                    }
                 })
             }
         );
