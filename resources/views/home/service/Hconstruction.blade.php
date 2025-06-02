@@ -120,52 +120,62 @@
     </div>
 </section>
 
-
-<!-- 🎞️ Carousel Section -->
-<section class="carousel2 py-4 aos-init aos-animate" data-aos="fade-up" data-aos-duration="3000">
-    <div id="customCarousel" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <!-- First Slide -->
-            <div class="carousel-item">
-                <div class="carousel-content mx-auto text-center">
-                    <div class="carousel-heading">ราคาค่าบริการตรวจบ้านทาวน์โฮม</div>
-                    <img src="img/servicecharge1.png" alt="Service Pricing 1" class="img-fluid">
-                </div>
-            </div>
-            <!-- Second Slide -->
-            <div class="carousel-item active">
-                <div class="carousel-content mx-auto text-center">
-                    <div class="carousel-heading">ราคาค่าบริการตรวจบ้านทาวน์โฮม</div>
-                    <img src="img/servicecharge2.png" alt="Service Pricing 2" class="img-fluid">
-                </div>
-            </div>
-            <!-- Third Slide -->
-            <div class="carousel-item">
-                <div class="carousel-content mx-auto text-center">
-                    <div class="carousel-heading">ราคาค่าบริการตรวจบ้านทาวน์โฮม</div>
-                    <img src="img/servicecharge3.png" alt="Service Details" class="img-fluid">
-                </div>
-            </div>
-            <!-- Fourth Slide -->
-            <div class="carousel-item">
-                <div class="carousel-content mx-auto text-center">
-                    <div class="carousel-heading">ราคาค่าบริการตรวจบ้านทาวน์โฮม</div>
-                    <img src="img/servicecharge4.png" alt="Service Details" class="img-fluid">
-                </div>
-            </div>
+<div class="review-page aos-init aos-animate" data-aos="fade-up">
+  <h1>ผลงานของเรา</h1>
+        <br>
+        <div class="categories aos-init aos-animate" data-aos="fade-up" data-aos-duration="1500">
+            <button class="category-btn active" data-category="all">ทั้งหมด</button>
+            <button class="category-btn" data-category="Modern">หลังคากันสาด</button>
+            <button class="category-btn" data-category="Modern Luxury">โรงจอดรถ</button>
+            <button class="category-btn" data-category="Modern Classic">ห้องครัว</button>
         </div>
-        <!-- Previous Button -->
-        <button class="carousel-control-prev" type="button" data-bs-target="#customCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true" style="background-color: rgba(0, 0, 0, 0.5); border-radius: 50%; width: 40px; height: 40px;"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <!-- Next Button -->
-        <button class="carousel-control-next" type="button" data-bs-target="#customCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true" style="background-color: rgba(0, 0, 0, 0.5); border-radius: 50%; width: 40px; height: 40px;"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
+        <div class="review-cards">
+            <a class="card" data-category="Modern" href="https://thomeinspector1.netlify.app/after_review_interior1">
+                <img src="/img/after_review/interrior-bg1.jpg" alt="House Review 1">
+                <p>Bangkok Boulevard Ramintra109</p>
+            </a>
+            <a class="card" data-category="Modern" href="https://thomeinspector1.netlify.app/after_review_interior2">
+                <img src="/img/after_review/interrior-bg2.jpg" alt="House Review 1">
+                <p>Nantawan Pinklao</p>
+            </a>
+            <a class="card" data-category="Modern" href="https://thomeinspector1.netlify.app/after_review_interior3">
+                <img src="/img/after_review/interrior-bg3.jpg" alt="House Review 2">
+                <p>Veritz Sathupradit34</p>
+            </a>
+            <a class="card" data-category="Modern Luxury"
+                href="https://thomeinspector1.netlify.app/after_review_interior4">
+                <img src="/img/after_review/interrior-bg4.jpg" alt="House Review 3">
+                <p>CHAIYAPRUEK Bangna km 15</p>
+            </a>
+            <a class="card" data-category="Modern Luxury"
+                href="https://thomeinspector1.netlify.app/after_review_interior5">
+                <img src="/img/after_review/interrior-bg5.jpg" alt="House Review 5">
+                <p>Grand Bangkok boulevard Krungthepkreetra</p>
+            </a>
+            <a class="card" data-category="Modern Luxury"
+                href="https://thomeinspector1.netlify.app/after_review_interior6">
+                <img src="/img/after_review/interrior-bg6.jpg" alt="House Review 6">
+                <p>S'RIN Ratchapruek-Sai1</p>
+            </a>
+            <a class="card" data-category="Modern Classic"
+                href="https://thomeinspector1.netlify.app/after_review_interior7">
+                <img src="/img/after_review/interrior-bg7.jpg" alt="House Review 7">
+                <p>MANTANA Barom-thaweewattana</p>
+            </a>
+            <a class="card" data-category="Modern Classic"
+                href="https://thomeinspector1.netlify.app/after_review_interior8">
+                <img src="/img/after_review/interrior-bg8.jpg" alt="House Review 8">
+                <p>Prinn Sathorn-ratchapruek</p>
+            </a>
+            <a class="card" data-category="Modern Classic"
+                href="https://thomeinspector1.netlify.app/after_review_interior9">
+                <img src="/img/after_review/interrior-bg9.jpg" alt="House Review 9">
+                <p>THE CITY Pinklao-sirinthorn</p>
+            </a>
+        </div>
     </div>
-</section>
+
+    
 
 <script src="/js/home/service/Hconstruction.js"></script>
 
