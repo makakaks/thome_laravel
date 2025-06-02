@@ -47,8 +47,8 @@
             <div class="art-cover-img">
                 <img src="{{ $article['translation']['coverPageImg'] }}" alt="">
                 <div class="art-date">
-                    {{ \Carbon\Carbon::parse($article['created_at'])->locale('th')->isoFormat('D MMM YYYY H:mm') }} น.
-                    {{-- $article['created_at']->format('d M Y H:i') --}}
+                    {{ \Carbon\Carbon::parse($article['created_at'])->locale(app()->getLocale())->isoFormat('D MMM YYYY h:mm') }} 
+                        {{-- $article['created_at']->format('d M Y H:i') --}}
                     {{-- 14 พ.ค. 2568 13:44 น --}}
                     {{-- {{print_r($article, true)}} --}}
                 </div>
@@ -56,7 +56,7 @@
         </div>
         <div class="art-body">
             <div class="art-content">
-
+                {!! $article['translation']['content'] !!}
             </div>
             <div class="art-promote">
                 <div class="card">
@@ -212,12 +212,5 @@
 
         </section>
     </main>
-    <script>
-        const jj = @json($article['translation']);
-
-        document.addEventListener("DOMContentLoaded", function() {
-            document.querySelector(".art-content").innerHTML = jj.content;
-        });
-    </script>
     <script src='/js/home/article/test_article.js'></script>
 @endsection

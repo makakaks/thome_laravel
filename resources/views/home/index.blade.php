@@ -480,22 +480,24 @@
     </section>
 
     <!-- newapp -->
-    <div id="newapp-container" class="container-newapp" data-aos="fade-up" data-aos-duration="3000">
-        <!-- Content will load here -->
+    <div class="container-newapp aos-init aos-animate" data-aos="fade-up" data-aos-duration="3000">
+        <div class="header-newapp">
+            <h1>New</h1>
+            <h2>Application ตรวจบ้านด้วยตัวเอง</h2>
+            <p>ตรวจบ้านด้วยตัวเอง พร้อมออกรายงานในตัว ตรวจไม่เป็นก็มีคลิปสอนให้ภายในแอป</p>
+        </div>
+        <div class="content-newapp">
+            <div class="app-preview">
+                <img src="/img/app1.png" alt="App Preview 1">
+                <img src="/img/app2.png" alt="App Preview 2">
+            </div>
+            <div class="main-btn">
+                <button>
+                    <a href="https://liff.line.me/2005695449-36Xrdj94">ใช้งานฟรี!</a>
+                </button>
+            </div>
+        </div>
     </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            fetch("/backend/panel/get_newapp_content")
-                .then(res => res.text())
-                .then(html => {
-                    document.getElementById("newapp-container").innerHTML = html;
-                })
-                .catch(err => {
-                    document.getElementById("newapp-container").innerHTML = "<p>ไม่สามารถโหลดข้อมูลได้</p>";
-                    console.error("Fetch error:", err);
-                });
-        });
-    </script>
 
 
 
@@ -579,7 +581,6 @@
                 </aside>
 
                 <div class="faq-questions" id="faq-content">
-                    <!-- คำถามจะโหลดแบบ dynamic -->
                 </div>
             </div>
 
@@ -596,11 +597,8 @@
         function toggleAnswer(button) {
             const answer = button.nextElementSibling;
             const icon = button.querySelector(".icon");
-
             const isVisible = answer.style.display === "block";
-
             answer.style.display = isVisible ? "none" : "block";
-
             icon.textContent = isVisible ? "+" : "−";
         }
 
@@ -616,7 +614,7 @@
 
         // Fetch FAQs
         window.addEventListener("DOMContentLoaded", () => {
-            fetch("/backend/panel/get_faqs")
+            fetch("/api/faq/get_faqs")
                 .then(res => res.json())
                 .then(data => {
                     const categories = new Set();

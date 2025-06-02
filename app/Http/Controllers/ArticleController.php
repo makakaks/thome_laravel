@@ -10,8 +10,13 @@ use Exception;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 
-class ArticleController extends Controller
+ class ArticleController extends Controller
 {
+    function index()
+    {
+        return view('home.article.index');
+    }
+
     //
     function manage()
     {
@@ -129,18 +134,15 @@ class ArticleController extends Controller
 
     function create_tag(Request $request)
     {
-        $tag = ArticleTag::create([
-            'slug' => $request->slug,
-            'status' => '1',
-        ]);
-
-        foreach ($request['locale'] as $lang) {
-            $tag->translations()->create([
-                'locale' => $lang['locale'],
-                'name' => $lang["name"],
-            ]);
+        try {
+            $tag = ArticleTag::create();
+            foreach ($request->all() as $lang) {
+                $tag->translations()->create($lang);
+            }
+            return response()->json($request, 200);
+            // return response()->json(['message' => 'Tag created successfully.'], 200);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage(), 'request' => $request->all()], 500);
         }
-
-        return response()->json(['message' => 'Tag created successfully.'], 200);
     }
 }

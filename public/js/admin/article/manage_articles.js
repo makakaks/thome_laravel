@@ -182,7 +182,7 @@ function addTag() {
     btn.addEventListener("click", () => {
         const confirmDialog = new ConfirmDialog();
         confirmDialog.confirmAction(
-            "กลับไปใช่ไหม",
+            "เพิ่มแท็ก",
             `<div class="mt-3">
                 <div class="form-group mb-3">
                     <label for="tag-name">ชื่อแท็ก:</label>
@@ -194,14 +194,38 @@ function addTag() {
                 </div>
             </div>`,
             "ไม่",
-            "กลับไป",
+            "ใช่",
             '<button class="confirm-btn active confirm-yes" id="confirmYes"> Yes </button>',
             async () => {
                 const tagName = document.getElementById("add-tag-name").value.trim();
                 const tagNameEn = document.getElementById("add-tag-name-en").value.trim();
-                await fetch("/admin/add_tag", {
-
-                }).then((res) => res.json())
+                await fetch("/admin/manage_article/add_tag", {
+                    method: "POST",
+                    headers: {
+                        "content-Type": "application/json",
+                        "X-CSRF-TOKEN": document.querySelector(
+                            'meta[name="csrf-token"]'
+                        ).content
+                    },
+                    body: JSON.stringify([
+                        {
+                            locale: "th",
+                            name: tagName
+                        },
+                        {
+                            locale: "en",
+                            name: tagNameEn
+                        }
+                    ])
+                }).then((res) => res.text())
+                .then((data) => {
+                    console.log(data);
+                    // if (data.success) {
+                    //     window.showToast("เพิ่มแท็กเรียบร้อยแล้ว", "success");
+                    // } else {
+                    //     window.showToast(data.message, "error");
+                    // }
+                })
             }
         );
     });

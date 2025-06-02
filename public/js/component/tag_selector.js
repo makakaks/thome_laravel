@@ -47,13 +47,13 @@ export function createTagSelector(containerId, artTags = [], tagInputName = 'ห
 
         if (query?.trim() !== '') {
             const exactMatch = options.find(opt => opt.name.toLowerCase() === query.toLowerCase());
-            if (!exactMatch) {
-                const createOption = document.createElement('div');
-                createOption.className = 'create-new-option';
-                createOption.innerHTML = `<span class="plus-icon">+</span> Create "${query}"`;
-                createOption.addEventListener('click', () => createNewTag(query));
-                optionsContainer.appendChild(createOption);
-            }
+            // if (!exactMatch) {
+            //     const createOption = document.createElement('div');
+            //     createOption.className = 'create-new-option';
+            //     createOption.innerHTML = `<span class="plus-icon">+</span> Create "${query}"`;
+            //     createOption.addEventListener('click', () => createNewTag(query));
+            //     optionsContainer.appendChild(createOption);
+            // }
         }
 
         const filteredOptions = options.filter(opt => opt.name.toLowerCase().includes(query.toLowerCase()));
@@ -189,7 +189,7 @@ export function createTagSelector(containerId, artTags = [], tagInputName = 'ห
             if (!val) return;
 
             const exactMatch = options.find(opt => opt.toLowerCase() === val.toLowerCase());
-            exactMatch ? selectOption(exactMatch) : createNewTag(val);
+            exactMatch ? selectOption(exactMatch) : null;
         } else if (e.key === 'Backspace' && tagInput.value === '' && selectedTags.length > 0) {
             removeTag(selectedTags[selectedTags.length - 1]);
         }

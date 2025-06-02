@@ -62,12 +62,28 @@ Route::get('/ourstory', function () {
     return view('home.aboutus.ourstory');
 });
 
+Route::prefix('addon_service')->group(function () {
+    Route::get('/app_inspector', function () {
+        return view('home.addon_service.app_inspector');
+    });
+    Route::get('/cal_electric', function () {
+        return view('home.addon_service.cal_electric');
+    });
+    Route::get('/checklist', function () {
+        return view('home.addon_service.checklist');
+    });
+});
+
+Route::get('/testkub', function(){
+    return view('home.article.test_article');
+});
 
 Route::get('review_home/{id}', function ($id) {
     return view('home.article.review_home', ['id' => $id]);
 });
 
 Route::prefix('articles')->controller(ArticleController::class)->group(function () {
+    Route::get('/', 'index');
     Route::get('/{slug}', 'show_article')->name('article.show');
 });
 
@@ -82,6 +98,8 @@ Route::prefix('admin')->group(function () {
 
         Route::get('/edit/{id}', 'edit_view')->name('admin.article.edit_view');
         Route::put('/edit/{id}', 'edit_store')->name('admin.article.edit_store');
+
+        Route::post('/add_tag', 'create_tag')->name('admin.article.create_tag');
     });
 
     Route::prefix('manage_review_home')->controller(ArticleController::class)->group(function () {
@@ -109,6 +127,12 @@ Route::prefix('admin')->group(function () {
 
 
 
+
+Route::prefix('api')->group(function () {
+    Route::prefix('faq')->controller(FaqController::class)->group(function () {
+        Route::get('/', 'get_all')->name('api.faq.get_all');
+    });
+});
 
 // Route::prefix('test')->controller(TestController::class)->group(function () {
 //     Route::get('/create', 'create_article')->name('test.create_article');

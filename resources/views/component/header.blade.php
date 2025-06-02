@@ -72,11 +72,11 @@
                     บริการเสริม <span class="dropdown-icon"><i class="fa-solid fa-caret-down"></i></span>
                 </a>
                 <ul class="dropdown-menu d-block">
-                    <li><a href="/app-inspector" data-translate="nav.app-inspector">ตรวจบ้านเอง</a>
+                    <li><a href="/addon_service/app_inspector" data-translate="nav.app-inspector">ตรวจบ้านเอง</a>
                     </li>
-                    <li><a href="cal-electric" data-translate="nav.cal-electric">คำนวณไฟฟ้า</a>
+                    <li><a href="/addon_service/cal_electric" data-translate="nav.cal-electric">คำนวณไฟฟ้า</a>
                     </li>
-                    <li><a href="checklist" data-translate="nav.checklist">เทียบสเปกบ้าน</a>
+                    <li><a href="/addon_service/checklist" data-translate="nav.checklist">เทียบสเปกบ้าน</a>
                     </li>
                 </ul>
             </li>

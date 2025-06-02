@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 
 class FaqController extends Controller
 {
+    function get()
+    {
+
+    }
+
     function manage()
     {
         $faqs = [
@@ -27,33 +32,16 @@ class FaqController extends Controller
 
     function create_store(Request $request)
     {
-        // Validate and store the FAQ data
-        // Assuming you have a Faq model to handle the data storage
-        // Faq::create($request->all());
-
-        // For now, just redirect back with a success message
         return redirect()->route('admin.faq.manage')->with('success', 'FAQ created successfully.');
     }
 
     function edit_store($id, Request $request)
     {
-        // Validate and update the FAQ data
-        // Assuming you have a Faq model to handle the data storage
-        // $faq = Faq::findOrFail($id);
-        // $faq->update($request->all());
-
-        // For now, just redirect back with a success message
         return redirect()->route('admin.faq.manage')->with('success', 'FAQ updated successfully.');
     }
 
     function delete($id)
     {
-        // Validate and delete the FAQ data
-        // Assuming you have a Faq model to handle the data storage
-        // $faq = Faq::findOrFail($id);
-        // $faq->delete();
-
-        // For now, just redirect back with a success message
         return redirect()->route('admin.faq.manage')->with('success', 'FAQ deleted successfully.');
     }
 }
