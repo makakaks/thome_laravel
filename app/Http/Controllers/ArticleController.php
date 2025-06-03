@@ -10,26 +10,67 @@ use Exception;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 
- class ArticleController extends Controller
+class ArticleController extends Controller
 {
     function index()
     {
-        return view('home.article.index');
+
+        return view('home.article.index', ['articles' => Article::paginate()]);
+    }
+
+    function test_paginate(Request $request)
+    {
+        $articles = Article::paginate(2);
+
+        foreach ($articles as $article) {
+            $article->translation = $article->translation();
+            $article->tags = $article->articleTags->map(function ($tag) {
+                return $tag->translation();
+            });
+        }
+
+        return $articles;
     }
 
     //
-    function manage()
+    function manage(Request $request)
     {
-        $articles = Article::all();
-        foreach ($articles as $article) {
-            $article = tap($article, function ($article) {
-                $article->translation = $article->translation();
-                $article->tags = $article->articleTags->map(function ($tag) {
-                    return $tag->translation();
+        $query = Article::query();
+        $tags = ArticleTag::all();
+
+        if ($request->filled('search')) {
+            $searchTerm = '%' . $request->search . '%'; // กำหนดตัวแปรสำหรับคำค้นหา
+
+            $query->where('slug', 'like', $searchTerm)
+                ->orWhereHas('translations', function ($q) use ($searchTerm) {
+                    $q->where('title', 'like', $searchTerm);
                 });
+        }
+
+        if ($request->filled('tag')) {
+            $query->whereHas('articleTags', function ($q) use ($request){
+                $q->where('article_tag_id', $request->tag);
             });
         }
-        return view('admin.article.manage_articles', ['articles' => $articles]);
+
+        if ($request->has('page') && $request->page > $articles = $query->paginate(1)->lastPage()) {
+            return redirect()->route('admin.article.manage', array_merge($request->except('page'), ['page' => 1]));
+        }
+
+        $articles = $query->paginate(8)->appends($request->except('page'));
+
+        foreach ($articles as $article) {
+            $article->translation = $article->translation();
+            $article->tags = $article->articleTags->map(function ($tag) {
+                return $tag->translation();
+            });
+        }
+
+        foreach ($tags as $tag) {
+            $tag->translation = $tag->translation();
+        }
+
+        return view('admin.article.manage_articles', compact('articles', 'tags'));
     }
 
     function delete($id)
@@ -45,8 +86,11 @@ use Illuminate\Support\Facades\Storage;
 
     public function create_view()
     {
-        $tag = ArticleTag::all();
-        return view('admin.article.create_article', compact('tag'));
+        $tags = ArticleTag::all();
+        foreach ($tags as $tag) {
+            $tag->translation = $tag->translation();
+        }
+        return view('admin.article.create_article', compact('tags'));
     }
 
     public function create_store(Request $request)
@@ -83,9 +127,12 @@ use Illuminate\Support\Facades\Storage;
             });
         });
 
-        $tag = ArticleTag::all();
+        $tags = ArticleTag::all();
+        foreach ($tags as $tag) {
+            $tag->translation = $tag->translation();
+        }
 
-        return view('admin.article.create_article', compact('article', 'tag'));
+        return view('admin.article.create_article', compact('article', 'tags'));
     }
 
     function edit_store(Request $request, $id)

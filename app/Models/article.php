@@ -13,6 +13,8 @@ class Article extends Model
     use HasFactory;
 
     protected $fillable = ['slug', 'status'];
+    // protected $visible = ['id', 'slug', 'status', 'translation'];
+    protected $hidden = ['updated_at', 'translations', 'articleTags'];
 
     protected static function boot()
     {
@@ -39,5 +41,5 @@ class Article extends Model
     {
         $locale = $locale ?? App::getLocale();
         return $this->translations()->where('locale', $locale)->first();
-    }   
+    }
 }

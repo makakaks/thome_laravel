@@ -11,9 +11,9 @@
             @if(@isset($article))
                 แก้ไขบทความ <span data-id="{{$article['id']}}"></span>
             @else
-                สร้างบทความ 
+                สร้างบทความ
             @endif
-            
+
         </h2>
         <form id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="false">
             <div class="input-group article-input">
@@ -148,9 +148,9 @@
     </div>
 
     <div class="tag-fetch hidden">
-        @foreach ($tag as $t)
-            <div data-id="{{ $t['id'] }}">
-                <span>{{ $t->translation()->name }}</span>
+        @foreach ($tags as $tag)
+            <div data-id="{{ $tag['id'] }}">
+                <span>{{ $tag->translation->name }}</span>
             </div>
         @endforeach
     </div>

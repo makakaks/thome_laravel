@@ -16,6 +16,9 @@
                 <label for="articles-filter">กรองตามแท็ก:</label>
                 <select name="filter" id="articles-filter">
                     <option value="all">ทั้งหมด</option>
+                    @foreach ($tags as $tag)
+                        <option value="{{ $tag['id'] }}">{{ $tag->translation->name }}</option>
+                    @endforeach
                 </select>
             </div>
         </div>
@@ -42,7 +45,7 @@
                         </thead>
                         <tbody id="articles-list">
                             @foreach ($articles as $article)
-                                <tr class="d-none">
+                                <tr data-id="{{ $article['id'] }}">
                                     <td class="col-2">
                                         <img src="{{ $article->translation->coverPageImg }}" alt="" width="100%">
                                     </td>
@@ -65,16 +68,17 @@
                         </tbody>
                     </table>
                 </div>
-                <div id="no-results" class="no-results hidden">ไม่พบบทความที่ตรงกับการค้นหา</div>
-                <div class="pagination-container">
-                    <button id="prev-page" class="btn btn-secondary">ก่อนหน้า</button>
-                    <span id="page-info">หน้า <input type="text" id="page-num" value=1></รบ></span>
-                    <button id="next-page" class="btn btn-secondary">ถัดไป</button>
+                @if ($articles->isEmpty())
+                    <div id="no-results" class="no-results">ไม่พบบทความที่ตรงกับการค้นหา</div>
+                @endif
 
-                </div>
+                {{ $articles->links('vendor.pagination.default') }}
             </div>
         </section>
     </div>
 
     <script src="{{ asset('js/admin/article/manage_articles.js') }}" type="module"></script>
+    <script>
+
+    </script>
 @endsection

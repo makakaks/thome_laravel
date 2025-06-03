@@ -84,6 +84,7 @@ Route::get('review_home/{id}', function ($id) {
 
 Route::prefix('articles')->controller(ArticleController::class)->group(function () {
     Route::get('/', 'index');
+    Route::get('/test_paginate', 'test_paginate')->name('article.test_paginate');
     Route::get('/{slug}', 'show_article')->name('article.show');
 });
 

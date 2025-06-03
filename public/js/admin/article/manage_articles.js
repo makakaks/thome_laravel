@@ -23,158 +23,64 @@ const cancelBtn = document.getElementById("cancel-btn");
 const closeBtn = document.querySelector(".close");
 const noResults = document.getElementById("no-results");
 
-let curPage = 1;
-let maxPage = Math.ceil(articles.length / 10);
-const curPageEle = document.getElementById("page-num");
-const maxPageEle = document.getElementById("page-max-num");
-
-// เพิ่มตัวเลือกในการกรอง
-function populateFilterOptions() {
-    // สร้างตัวเลือก "ทั้งหมด"
-    articles.forEach((article) => {
-        article.querySelectorAll(".tag").forEach((tag) => {
-            artTags.add(tag.textContent.trim());
-        });
-    });
-
-    // เพิ่มตัวเลือกในการกรอง
-    artTags.forEach((tag) => {
-        console.log("add : ", tag);
-        const option = document.createElement("option");
-        option.value = tag;
-        option.textContent = tag;
-        filterSelect.appendChild(option);
-    });
-}
-
-// แสดงบทความทั้งหมด
-function displayArticles(articlesToDisplay) {
-    let start = (curPage - 1) * 10;
-    let end = start + 10;
-
-    console.log(articlesToDisplay);
-
-    if (articlesToDisplay.length === 0) {
-        noResults.classList.remove("hidden");
-    } else {
-        noResults.classList.add("hidden");
-    }
-    articles.forEach((article) => {
-        article.classList.add("d-none");
-        article.classList.remove("d-table-row");
-    });
-    articlesToDisplay.forEach((article, index) => {
-        if (index >= start && index < end) {
-            article.classList.remove("d-none");
-            article.classList.add("d-table-row");
-        }
-    });
-
-    // console.log("end", articlesToDisplay);
-}
 
 // ค้นหาและกรองบทความ
-function searchAndFilterArticles() {
+async function searchAndFilterArticles() {
     const searchTerm = searchInput.value.toLowerCase();
-    const filterTag = filterSelect.value;
+    const filterTag = filterSelect.value == "all" ? '': filterSelect.value ;
 
-    const filteredArticles = articles.filter((article) => {
-        // กรองตามแท็ก
-        const matchesTag =
-            filterTag === "all" ||
-            Array.from(article.querySelectorAll(".tag")).some((tag) => {
-                return tag.textContent.includes(filterTag);
-            });
+    location.href = `/admin/manage_article?search=${searchTerm}&tag=${filterTag}`
 
-        // กรองตามคำค้นหา
-        const matchesSearch = article.children[1].textContent
-            .toLowerCase()
-            .includes(searchTerm);
-
-        return matchesTag && matchesSearch;
-    });
-
-    if (filteredArticles.length != articles.length) {
-        curPage = 1;
-        curPageEle.value = 1;
-    }
-    maxPage = Math.ceil(filteredArticles.length / 10);
-    console.log(filteredArticles);
-    displayArticles(filteredArticles);
 }
 
 // ลบบทความ
 function deleteArticle() {
-    document.querySelectorAll('.actions-buttons .delete-article').forEach((btn) => {
-        btn.addEventListener("click", (e) => {
-            const id = e.target.getAttribute("data-id");
-            const confirmDialog = new ConfirmDialog();
-            confirmDialog.confirmAction(
-                "คุณแน่ใจหรือไม่ที่จะลบบทความนี้?",
-                "บทความนี้จะถูกลบอย่างถาวร",
-                "ไม่",
-                "ลบ",
-                '<button class="confirm-btn active confirm-yes" id="confirmYes"> ลบ </button>',
-                async () => {
-                    console.log("Deleting article with ID:", id);
-                    window.showLoading();
-                    
-                    await fetch(`/admin/manage_article/${id}`, {
-                        method: "DELETE",
-                        headers: {
-                            "X-CSRF-TOKEN": document.querySelector(
-                                'meta[name="csrf-token"]'
-                            ).content,
-                        }
-                    }).then((res) => {
-                        if (!res.ok){
-                            window.showToast("ไม่สามารถลบบทความได้", "error");
-                        }
-                        else {
-                            window.showToast("ลบบทความเรียบร้อยแล้ว", "success");
-                            articles = articles.filter((article) => article.id != id);
-                            maxPage = Math.ceil(articles.length / 10);
-                            searchAndFilterArticles();
-                        }
-                    })
+    document
+        .querySelectorAll(".actions-buttons .delete-article")
+        .forEach((btn) => {
+            btn.addEventListener("click", (e) => {
+                const id = e.target.getAttribute("data-id");
+                const confirmDialog = new ConfirmDialog();
+                confirmDialog.confirmAction(
+                    "คุณแน่ใจหรือไม่ที่จะลบบทความนี้?",
+                    "บทความนี้จะถูกลบอย่างถาวร",
+                    "ไม่",
+                    "ลบ",
+                    '<button class="confirm-btn active confirm-yes" id="confirmYes"> ลบ </button>',
+                    async () => {
+                        window.showLoading();
+                        await fetch(`/admin/manage_article/${id}`, {
+                            method: "DELETE",
+                            headers: {
+                                "X-CSRF-TOKEN": document.querySelector(
+                                    'meta[name="csrf-token"]'
+                                ).content,
+                            },
+                        }).then((res) => {
+                            if (!res.ok) {
+                                window.showToast(
+                                    "ไม่สามารถลบบทความได้",
+                                    "error"
+                                );
+                            } else {
+                                window.showToast(
+                                    "ลบบทความเรียบร้อยแล้ว",
+                                    "success"
+                                );
+                                // articles = articles.filter((article) => article.id != id);
+                                // maxPage = Math.ceil(articles.length / 10);
+                                const row = document.querySelector(
+                                    `#articles-list tr[data-id="${id}"]`
+                                );
+                                row.remove();
+                            }
+                        });
 
-                    window.hideLoading();
-                }
-            );
+                        window.hideLoading();
+                    }
+                );
+            });
         });
-    })
-}
-
-function goToPage(page) {
-    curPage = page;
-    curPageEle.value = page;
-    searchAndFilterArticles();
-}
-
-function navigatorEventListener() {
-    document.getElementById("prev-page").addEventListener("click", () => {
-        if (curPage > 1) {
-            goToPage(curPage - 1);
-            searchAndFilterArticles();
-        }
-    });
-
-    document.getElementById("next-page").addEventListener("click", () => {
-        if (curPage < maxPage) {
-            goToPage(curPage + 1);
-            searchAndFilterArticles();
-        }
-    });
-
-    curPageEle.addEventListener("keypress", (e) => {
-        if (e.key === "Enter") {
-            let page = parseInt(curPageEle.value, 10);
-            if (isNaN(page) || page < 1 || page > maxPage) {
-                alert("กรุณากรอกหมายเลขหน้าที่ถูกต้อง");
-                return;
-            } else goToPage(page);
-        }
-    });
 }
 
 function addTag() {
@@ -197,9 +103,13 @@ function addTag() {
             "ใช่",
             '<button class="confirm-btn active confirm-yes" id="confirmYes"> Yes </button>',
             async () => {
-                const tagName = document.getElementById("add-tag-name").value.trim();
-                const tagNameEn = document.getElementById("add-tag-name-en").value.trim();
-                
+                const tagName = document
+                    .getElementById("add-tag-name")
+                    .value.trim();
+                const tagNameEn = document
+                    .getElementById("add-tag-name-en")
+                    .value.trim();
+
                 window.showLoading();
 
                 await fetch("/admin/manage_article/add_tag", {
@@ -208,18 +118,18 @@ function addTag() {
                         "content-Type": "application/json",
                         "X-CSRF-TOKEN": document.querySelector(
                             'meta[name="csrf-token"]'
-                        ).content
+                        ).content,
                     },
                     body: JSON.stringify([
                         {
                             locale: "th",
-                            name: tagName
+                            name: tagName,
                         },
                         {
                             locale: "en",
-                            name: tagNameEn
-                        }
-                    ])
+                            name: tagNameEn,
+                        },
+                    ]),
                 }).then((res) => {
                     window.hideLoading();
                     if (!res.ok) {
@@ -227,7 +137,7 @@ function addTag() {
                     } else {
                         window.showToast("เพิ่มแท็กเรียบร้อยแล้ว", "success");
                     }
-                })
+                });
             }
         );
     });
@@ -235,12 +145,15 @@ function addTag() {
 
 // Event Listeners
 document.addEventListener("DOMContentLoaded", () => {
-    populateFilterOptions();
-    displayArticles(articles);
 
-    searchInput.addEventListener("input", searchAndFilterArticles);
+    searchInput.addEventListener("keydown", () => {
+        if (event.key && event.key !== "Enter") return;
+        searchAndFilterArticles();
+    });
+    document.querySelector('.search-icon').addEventListener("click", () => {
+        searchAndFilterArticles();
+    })
     filterSelect.addEventListener("change", searchAndFilterArticles);
-    navigatorEventListener();
 
     document.querySelectorAll("textarea").forEach((textarea) => {
         textarea.addEventListener("input", () => {
