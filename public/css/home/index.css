@@ -1317,7 +1317,8 @@ header {
 .cal {
     display: flex;
     justify-content: space-between;
-    align-items: stretch;
+    height: calc(100vh - 100px);
+    /* align-items: stretch; */
     gap: 30px;
     background: #f9f9f9;
     padding: 30px;
@@ -1328,7 +1329,7 @@ header {
 
 /* Left Side */
 .cal-item {
-    width: 40%;
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -1400,8 +1401,7 @@ header {
 
 /* Right Side Iframe */
 .cal-iframe {
-    width: 55%;
-    height: 700px;
+    width: 30%;
     border: none;
     border-radius: 8px;
 }
@@ -1463,19 +1463,26 @@ header {
     background-color: #ffdb4d;
     transform: scale(1.05);
 }
-
 /* Responsive Design */
 @media (max-width: 768px) {
     .cal {
         flex-direction: column;
         align-items: center;
         padding: 20px;
+        height: calc(150vh);
     }
 
     .cal-item,
     .cal-iframe {
         width: 100%;
+        flex: 0;
+        height: 190px;
         text-align: center;
+    }
+
+    .cal-iframe {
+        flex: 1 !important;
+        /* height: 60% !important; */
     }
 
     .cal-item h2,
@@ -1485,6 +1492,7 @@ header {
 
     .logo-container {
         margin-bottom: 15px;
+        display: none;
     }
 
     .read-more-btn {
@@ -1591,6 +1599,10 @@ header {
     .why-choose-us,
     .projects {
         padding: 0 10px;
+    }
+
+    .projects {
+        margin-bottom: 3rem;
     }
 }
 
@@ -2229,7 +2241,7 @@ button.next-btn:hover {
 
     .stat-box {
         width: 30%;
-        max-width: 140px; 
+        max-width: 140px;
     }
 
     .stat-box h2 {
@@ -2248,8 +2260,8 @@ button.next-btn:hover {
 
 
     .stat-box {
-        width: 30%; 
-        max-width: 120px; 
+        width: 30%;
+        max-width: 120px;
     }
 } */
 /* Responsive Design */
