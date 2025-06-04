@@ -1,27 +1,29 @@
 FROM php:8.2-apache
 
-# ติดตั้ง dependencies ที่ Laravel ต้องการ
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
-    git curl zip unzip libonig-dev libxml2-dev libzip-dev \
-    && docker-php-ext-install pdo_mysql mbstring xml zip
+    git zip unzip curl libpng-dev libonig-dev libxml2-dev libzip-dev \
+    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
 
-# เปิดใช้งาน Apache Rewrite Module
+# Enable Apache mod_rewrite
 RUN a2enmod rewrite
 
-# คัดลอก source code ไปยัง container
-COPY . /var/www/html/
-
-# ตั้ง working directory
+# Set working directory
 WORKDIR /var/www/html
 
-# ติดตั้ง Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# Copy existing application directory contents
+COPY . /var/www/html
 
-# ตั้ง permissions
+# Set permissions
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
-# ติดตั้ง dependencies ของ Laravel
+# Install Composer
+COPY --from=composer:2.6 /usr/bin/composer /usr/bin/composer
+
+# Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-# เปิดพอร์ต 80
+# Expose port 80
 EXPOSE 80
+
+CMD ["apache2-foreground"]
