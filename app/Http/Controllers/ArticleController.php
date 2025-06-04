@@ -113,7 +113,7 @@ class ArticleController extends Controller
             $article->articleTags()->attach($request['tags']);
             return response()->json(['message' => 'Article created successfully.'], 200);
         } catch (Exception $e) {
-            return response()->json($e, 500);
+            return response()->json(['message' => 'Error creating FAQ: ' . $e->getMessage()], 500);
         }
     }
 

@@ -18,6 +18,9 @@
                 <label for="articles-filter">กรองตามแท็ก:</label>
                 <select name="filter" id="articles-filter">
                     <option value="all">ทั้งหมด</option>
+                    {{-- @foreach ($tags as $tag)
+                        <option value="{{ $tag['id'] }}">{{ $tag->translation->name }}</option>
+                    @endforeach --}}
                 </select>
             </div>
         </div>
@@ -47,15 +50,7 @@
                         <tbody id="articles-list">
                             <!-- จะถูกเติมด้วย JavaScript -->
                             @foreach ($faqs as $faq)
-                                <tr class="d-none">
-                                    {{-- <div class="d-none" 
-                                        data-id="{{$faq['id']}}"
-                                        data-question="{{$faq['question']}}"
-                                        data-question-eng="{{$faq['question_eng']}}"
-                                        data-answer="{{$faq['answer']}}"
-                                        data-answer-eng="{{$faq['answer_eng']}}"
-                                        data-tags="{{ implode(',', $faq['tags']) }}"    
-                                    ></div> --}}
+                                <tr data-id="{{ $faq['id'] }}">
                                     <td>
                                         {{ $faq['id'] }}
                                     </td>
@@ -82,13 +77,11 @@
                         </tbody>
                     </table>
                 </div>
-                <div id="no-results" class="no-results hidden">ไม่พบบทความที่ตรงกับการค้นหา</div>
-                <div class="pagination-container">
-                    <button id="prev-page" class="btn btn-secondary">ก่อนหน้า</button>
-                    <span id="page-info">หน้า <input type="text" id="page-num" value=1></รบ></span>
-                    <button id="next-page" class="btn btn-secondary">ถัดไป</button>
+                {{-- @if ($faqs->isEmpty())
+                    <div id="no-results" class="no-results hidden">ไม่พบบทความที่ตรงกับการค้นหา</div>
+                @endif --}}
 
-                </div>
+                {{-- {{ $articles->links('vendor.pagination.default') }} --}}
             </div>
         </section>
 
@@ -105,23 +98,19 @@
                         <div class="form-group mb-3">
                             <label for="question">คำถาม</label>
                             <input type="text" id="question" class="form-control mb-2" placeholder="กรุณากรอกคำถาม">
-                            <label for="question">Question</label>
+                            <label for="question">คำถาม (อังกฤษ)</label>
                             <input type="text" id="question-eng" class="form-control"
                                 placeholder="Please enter the question">
                         </div>
                         <div class="form-group">
                             <label for="ans">คำตอบ</label>
                             <textarea type="text" id="ans" class="form-control mb-2" placeholder="กรุณากรอกคำตอบ"></textarea>
-                            <label for="ans">Answer</label>
+                            <label for="ans">คำตอบ (อังกฤษ)</label>
                             <textarea type="text" id="ans-eng" class="form-control" placeholder="Please enter the answer"></textarea>
                         </div>
                         <div>
                             <label for="tags">tags</label>
-                            <div class="tag-input-container" id="tagContainer">
-                                <input type="text" class="tag-input" id="tagInput"
-                                    placeholder="Search or select tags...">
-                                <div class="options-container" id="optionsContainer"></div>
-                            </div>
+                            <div id="tag-selector-container"></div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -131,7 +120,13 @@
                 </div>
             </div>
         </div>
-
     </div>
+
+    <div class="tag-fetch hidden">
+        {{-- @foreach ($tags as $tag)
+            <div data-id="{{ $tag['id'] }}" data-name="{{ $tag->trnslation->name }}"></div>
+        @endforeach --}}
+    </div>
+
     <script src="/js/admin/faq/manage_faq.js" type="module"></script>
 @endsection

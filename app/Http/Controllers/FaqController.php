@@ -3,6 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Exception;
+use App\Models\Faq;
+use App\Models\FaqTag;
+use App\Models\FaqTranslation;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class FaqController extends Controller
 {
@@ -23,14 +29,30 @@ class FaqController extends Controller
 
     function get_all() {}
 
-    function manage()
+    function manage(Request $request)
     {
-
         return view('admin.faq.manage_faq', ['faqs' => $this->mockup]);
     }
 
     function create_store(Request $request)
     {
+        try {
+            $faq = Faq::create([]);
+
+            foreach ($request['locale'] as $lang){
+                $faq->translations()->create([
+                    'locale' => $lang['language'],
+                    'question' => $lang['question'],
+                    'answer' => $lang['answer'],
+                ]);
+            }
+
+            $faq->faqTags()->attach($request['tags']);
+            return response()->json(['message' => 'FAQ created successfully.']);
+        }
+        catch (Exception $e) {
+            return response()->json(['message' => 'Error creating FAQ: ' . $e->getMessage()], 500);
+        }
         return redirect()->route('admin.faq.manage')->with('success', 'FAQ created successfully.');
     }
 
@@ -42,5 +64,23 @@ class FaqController extends Controller
     function delete($id)
     {
         return redirect()->route('admin.faq.manage')->with('success', 'FAQ deleted successfully.');
+    }
+
+    function create_tag(Request $request)
+    {
+        try {
+            $tag = FaqTag::create();
+
+            foreach ($request->all() as $lang) {
+                $tag->translations()->create([
+                    'locale' => $lang['locale'],
+                    'name' => $lang['name'],
+                ]);
+            }
+
+            return response()->json(['message' => 'Tag created successfully.'], 200);
+        } catch (Exception $e) {
+            return response()->json(['message' => 'Error creating tag: ' . $e->getMessage()], 500);
+        }
     }
 }

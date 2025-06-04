@@ -143,24 +143,21 @@ function addTag() {
     });
 }
 
-// Event Listeners
-document.addEventListener("DOMContentLoaded", () => {
-
-    searchInput.addEventListener("keydown", () => {
+function searchListener() {
+    searchInput.addEventListener("keydown", (event) => {
         if (event.key && event.key !== "Enter") return;
         searchAndFilterArticles();
     });
-    document.querySelector('.search-icon').addEventListener("click", () => {
+    document.querySelector(".search-icon").addEventListener("click", () => {
         searchAndFilterArticles();
-    })
-    filterSelect.addEventListener("change", searchAndFilterArticles);
-
-    document.querySelectorAll("textarea").forEach((textarea) => {
-        textarea.addEventListener("input", () => {
-            textarea.style.height = "5px";
-            textarea.style.height = element.scrollHeight + "px";
-        });
     });
+    filterSelect.addEventListener("change", searchAndFilterArticles);
+}
+
+
+// Event Listeners
+document.addEventListener("DOMContentLoaded", () => {
+    searchListener();
 
     addTag();
     deleteArticle();

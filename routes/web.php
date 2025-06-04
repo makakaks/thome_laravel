@@ -93,7 +93,7 @@ Route::prefix('admin')->group(function () {
     Route::prefix('manage_article')->controller(ArticleController::class)->group(function () {
         Route::get('/', 'manage')->name('admin.article.manage');
         Route::delete('/{id}', 'delete')->name('admin.article.delete');
-        
+
         Route::get('/create', 'create_view')->name('admin.article.create_view');
         Route::post('/create', 'create_store')->name('admin.article.create_store');
 
@@ -106,7 +106,7 @@ Route::prefix('admin')->group(function () {
     Route::prefix('manage_review_home')->controller(ArticleController::class)->group(function () {
         Route::get('/', 'manage')->name('admin.home.manage');
         Route::delete('/{id}', 'delete')->name('admin.home.delete');
-        
+
         Route::get('/create', 'create_view')->name('admin.home.create_view');
         Route::post('/create', 'create_store')->name('admin.home.create_store');
 
@@ -119,6 +119,8 @@ Route::prefix('admin')->group(function () {
         Route::delete('/{id}', 'delete')->name('admin.faq.delete');
         Route::post('/', 'create_store')->name('admin.faq.create');
         Route::put('/{id}', 'edit_store')->name('admin.faq.edit');
+
+        Route::post('/add_tag', 'create_tag')->name('admin.faq.add_tag');
     });
 
     Route::post('/upload_image', [AdminController::class, 'upload_image'])->name('admin.upload');

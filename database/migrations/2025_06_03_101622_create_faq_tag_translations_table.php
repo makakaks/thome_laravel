@@ -7,22 +7,20 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.P
+     * Run the migrations.
      *
      * @return void
      */
     public function up()
     {
-        Schema::create('article_translations', function (Blueprint $table) {
+        Schema::create('faq_tag_translations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('article_id')->constrined()->onDelete('cascade');
+            $table->foreignId('faq_tag_id')->constrained()->onDelete('cascade');
+            $table->string('name', 100);
             $table->string('locale', 5);
-            $table->string('title');
-            $table->text('coverPageImg');
-            $table->text('content');
             $table->timestamps();
 
-            $table->unique(['article_id', 'locale']);
+            $table->unique(['faq_tag_id', 'locale']);
         });
     }
 
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('article_translations');
+        Schema::dropIfExists('faq_tag_translations');
     }
 };
