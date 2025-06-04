@@ -20,7 +20,6 @@ RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cac
 # Install Composer
 COPY --from=composer:2.6 /usr/bin/composer /usr/bin/composer
 
-# Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
 
 EXPOSE 80
