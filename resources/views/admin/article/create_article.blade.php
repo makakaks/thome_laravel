@@ -5,40 +5,62 @@
 @section('content')
     <link rel="stylesheet" href="/css/admin/create_articles.css">
     <link rel="stylesheet" href="/css/component/tag_selector.css">
+    <link rel="stylesheet" href="/css/component/image_overlay.css">
     <div class="container">
-        <h2 class="text-center">สร้างบทความ</h2>
+        <h2 class="text-center">
+            @if(@isset($article))
+                แก้ไขบทความ <span data-id="{{$article['id']}}"></span>
+            @else
+                สร้างบทความ
+            @endif
+
+        </h2>
         <form id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="false">
             <div class="input-group article-input">
+                {{-- @if (request()->url() == 'xxx')
+                    {}
+                @endif --}}
                 <div>
                     <label for="thai-title">ชื่อบทความ</label>
                     <input type="text" id="thai-title" class="articleName thai form-control"
                         placeholder="กรอกชื่อบทความภาษาไทย" required>
                 </div>
                 <div>
-                    <label for="eng-title">Article name</label>
+                    <label for="eng-title">ชื่อบทความ(อังกฤษ)</label>
                     <input type="text" id="eng-title" class="articleName eng form-control"
                         placeholder="Enter article name in English" required>
                 </div>
                 <div class="cover-image-input">
                     <label for="thai-cover">รูปภาพหน้าปก</label>
-                    <input type="file" id="thai-cover" accept="image/*" class="articleCoverImage thai form-control"
-                        required>
+                    <div>
+                        <input type="file" id="thai-cover" accept="image/*" class="articleCoverImage thai form-control"
+                            required>
+                        <span class="btn btn-info view-cover">ดูรูปภาพ</span>
+                    </div>
                 </div>
                 <div class="cover-image-input">
-                    <label for="eng-cover">Cover page</label>
-                    <input type="file" id="eng-cover" accept="image/*" class="articleCoverImage eng form-control"
-                        requried>
+                    <label for="eng-cover">รูปภาพหน้าปก(อังกฤษ)</label>
+                    <div>
+                        <input type="file" id="eng-cover" accept="image/*" class="articleCoverImage eng form-control"
+                            requried>
+                        <span class="btn btn-info view-cover">ดูรูปภาพ</span>
+                    </div>
                 </div>
+                {{-- <div>
+                    <span class="btn btn-danger" id="test-test">
+                        ทดสอบปุ่ม
+                    </span>
+                </div> --}}
                 <div id="tag-selector-container"></div>
             </div>
 
             <div class="carousel-inner" role="listbox">
                 <div class="item active thai">
-                    <h2>ภาษาไทย</h2>
+                    <h2>เนื้อหาภาษาไทย</h2>
                     <div id="summernote1"></div>
                 </div>
                 <div class="item eng">
-                    <h2>ภาษาอังกฤษ</h2>
+                    <h2>เนื้อหาภาษาอังกฤษ</h2>
                     <div id="summernote2"></div>
                 </div>
             </div>
@@ -54,6 +76,10 @@
             </div>
         </form>
 
+        <div id="imageOverlay" class="overlay">
+            <span class="close-button">&times;</span>
+            <img id="expandedImage" class="overlay-image" src="" alt="Full Image">
+        </div>
 
         <script>
             $(document).ready(function() {
@@ -120,6 +146,81 @@
             });
         </script>
     </div>
-    {{-- <script src="/js/component/tag_selector.js"></script> --}}
+
+    <div class="tag-fetch hidden">
+        @foreach ($tags as $tag)
+            <div data-id="{{ $tag['id'] }}">
+                <span>{{ $tag->translation->name }}</span>
+            </div>
+        @endforeach
+    </div>
+
+    @if (isset($article))
+        <div class="selected-tag-fetch hidden">
+            @foreach ($article['tags'] as $t)
+                <div data-id="{{ $t['article_tag_id'] }}">
+                    <span>{{ $t['name'] }}</span>
+                </div>
+            @endforeach
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const jj = @json($article);
+                console.log(jj);
+                const titleThEle = document.getElementById("thai-title");
+                const titleEnEle = document.getElementById("eng-title");
+
+                const coverThai = document.getElementById("thai-cover");
+                const coverEng = document.getElementById("eng-cover");
+
+                titleThEle.value = "{{ $article['th']['title'] }}";
+                titleEnEle.value = "{{ $article['en']['title'] }}";
+
+                coverThai.dataset.image = "{{ $article['th']['coverPageImg'] }}";
+
+                setTimeout(() => {
+                    document.querySelector('.item.thai .note-editable').innerHTML = jj.th.content;
+                    document.querySelector('.item.eng .note-editable').innerHTML = jj.en.content;
+                }, 100);
+
+                fetch(jj.th.coverPageImg)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.blob()
+                    })
+                    .then(blob => {
+                        const url = URL.createObjectURL(blob);
+                        const file = new File([blob], 'cover.jpg', {
+                            type: blob.type
+                        });
+
+                        const dataTransfer = new DataTransfer();
+                        dataTransfer.items.add(file);
+                        document.getElementById('thai-cover').files = dataTransfer.files;
+                    });
+
+                fetch(jj.en.coverPageImg)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.blob()
+                    })
+                    .then(blob => {
+                        const url = URL.createObjectURL(blob);
+                        const file = new File([blob], 'cover.jpg', {
+                            type: blob.type
+                        });
+
+                        const dataTransfer = new DataTransfer();
+                        dataTransfer.items.add(file);
+                        document.getElementById('eng-cover').files = dataTransfer.files;
+                    });
+            });
+        </script>
+    @endif
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/spark-md5/3.0.2/spark-md5.min.js"></script>
     <script src="/js/admin/article/create_articles.js" type="module"></script>
 @endsection

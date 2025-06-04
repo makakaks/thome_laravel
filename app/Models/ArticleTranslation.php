@@ -9,7 +9,7 @@ class ArticleTranslation extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['article_id', 'locale', 'title', 'description'];
+    protected $fillable = ['article_id', 'locale', 'title', 'coverPageImg', 'content'];
 
     public function article()
     {

@@ -54,7 +54,7 @@
                 <p>Administrator</p>
             </div>
         </div>
-        <nav class="sidebar-nav">
+        <nav class="sidebar-nav flex-column">
             <ul>
                 <li class="">
                     <a href="#dashboard">
@@ -120,6 +120,16 @@
                 </a>
             </li> -->
             </ul>
+            <ul class="flex me-4 h-fit-content">
+                <li class="flex justify-content-start row lang-link">
+                    <a href="{{url('lang/th')}}" class="col-1 hover:none">
+                        <img src="/icon/ICON/thai.png" alt="Thai" title="ภาษาไทย">
+                    </a>
+                    <a href="{{url('lang/en')}}" class="col-1 hover:none">
+                        <img src="/icon/ICON/eng.png" alt="English" title="English">
+                    </a>
+                </li>
+            </ul>
         </nav>
         <div class="sidebar-footer">
             <a href="#logout" class="logout-btn">
@@ -137,6 +147,41 @@
 
     @yield('content')
 
+    <div id="loading-indicator" style="display: none;">
+        <img src="https://i.gifer.com/ZKZg.gif" alt="กำลังโหลด...">
+    </div>
+    
+    <script type="module">
+        // Global function to show loading indicator
+        window.showLoading = function () {
+            document.getElementById('loading-indicator').style.display = 'flex';
+            document.querySelector("body").classList.add('hide-over') // Prevent scrolling while loading
+        }
+
+        // Global function to hide loading indicator
+        window.hideLoading = function() {
+            document.getElementById('loading-indicator').style.display = 'none';
+            document.querySelector("body").classList.remove('hide-over') // Restore scrolling after loading
+        }
+
+        // Sidebar toggle functionality
+        document.getElementById('closeSidebar').addEventListener('click', function() {
+            document.getElementById('sidebar').style.display = 'none';
+        });
+
+        import ToastTemplate from "/js/component/toast_template.js"
+        const toastTemplate = new ToastTemplate();
+
+        window.showToast = async (content, type) => {
+            await toastTemplate.changeToast(content, "");
+            await toastTemplate.showToast(type);
+        }
+
+        window.changePage = async (content, redirectPath, type) => {
+            await toastTemplate.changeToast(content, redirectPath);
+            await toastTemplate.redirect(type);
+        }
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 </body>
 <script>

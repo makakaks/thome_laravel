@@ -3,6 +3,11 @@
     src: url('/fonts/FC_Sound_Fontset/OTF_Files/FCSound-Regular.otf') format('opentype');
 }
 
+@font-face {
+    font-family: 'fc-sound-bold';
+    src: url('/fonts/FC_Sound_Fontset/OTF_Files/FCSound-Bold.otf') format('opentype');
+}
+
 
 * {
     margin: 0;
@@ -14,6 +19,11 @@
 body {
     margin: 0 !important;
     padding: 0 !important;
+    overflow-x: hidden !important;
+}
+
+h1 {
+    font-family: 'fc-sound-bold', sans-serif;
 }
 
 #hamburger-icon {

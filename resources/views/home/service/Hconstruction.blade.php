@@ -18,9 +18,9 @@
                     <div class="logo-container">
                         <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/s3-3bLs5HKnwRUrK4px4T8zPO4uMNVUmo.png" alt="T. HOME CONSTRUCTION Logo" class="hero-logo">
                     </div>
-                    <h1 class="hero-title">บริการต่อเติมบ้านคุณภาพ</h1>
-                    <div class="hero-description">ต.ต่อเติม มุ่งมั่นที่จะมอบบริการต่อเติมบ้านที่มีคุณภาพสูงสุด ด้วยทีมงานมืออาชีพและประสบการณ์มากกว่า 10 ปี</div>
-                    <a href="Homepage/Contactus.php" class="hero-btn">ติดต่อเรา</a>
+                    <h1 class="hero-title">ต.ต่อเติม </h1>
+                    <div class="hero-description">บริการรับเหมาก่อสร้าง ต่อเติมบ้าน ห้องครัว โครงหลังคาโรงรถ ลงเสาเข็ม ต่อเติมครบ ฟังก์ชั่นเยอะ พร้อมเข้าอยู่ พร้อมบริการแบบ One Stop Service ที่ช่วยดูแลคุณตั้งแต่เริ่มงานจนจบงาน</div>
+                    <a href="Homepage/Contactus.php" class="hero-btn">ติดต่อเราตอนนี้ 066-168-8181 </a>
                 </div>
             </div>
             <div class="carousel-item h-100 p-0">
@@ -86,9 +86,9 @@
 <!-- ส่วนเกี่ยวกับเรา -->
 <section class="about-section" id="about" data-aos="fade-up">
     <div class="container">
-        <h2 class="section-title">ทำไมต้องเลือกเรา</h2>
-        <div class="about-container">
-            <figure class="about-image">
+        <h2 class="section-title">ที่ ต.ต่อเติม</h2>
+        <div class="about-container gap-sm-4 gap-md-5">
+            <figure class="about-image justify-content-sm-center justify-content-md-end">
                 <img src="img/Hconstruction-bg.jpg" alt="ทีมงานของเรา">
             </figure>
             <div class="about-content">
@@ -96,23 +96,19 @@
                 <ul class="about-features">
                     <li class="about-feature">
                         <span class="feature-icon"><i class="fas fa-check-circle"></i></span>
-                        <span>ทีมงานมืออาชีพ ประสบการณ์สูง</span>
+                        <span>ออกแบบ 3D ฟรี เมื่อชำระยอดมัดจำ ค่าแบบงานหลังคาหัก 3,000 บาท </span>
                     </li>
                     <li class="about-feature">
                         <span class="feature-icon"><i class="fas fa-check-circle"></i></span>
-                        <span>วัสดุคุณภาพสูง ได้มาตรฐาน</span>
+                        <span>ระยะเวลาในการต่อเติมส่วนหลังคา 7 วัน สำหรับงานรางน้ำและฝ้าระแนงไม้เทียม 7-14 วัน</span>
                     </li>
                     <li class="about-feature">
                         <span class="feature-icon"><i class="fas fa-check-circle"></i></span>
-                        <span>ราคายุติธรรม โปร่งใส</span>
+                        <span>ในกรณีต่อเติมหลังคาพื้นที่ขั้นต่ำกว่า 15 ตร.ม. จะคิดเป็นราคา 15 ตร.ม. </span>
                     </li>
                     <li class="about-feature">
                         <span class="feature-icon"><i class="fas fa-check-circle"></i></span>
-                        <span>รับประกันผลงาน</span>
-                    </li>
-                    <li class="about-feature">
-                        <span class="feature-icon"><i class="fas fa-check-circle"></i></span>
-                        <span>บริการหลังการขายที่ดีเยี่ยม</span>
+                        <span>ต่อเติมหลังคากันสาด 30 ตร.ม. ขึ้นไป แถมเสาระแนงตกแต่งหรือไฟดาวน์ไลท์ 2 จุด</span>
                     </li>
                 </ul>
             </div>
@@ -174,8 +170,6 @@
             </a>
         </div>
     </div>
-
-    
 
 <script src="/js/home/service/Hconstruction.js"></script>
 
