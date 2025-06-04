@@ -366,3 +366,416 @@
 h2 {
     font-weight: 700;
 }
+
+.contact-container1 {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+}
+
+.contact-item1 {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #28a745;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color 0.3s ease;
+}
+
+.contact-item1:nth-child(2) {
+    background-color: white;
+    border: 1px solid #28a745;
+    color: #28a745;
+}
+
+.contact-item1 .icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 8px;
+    font-size: 1.2rem;
+}
+
+.contact-item1:hover {
+    background-color: #1e7e34;
+    color: white;
+}
+
+.contact-item1:nth-child(2):hover {
+    background-color: #28a745;
+    color: white;
+}
+
+@media screen and (max-width: 768px) {
+    .contact-container1 {
+        flex-direction: row;
+        gap: 15px;
+        bottom: 10px;
+    }
+
+    .contact-item1 {
+        width: 90%;
+        padding: 12px;
+        font-size: 1rem;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    .contact-item11 .icon {
+        margin-right: 8px;
+        /* Maintain spacing between icon and text */
+    }
+}
+
+.review-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.review-page h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.review-page p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.categories {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.category-btn {
+    background-color: #f1f1f1;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.category-btn.active {
+    background-color: #ff5e00;
+    color: #fff;
+}
+
+.category-btn:hover {
+    background-color: #ff9933;
+}
+
+/* hr line */
+hr {
+    border: none;
+    height: 2px;
+    background-color: #333;
+    width: 40%;
+    margin: 20px auto;
+}
+
+/* review card */
+.review-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    text-decoration: none;
+    padding: 20px;
+}
+
+.review-cards .card {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    width: 320px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+    text-decoration: none;
+    color: inherit;
+}
+
+.review-cards .card img {
+    display: block;
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out;
+}
+
+
+.review-cards .card::before {
+    content: "ดูเพิ่มเติม";
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+    background: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.review-cards .card:hover::before {
+    opacity: 1;
+}
+
+.review-cards .card .overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+
+.review-cards .card:hover .overlay {
+    opacity: 1;
+    color: var(--background-color);
+}
+
+.review-cards .card .overlay p {
+    margin: 5px 0;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.review-cards .card p {
+    padding: 12px;
+    font-size: 14px;
+    color: #333;
+    font-weight: bold;
+}
+
+
+@media (max-width: 768px) {
+    .review-cards {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .review-cards .card {
+        width: 90%;
+    }
+}
+
+
+/* video carousel of review interior */
+
+.video-carousel {
+    position: relative;
+    max-width: 100%;
+    overflow: hidden;
+    padding: 20px;
+    background-color: #222;
+    margin-bottom: 50px;
+}
+
+
+.video-wrapper {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.video-item {
+    flex: 0 0 33.33%;
+    padding: 10px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.video-item iframe {
+    width: 90%;
+    height: 250px;
+    border-radius: 10px;
+}
+
+
+.prev,
+.next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px 15px;
+    font-size: 20px;
+    border-radius: 5px;
+    z-index: 100;
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
+}
+
+.prev:hover,
+.next:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .video-item {
+        flex: 0 0 100%;
+    }
+}
+
+
+.map-container {
+    text-align: left;
+    /* Align iframe container to the left */
+}
+
+.map-container iframe {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.get-direction-btn {
+    display: inline-block;
+    margin: 10px 0;
+    padding: 8px 12px;
+    /* Adjust padding for better sizing */
+    font-size: 14px;
+    background-color: #003f87;
+    /* Button background color */
+    color: #fff !important;
+    /* Ensure white text is applied */
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    /* Remove underline */
+    text-align: center;
+    cursor: pointer;
+}
+
+.get-direction-btn:hover {
+    background-color: #002e6d;
+    color: #fff !important;
+}
+
+
+.map-container {
+    margin-top: 0;
+    display: block;
+    text-align: left;
+}
+
+.map-container iframe {
+    display: inline-block;
+    margin-left: 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+/* Social Icons */
+.social-icons {
+    display: flex;
+    gap: 10px;
+}
+
+.social-icons {
+    display: flex;
+    gap: 10px;
+}
+
+.social-icons a img {
+    width: 20px;
+    height: auto;
+    transition: transform 0.5s ease;
+}
+
+.social-icons a:hover img {
+    transform: scale(1.2);
+}
+
+/* form */
+.contact-form {
+    flex: 1;
+    background-color: #e8f4ff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.contact-form h2 {
+    margin-bottom: 20px;
+    color: #003f87;
+}
+
+.contact-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.contact-form button {
+    padding: 10px 20px;
+    background-color: #003f87;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.contact-form button:hover {
+    background-color: #002e6d;
+}

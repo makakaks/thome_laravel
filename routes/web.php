@@ -6,12 +6,11 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\ReviewHomeController;
-
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 use PHPUnit\Framework\Test;
-
+use App\Http\Controllers\HouseController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -60,6 +59,16 @@ Route::get('/ourteam', function () {
 
 Route::get('/ourstory', function () {
     return view('home.aboutus.ourstory');
+});
+
+
+Route::get('/admin/compare', [HouseController::class, 'adminView']);
+
+Route::get('/admin/houses', [HouseController::class, 'adminView'])->name('admin.houses.list');
+Route::post('/admin/houses', [HouseController::class, 'store'])->name('admin.houses.store');
+
+Route::get('/compare-houses', function () {
+    return view('admin.compare.compare_frontend');
 });
 
 Route::prefix('addon_service')->group(function () {

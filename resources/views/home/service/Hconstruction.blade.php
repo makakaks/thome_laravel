@@ -116,7 +116,60 @@
     </div>
 </section>
 
-
+<div class="review-page aos-init aos-animate" data-aos="fade-up">
+  <h1>ผลงานของเรา</h1>
+        <br>
+        <div class="categories aos-init aos-animate" data-aos="fade-up" data-aos-duration="1500">
+            <button class="category-btn active" data-category="all">ทั้งหมด</button>
+            <button class="category-btn" data-category="Modern">หลังคากันสาด</button>
+            <button class="category-btn" data-category="Modern Luxury">โรงจอดรถ</button>
+            <button class="category-btn" data-category="Modern Classic">ห้องครัว</button>
+        </div>
+        <div class="review-cards">
+            <a class="card" data-category="Modern" href="https://thomeinspector1.netlify.app/after_review_interior1">
+                <img src="/img/after_review/interrior-bg1.jpg" alt="House Review 1">
+                <p>Bangkok Boulevard Ramintra109</p>
+            </a>
+            <a class="card" data-category="Modern" href="https://thomeinspector1.netlify.app/after_review_interior2">
+                <img src="/img/after_review/interrior-bg2.jpg" alt="House Review 1">
+                <p>Nantawan Pinklao</p>
+            </a>
+            <a class="card" data-category="Modern" href="https://thomeinspector1.netlify.app/after_review_interior3">
+                <img src="/img/after_review/interrior-bg3.jpg" alt="House Review 2">
+                <p>Veritz Sathupradit34</p>
+            </a>
+            <a class="card" data-category="Modern Luxury"
+                href="https://thomeinspector1.netlify.app/after_review_interior4">
+                <img src="/img/after_review/interrior-bg4.jpg" alt="House Review 3">
+                <p>CHAIYAPRUEK Bangna km 15</p>
+            </a>
+            <a class="card" data-category="Modern Luxury"
+                href="https://thomeinspector1.netlify.app/after_review_interior5">
+                <img src="/img/after_review/interrior-bg5.jpg" alt="House Review 5">
+                <p>Grand Bangkok boulevard Krungthepkreetra</p>
+            </a>
+            <a class="card" data-category="Modern Luxury"
+                href="https://thomeinspector1.netlify.app/after_review_interior6">
+                <img src="/img/after_review/interrior-bg6.jpg" alt="House Review 6">
+                <p>S'RIN Ratchapruek-Sai1</p>
+            </a>
+            <a class="card" data-category="Modern Classic"
+                href="https://thomeinspector1.netlify.app/after_review_interior7">
+                <img src="/img/after_review/interrior-bg7.jpg" alt="House Review 7">
+                <p>MANTANA Barom-thaweewattana</p>
+            </a>
+            <a class="card" data-category="Modern Classic"
+                href="https://thomeinspector1.netlify.app/after_review_interior8">
+                <img src="/img/after_review/interrior-bg8.jpg" alt="House Review 8">
+                <p>Prinn Sathorn-ratchapruek</p>
+            </a>
+            <a class="card" data-category="Modern Classic"
+                href="https://thomeinspector1.netlify.app/after_review_interior9">
+                <img src="/img/after_review/interrior-bg9.jpg" alt="House Review 9">
+                <p>THE CITY Pinklao-sirinthorn</p>
+            </a>
+        </div>
+    </div>
 
 <script src="/js/home/service/Hconstruction.js"></script>
 
