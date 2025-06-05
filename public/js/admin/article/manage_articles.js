@@ -144,6 +144,9 @@ function addTag() {
 }
 
 function searchListener() {
+    searchInput.value = new URLSearchParams(window.location.search).get('search');
+    filterSelect.value = new URLSearchParams(window.location.search).get('tag') || 'all';
+    
     searchInput.addEventListener("keydown", (event) => {
         if (event.key && event.key !== "Enter") return;
         searchAndFilterArticles();
