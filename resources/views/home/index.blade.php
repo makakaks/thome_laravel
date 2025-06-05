@@ -193,7 +193,8 @@
                 </div>
             </div><!-- Right Image Section -->
             <div class="image-section aos-init" data-aos="fade-up-left"><img
-                    src="/img/uploads_old/1743739712_carousel2.1.jpg" alt="Example Image" class="fr-fic fr-dii" loading="lazy"></div>
+                    src="/img/uploads_old/1743739712_carousel2.1.jpg" alt="Example Image" class="fr-fic fr-dii"
+                    loading="lazy"></div>
         </div>
         <div class="certifications aos-init" data-aos="fade-up-right">
             <div class=" certification"><img src="/img/certified1.png" alt="T. Home Inspector" class="fr-fic fr-dii">
@@ -410,7 +411,7 @@
 
         //             totalSlides = data.length;
         //         });
-        // 
+        //
     </script>
 
     <!-- <script>
@@ -474,8 +475,21 @@
     <section class="articles" data-aos="fade-up" data-aos-delay="100">
         <h2 class="articles-title">Latest Articles</h2>
         <a href="/articles" class="btn btn-firstall">ดูทั้งหมด</a>
-        <div class="articles-grid">
-            <!-- Dynamically populated -->
+        <div class="review-cards">
+            @foreach ($latestArticles as $article)
+                <a href="/articles/{{ $article->slug }}" class="card" data-category="Roof">
+                    <img src="{{ $article->translation->coverPageImg }}"
+                        alt="House Review 1">
+                    <p> {{ $article->translation->title }} </p>
+                    <span class="upload-date">{{ \Carbon\Carbon::parse($article->created_at)->locale(app()->getLocale())->isoFormat('D-MM-YYYY') }}
+                        |
+                        @foreach ($article->tags as $tag)
+                            {{  $tag->name }}
+                            @if (!$loop->last) , @endif
+                        @endforeach
+                    </span>
+                </a>
+            @endforeach
         </div>
     </section>
 
@@ -581,85 +595,89 @@
                 </aside>
 
                 <div class="faq-questions" id="faq-content">
+
+                    {{-- @foreach ($faqs as $faq)
+                        <div> {{ $faq->translation->question }}</div>
+                        <div> {{ $faq->translation->answer }}</div>
+                        <div>
+                            @foreach ($faq->tags as $tag)
+                                <div> {{ $tag->name }}</div>
+                            @endforeach
+                        </div>
+                    @endforeach --}}
                 </div>
             </div>
-
-
         </div>
-    </section>
 
+        <script>
+            function slugify(str) {
+                return str.toLowerCase().replace(/\s+/g, '-').replace(/[^\w\-]+/g, '');
+            }
 
-    <script>
-        function slugify(str) {
-            return str.toLowerCase().replace(/\s+/g, '-').replace(/[^\w\-]+/g, '');
-        }
+            function toggleAnswer(button) {
+                const answer = button.nextElementSibling;
+                const icon = button.querySelector(".icon");
+                const isVisible = answer.style.display === "block";
+                answer.style.display = isVisible ? "none" : "block";
+                icon.textContent = isVisible ? "+" : "−";
+            }
 
-        function toggleAnswer(button) {
-            const answer = button.nextElementSibling;
-            const icon = button.querySelector(".icon");
-            const isVisible = answer.style.display === "block";
-            answer.style.display = isVisible ? "none" : "block";
-            icon.textContent = isVisible ? "+" : "−";
-        }
+            function filterFAQ(category) {
+                document.querySelectorAll("#faq-category-list li").forEach(li => li.classList.remove("active"));
+                document.querySelector(`#faq-category-list li[data-category="${category}"]`)?.classList.add("active");
 
-        function filterFAQ(category) {
-            document.querySelectorAll("#faq-category-list li").forEach(li => li.classList.remove("active"));
-            document.querySelector(`#faq-category-list li[data-category="${category}"]`)?.classList.add("active");
+                document.querySelectorAll(".faq-item").forEach(item => {
+                    item.style.display = category === "all" || item.getAttribute("data-category") === category ?
+                        "block" : "none";
+                });
+            }
 
-            document.querySelectorAll(".faq-item").forEach(item => {
-                item.style.display = category === "all" || item.getAttribute("data-category") === category ?
-                    "block" : "none";
-            });
-        }
+            // Fetch FAQs
+            window.addEventListener("DOMContentLoaded", () => {
+                const faqs = @json($faqs);
+                const categories = new Set();
+                const faqContent = document.getElementById("faq-content");
+                const categoryList = document.getElementById("faq-category-list");
+                faqContent.innerHTML = "";
 
-        // Fetch FAQs
-        window.addEventListener("DOMContentLoaded", () => {
-            fetch("/api/faq/get_faqs")
-                .then(res => res.json())
-                .then(data => {
-                    const categories = new Set();
-                    const faqContent = document.getElementById("faq-content");
-                    const categoryList = document.getElementById("faq-category-list");
-                    faqContent.innerHTML = "";
+                const grouped = {};
+                faqs.forEach(faq => {
+                    faq.tags.forEach(cat => {
+                        categories.add(cat.name);
+                        if (!grouped[cat.name]) grouped[cat.name] = [];
+                        grouped[cat.name].push(faq);
+                    })
+                });
 
-                    const grouped = {};
-                    data.forEach(faq => {
-                        const cat = faq.category;
-                        categories.add(cat);
-                        if (!grouped[cat]) grouped[cat] = [];
-                        grouped[cat].push(faq);
-                    });
+                categories.forEach(cat => {
+                    const li = document.createElement("li");
+                    li.textContent = cat;
+                    li.setAttribute("data-category", cat);
+                    li.onclick = () => filterFAQ(cat);
+                    categoryList.appendChild(li);
+                });
 
-                    categories.forEach(cat => {
-                        const li = document.createElement("li");
-                        li.textContent = cat;
-                        li.setAttribute("data-category", cat);
-                        li.onclick = () => filterFAQ(cat);
-                        categoryList.appendChild(li);
-                    });
-
-                    for (const cat in grouped) {
-                        grouped[cat].forEach(faq => {
-                            const item = document.createElement("div");
-                            item.className = "faq-item";
-                            item.setAttribute("data-category", cat);
-                            item.innerHTML = `
+                for (const cat in grouped) {
+                    grouped[cat].forEach(faq => {
+                        const item = document.createElement("div");
+                        item.className = "faq-item";
+                        item.setAttribute("data-category", cat);
+                        item.innerHTML = `
                                 <button class="faq-question" onclick="toggleAnswer(this)">
                                     <span class="icon">+</span>
-                                    <span class="question-text">${faq.question}</span>
+                                    <span class="question-text">${faq.translation.question}</span>
                                 </button>
-                                <div class="faq-answer"><p>${faq.answer}</p></div>
+                                <div class="faq-answer"><p>${faq.translation.answer}</p></div>
                                 `;
-                            faqContent.appendChild(item);
-                        });
-                    }
+                        faqContent.appendChild(item);
+                    });
+                }
 
 
-                    filterFAQ("all");
-                })
-                .catch(err => console.error("โหลด FAQ ไม่สำเร็จ:", err));
-        });
-    </script>
+                filterFAQ("all");
+            });
+        </script>
+    </section>
 
 
     <section class="elfsight" data-aos="fade-up">

@@ -12,10 +12,39 @@ use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
 {
-    function index()
+    function index(Request $request)
     {
+        $query = Article::query();
+        $tags = ArticleTag::all();
 
-        return view('home.article.index', ['articles' => Article::paginate()]);
+        if ($request->filled('search')) {
+            $searchTerm = '%' . $request->search . '%';
+
+            $query->whereHas('translations', function ($q) use ($searchTerm) {
+                $q->where('title', 'like', $searchTerm);
+            });
+        }
+
+        if ($request->filled('tag')) {
+            $query->whereHas('articleTags.translations', function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->tag . '%');
+            });
+        }
+
+        $articles = $query->paginate(16)->appends($request->except('page'));
+
+        foreach ($articles as $article) {
+            $article->translation = $article->translation();
+            $article->tags = $article->articleTags->map(function ($tag) {
+                return $tag->translation();
+            });
+        }
+
+        foreach ($tags as $tag) {
+            $tag->translation = $tag->translation();
+        }
+
+        return view('home.article.index', compact('articles', 'tags'));
     }
 
     function test_paginate(Request $request)
@@ -191,5 +220,19 @@ class ArticleController extends Controller
         } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage(), 'request' => $request->all()], 500);
         }
+    }
+
+    static public function get_latest_articles($count = 5)
+    {
+        $articles = Article::latest()->take($count)->get();
+
+        foreach ($articles as $article) {
+            $article->translation = $article->translation();
+            $article->tags = $article->articleTags->map(function ($tag) {
+                return $tag->translation();
+            });
+        }
+
+        return $articles;
     }
 }

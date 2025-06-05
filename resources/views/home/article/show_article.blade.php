@@ -4,6 +4,11 @@
     <link rel="stylesheet" href="/css/home/article/test_article.css">
     <main>
         <div class="art-header">
+            <div class="art-track-area mb-4">
+                <a href="/">หน้าหลัก</a> >
+                <a href="/articles">บทความ</a> >
+                <a href="/articles/{{$article->slug }}">{{ $article['translation']['title'] }}</a>
+            </div>
             {{-- <h1>{{$locale}}</h1> --}}
             <h1 class="art-name">{{ $article['translation']['title'] }}</h1>
             <div class="art-name-below">
@@ -47,7 +52,7 @@
             <div class="art-cover-img">
                 <img src="{{ $article['translation']['coverPageImg'] }}" alt="">
                 <div class="art-date">
-                    {{ \Carbon\Carbon::parse($article['created_at'])->locale(app()->getLocale())->isoFormat('D MMM YYYY h:mm') }} 
+                    {{ \Carbon\Carbon::parse($article['created_at'])->locale(app()->getLocale())->isoFormat('D MMM YYYY h:mm') }}
                         {{-- $article['created_at']->format('d M Y H:i') --}}
                     {{-- 14 พ.ค. 2568 13:44 น --}}
                     {{-- {{print_r($article, true)}} --}}

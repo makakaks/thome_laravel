@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 use PHPUnit\Framework\Test;
 use App\Http\Controllers\HouseController;
+use App\Models\Faq;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,7 +26,16 @@ use App\Http\Controllers\HouseController;
 Route::get('/lang/{locale}', [TestController::class, 'setLocale'])->name('lang.change');
 
 Route::get('/', function () {
-    return view('home.index');
+    $latestArticles = ArticleController::get_latest_articles(6);
+
+    $faqs = Faq::all();
+    foreach ($faqs as $faq) {
+        $faq->translation = $faq->translation();
+        $faq->tags = $faq->faqTags->map(function ($tag) {
+            return $tag->translation();
+        });
+    }
+    return view('home.index', compact('faqs', 'latestArticles'));
 });
 
 Route::get('/hinspector', function () {
@@ -52,7 +62,7 @@ Route::get('/contactus', function () {
     return view('home.contact.contactus');
 });
 
-Route::get('/joinwithus', function() {
+Route::get('/joinwithus', function () {
     return view('home.contact.joinwithus');
 });
 
@@ -87,7 +97,7 @@ Route::prefix('addon_service')->group(function () {
     });
 });
 
-Route::get('/testkub', function(){
+Route::get('/testkub', function () {
     return view('home.article.test_article');
 });
 
@@ -149,7 +159,6 @@ Route::prefix('api')->group(function () {
         Route::get('/', 'get_all')->name('api.faq.get_all');
         Route::get('/{id}', 'get_translate')->name('api.faq.get_translate');
     });
-
 });
 
 // Route::prefix('test')->controller(TestController::class)->group(function () {

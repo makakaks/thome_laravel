@@ -13,6 +13,11 @@ main {
 }
 
 /* Article Header */
+.art-track-area a{
+    text-decoration: none;
+    color: black;
+}
+
 .art-header {
     margin-bottom: 40px;
 }
