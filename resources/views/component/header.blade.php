@@ -57,7 +57,7 @@
                     บริการ <span class="dropdown-icon"><i class="fa-solid fa-caret-down"></i></span>
                 </a>
                 <ul class="dropdown-menu d-block">
-                    <li><a href="/service1">ตรวจบ้าน</a>
+                    <li><a href="/hinspector">ตรวจบ้าน</a>
                     </li>
                     <li><a href="/hinterior">ตกแต่งภายใน</a>
                     </li>

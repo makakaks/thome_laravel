@@ -29,7 +29,7 @@ Route::get('/', function () {
 });
 
 Route::get('/hinspector', function () {
-    return view('home.service.hinspector');
+    return view('home.service.Hinspector');
 });
 
 Route::get('/hinterior', function () {
@@ -45,11 +45,15 @@ Route::get('/hbutler', function () {
 });
 
 Route::get('/Review-home', function () {
-    return view('home.review-home');
+    return view('home.Review-home');
 });
 
 Route::get('/contactus', function () {
-    return view('home.contactus');
+    return view('home.contact.contactus');
+});
+
+Route::get('/joinwithus', function() {
+    return view('home.contact.joinwithus');
 });
 
 
