@@ -17,18 +17,23 @@ WORKDIR /var/www/html
 # Copy existing application directory contents
 COPY . /var/www/html
 
-# Set permissions
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
-    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
-
 # Install Composer
 COPY --from=composer:2.6 /usr/bin/composer /usr/bin/composer
 
-# Install Laravel dependencies
-RUN composer install --no-dev --optimize-autoloader \
-    && php artisan config:cache \
-    && php artisan route:cache \
-    && php artisan view:cache
+# Set permissions for Laravel directories
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
+    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+
+# Ensure .env exists and generate APP_KEY (only if .env exists)
+RUN if [ -f .env ]; then \
+        composer install --no-dev --optimize-autoloader && \
+        php artisan key:generate && \
+        php artisan config:cache && \
+        php artisan route:cache && \
+        php artisan view:cache ; \
+    else \
+        echo ".env file missing! Please add it before build." && exit 1 ; \
+    fi
 
 EXPOSE 80
 
