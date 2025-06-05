@@ -18,9 +18,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="{{ asset('css/component/header.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/component/footer.css') }}">
-
+    <link rel="stylesheet" href="/css/component/header.css">
+    <link rel="stylesheet" href="/css/component/footer.css">
 </head>
 
 <body>
