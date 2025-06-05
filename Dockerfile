@@ -24,17 +24,21 @@ COPY --from=composer:2.6 /usr/bin/composer /usr/bin/composer
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
     && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Ensure .env exists and generate APP_KEY (only if .env exists)
-RUN if [ -f .env ]; then \
-        composer install --no-dev --optimize-autoloader && \
-        php artisan key:generate && \
-        php artisan config:cache && \
-        php artisan route:cache && \
-        php artisan view:cache ; \
-    else \
-        echo ".env file missing! Please add it before build." && exit 1 ; \
-    fi
+# Install dependencies without running artisan commands now
+RUN composer install --no-dev --optimize-autoloader
 
 EXPOSE 80
 
-CMD ["apache2-foreground"]
+# Start container: check .env and run artisan commands only if .env exists
+CMD ["sh", "-c", "\
+  if [ -f .env ]; then \
+    # generate key only if APP_KEY is empty or missing \
+    if ! grep -q '^APP_KEY=' .env || grep -q '^APP_KEY=$' .env; then \
+      php artisan key:generate --force; \
+    fi; \
+    php artisan config:cache && php artisan route:cache && php artisan view:cache; \
+  else \
+    echo '.env file not found, skipping artisan cache commands'; \
+  fi; \
+  apache2-foreground \
+"]
