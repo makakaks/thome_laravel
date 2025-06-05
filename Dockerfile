@@ -29,5 +29,16 @@ RUN composer install --no-dev --optimize-autoloader
 
 EXPOSE 80
 
-# Run artisan commands at container start (when .env should exist via environment variables or mounted volume)
-CMD ["sh", "-c", "php artisan key:generate --force && php artisan config:cache && php artisan route:cache && php artisan view:cache && apache2-foreground"]
+# Start container: check .env and run artisan commands only if .env exists
+CMD ["sh", "-c", "\
+  if [ -f .env ]; then \
+    # generate key only if APP_KEY is empty or missing \
+    if ! grep -q '^APP_KEY=' .env || grep -q '^APP_KEY=$' .env; then \
+      php artisan key:generate --force; \
+    fi; \
+    php artisan config:cache && php artisan route:cache && php artisan view:cache; \
+  else \
+    echo '.env file not found, skipping artisan cache commands'; \
+  fi; \
+  apache2-foreground \
+"]
