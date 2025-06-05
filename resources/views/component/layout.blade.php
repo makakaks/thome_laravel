@@ -20,7 +20,6 @@
 
     <link rel="stylesheet" href="/css/component/header.css">
     <link rel="stylesheet" href="/css/component/footer.css">
-
 </head>
 
 <body>
