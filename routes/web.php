@@ -29,7 +29,7 @@ Route::get('/', function () {
 });
 
 Route::get('/hinspector', function () {
-    return view('home.service.hinspector');
+    return view('home.service.Hinspector');
 });
 
 Route::get('/hinterior', function () {
@@ -45,11 +45,15 @@ Route::get('/hbutler', function () {
 });
 
 Route::get('/Review-home', function () {
-    return view('home.review-home');
+    return view('home.Review-home');
 });
 
 Route::get('/contactus', function () {
-    return view('home.contactus');
+    return view('home.contact.contactus');
+});
+
+Route::get('/joinwithus', function() {
+    return view('home.contact.joinwithus');
 });
 
 
@@ -125,8 +129,8 @@ Route::prefix('admin')->group(function () {
 
     Route::prefix('manage_faq')->controller(FaqController::class)->group(function () {
         Route::get('/', 'manage')->name('admin.faq.manage');
-        Route::delete('/{id}', 'delete')->name('admin.faq.delete');
         Route::post('/', 'create_store')->name('admin.faq.create');
+        Route::delete('/{id}', 'delete')->name('admin.faq.delete');
         Route::put('/{id}', 'edit_store')->name('admin.faq.edit');
 
         Route::post('/add_tag', 'create_tag')->name('admin.faq.add_tag');
@@ -143,7 +147,9 @@ Route::prefix('admin')->group(function () {
 Route::prefix('api')->group(function () {
     Route::prefix('faq')->controller(FaqController::class)->group(function () {
         Route::get('/', 'get_all')->name('api.faq.get_all');
+        Route::get('/{id}', 'get_translate')->name('api.faq.get_translate');
     });
+
 });
 
 // Route::prefix('test')->controller(TestController::class)->group(function () {

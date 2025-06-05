@@ -1,4 +1,4 @@
-@extends('component.layout  ')
+@extends('component.layout')
 
 @section('content')
     <!DOCTYPE html>
@@ -31,7 +31,7 @@
         <div class="review-cards" id="review-container">
             <!-- cards will be inserted dynamically -->
         </div>
-        <script>
+        {{-- <script>
             fetch('/HOMESPECTOR/backend/panel/api_reviews.php')
                 .then(res => res.json())
                 .then(data => {
@@ -65,7 +65,7 @@
                         });
                     }
                 });
-        </script>
+        </script> --}}
 
         <!-- Review Cards -->
         <div class="review-cards">
@@ -125,5 +125,5 @@
             <script>
                 AOS.init();
             </script>
-            
+
     @endsection
