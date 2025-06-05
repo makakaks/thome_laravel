@@ -125,8 +125,8 @@ Route::prefix('admin')->group(function () {
 
     Route::prefix('manage_faq')->controller(FaqController::class)->group(function () {
         Route::get('/', 'manage')->name('admin.faq.manage');
-        Route::delete('/{id}', 'delete')->name('admin.faq.delete');
         Route::post('/', 'create_store')->name('admin.faq.create');
+        Route::delete('/{id}', 'delete')->name('admin.faq.delete');
         Route::put('/{id}', 'edit_store')->name('admin.faq.edit');
 
         Route::post('/add_tag', 'create_tag')->name('admin.faq.add_tag');
@@ -143,7 +143,9 @@ Route::prefix('admin')->group(function () {
 Route::prefix('api')->group(function () {
     Route::prefix('faq')->controller(FaqController::class)->group(function () {
         Route::get('/', 'get_all')->name('api.faq.get_all');
+        Route::get('/{id}', 'get_translate')->name('api.faq.get_translate');
     });
+
 });
 
 // Route::prefix('test')->controller(TestController::class)->group(function () {

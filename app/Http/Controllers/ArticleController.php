@@ -53,9 +53,9 @@ class ArticleController extends Controller
             });
         }
 
-        if ($request->has('page') && $request->page > $articles = $query->paginate(1)->lastPage()) {
-            return redirect()->route('admin.article.manage', array_merge($request->except('page'), ['page' => 1]));
-        }
+        // if ($request->has('page') && $request->page > $articles = $query->paginate(1)->lastPage()) {
+        //     return redirect()->route('admin.article.manage', array_merge($request->except('page'), ['page' => 1]));
+        // }
 
         $articles = $query->paginate(8)->appends($request->except('page'));
 
@@ -79,7 +79,7 @@ class ArticleController extends Controller
             $article = Article::findOrFail($id);
             $article->delete();
             return response()->json(['message' => 'Article deleted successfully.']);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return response()->json(['message' => 'Article not found.'], 404);
         }
     }
@@ -163,7 +163,7 @@ class ArticleController extends Controller
             }
             return response()->json(['message' => 'Article created successfully.'], 200);
         } catch (Exception $e) {
-            return response()->json($e, 500);
+            return response()->json(['message' => 'Error updating FAQ: ' . $e->getMessage()], 500);
         }
     }
 
