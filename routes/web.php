@@ -141,15 +141,25 @@ Route::prefix('admin')->group(function () {
 });
 
 
-
-
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/houses', [HouseController::class, 'adminView'])->name('houses.index');
+    Route::post('/houses', [HouseController::class, 'store'])->name('houses.store');
+});
 
 Route::prefix('api')->group(function () {
-    Route::prefix('faq')->controller(FaqController::class)->group(function () {
-        Route::get('/', 'get_all')->name('api.faq.get_all');
-        Route::get('/{id}', 'get_translate')->name('api.faq.get_translate');
-    });
+    Route::get('/houses', [HouseController::class, 'apiIndex']);
+    Route::get('/houses/{id}', [HouseController::class, 'apiShow']);
+});
 
+Route::get('/admin/compare-house', [HouseController::class, 'adminView'])->name('admin.compare.compare_house');
+
+Route::get('/admin/compare/comparison', [HouseController::class, 'comparisonView'])->name('admin.compare.comparison');
+
+Route::get('/admin/compare/compare_frontend', [HouseController::class, 'frontendView'])->name('admin.compare.compare_frontend');
+
+Route::prefix('api')->group(function () {
+    Route::get('/houses', [HouseController::class, 'apiIndex']);
+    Route::get('/houses/{id}', [HouseController::class, 'apiShow']);
 });
 
 // Route::prefix('test')->controller(TestController::class)->group(function () {
