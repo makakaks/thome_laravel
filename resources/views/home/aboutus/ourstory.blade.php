@@ -1,466 +1,778 @@
-<?php
-// Database Connection
-$pdo = new PDO('mysql:host=localhost;dbname=homespector', 'root', '');
-$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+@extends('component.layout')
 
-// Fetch latest content
-$stmt = $pdo->prepare("SELECT content FROM ourstory WHERE page_name = 'ourstory'");
-$stmt->execute();
-$content = $stmt->fetchColumn();
-?>
+@section('content')
+    <link rel="stylesheet" href="/css/home/aboutus/ourstory.css">
 
+    <!-- Floating Elements -->
+    <div class="floating-elements">
+        <div class="floating-element" data-speed="0.5">🏠</div>
+        <div class="floating-element" data-speed="0.3">🔍</div>
+        <div class="floating-element" data-speed="0.7">⭐</div>
+        <div class="floating-element" data-speed="0.4">🛡️</div>
+        <div class="floating-element" data-speed="0.6">🔧</div>
+    </div>
 
-<!DOCTYPE html>
-<html lang="en">
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-background">
+            <div class="hero-overlay"></div>
+            <div class="hero-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="badge-icon">🏆</span>
+                    <span class="badge-text">ผู้นำอันดับ 1</span>
+                </div>
+                <h1 class="hero-title">
+                    <span class="title-line">ผู้นำด้าน</span>
+                    <span class="title-highlight">การตรวจบ้าน</span>
+                </h1>
+                <p class="hero-subtitle">บริการตรวจสอบบ้านมือสองที่ลูกค้าเชื่อถือมากที่สุดในประเทศไทย</p>
+            
+            </div>
+        </div>
+    </section>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
-        integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="/CSS/ourstory.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
-    <title>Header Design</title>
-</head>
-
-<body>
-    <div class="content-box">
-        <div class="content-box">
-            <div class="header">
-                <header class="top-bar">
-                    <div class="container">
-                        <!-- Social Icons -->
-                        <div class="social-icons">
-                            <a href="https://www.facebook.com/t.homeinspector/?locale=th_TH">
-                                <img src="/icon/ICON/Fb.png" alt="Facebook">
-                            </a>
-                            <a href="https://www.instagram.com/t.homeinspector/">
-                                <img src="/icon/ICON/IG.png" alt="Instagram">
-                            </a>
-                            <a href="https://page.line.me/t.home?openQrModal=true">
-                                <img src="/icon/ICON/line.png" alt="Line">
-                            </a>
-                            <a href="tel:082-045-6165">
-                                <img src="/icon/ICON/phone.png" alt="Phone">
-                            </a>
+    <!-- Story Section -->
+    <section class="story-section" id="story">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <span class="badge-icon">📖</span>
+                    <span class="badge-text">เรื่องราวของเรา</span>
+                </div>
+                <h2 class="section-title">OUR STORY</h2>
+                <p class="section-subtitle">การเดินทางสู่ความเป็นผู้นำด้านการตรวจบ้าน</p>
+            </div>
+            <div class="story-content">
+                <div class="story-timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-year">2015</div>
+                        <div class="timeline-content">
+                            <h3>จุดเริ่มต้น</h3>
+                            <p>เริ่มต้นจากการตรวจบ้านให้กับเพื่อนและครอบครัว</p>
                         </div>
-                        <!-- Logo -->
-                        <div class="logo">
-                            <a href="/Homepage/index.php">
-                                <img src="/img/s1.png" alt="T. Home Inspector Logo">
-                            </a>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2018</div>
+                        <div class="timeline-content">
+                            <h3>การเติบโต</h3>
+                            <p>ขยายบริการและได้รับการบอกต่อจากลูกค้า</p>
                         </div>
-
-                        <div class="actions">
-                            <!-- Language Switcher -->
-                            <div class="language-switcher">
-                                <a href="?lang=th" class="lang-link">
-                                    <img src="/icon/ICON/thai.png" alt="Thai" title="ภาษาไทย">
-                                </a>
-                                <a href="?lang=en" class="lang-link">
-                                    <img src="/icon/ICON/eng.png" alt="English" title="English">
-                                </a>
-                            </div>
-
-                            <!-- Search Icon -->
-                            <i id="search-icon" class="fas fa-search"></i>
-                            <div id="search-bar" class="search-bar">
-                                <input type="text" placeholder="Search..." />
-                                <button onclick="searchFunction()">Search</button>
-                            </div>
-                            <!-- Hamburger Icon -->
-                            <i id="hamburger-icon" class="fas fa-bars hamburger-icon" onclick="toggleMenu()"></i>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2023</div>
+                        <div class="timeline-content">
+                            <h3>ผู้นำตลาด</h3>
+                            <p>กลายเป็นผู้นำด้านการตรวจบ้านในประเทศไทย</p>
                         </div>
-                </header>
-                <nav class="nav-links" id="nav-links">
-                    <ul>
-                        <li><a href="/Homepage/index.php" data-translate="nav.home">หน้าหลัก</a>
-                        </li>
-                        <li><a href="/Homepage/service.php" data-translate="nav.services">บริการ</a></li>
-                        <li><a href="/Homepage/promotion.php" data-translate="nav.promotion">สิทธิพิเศษ</a>
-                        </li>
-                        <li><a href="/Homepage/projects_media.html" data-translate="nav.projects">ผลงาน</a>
-                        </li>
-
-                        <!-- Dropdown Menu -->
-                        <li class="dropdown">
-                            <a href="#" class="menu-item" data-translate="nav.aboutUs">
-                                เกี่ยวกับเรา <span class="dropdown-icon"><i class="fa-solid fa-caret-down"></i></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="/Homepage/ourstory.php" data-translate="nav.ourStory">ประวัติของเรา</a>
-                                </li>
-                                <li><a href="/Homepage/ourteam.php" data-translate="nav.ourTeam">ทีมงานของเรา</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="menu-item" data-translate="nav.service">
-                                บริการเสริม <span class="dropdown-icon"><i class="fa-solid fa-caret-down"></i></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="/Homepage/app-inspector.php"
-                                        data-translate="nav.app-inspector">ตรวจบ้านเอง</a>
-                                </li>
-                                <li><a href="cal-electric.php" data-translate="nav.cal-electric">คำนวณไฟฟ้า</a>
-                                </li>
-                                <li><a href="checklist.php" data-translate="nav.checklist">เทียบสเปกบ้าน</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li><a href="/Homepage/articles.php" data-translate="nav.articles">บทความ</a></li>
-                        <li><a href="/Homepage/Review-home.php" data-translate="nav.reviewHome">รีวิวบ้าน</a></li>
-                        <li><a href="/Homepage/review_interior.php"
-                                data-translate="nav.reviewInterior">บริการตกแต่งภายใน</a></li>
-                        <li><a href="/Homepage/joinwithus.php" data-translate="nav.joinUs">รวมงานกับเรา</a>
-                        </li>
-                        <li><a href="/Homepage/Contactus.php" data-translate="nav.contact">ติดต่อเรา</a>
-                        </li>
-                    </ul>
-                </nav>
-                <!-- Fullscreen Navigation -->
-                <div id="fullscreen-menu" class="fullscreen-menu">
-                    <!-- Close Icon -->
-                    <i id="close-icon" class="fas fa-times"></i>
-                    <header class="top-bar">
-                        <div class="container">
-                            <!-- Social Icons -->
-                            <div class="social-icons">
-                                <a href="https://www.facebook.com/t.homeinspector/?locale=th_TH">
-                                    <img src="/icon/ICON/Fb.png" alt="Facebook">
-                                </a>
-                                <a href="https://www.instagram.com/t.homeinspector/">
-                                    <img src="/icon/ICON/IG.png" alt="Instagram">
-                                </a>
-                                <a href="https://page.line.me/t.home?openQrModal=true">
-                                    <img src="/icon/ICON/line.png" alt="Line">
-                                </a>
-                                <a href="tel:082-045-6165">
-                                    <img src="/icon/ICON/phone.png" alt="Phone">
-                                </a>
-                            </div>
-
-                            <!-- Logo -->
-                            <div class="logo">
-                                <a href="/Homepage/index.php">
-                                    <img src="/img/s1.png" alt="T. Home Inspector Logo">
-                                </a>
-                            </div>
-
-                            <!-- Actions -->
-                            <div class="actions">
-                                <!-- Language Switcher -->
-                                <div class="language-switcher">
-                                    <a href="?lang=th" class="lang-link">
-                                        <img src="/icon/ICON/thai.png" alt="Thai" title="ภาษาไทย">
-                                    </a>
-                                    <a href="?lang=en" class="lang-link">
-                                        <img src="/icon/ICON/eng.png" alt="English" title="English">
-                                    </a>
+                    </div>
+                </div>
+                <div class="story-visual">
+                    <div class="story-card">
+                        <div class="card-image">
+                            <img src="/placeholder.svg?height=400&width=600" alt="Company Story">
+                        </div>
+                        <div class="card-content">
+                            <h3>ความมุ่งมั่นในคุณภาพ</h3>
+                            <p>ต.ตรวจบ้าน เริ่มต้นเมื่อปี 2015 โดยเจ้าของ คุณสุเมธ เจตธำรงชัย และคุณสุเทพ เจตธำรงชัย เริ่มจากการที่รับตรวจบ้าน และคอนโดให้กับกลุ่มพี่น้องและเพื่อนฝูงคนรู้จักจนได้รับการบอกต่อปากต่อปาก</p>
+                            <div class="card-features">
+                                <div class="feature-item">
+                                    <span class="feature-icon">🎯</span>
+                                    <span class="feature-text">ความแม่นยำสูง</span>
+                                </div>
+                                <div class="feature-item">
+                                    <span class="feature-icon">⚡</span>
+                                    <span class="feature-text">บริการรวดเร็ว</span>
+                                </div>
+                                <div class="feature-item">
+                                    <span class="feature-icon">💎</span>
+                                    <span class="feature-text">คุณภาพพรีเมียม</span>
                                 </div>
                             </div>
                         </div>
-                    </header>
-                    <!-- Navigation Content -->
-                    <div class="menu-content">
-                        <!-- Topics Section -->
-                        <div class="menu-section">
-                            <h3>Navigation</h3>
-                            <ul>
-                                <li><a href="/Homepage/index.php" data-translate="nav.home">หน้าหลัก</a>
-                                </li>
-                                <li><a href="/Homepage/service.php" data-translate="nav.services">บริการ</a></li>
-                                <li><a href="/Homepage/promotion.php" data-translate="nav.promotion">สิทธิพิเศษ</a>
-                                </li>
-                                <li><a href="/Homepage/projects_media.html" data-translate="nav.projects">ผลงาน</a>
-                                </li>
-
-                                <!-- Dropdown Menu -->
-                                <li class="dropdown1">
-                                    <a href="#" class="menu-item1" data-translate="nav.aboutUs">
-                                        เกี่ยวกับเรา <span class="dropdown-icon1"><i
-                                                class="fa-solid fa-caret-down"></i></span>
-                                    </a>
-                                    <ul class="dropdown-menu1">
-                                        <li><a href="/Homepage/ourstory.php"
-                                                data-translate="nav.ourStory">ประวัติของเรา</a>
-                                        </li>
-                                        <li><a href="/Homepage/ourteam.php"
-                                                data-translate="nav.ourTeam">ทีมงานของเรา</a></li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#" class="menu-item" data-translate="nav.service">
-                                        บริการเสริม <span class="dropdown-icon"><i
-                                                class="fa-solid fa-caret-down"></i></span>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="/Homepage/app-inspector.php"
-                                                data-translate="nav.app-inspector">ตรวจบ้านเอง</a>
-                                        </li>
-                                        <li><a href="cal-electric.php"
-                                                data-translate="nav.cal-electric">คำนวณไฟฟ้า</a>
-                                        </li>
-                                        <li><a href="checklist.php" data-translate="nav.checklist">เทียบสเปกบ้าน</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li><a href="/Homepage/articles.php" data-translate="nav.articles">บทความ</a></li>
-                                <li><a href="/Homepage/Review-home.php" data-translate="nav.reviewHome">รีวิวบ้าน</a>
-                                </li>
-                                <li><a href="/Homepage/review_interior.php"
-                                        data-translate="nav.reviewInterior">บริการตกแต่งภายใน</a></li>
-                                <li><a href="/Homepage/joinwithus.php" data-translate="nav.joinUs">รวมงานกับเรา</a>
-                                </li>
-                                <li><a href="/Homepage/Contactus.php" data-translate="nav.contact">ติดต่อเรา</a></li>
-                            </ul>
-                        </div>
-
-                        <!-- Series & Podcast Section -->
-                        <div class="menu-section">
-                            <h3>Content/Articles</h3>
-                            <ul>
-                                <li><a href="#">รายการทั้งหมด</a></li>
-                                <li><a href="#">มนุษย์ต่างวัย Talk</a></li>
-                                <li><a href="#">บพุทธ์ที่โครฟ</a></li>
-                                <li><a href="#">Life Long Investing</a></li>
-                                <li><a href="#">มนุษย์ต่างวัย Podcast</a></li>
-                                <li><a href="#">ชีวิตชีวา 2</a></li>
-                                <li><a href="#">The O Idol</a></li>
-                                <li><a href="#">มนุษย์ต่างวัย Talk</a></li>
-                            </ul>
-                        </div>
-
-                        <!-- Other Sections -->
-                        <div class="menu-section">
-                            <h3><a href="/Homepage/Contactus.php" class="menu-link">Contact</a></h3>
-                            <h3><a href="/Homepage/projects_media.html" class="menu-link">Projects</a></h3>
-                            <h3><a href="/Homepage/joinwithus.php" class="menu-link">joinwithus</a></h3>
-                        </div>
                     </div>
                 </div>
             </div>
-            <!-- line -->
-            <div class="contact-container">
-                <a id="phone-link" href="#" class="contact-item" data-aos="fade-up-left">
-                    <div class="icon">
-                        <i class="fa-solid fa-phone"></i>
-                    </div>
-                    <span id="phone-text">โทร ...</span>
-                </a>
-
-                <a id="line-link" href="#" target="_blank" class="contact-item" data-aos="fade-up-right">
-                    <div class="icon">
-                        <i class="fa-brands fa-line" style="color: #00a347;"></i>
-                    </div>
-                    <span id="line-text">@line.id</span>
-                </a>
-            </div>
-            <script>
-                document.addEventListener("DOMContentLoaded", function() {
-                    fetch('/backend/panel/get_line_section.php')
-                        .then(response => response.json())
-                        .then(data => {
-                            // อัปเดตเบอร์โทร
-                            const phoneLink = document.getElementById('phone-link');
-                            const phoneText = document.getElementById('phone-text');
-                            phoneLink.href = 'tel:' + data.phone_number;
-                            phoneText.textContent = 'โทร ' + data.phone_number;
-
-                            // อัปเดต Line ID
-                            const lineLink = document.getElementById('line-link');
-                            const lineText = document.getElementById('line-text');
-                            lineLink.href = 'https://line.me/R/ti/p/' + encodeURIComponent(data.line_id);
-                            lineText.textContent = data.line_id;
-                        })
-                        .catch(error => {
-                            console.error('เกิดข้อผิดพลาดในการโหลดข้อมูลติดต่อ:', error);
-                        });
-                });
-            </script>
-
-            <!-- <section class="story-container">
-
-                <div class="story-header">
-                    <img src="/img/ourstoryimage1.png" alt="Building B" class="header-image">
-                    <h1 class="header-title">OUR STORY</h1>
-                </div>
-
-
-                <section class="story-content">
-                    <p>
-                        ต.ตรวจบ้าน เริ่มต้นเมื่อปี 2015 โดยเจ้าของ คุณสุเมธ เจตธำรงชัย และคุณสุเทพ เจตธำรงชัย
-                        เริ่มจากการที่รับตรวจบ้าน
-                        และคอนโดให้กับกลุ่มพี่น้องและเพื่อนฝูงคนรู้จักจนได้รับการบอกต่อปากต่อปาก
-                        จนกระทั่งเป็นที่รู้จักมากขึ้นทำให้ปัจจุบัน ต.ตรวจบ้าน
-                        เป็นผู้นำด้านการตรวจบ้านอันดับต้นๆ ในประเทศไทยที่ลูกค้าบอกต่อมากที่สุด
-                    </p>
-                </section>
-                <section class="vision-mission" data-aos="fade-up">
-                    <h2>Our Vision and Mission</h2>
-                    <div class="head" data-aos="fade-up">
-                        <h2>“ผู้นำด้านการตรวจบ้าน”</h2><br>
-                        <p>บริการตรวจสอบบ้านมือสองของบ้านและคอนโดก่อนโอนกรรมสิทธิ์ดีที่สุด อันดับ 1
-                            ที่ลูกค้าเลือกมากที่สุดในประเทศไทย</p>
-                    </div>
-                    <div class="values">
-                        <div class="value" data-aos="fade-up-right">
-                            <img src="/icon/ICON/trusted.png" alt="Trust Icon">
-                            <h3>TRUST</h3>
-                            <p>การสร้างความเชื่อมั่นด้วยการตรวจสอบที่มีมาตรฐาน</p>
-                        </div>
-                        <div class="value" data-aos="fade-up">
-                            <img src="/icon/ICON/future.png" alt="Tech Icon">
-                            <h3>TECH</h3>
-                            <p>บริการตรวจสอบคุณภาพบ้านโดยใช้เทคโนโลยีใหม่</p>
-                        </div>
-                        <div class="value" data-aos="fade-up-left">
-                            <img src="/icon/ICON/group.png" alt="Team Icon">
-                            <h3>TEAM</h3>
-                            <p>ทีมงานคุณภาพพร้อมให้บริการลูกค้า</p>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="our-founders" data-aos="fade-up">
-                    <h2>Our Founders</h2>
-                    <div class="founders-container">
-                        <div class="founder" data-aos="fade-right">
-                            <img src="/img/staff/CEO.jpg" alt="Sumes Chetthamrongchai"
-                                class="founder-photo">
-                            <h3>Sumes Chetthamrongchai</h3>
-                            <p>Founder & Managing Director, NACHI Certified Inspector</p>
-                        </div>
-                        <div class="founder" data-aos="fade-left">
-                            <img src="/img/staff/Co-founder.jpg" alt="Suthep Chetthamrongchai"
-                                class="founder-photo">
-                            <h3>Suthep Chetthamrongchai</h3>
-                            <p>Co-Founder & Civil Engineer</p>
-                        </div>
-                    </div>
-                </section>
-                <section class="commitment" data-aos="fade-up">
-                    <h2>Our Commitment to the Client</h2>
-                    <div class="commitment-content">
-                        <ul class="centered-list" data-aos="fade-up-left">
-                            <li>ซื่อสัตย์และโปร่งใส
-                                ไม่ใช่คนในบริษัทอสังหาริมทรัพย์ออกมารับงานเองหรือตรวจงานโครงการตัวเอง</li>
-                            <li>ตรวจครบทุกฟังก์ชันการใช้งานหลัก ใช้เทคโนโลยีที่ทันสมัยเข้ามาใช้ในการตรวจเพื่อความแม่นยำ
-                            </li>
-                            <li>ตรวจบ้านทุกวันเป็น "อาชีพหลัก ไม่ใช่งานเสริม"</li>
-                            <li>ตรวจด้วยช่างผู้เชี่ยวชาญงานจริง ไม่ใช้คำว่าวิศวกรมาหากิน</li>
-                            <li>ไม่เน้นล่ารายการดีเฟคเพื่อให้เล่มรายงานดูเยอะ</li>
-                            <li>บริษัทรับงานเองและไม่มีการส่งงานต่อให้ซับกินค่าหัวคิว</li>
-                            <li>คติของเรา “ตรวจจริง เห็นกับตา ไปพร้อมลูกค้า”</li>
-                        </ul>
-                    </div>
-                </section>
-            </section> -->
-
-            <div class="our-story-content" id="story-content">
-                <?php echo $content ? html_entity_decode($content) : '<p>No content available.</p>'; ?>
-            </div>
-
-            <script>
-                // Check for updated content in Local Storage
-                $(document).ready(function() {
-                    var latestContent = localStorage.getItem("latestContent");
-                    if (latestContent) {
-                        $("#story-content").html(latestContent);
-                    }
-                });
-            </script>
-            <footer class="footer">
-                <div class="footer-container">
-                    <!-- Left Section: Social Media & Branding -->
-                    <div class="footer-left">
-                        <!-- <h2>HomeInspector</h2> -->
-                        <img src="/img/footer_logo.png" alt="HomeInspector Logo" class="footer-logo">
-                        <div class="social-icons">
-                            <a href="https://www.facebook.com/t.homeinspector/" target="_blank"><img
-                                    src="/icon/ICON/Fb.png" alt="Facebook"></a>
-                            <a href="https://www.instagram.com/t.homeinspector/" target="_blank"><img
-                                    src="/icon/ICON/IG.png" alt="Instagram"></a>
-                            <a href="https://page.line.me/t.home?openQrModal=true" target="_blank"><img
-                                    src="/icon/ICON/line.png" alt="Line"></a>
-                            <a href="https://www.tiktok.com/@thomeinspector" target="_blank"><img
-                                    src="/icon/ICON/Tiktok.png" alt="TikTok"></a>
-                            <a href="https://www.youtube.com/channel/UC1BPUCVPBW4-ml7MrxQWjug" target="_blank"><img
-                                    src="/icon/ICON/YB.png" alt="YouTube"></a>
-                        </div>
-                    </div>
-
-                    <!-- Center Section: Company -->
-                    <div class="footer-center">
-                        <h2>เกี่ยวกับเรา <span class="toggle-icon">+</span></h2>
-                        <ul>
-                            <li><a href="/Homepage/ourstory.php">ประวัติของเรา</a></li>
-                            <li><a href="/Homepage/ourteam.php">ทีมงานของเรา</a></li>
-                        </ul>
-                    </div>
-
-                    <!-- Right Section: Our Services -->
-                    <div class="footer-right">
-                        <h2>บริการของเรา <span class="toggle-icon">+</span></h2>
-                        <ul>
-                            <li><a href="/Homepage/Hinspector.php">ต.ตรวจบ้าน</a></li>
-                            <li><a href="/Homepage/Hinterior.php">ต.ตงแต่ง</a></li>
-                            <li><a href="/Homepage/Hconstruction.php">ต.เติม</a></li>
-                            <li><a href="/Homepage/Hbulter.php">H.Bulter</a></li>
-                            <li><a href="/Homepage/cal-electric.php">ตรวจสอบระบบไฟฟ้า</a></li>
-                            <li><a href="/Homepage/app-inspector.php">ตรวจบ้านเอง</a></li>
-                            <li><a href="/Homepage/checklist.php">เทียบสเปกบ้าน</a></li>
-                        </ul>
-                    </div>
-
-                    <!-- Extra Section: Customer Help -->
-                    <div class="footer-help">
-                        <h2>ช่วยเหลือ <span class="toggle-icon">+</span></h2>
-                        <ul>
-                            <li><a href="/Homepage/index.php#faq">คำถามที่พบบ่อย (FAQ)</a></li>
-                            <li><a href="/Homepage/joinwithus.php">รวมงานกับเรา</a></li>
-                            <li><a href="/Homepage/promotion.php">โปรโมชั่น</a></li>
-                            <li><a href="/Homepage/Contactus.php">ติดต่อเรา</a></li>
-                        </ul>
-                    </div>
-
-                    <!-- Payment Logos -->
-                    <div class="footer-payment">
-                        <h2>ชำระเงินด้วย</h2>
-                        <div class="payment-logos">
-                            <img src="/img/visacard.png" alt="Visa">
-                            <img src="/img/Mastercard.webp" alt="MasterCard">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Footer Bottom -->
-                <div class="footer-bottom">
-                    <p>© 2024 HomeInspector. All Rights Reserved.</p>
-                </div>
-            </footer>
         </div>
-    </div>
+    </section>
 
+    <!-- Vision Section -->
+    <section class="vision-section" id="vision">
+        <div class="vision-background">
+            <div class="vision-overlay"></div>
+        </div>
+        <div class="container">
+            <div class="vision-content">
+                <div class="vision-card">
+                    <div class="card-header">
+                        <div class="header-icon">🎯</div>
+                        <h2 class="card-title">Our Vision and Mission</h2>
+                    </div>
+                    <div class="card-body">
+                        <p class="vision-text">บริการตรวจสอบบ้านมือสองของบ้านและคอนโดก่อนโอนกรรมสิทธิ์ดีที่สุด อันดับ 1 ที่ลูกค้าเลือกมากที่สุดในประเทศไทย</p>
+                        <div class="vision-features">
+                            <div class="feature-grid">
+                                <div class="grid-item">
+                                    <div class="item-icon">🏆</div>
+                                    <div class="item-text">ผู้นำตลาด</div>
+                                </div>
+                                <div class="grid-item">
+                                    <div class="item-icon">🔍</div>
+                                    <div class="item-text">ตรวจสอบละเอียด</div>
+                                </div>
+                                <div class="grid-item">
+                                    <div class="item-icon">⭐</div>
+                                    <div class="item-text">คุณภาพสูง</div>
+                                </div>
+                                <div class="grid-item">
+                                    <div class="item-icon">🤝</div>
+                                    <div class="item-text">ความไว้วางใจ</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <script src="/JS/Toggle_Navbar.js"></script>
-    <!-- <script src="/HOOMESPECTOR/JS/dropdown.js"></script> -->
-    <script src="/JS/carousel.js"></script>
-    <script src="/JS/carousel2.js"></script>
-    <script src="/JS/footer.js"></script>
-    <script src="/JS/search_ham.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <!-- Values Section -->
+    <section class="values-section" id="values">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <span class="badge-icon">💎</span>
+                    <span class="badge-text">หลักการของเรา</span>
+                </div>
+                <h2 class="section-title">Our Core Values</h2>
+                <p class="section-subtitle">สามเสาหลักที่ทำให้เราเป็นผู้นำ</p>
+            </div>
+            <div class="values-grid">
+                <div class="value-card" data-tilt>
+                    <div class="card-background"></div>
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <div class="icon-bg"></div>
+                            <span class="icon-symbol">🛡️</span>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">TRUST</h3>
+                        <p class="card-description">การสร้างความเชื่อมั่นด้วยการตรวจสอบที่มีมาตรฐาน</p>
+                        <div class="card-features">
+                            <div class="feature-point">✓ มาตรฐานสากล</div>
+                            <div class="feature-point">✓ ความโปร่งใส</div>
+                            <div class="feature-point">✓ ความน่าเชื่อถือ</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="value-card" data-tilt>
+                    <div class="card-background"></div>
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <div class="icon-bg"></div>
+                            <span class="icon-symbol">🔧</span>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">TECH</h3>
+                        <p class="card-description">บริการตรวจสอบคุณภาพบ้านโดยใช้เทคโนโลยีใหม่</p>
+                        <div class="card-features">
+                            <div class="feature-point">✓ เทคโนโลยีทันสมัย</div>
+                            <div class="feature-point">✓ อุปกรณ์ล้ำสมัย</div>
+                            <div class="feature-point">✓ ระบบดิจิทัล</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="value-card" data-tilt>
+                    <div class="card-background"></div>
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <div class="icon-bg"></div>
+                            <span class="icon-symbol">👥</span>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">TEAM</h3>
+                        <p class="card-description">ทีมงานคุณภาพพร้อมให้บริการลูกค้า</p>
+                        <div class="card-features">
+                            <div class="feature-point">✓ ผู้เชี่ยวชาญ</div>
+                            <div class="feature-point">✓ ประสบการณ์สูง</div>
+                            <div class="feature-point">✓ บริการเป็นเลิศ</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Founders Section -->
+    <section class="founders-section" id="founders">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <span class="badge-icon">👑</span>
+                    <span class="badge-text">ผู้ก่อตั้ง</span>
+                </div>
+                <h2 class="section-title">Our Founders</h2>
+                <p class="section-subtitle">ผู้นำที่มีวิสัยทัศน์และประสบการณ์</p>
+            </div>
+            <div class="founders-grid">
+                <div class="founder-card">
+                    <div class="card-background"></div>
+                    <div class="founder-image">
+                        <img src="/img/staff/CEO.jpg" alt="Sumes Chetthamrongchai">
+                        <div class="image-overlay">
+                            <div class="social-links">
+                                <a href="#" class="social-link">📧</a>
+                                <a href="#" class="social-link">📱</a>
+                                <a href="#" class="social-link">💼</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="founder-info">
+                        <h3 class="founder-name">Sumes Chetthamrongchai</h3>
+                        <p class="founder-title">Founder & Managing Director</p>
+                        <p class="founder-subtitle">NACHI Certified Inspector</p>
+                        <div class="founder-achievements">
+                            <div class="achievement-item">
+                                <span class="achievement-icon">🏆</span>
+                                <span class="achievement-text">8+ ปีประสบการณ์</span>
+                            </div>
+                            <div class="achievement-item">
+                                <span class="achievement-icon">📜</span>
+                                <span class="achievement-text">ใบรับรองสากล</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="founder-card">
+                    <div class="card-background"></div>
+                    <div class="founder-image">
+                        <img src="/img/staff/CO-founder.jpg" alt="Suthep Chetthamrongchai">
+                        <div class="image-overlay">
+                            <div class="social-links">
+                                <a href="#" class="social-link">📧</a>
+                                <a href="#" class="social-link">📱</a>
+                                <a href="#" class="social-link">💼</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="founder-info">
+                        <h3 class="founder-name">Suthep Chetthamrongchai</h3>
+                        <p class="founder-title">Co-Founder & Civil Engineer</p>
+                        <p class="founder-subtitle">Technical Director</p>
+                        <div class="founder-achievements">
+                            <div class="achievement-item">
+                                <span class="achievement-icon">🔧</span>
+                                <span class="achievement-text">วิศวกรโยธา</span>
+                            </div>
+                            <div class="achievement-item">
+                                <span class="achievement-icon">🎯</span>
+                                <span class="achievement-text">ผู้เชี่ยวชาญ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Commitment Section -->
+    <section class="commitment-section" id="commitment">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <span class="badge-icon">🤝</span>
+                    <span class="badge-text">คำมั่นสัญญา</span>
+                </div>
+                <h2 class="section-title">Our Commitment to the Client</h2>
+                <p class="section-subtitle">สิ่งที่เรามุ่งมั่นให้กับลูกค้าทุกท่าน</p>
+            </div>
+            
+            <div class="commitment-showcase">
+                        <span class="badge-icon">✨</span>
+                        <span class="badge-text">มาตรฐานสูงสุด</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="commitment-grid">
+                <div class="commitment-item">
+                    <div class="item-icon">
+                        <span class="icon-bg"></span>
+                        <span class="icon-symbol">🎯</span>
+                    </div>
+                    <div class="item-content">
+                        <h3 class="item-title">ความซื่อสัตย์และโปร่งใส</h3>
+                        <p class="item-description">ไม่ใช่คนในบริษัทอสังหาริมทรัพย์ออกมารับงานเองหรือตรวจงานโครงการตัวเอง</p>
+                    </div>
+                </div>
+
+                <div class="commitment-item">
+                    <div class="item-icon">
+                        <span class="icon-bg"></span>
+                        <span class="icon-symbol">🔍</span>
+                    </div>
+                    <div class="item-content">
+                        <h3 class="item-title">การตรวจสอบครบถ้วน</h3>
+                        <p class="item-description">ตรวจครบทุกฟังก์ชันการใช้งานหลัก ใช้เทคโนโลยีที่ทันสมัยเข้ามาใช้ในการตรวจเพื่อความแม่นยำ</p>
+                    </div>
+                </div>
+
+                <div class="commitment-item">
+                    <div class="item-icon">
+                        <span class="icon-bg"></span>
+                        <span class="icon-symbol">💼</span>
+                    </div>
+                    <div class="item-content">
+                        <h3 class="item-title">อาชีพหลัก ไม่ใช่งานเสริม</h3>
+                        <p class="item-description">ตรวจบ้านทุกวันเป็น "อาชีพหลัก ไม่ใช่งานเสริม"</p>
+                    </div>
+                </div>
+
+                <div class="commitment-item">
+                    <div class="item-icon">
+                        <span class="icon-bg"></span>
+                        <span class="icon-symbol">👨‍🔧</span>
+                    </div>
+                    <div class="item-content">
+                        <h3 class="item-title">ช่างผู้เชี่ยวชาญ</h3>
+                        <p class="item-description">ตรวจด้วยช่างผู้เชี่ยวชาญงานจริง ไม่ใช้คำว่าวิศวกรมาหากิน</p>
+                    </div>
+                </div>
+
+                <div class="commitment-item">
+                    <div class="item-icon">
+                        <span class="icon-bg"></span>
+                        <span class="icon-symbol">📋</span>
+                    </div>
+                    <div class="item-content">
+                        <h3 class="item-title">คุณภาพ ไม่ใช่ปริมาณ</h3>
+                        <p class="item-description">ไม่เน้นล่ารายการดีเฟคเพื่อให้เล่มรายงานดูเยอะ</p>
+                    </div>
+                </div>
+
+                <div class="commitment-item">
+                    <div class="item-icon">
+                        <span class="icon-bg"></span>
+                        <span class="icon-symbol">🏢</span>
+                    </div>
+                    <div class="item-content">
+                        <h3 class="item-title">บริการโดยตรง</h3>
+                        <p class="item-description">บริษัทรับงานเองและไม่มีการส่งงานต่อให้ซับกินค่าหัวคิว</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="motto-section">
+                <div class="motto-card">
+                    <div class="motto-icon">💫</div>
+                    <h3 class="motto-title">คติของเรา</h3>
+                    <p class="motto-text">"ตรวจจริง เห็นกับตา ไปพร้อมลูกค้า"</p>
+                    <div class="motto-decoration">
+                        <div class="decoration-line"></div>
+                        <div class="decoration-dot"></div>
+                        <div class="decoration-line"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">ต.ตรวจบ้าน</div>
+                    <p class="footer-description">ผู้นำด้านการตรวจบ้านที่ลูกค้าไว้วางใจมากที่สุด</p>
+                </div>
+                <div class="footer-links">
+                    <div class="link-group">
+                        <h4 class="group-title">บริการ</h4>
+                        <a href="#" class="footer-link">ตรวจบ้านเดี่ยว</a>
+                        <a href="#" class="footer-link">ตรวจคอนโด</a>
+                        <a href="#" class="footer-link">ตรวจทาวน์เฮาส์</a>
+                    </div>
+                    <div class="link-group">
+                        <h4 class="group-title">ติดต่อ</h4>
+                        <a href="#" class="footer-link">📞 02-xxx-xxxx</a>
+                        <a href="#" class="footer-link">📧 info@homeinspection.th</a>
+                        <a href="#" class="footer-link">📍 กรุงเทพมหานคร</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 ต.ตรวจบ้าน. สงวนลิขสิทธิ์.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop">
+        <span class="arrow-up">↑</span>
+    </button>
+
     <script>
-        AOS.init();
+                // DOM Elements
+        const loadingScreen = document.getElementById("loadingScreen")
+        const navbar = document.getElementById("navbar")
+        const navToggle = document.getElementById("navToggle")
+        const navMenu = document.getElementById("navMenu")
+        const backToTop = document.getElementById("backToTop")
+
+        // Loading Screen
+        window.addEventListener("load", () => {
+        setTimeout(() => {
+            loadingScreen.classList.add("hidden")
+        }, 1500)
+        })
+
+        // Navigation
+        let lastScrollTop = 0
+
+        window.addEventListener("scroll", () => {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop
+
+        // Navbar scroll effect
+        if (scrollTop > 100) {
+            navbar.classList.add("scrolled")
+        } else {
+            navbar.classList.remove("scrolled")
+        }
+
+        // Back to top button
+        if (scrollTop > 500) {
+            backToTop.classList.add("visible")
+        } else {
+            backToTop.classList.remove("visible")
+        }
+
+        // Parallax effect for floating elements
+        const floatingElements = document.querySelectorAll(".floating-element")
+        floatingElements.forEach((element, index) => {
+            const speed = Number.parseFloat(element.dataset.speed) || 0.5
+            const yPos = -(scrollTop * speed)
+            element.style.transform = `translateY(${yPos}px)`
+        })
+
+        lastScrollTop = scrollTop
+        })
+
+        // Mobile Navigation Toggle
+        navToggle.addEventListener("click", () => {
+        navToggle.classList.toggle("active")
+        navMenu.classList.toggle("active")
+        })
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll(".nav-link").forEach((link) => {
+        link.addEventListener("click", () => {
+            navToggle.classList.remove("active")
+            navMenu.classList.remove("active")
+        })
+        })
+
+        // Back to Top Button
+        backToTop.addEventListener("click", () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        })
+        })
+
+        // Smooth Scrolling for Navigation Links
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault()
+            const target = document.querySelector(this.getAttribute("href"))
+            if (target) {
+            const offsetTop = target.offsetTop - 80
+            window.scrollTo({
+                top: offsetTop,
+                behavior: "smooth",
+            })
+            }
+        })
+        })
+
+        // Active Navigation Link
+        window.addEventListener("scroll", () => {
+        const sections = document.querySelectorAll("section[id]")
+        const navLinks = document.querySelectorAll(".nav-link")
+
+        let current = ""
+        sections.forEach((section) => {
+            const sectionTop = section.offsetTop - 100
+            const sectionHeight = section.clientHeight
+            if (window.pageYOffset >= sectionTop && window.pageYOffset < sectionTop + sectionHeight) {
+            current = section.getAttribute("id")
+            }
+        })
+
+        navLinks.forEach((link) => {
+            link.classList.remove("active")
+            if (link.getAttribute("href") === `#${current}`) {
+            link.classList.add("active")
+            }
+        })
+        })
+
+        // Intersection Observer for Animations
+        const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+            entry.target.classList.add("visible")
+            }
+        })
+        }, observerOptions)
+
+        // Observe elements for animations
+        document.addEventListener("DOMContentLoaded", () => {
+        const animatedElements = document.querySelectorAll(".fade-in, .slide-in-left, .slide-in-right, .scale-in")
+        animatedElements.forEach((el) => observer.observe(el))
+        })
+
+        // Counter Animation
+        function animateCounter(element, target, duration = 2000) {
+        let start = 0
+        const increment = target / (duration / 16)
+
+        const timer = setInterval(() => {
+            start += increment
+            if (start >= target) {
+            element.textContent = target
+            clearInterval(timer)
+            } else {
+            element.textContent = Math.floor(start)
+            }
+        }, 16)
+        }
+
+        // Animate counters when they come into view
+        const counterObserver = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                const counter = entry.target
+                const target = Number.parseInt(counter.dataset.count)
+                animateCounter(counter, target)
+                counterObserver.unobserve(counter)
+            }
+            })
+        },
+        { threshold: 0.5 },
+        )
+
+        document.querySelectorAll(".stat-number").forEach((counter) => {
+        counterObserver.observe(counter)
+        })
+
+        // Tilt Effect for Cards
+        document.querySelectorAll("[data-tilt]").forEach((card) => {
+        card.addEventListener("mousemove", (e) => {
+            const rect = card.getBoundingClientRect()
+            const x = e.clientX - rect.left
+            const y = e.clientY - rect.top
+
+            const centerX = rect.width / 2
+            const centerY = rect.height / 2
+
+            const rotateX = (y - centerY) / 10
+            const rotateY = (centerX - x) / 10
+
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`
+        })
+
+        card.addEventListener("mouseleave", () => {
+            card.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)"
+        })
+        })
+
+        // Particle Effect (Simple version)
+        function createParticles() {
+        const particlesContainer = document.getElementById("particles-js")
+        if (!particlesContainer) return
+
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement("div")
+            particle.className = "particle"
+            particle.style.cssText = `
+                    position: absolute;
+                    width: 2px;
+                    height: 2px;
+                    background: rgba(255, 255, 255, 0.5);
+                    border-radius: 50%;
+                    left: ${Math.random() * 100}%;
+                    top: ${Math.random() * 100}%;
+                    animation: float ${3 + Math.random() * 4}s ease-in-out infinite;
+                    animation-delay: ${Math.random() * 2}s;
+                `
+            particlesContainer.appendChild(particle)
+        }
+        }
+
+        // Initialize particles
+        createParticles()
+
+        // Form Validation (if forms are added later)
+        function validateForm(form) {
+        const inputs = form.querySelectorAll("input[required], textarea[required]")
+        let isValid = true
+
+        inputs.forEach((input) => {
+            if (!input.value.trim()) {
+            input.classList.add("error")
+            isValid = false
+            } else {
+            input.classList.remove("error")
+            }
+        })
+
+        return isValid
+        }
+
+        // Lazy Loading for Images
+        const imageObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+            const img = entry.target
+            img.src = img.dataset.src
+            img.classList.remove("lazy")
+            imageObserver.unobserve(img)
+            }
+        })
+        })
+
+        document.querySelectorAll("img[data-src]").forEach((img) => {
+        imageObserver.observe(img)
+        })
+
+        // Keyboard Navigation
+        document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+            // Close mobile menu
+            navToggle.classList.remove("active")
+            navMenu.classList.remove("active")
+        }
+        })
+
+        // Performance Optimization
+        let ticking = false
+
+        function updateOnScroll() {
+        // Throttle scroll events
+        if (!ticking) {
+            requestAnimationFrame(() => {
+            // Scroll-dependent updates here
+            ticking = false
+            })
+            ticking = true
+        }
+        }
+
+        window.addEventListener("scroll", updateOnScroll)
+
+        // Error Handling
+        window.addEventListener("error", (e) => {
+        console.error("JavaScript Error:", e.error)
+        })
+
+        // Service Worker Registration (for PWA capabilities)
+        if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+            navigator.serviceWorker
+            .register("/sw.js")
+            .then((registration) => {
+                console.log("SW registered: ", registration)
+            })
+            .catch((registrationError) => {
+                console.log("SW registration failed: ", registrationError)
+            })
+        })
+        }
+
+        // Analytics (placeholder for Google Analytics or similar)
+        function trackEvent(action, category, label) {
+        if (typeof gtag !== "undefined") {
+            gtag("event", action, {
+            event_category: category,
+            event_label: label,
+            })
+        }
+        }
+
+        // Track button clicks
+        document.querySelectorAll(".btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+            trackEvent("click", "button", btn.textContent.trim())
+        })
+        })
+
+        // Accessibility Improvements
+        document.addEventListener("DOMContentLoaded", () => {
+        // Add skip link
+        const skipLink = document.createElement("a")
+        skipLink.href = "#main-content"
+        skipLink.textContent = "Skip to main content"
+        skipLink.className = "skip-link"
+        skipLink.style.cssText = `
+                position: absolute;
+                top: -40px;
+                left: 6px;
+                background: var(--primary-blue);
+                color: white;
+                padding: 8px;
+                text-decoration: none;
+                border-radius: 4px;
+                z-index: 10000;
+                transition: top 0.3s;
+            `
+
+        skipLink.addEventListener("focus", () => {
+            skipLink.style.top = "6px"
+        })
+
+        skipLink.addEventListener("blur", () => {
+            skipLink.style.top = "-40px"
+        })
+
+        document.body.insertBefore(skipLink, document.body.firstChild)
+
+        // Add main content landmark
+        const mainContent = document.querySelector(".main-content") || document.querySelector("main")
+        if (mainContent) {
+            mainContent.id = "main-content"
+            mainContent.setAttribute("role", "main")
+        }
+        })
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener("DOMContentLoaded", () => {
+        console.log("🏠 ต.ตรวจบ้าน website loaded successfully!")
+
+        // Add any additional initialization here
+        setTimeout(() => {
+            document.body.classList.add("loaded")
+        }, 100)
+        })
+
+
+
     </script>
-
-
-</body>
-
-</html>
+@endsection
