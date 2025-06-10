@@ -8,8 +8,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --primary-color:rgb(0, 238, 255);
-            --primary-dark:rgb(0, 255, 242);
+            --primary-color:rgb(131, 131, 131);
+            --primary-dark:rgb(128, 128, 128);
             --secondary-color: #2c3e50;
             --accent-blue: #3498db;
             --success-color: #27ae60;

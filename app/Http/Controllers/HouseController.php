@@ -105,17 +105,25 @@ class HouseController extends Controller
         return view('admin.compare.compare_house', compact('houses'));
     }
 
-    public function comparisonView(Request $request){
+    public function comparisonView(Request $request)
+    {
         $houseIds = $request->get('houses');
+
         if (!$houseIds) {
-            return redirect()->route('houses.compare')->with('error', 'ไม่พบข้อมูลบ้านที่ต้องการเปรียบเทียบ');
+
+            if ($request->routeIs('admin.compare.compare_frontend')) {
+                return \View::make('admin.compare.compare_frontend')->with('errors', ['ไม่พบข้อมูลบ้านที่ต้องการเปรียบเทียบ']);
+            }
+
+            return redirect()->route('admin.compare.compare_frontend')
+                ->with('error', 'ไม่พบข้อมูลบ้านที่ต้องการเปรียบเทียบ');
         }
 
         $ids = explode(',', $houseIds);
         $houses = House::whereIn('id', $ids)->get();
         
         if ($houses->count() < 2) {
-            return redirect()->route('houses.compare')->with('error', 'กรุณาเลือกบ้านอย่างน้อย 2 หลังเพื่อเปรียบเทียบ');
+            return redirect()->route('admin.compare.compare_frontend')->with('error', 'กรุณาเลือกบ้านอย่างน้อย 2 หลังเพื่อเปรียบเทียบ');
         }
 
         return view('admin.compare.comparison', compact('houses'));

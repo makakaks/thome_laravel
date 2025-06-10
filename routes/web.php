@@ -71,10 +71,6 @@ Route::get('/admin/compare', [HouseController::class, 'adminView']);
 Route::get('/admin/houses', [HouseController::class, 'adminView'])->name('admin.houses.list');
 Route::post('/admin/houses', [HouseController::class, 'store'])->name('admin.houses.store');
 
-Route::get('/compare-houses', function () {
-    return view('admin.compare.compare_frontend');
-});
-
 Route::prefix('addon_service')->group(function () {
     Route::get('/app_inspector', function () {
         return view('home.addon_service.app_inspector');
@@ -151,11 +147,15 @@ Route::prefix('api')->group(function () {
     Route::get('/houses/{id}', [HouseController::class, 'apiShow']);
 });
 
+Route::get('/compare-houses', function () {
+    return view('admin.compare.compare_frontend');
+});
+
 Route::get('/admin/compare-house', [HouseController::class, 'adminView'])->name('admin.compare.compare_house');
 
 Route::get('/admin/compare/comparison', [HouseController::class, 'comparisonView'])->name('admin.compare.comparison');
 
-Route::get('/admin/compare/compare_frontend', [HouseController::class, 'frontendView'])->name('admin.compare.compare_frontend');
+Route::get('/admin/compare/compare_frontend', [HouseController::class, 'comparisonView'])->name('admin.compare.compare_frontend');
 
 Route::prefix('api')->group(function () {
     Route::get('/houses', [HouseController::class, 'apiIndex']);
