@@ -40,6 +40,10 @@ class Article extends Model
     public function translation($locale = null)
     {
         $locale = $locale ?? App::getLocale();
-        return $this->translations()->where('locale', $locale)->first();
+        $result = $this->translations->where('locale', $locale)->first();
+        if (!$result) {
+            $result = $this->translations->first();
+        }
+        return $result;
     }
 }

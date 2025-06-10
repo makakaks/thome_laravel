@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    
+
     <title>Test</title>
     <link rel="icon" type="image/x-icon" href="/img/favicon1.png">
 
@@ -45,7 +45,7 @@
             <h2>Admin Panel</h2>
             <button class="close-sidebar" id="closeSidebar">×</button>
         </div>
-        <div class="user-info">
+        {{-- <div class="user-info">
             <div class="avatar">
                 <img src="https://via.placeholder.com/50" alt="User Avatar">
             </div>
@@ -53,7 +53,7 @@
                 <h3>Admin Admin</h3>
                 <p>Administrator</p>
             </div>
-        </div>
+        </div> --}}
         <nav class="sidebar-nav flex-column">
             <ul>
                 <li class="">
@@ -93,6 +93,12 @@
                             <path d="M2 7h20"></path>
                         </svg>
                         รีวิวบ้าน
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/employee">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1134/1134182.png" class="icon"></i>
+                        โครงสร้างพนักงาน
                     </a>
                 </li>
                 <li>
@@ -150,7 +156,7 @@
     <div id="loading-indicator" style="display: none;">
         <img src="https://i.gifer.com/ZKZg.gif" alt="กำลังโหลด...">
     </div>
-    
+
     <script type="module">
         // Global function to show loading indicator
         window.showLoading = function () {

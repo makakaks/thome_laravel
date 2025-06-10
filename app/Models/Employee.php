@@ -6,20 +6,23 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\App;
 
-class ArticleTag extends Model
+
+class Employee extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'cover_image',
+    ];
 
-    function articles()
+    public function department()
     {
-        return $this->belongsToMany(Article::class, 'article_with_tag');
+        return $this->belongsTo(Department::class);
     }
 
-    function translations()
+    public function translations()
     {
-        return $this->hasMany(ArticleTagTranslation::class);
+        return $this->hasMany(EmployeeTranslation::class);
     }
 
     public function translation($locale = null)

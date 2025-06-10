@@ -3,9 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\FaqController;
-use App\Http\Controllers\ReviewHomeController;
+use App\Http\Controllers\EmployeeController;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
@@ -144,6 +145,20 @@ Route::prefix('admin')->group(function () {
         Route::put('/{id}', 'edit_store')->name('admin.faq.edit');
 
         Route::post('/add_tag', 'create_tag')->name('admin.faq.add_tag');
+    });
+
+    Route::prefix('employee')->controller(EmployeeController::class)->group(function () {
+        Route::get('/', 'manage')->name('admin.employee.manage');
+        Route::put('/{id}', 'edit')->name('admin.employee.edit');
+        Route::delete('/{id}', 'delete')->name('admin.employee.delete');
+        Route::post('/', 'create')->name('admin.employee.create');
+    });
+
+    Route::prefix('department')->controller(DepartmentController::class)->group(function () {
+        Route::post('/', 'create')->name('admin.department.create');
+        Route::put('/{id}', 'edit')->name('admin.department.edit');
+        Route::delete('/{id}', 'delete')->name('admin.department.delete');
+        Route::post('/reorder', 'reorder')->name('admin.department.reorder');
     });
 
     Route::post('/upload_image', [AdminController::class, 'upload_image'])->name('admin.upload');
