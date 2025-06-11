@@ -55,7 +55,7 @@
         <!-- Payment Logos -->
         <div class="footer-payment">
             <h2>ชำระเงินด้วย</h2>
-            <div class="payment-logos">
+            <div class="payment-logos flex-wrap">
                 <img src="/img/visacard.png" alt="Visa">
                 <img src="/img/Mastercard.webp" alt="MasterCard">
                 <img src="/img/prompt.png" alt="prompt">

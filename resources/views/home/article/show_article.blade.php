@@ -1,4 +1,4 @@
-@extends('component.layout  ')
+@extends('component.layout')
 
 @section('content')
     <link rel="stylesheet" href="/css/home/article/test_article.css">
