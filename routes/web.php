@@ -173,6 +173,7 @@ Route::prefix('api')->group(function () {
     Route::prefix('faq')->controller(FaqController::class)->group(function () {
         Route::get('/', 'get_all')->name('api.faq.get_all');
         Route::get('/{id}', 'get_translate')->name('api.faq.get_translate');
+        Route::get('/faq_and_available_lang/{id}', 'get_faq_and_available_lang')->name('api.faq.get_faq_and_available_lang');
     });
 });
 

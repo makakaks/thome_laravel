@@ -26,7 +26,10 @@ const noResults = document.getElementById("no-results");
 const modalContent = document.querySelector(".modal-content");
 const modalContainer = document.querySelector("#staticBackdrop");
 const editBtns = document.querySelectorAll(".btn-edit");
+const addLangBtn = document.querySelectorAll(".add-lang-btn");
 const addFaqBtn = document.getElementById("add-article");
+
+const tagSelectorContainer = document.getElementById("tag-selector-container");
 
 let tagSelector;
 
@@ -99,10 +102,6 @@ function addTag() {
                     <label for="tag-name">ชื่อแท็ก:</label>
                     <input type="text" id="add-tag-name" class="form-control" placeholder="ป้อนชื่อแท็ก">
                 </div>
-                <div class="form-group">
-                    <label for="tag-name">ชื่อแท็ก(en):</label>
-                    <input type="text" id="add-tag-name-en" class="form-control" placeholder="ป้อนชื่อแท็ก">
-                </div>
             </div>`,
             "ไม่",
             "ใช่",
@@ -110,9 +109,6 @@ function addTag() {
             async () => {
                 const tagName = document
                     .getElementById("add-tag-name")
-                    .value.trim();
-                const tagNameEn = document
-                    .getElementById("add-tag-name-en")
                     .value.trim();
 
                 window.showLoading();
@@ -125,16 +121,10 @@ function addTag() {
                             'meta[name="csrf-token"]'
                         ).content,
                     },
-                    body: JSON.stringify([
-                        {
-                            locale: "th",
-                            name: tagName,
-                        },
-                        {
-                            locale: "en",
-                            name: tagNameEn,
-                        },
-                    ]),
+                    body: JSON.stringify({
+                        locale: "th",
+                        name: tagName,
+                    }),
                 }).then(async (res) => {
                     window.hideLoading();
                     if (!res.ok) {
@@ -152,8 +142,11 @@ function addTag() {
 }
 
 function searchListener() {
-    searchInput.value = new URLSearchParams(window.location.search).get('search');
-    filterSelect.value = new URLSearchParams(window.location.search).get('tag') || 'all';
+    searchInput.value = new URLSearchParams(window.location.search).get(
+        "search"
+    );
+    filterSelect.value =
+        new URLSearchParams(window.location.search).get("tag") || "all";
 
     searchInput.addEventListener("keydown", (event) => {
         if (event.key && event.key !== "Enter") return;
@@ -167,9 +160,10 @@ function searchListener() {
 
 function modalListener() {
     const question = modalContent.querySelector("#question");
-    const questionEn = modalContent.querySelector("#question-eng");
+    // const questionEn = modalContent.querySelector("#question-eng");
     const ans = modalContent.querySelector("#ans");
-    const ansEn = modalContent.querySelector("#ans-eng");
+    // const ansEn = modalContent.querySelector("#ans-eng");
+    const langSelect = modalContent.querySelector("#lang-select");
     document.querySelectorAll("textarea").forEach((textarea) => {
         textarea.addEventListener("input", () => {
             textarea.style.height = "5px";
@@ -177,31 +171,132 @@ function modalListener() {
         });
     });
 
+    // เพิ่มบทความ
     addFaqBtn.addEventListener("click", () => {
         modalContent.querySelector(".modal-header h1").innerText =
             "สร้างคำถามใหม่";
-        modalContent.classList.remove("edit-mode");
-        modalContent.classList.add("create-mode");
+        modalContent.setAttribute("action-type", "create");
+
+        langSelect.value = "th";
+        langSelect.disabled = true;
+
+        tagSelectorContainer.style.display = "block";
+    });
+
+    addLangBtn.forEach((btn) => {
+        btn.addEventListener("click", async () => {
+            console.log("add lang btn clicked");
+            modalContent.querySelector(".modal-header h1").innerText =
+                "เพิ่มภาษาใหม่";
+            modalContent.setAttribute("action-type", "add-lang");
+            modalContent.setAttribute("data-id", btn.getAttribute("data-id"));
+
+            langSelect.disabled = false;
+            tagSelectorContainer.style.display = "none";
+
+            const faq = btn.parentNode.parentNode;
+            const faqId = faq.getAttribute("data-id");
+            let res = await fetch(`/api/faq/faq_and_available_lang/${faqId}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": document.querySelector(
+                        'meta[name="csrf-token"]'
+                    ).content,
+                },
+            });
+
+            if (!res.ok) {
+                window.showToast("ไม่สามารถดึงข้อมูลคำถามได้", "error");
+                return;
+            }
+            res = await res.json();
+            console.log("res", res.tags);
+
+            const availableLang = new Set();
+
+            res.translations.forEach((lang) => {
+                availableLang.add(lang.locale);
+            });
+
+            let flag = false;
+            langSelect.querySelectorAll("option").forEach((option) => {
+                if (availableLang.has(option.value)) {
+                    option.disabled = true; // Disable already used languages
+                } else {
+                    option.disabled = false; // Enable available languages
+                    langSelect.value = option.value;
+                    flag = true;
+                    // option.replaceWith(option.cloneNode(true));
+                }
+            });
+
+            if (!flag) {
+                window.showToast("ไม่สามารถเพิ่มภาษาได้", "error");
+                return;
+            }
+        });
     });
 
     editBtns.forEach((btn) => {
-        btn.addEventListener("click", () => {
+        btn.addEventListener("click", async () => {
             modalContent.querySelector(".modal-header h1").innerText =
                 "แก้ไขคำถาม";
-            modalContent.classList.remove("create-mode");
-            modalContent.classList.add("edit-mode");
+            modalContent.setAttribute("action-type", "edit");
             modalContent.setAttribute("data-id", btn.getAttribute("data-id"));
 
-            const faq = btn.parentNode.parentNode;
-            const td = faq.querySelectorAll("td");
+            langSelect.disabled = false;
+            tagSelectorContainer.style.display = "block";
 
-            question.value = faq.getAttribute("data-th-q");
-            questionEn.value = faq.getAttribute("data-en-q");
-            ans.value = faq.getAttribute("data-th-ans");
-            ansEn.value = faq.getAttribute("data-en-ans");
-            td[3].querySelectorAll("span").forEach((span) => {
-                console.log("span : ", span, span.getAttribute("tag-id"));
-                tagSelector.selectOptionById(span.getAttribute("tag-id"));
+            const faq = btn.parentNode.parentNode;
+            const faqId = faq.getAttribute("data-id");
+            let res = await fetch(`/api/faq/faq_and_available_lang/${faqId}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": document.querySelector(
+                        'meta[name="csrf-token"]'
+                    ).content,
+                },
+            });
+
+            if (!res.ok) {
+                window.showToast("ไม่สามารถดึงข้อมูลคำถามได้", "error");
+                return;
+            }
+            res = await res.json();
+            console.log("res", res.tags);
+
+            const availableLang = new Set();
+            const availableLangObj = {};
+
+            res.translations.forEach((lang) => {
+                availableLang.add(lang.locale);
+                availableLangObj[lang.locale] = lang;
+            });
+
+            langSelect.querySelectorAll("option").forEach((option) => {
+                if (availableLang.has(option.value)) {
+                    option.disabled = false; // Disable already used languages
+                    langSelect.value = option.value;
+                    question.value = availableLangObj[option.value].question;
+                    ans.value = availableLangObj[option.value].answer;
+                } else {
+                    option.disabled = true; // Enable available languages
+                    // option.replaceWith(option.cloneNode(true));
+                }
+            });
+
+            langSelect.addEventListener("change", () => {
+                const selectedLang = langSelect.value;
+                if (availableLang.has(selectedLang)) {
+                    question.value = availableLangObj[selectedLang].question;
+                    ans.value = availableLangObj[selectedLang].answer;
+                }
+            });
+
+            res.tags.forEach((tag) => {
+                tagSelector.selectOptionById(tag.faq_tag_id);
             });
         });
     });
@@ -209,20 +304,11 @@ function modalListener() {
     document.querySelector(".submit").addEventListener("click", async () => {
         window.showLoading();
 
-        if (modalContent.classList.contains("create-mode")) {
+        if (modalContent.getAttribute("action-type") == "create") {
             const req = {
-                locale: [
-                    {
-                        locale: "th",
-                        question: question.value.trim(),
-                        answer: ans.value.trim(),
-                    },
-                    {
-                        locale: "en",
-                        question: questionEn.value.trim(),
-                        answer: ansEn.value.trim(),
-                    },
-                ],
+                locale: "th",
+                question: question.value.trim(),
+                answer: ans.value.trim(),
                 tags: tagSelector.getSelectedTags(),
             };
             console.log(req);
@@ -235,12 +321,15 @@ function modalListener() {
                     ).content,
                 },
                 body: JSON.stringify(req),
-            }).then((res) => {
+            }).then(async (res) => {
                 window.hideLoading();
                 modalContainer.classList.remove("show");
 
                 if (!res.ok) {
                     window.showToast("ไม่สามารถบันทึกคำถามได้", "error");
+                    await res.text().then((data) => {
+                        console.log("error :", data);
+                    });
                 } else {
                     window.showToast("บันทึกคำถามเรียบร้อยแล้ว", "success");
                     setTimeout(() => {
@@ -250,38 +339,39 @@ function modalListener() {
             });
         } else {
             const req = {
-                locale: [
-                    {
-                        locale: "th",
-                        question: question.value.trim(),
-                        answer: ans.value.trim(),
-                    },
-                    {
-                        locale: "en",
-                        question: questionEn.value.trim(),
-                        answer: ansEn.value.trim(),
-                    },
-                ],
-                tags: tagSelector.getSelectedTags(),
+                locale: langSelect.value,
+                question: question.value.trim(),
+                answer: ans.value.trim(),
             };
-            console.log(req);
-            await fetch(`/admin/manage_faq/${modalContent.getAttribute('data-id')}`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRF-TOKEN": document.querySelector(
-                        'meta[name="csrf-token"]'
-                    ).content,
-                },
-                body: JSON.stringify(req),
-            }).then((res) => {
+            if (modalContent.getAttribute("action-type") == "edit") {
+                req.tags = tagSelector.getSelectedTags();
+            } else {
+                req.tags = null;
+            }
+            console.log("req :", req);
+            await fetch(
+                `/admin/manage_faq/${modalContent.getAttribute("data-id")}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": document.querySelector(
+                            'meta[name="csrf-token"]'
+                        ).content,
+                    },
+                    body: JSON.stringify(req),
+                }
+            ).then(async (res) => {
                 window.hideLoading();
                 modalContainer.classList.remove("show");
 
                 if (!res.ok) {
                     window.showToast("ไม่สามารถแก้ไขคำถามได้", "error");
+                    await res.text().then((data) => {
+                        console.log("error :", data);
+                    });
                 } else {
-                    window.showToast("แก้ไขคำถามเรียบร้อยแล้ว", "success");
+                    window.showToast("บันทึกเรียบร้อย", "success");
                     setTimeout(() => {
                         location.reload();
                     }, 3000);
@@ -305,6 +395,73 @@ function tag_selector() {
     tagSelector = createTagSelector("tag-selector-container", tagss);
 }
 
+function initCarusel() {
+    const tableHeader = document.querySelector(".table-header");
+    const addTagBtn = document.querySelector("#add-tag");
+    const addArticleBtn = document.querySelector("#add-article");
+    const navigation = document.querySelector(
+        "button[data-bs-target='#carouselExample']"
+    );
+
+    navigation.addEventListener("click", () => {
+        if (
+            document
+                .querySelector(".carousel-item.item-1")
+                .classList.contains("active")
+        ) {
+            addTagBtn.style.display = "inline-block";
+            addArticleBtn.style.display = "none";
+            navigation.textContent = "← จัดการ Faq";
+            navigation.setAttribute("data-bs-slide", "prev");
+        } else {
+            addTagBtn.style.display = "none";
+            addArticleBtn.style.display = "inline-block";
+            navigation.textContent = "จัดการ Tag →";
+            navigation.setAttribute("data-bs-slide", "next");
+        }
+    });
+}
+
+function initTagManage() {
+    const tagListContainer = document.getElementById("tags-list");
+    const tagList = tagListContainer.querySelectorAll("tr");
+
+    const tagModal = document.getElementById("tagBackdrop");
+    const tagModalTitle = tagModal.querySelector("h1");
+    const tagNameInput = tagModal.querySelector("#tag-name");
+    const submitTagBtn = tagModal.querySelector(".submit");
+
+    tagList.forEach((tag) => {
+        const tagId = tag.getAttribute("tag-id");
+        // tag edit button
+        tag.querySelectorAll("button[btn-type='tag-edit']").forEach((btn) => {
+            const superParent = btn.parentNode.parentNode;
+            const parentDiv = btn.parentNode.querySelector("div");
+            const dataLocale = superParent.getAttribute("data-locale");
+            btn.addEventListener("click", () => {
+                tagModalTitle.innerText = `แก้ไขแท็ก ${dataLocale}`;
+                tagModal.setAttribute("action-type", "edit");
+                tagModal.setAttribute("data-id", tagId);
+
+                tagNameInput.value = parentDiv.innerText.trim();
+                tagModal.classList.add("show");
+            });
+        });
+
+        // tag add-lang button
+        tag.querySelectorAll("button[btn-type='tag-addlang']").forEach(
+            (btn) => {
+                btn.addEventListener("click", () => {
+                    
+                });
+            }
+        );
+        // tag delete button
+    });
+
+    submitTagBtn.addEventListener("click", async () => {});
+}
+
 // Event Listeners
 document.addEventListener("DOMContentLoaded", () => {
     searchListener();
@@ -313,4 +470,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     addTag();
     deleteArticle();
+
+    initCarusel();
+    initTagManage();
 });

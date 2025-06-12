@@ -1,5 +1,5 @@
 th:first-child, .article-id{
-    width: 1%;
+    /* width: 1%; */
     padding-right: 0 !important;
 }
 
@@ -49,3 +49,8 @@ textarea {
         margin: 20% auto;
         padding: 15px;
     } */
+
+#tags-list tr td div{
+    display: flex;
+    justify-content: space-between;
+}

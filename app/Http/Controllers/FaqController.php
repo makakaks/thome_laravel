@@ -43,8 +43,6 @@ class FaqController extends Controller
 
         foreach ($faqs as $faq) {
             $faq->translation = $faq->translation();
-            $faq->th = $faq->translation('th');
-            $faq->en = $faq->translation('en');
             $faq->tags = $faq->faqTags->map(function ($tag) {
                 return $tag->translation();
             });
@@ -52,6 +50,9 @@ class FaqController extends Controller
 
         foreach ($tags as $tag) {
             $tag->translation = $tag->translation();
+            $tag->th = $tag->translation('th');
+            $tag->en = $tag->translation('en');
+            $tag->cn = $tag->translation('cn');
         }
         return view('admin.faq.manage_faq', compact('faqs', 'tags'));
     }
@@ -61,13 +62,11 @@ class FaqController extends Controller
         try {
             $faq = Faq::create();
 
-            foreach ($request['locale'] as $lang) {
-                $faq->translations()->create([
-                    'locale' => $lang['locale'],
-                    'question' => $lang['question'],
-                    'answer' => $lang['answer'],
-                ]);
-            }
+            $faq->translations()->create([
+                'locale' => $request['locale'],
+                'question' => $request['question'],
+                'answer' => $request['answer'],
+            ]);
 
             $faq->faqTags()->attach($request['tags']);
             return response()->json(['message' => 'FAQ created successfully.']);
@@ -82,17 +81,18 @@ class FaqController extends Controller
         $faq = Faq::findOrFail($id);
         try {
 
-            foreach ($request['locale'] as $lang) {
-                $faq->translations()->updateOrCreate(
-                    ['locale' => $lang['locale']],
-                    [
-                        'question' => $lang['question'],
-                        'answer' => $lang['answer'],
-                    ]
-                );
+            $faq->translations()->updateOrCreate(
+                ['locale' => $request['locale']],
+                [
+                    'question' => $request['question'],
+                    'answer' => $request['answer'],
+                ]
+            );
+
+            if (is_array($request['tags'])) {
+                $faq->faqTags()->sync($request['tags']);
             }
 
-            $faq->faqTags()->sync($request['tags']);
             return response()->json(['message' => 'FAQ updated successfully.'], 200);
         } catch (Exception $e) {
             return response()->json(['message' => 'Error updating FAQ: ' . $e->getMessage()], 500);
@@ -105,7 +105,7 @@ class FaqController extends Controller
             $faq = Faq::findOrFail($id);
             $faq->delete();
             return response()->json(['message' => 'FAQ deleted successfully.'], 200);
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             return response()->json(['message' => 'Error deleting FAQ: ' . $e->getMessage()], 500);
         }
     }
@@ -135,5 +135,25 @@ class FaqController extends Controller
         $faq->th = $faq->translation('th');
         $faq->en = $faq->translation('en');
         return response()->json($faq);
+    }
+
+    function get_faq_and_available_lang($id)
+    {
+        try {
+            $faq = Faq::findOrFail($id);
+            $faq->translations = $faq->translations;
+            $faq->tags = $faq->faqTags->map(function ($tag) {
+                return $tag->translation();
+            });
+
+            // $tags = $faq->faqTags()->get();
+            // foreach ($tags as $tag) {
+            //     $tag->translation = $tag->translation();
+            // }
+            return response()->json($faq, 200);
+            // return response()->json(['translation'=> $faq->translations, 'tags' => $tags], 200);
+        } catch (Exception $e) {
+            return response()->json(['message' => 'Error fetching FAQ: ' . $e->getMessage()], 500);
+        }
     }
 }
