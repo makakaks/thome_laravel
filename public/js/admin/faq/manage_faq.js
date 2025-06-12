@@ -32,6 +32,7 @@ const addFaqBtn = document.getElementById("add-article");
 const tagSelectorContainer = document.getElementById("tag-selector-container");
 
 let tagSelector;
+const confirmDialog = new ConfirmDialog();
 
 // ค้นหาและกรองบทความ
 async function searchAndFilterArticles() {
@@ -48,7 +49,7 @@ function deleteArticle() {
         .forEach((btn) => {
             btn.addEventListener("click", (e) => {
                 const id = e.target.getAttribute("data-id");
-                const confirmDialog = new ConfirmDialog();
+
                 confirmDialog.confirmAction(
                     "ลบคำถามนี้?",
                     "คำถามนี้จะถูกลบอย่างถาวร",
@@ -94,7 +95,6 @@ function deleteArticle() {
 function addTag() {
     const btn = document.getElementById("add-tag");
     btn.addEventListener("click", () => {
-        const confirmDialog = new ConfirmDialog();
         confirmDialog.confirmAction(
             "เพิ่มแท็ก",
             `<div class="mt-3">
@@ -426,10 +426,106 @@ function initTagManage() {
     const tagListContainer = document.getElementById("tags-list");
     const tagList = tagListContainer.querySelectorAll("tr");
 
-    const tagModal = document.getElementById("tagBackdrop");
-    const tagModalTitle = tagModal.querySelector("h1");
-    const tagNameInput = tagModal.querySelector("#tag-name");
-    const submitTagBtn = tagModal.querySelector(".submit");
+    async function confirmEdit(superParent, parentDiv, dataLocale, tagId) {
+        confirmDialog.confirmAction(
+            `แก้ไขแท็ก ${dataLocale}`,
+            `<div class="mt-3">
+                <div class="form-group mb-3">
+                    <label for="tag-name">ชื่อแท็ก:</label>
+                    <input type="text" value="${parentDiv.innerText.trim()}" id="add-tag-name" class="form-control" placeholder="ป้อนชื่อแท็ก">
+                </div>
+            </div>`,
+            "ไม่",
+            "ใช่",
+            '<button class="confirm-btn active confirm-yes" id="confirmYes"> Yes </button>',
+            async () => {
+                const tagName = document
+                    .getElementById("add-tag-name")
+                    .value.trim();
+
+                window.showLoading();
+
+                await fetch(`/admin/manage_faq/edit_tag/${tagId}`, {
+                    method: "PUT",
+                    headers: {
+                        "content-Type": "application/json",
+                        "X-CSRF-TOKEN": document.querySelector(
+                            'meta[name="csrf-token"]'
+                        ).content,
+                    },
+                    body: JSON.stringify({
+                        locale: dataLocale,
+                        name: tagName,
+                    }),
+                }).then(async (res) => {
+                    window.hideLoading();
+                    if (!res.ok) {
+                        window.showToast("ไม่สามารแก้ไขได้", "error");
+                        await res.text().then((data) => {
+                            console.log(data);
+                        });
+                        return;
+                    }
+                    window.showToast("แก้ไขแท็กเรียบร้อยแล้ว", "success");
+                    parentDiv.innerText = tagName;
+                });
+            }
+        );
+    }
+
+    async function confirmAddLang(superParent, parentDiv, dataLocale, tagId, btn) {
+        confirmDialog.confirmAction(
+            `เพิ่มภาษา ${dataLocale}`,
+            `<div class="mt-3">
+                <div class="form-group mb-3">
+                    <label for="tag-name">ชื่อแท็ก:</label>
+                    <input type="text" id="add-tag-name" class="form-control" placeholder="ป้อนชื่อแท็ก">
+                </div>
+            </div>`,
+            "ไม่",
+            "ใช่",
+            '<button class="confirm-btn active confirm-yes" id="confirmYes"> Yes </button>',
+            async () => {
+                const tagName = document
+                    .getElementById("add-tag-name")
+                    .value.trim();
+
+                window.showLoading();
+
+                await fetch(`/admin/manage_faq/edit_tag/${tagId}`, {
+                    method: "PUT",
+                    headers: {
+                        "content-Type": "application/json",
+                        "X-CSRF-TOKEN": document.querySelector(
+                            'meta[name="csrf-token"]'
+                        ).content,
+                    },
+                    body: JSON.stringify({
+                        locale: dataLocale,
+                        name: tagName,
+                    }),
+                }).then(async (res) => {
+                    window.hideLoading();
+                    if (!res.ok) {
+                        window.showToast("ไม่สามารถเพิ่มแท็กได้", "error");
+                    } else {
+                        window.showToast("เพิ่มแท็กเรียบร้อยแล้ว", "success");
+                    }
+                    btn.remove();
+                    const parent = parentDiv.parentNode;
+                    const newBtn = document.createElement("button");
+                    newBtn.setAttribute("btn-type", "tag-edit");
+                    newBtn.addEventListener("click", async () => {
+                        await confirmEdit(superParent, parentDiv, dataLocale, tagId);
+                    });
+                    newBtn.className = "btn btn-warning";
+                    newBtn.innerText = "แก้ไข";
+                    parent.appendChild(newBtn);
+                    parentDiv.innerText = tagName;
+                });
+            }
+        );
+    }
 
     tagList.forEach((tag) => {
         const tagId = tag.getAttribute("tag-id");
@@ -438,28 +534,61 @@ function initTagManage() {
             const superParent = btn.parentNode.parentNode;
             const parentDiv = btn.parentNode.querySelector("div");
             const dataLocale = superParent.getAttribute("data-locale");
-            btn.addEventListener("click", () => {
-                tagModalTitle.innerText = `แก้ไขแท็ก ${dataLocale}`;
-                tagModal.setAttribute("action-type", "edit");
-                tagModal.setAttribute("data-id", tagId);
-
-                tagNameInput.value = parentDiv.innerText.trim();
-                tagModal.classList.add("show");
+            btn.addEventListener("click", async () => {
+                await confirmEdit(superParent, parentDiv, dataLocale, tagId);
             });
         });
 
         // tag add-lang button
         tag.querySelectorAll("button[btn-type='tag-addlang']").forEach(
             (btn) => {
-                btn.addEventListener("click", () => {
-                    
+                const superParent = btn.parentNode.parentNode;
+                const parentDiv = btn.parentNode.querySelector("div");
+                const dataLocale = superParent.getAttribute("data-locale");
+                btn.addEventListener("click", async () => {
+                    await confirmAddLang(superParent, parentDiv, dataLocale, tagId, btn);
                 });
             }
         );
         // tag delete button
-    });
+        tag.querySelectorAll("button[btn-type='tag-delete']").forEach((btn) => {
+            btn.addEventListener("click", (e) => {
+                const superParent = btn.parentNode.parentNode;
 
-    submitTagBtn.addEventListener("click", async () => {});
+                confirmDialog.confirmAction(
+                    `ลบแท็ก`,
+                    `<div class="mt-3">
+                        <p>คุณแน่ใจหรือไม่ว่าต้องการลบแท็กนี้?</p>
+                    </div>`,
+                    "ไม่",
+                    "ใช่",
+                    '<button class="confirm-btn active confirm-yes" id="confirmYes"> ลบ </button>',
+                    async () => {
+                        window.showLoading();
+                        await fetch(`/admin/manage_faq/delete_tag/${tagId}`, {
+                            method: "DELETE",
+                            headers: {
+                                "X-CSRF-TOKEN": document.querySelector(
+                                    'meta[name="csrf-token"]'
+                                ).content,
+                            },
+                        }).then(async (res) => {
+                            window.hideLoading();
+                            if (!res.ok) {
+                                window.showToast("ไม่สามารถลบแท็กได้", "error");
+                                await res.text().then((data) => {
+                                    console.log(data);
+                                });
+                            } else {
+                                window.showToast("ลบแท็กเรียบร้อยแล้ว", "success");
+                                superParent.remove();
+                            }
+                        });
+                    }
+                );
+            });
+        });
+    });
 }
 
 // Event Listeners

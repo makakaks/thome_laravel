@@ -123,8 +123,7 @@
                                                         <div>
                                                             {{ $t->th->name }}
                                                         </div>
-                                                        <button class="btn btn-warning" data-bs-toggle="modal"
-                                                            btn-type="tag-edit" data-bs-target="#tagBackdrop">
+                                                        <button class="btn btn-warning" btn-type="tag-edit">
                                                             แก้ไข
                                                         </button>
                                                     </div>
@@ -135,8 +134,8 @@
                                                             <div>
                                                                 {{ $t->en->name }}
                                                             </div>
-                                                            <button class="btn btn-warning" data-bs-toggle="modal"
-                                                                btn-type="tag-edit" data-bs-target="#tagBackdrop">
+                                                            <button class="btn btn-warning"
+                                                                btn-type="tag-edit">
                                                                 แก้ไข
                                                             </button>
                                                         </div>
@@ -146,8 +145,8 @@
                                                                 ยังไม่มีภาษาอังกฤษ
                                                             </div>
 
-                                                            <button class="btn btn-success" data-bs-toggle="modal"
-                                                                btn-type="tag-addlang" data-bs-target="#tagBackdrop">
+                                                            <button class="btn btn-success"
+                                                                btn-type="tag-addlang" >
                                                                 เพิ่มภาษา
                                                             </button>
                                                         </div>
@@ -159,8 +158,8 @@
                                                             <div>
                                                                 {{ $t->cn->name }}
                                                             </div>
-                                                            <button class="btn btn-warning" data-bs-toggle="modal"
-                                                                btn-type="tag-edit" data-bs-target="#tagBackdrop">
+                                                            <button class="btn btn-warning"
+                                                                btn-type="tag-edit">
                                                                 แก้ไข
                                                             </button>
                                                         </div>
@@ -169,15 +168,15 @@
                                                             <div>
                                                                 ยังไม่มีภาษาจีน
                                                             </div>
-                                                            <button class="btn btn-success" data-bs-toggle="modal"
-                                                                btn-type="tag-addlang" data-bs-target="#tagBackdrop">
+                                                            <button class="btn btn-success"
+                                                                btn-type="tag-addlang">
                                                                 เพิ่มภาษา
                                                             </button>
                                                         </div>
                                                     @endif
                                                 </td>
                                                 <td class="actions-buttons">
-                                                    <button class="btn btn-danger">ลบ</button>
+                                                    <button class="btn btn-danger" btn-type='tag-delete'>ลบ</button>
                                                 </td>
                                                 {{-- <td>{{ $t }}</td> --}}
                                                 {{-- {{ dd($t->translations) }} --}}

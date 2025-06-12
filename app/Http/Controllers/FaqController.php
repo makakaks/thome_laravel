@@ -60,6 +60,13 @@ class FaqController extends Controller
     function create_store(Request $request)
     {
         try {
+            $request->validate([
+                'locale' => 'required|string|max:5',
+                'question' => 'required|string',
+                'answer' => 'required|string',
+                'tags' => 'array',
+            ]);
+
             $faq = Faq::create();
 
             $faq->translations()->create([
@@ -78,9 +85,16 @@ class FaqController extends Controller
 
     function edit_store($id, Request $request)
     {
-        $faq = Faq::findOrFail($id);
-        try {
 
+        try {
+            $request->validate([
+                'locale' => 'required|string|max:5',
+                'question' => 'required|string',
+                'answer' => 'required|string',
+                'tags' => 'array',
+            ]);
+
+            $faq = Faq::findOrFail($id);
             $faq->translations()->updateOrCreate(
                 ['locale' => $request['locale']],
                 [
@@ -113,18 +127,56 @@ class FaqController extends Controller
     function create_tag(Request $request)
     {
         try {
+            $request->validate([
+                'locale' => 'required|string|max:5',
+                'name' => 'required|string',
+            ]);
+
             $tag = FaqTag::create();
 
-            foreach ($request->all() as $lang) {
-                $tag->translations()->create([
-                    'locale' => $lang['locale'],
-                    'name' => $lang['name'],
-                ]);
-            }
+            $tag->translations()->create([
+                'locale' => $request['locale'],
+                'name' => $request['name'],
+            ]);
 
             return response()->json(['message' => 'Tag created successfully.'], 200);
         } catch (Exception $e) {
             return response()->json(['message' => 'Error creating tag: ' . $e->getMessage()], 500);
+        }
+    }
+
+    function edit_tag(Request $request)
+    {
+        try {
+            // return response()->json(['message' => $request['locale']], 400);
+            $request->validate([
+                'locale' => 'required|string|max:5',
+                'name' => 'required|string',
+            ]);
+
+            $tag = FaqTag::findOrFail($request->id);
+            if (!$tag) {
+                return response()->json(['message' => 'Tag not found.'], 404);
+            }
+            $tag->translations()->updateOrCreate(
+                ['locale' => $request['locale']],
+                ['name' => $request['name']]
+            );
+
+            return response()->json(['message' => 'Tag created successfully.'], 200);
+        } catch (Exception $e) {
+            return response()->json(['message' => 'Error creating tag: ' . $e->getMessage()], 500);
+        }
+    }
+
+    function delete_tag($id)
+    {
+        try {
+            $tag = FaqTag::findOrFail($id);
+            $tag->delete();
+            return response()->json(['message' => 'Tag deleted successfully.'], 200);
+        } catch (Exception $e) {
+            return response()->json(['message' => 'Error deleting tag: ' . $e->getMessage()], 500);
         }
     }
 
