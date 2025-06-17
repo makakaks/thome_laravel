@@ -1,27 +1,9 @@
 import ConfirmDialog from "/js/component/confirm_dialog.js";
 import { createTagSelector } from "/js/component/tag_selector.js";
 
-const artList = document.getElementById("articles-list");
-const artFilterSelect = document.getElementById("articles-filter");
-
-let artTags = new Set();
-
-// ข้อมูลตัวอย่าง
-let articles = Array.from(document.querySelectorAll("#articles-list tr"));
-
 // เลือก DOM elements
 const searchInput = document.getElementById("search");
 const filterSelect = document.getElementById("articles-filter");
-const articlesList = document.getElementById("articles-list");
-const modal = document.getElementById("article-modal");
-const modalTitle = document.getElementById("modal-title");
-const articleForm = document.getElementById("article-form");
-const articleIdInput = document.getElementById("article-id");
-const articleTitleInput = document.getElementById("article-title");
-const articleTagsInput = document.getElementById("article-tags");
-const cancelBtn = document.getElementById("cancel-btn");
-const closeBtn = document.querySelector(".close");
-const noResults = document.getElementById("no-results");
 
 const modalContent = document.querySelector(".modal-content");
 const modalContainer = document.querySelector("#staticBackdrop");

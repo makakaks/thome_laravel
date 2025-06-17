@@ -188,7 +188,7 @@
 
 .show {
     display: block;
-    animation: fadeIn 0.2s ease;
+    /* animation: fadeIn 0.2s ease; */
 }
 
 .helper-text {

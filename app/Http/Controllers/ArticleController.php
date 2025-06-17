@@ -101,6 +101,9 @@ class ArticleController extends Controller
 
         foreach ($tags as $tag) {
             $tag->translation = $tag->translation();
+            $tag->th = $tag->translation('th');
+            $tag->en = $tag->translation('en');
+            $tag->cn = $tag->translation('cn');
         }
 
         return view('admin.article.manage_articles', compact('articles', 'tags'));
@@ -248,6 +251,41 @@ class ArticleController extends Controller
             // return response()->json(['message' => 'Tag created successfully.'], 200);
         } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage(), 'request' => $request->all()], 500);
+        }
+    }
+
+    function edit_tag(Request $request)
+    {
+        try {
+            // return response()->json(['message' => $request['locale']], 400);
+            $request->validate([
+                'locale' => 'required|string|max:5',
+                'name' => 'required|string',
+            ]);
+
+            $tag = ArticleTag::findOrFail($request->id);
+            if (!$tag) {
+                return response()->json(['message' => 'Tag not found.'], 404);
+            }
+            $tag->translations()->updateOrCreate(
+                ['locale' => $request['locale']],
+                ['name' => $request['name']]
+            );
+
+            return response()->json(['message' => 'Tag created successfully.'], 200);
+        } catch (Exception $e) {
+            return response()->json(['message' => 'Error creating tag: ' . $e->getMessage()], 500);
+        }
+    }
+
+    function delete_tag($id)
+    {
+        try {
+            $tag = ArticleTag::findOrFail($id);
+            $tag->delete();
+            return response()->json(['message' => 'Tag deleted successfully.'], 200);
+        } catch (Exception $e) {
+            return response()->json(['message' => 'Error deleting tag: ' . $e->getMessage()], 500);
         }
     }
 

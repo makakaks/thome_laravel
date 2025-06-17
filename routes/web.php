@@ -127,7 +127,9 @@ Route::prefix('admin')->group(function () {
         Route::get('/{id}/add_lang', 'add_lang_view')->name('admin.article.add_lang_view');
         Route::post('/{id}/add_lang', 'add_lang_store')->name('admin.article.add_lang_store');
 
-        Route::post('/add_tag', 'create_tag')->name('admin.article.create_tag');
+        Route::post('/add_tag', 'create_tag')->name('admin.article.add_tag');
+        Route::put('/edit_tag/{id}', 'edit_tag')->name('admin.article.edit_tag');
+        Route::delete('/delete_tag/{id}', 'delete_tag')->name('admin.article.delete_tag');
     });
 
     Route::prefix('manage_review_home')->controller(ArticleController::class)->group(function () {
