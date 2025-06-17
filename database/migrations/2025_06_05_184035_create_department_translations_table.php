@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('department_translations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('department_id')->constrained('departments')->onDelete('cascade');
-            $table->string('locale', 5);
-            $table->string('name', 200);
+            $table->string('locale', 5)->nullable(false);
+            $table->string('name', 200)->nullable(false);
             $table->timestamps();
 
             $table->unique(['department_id', 'locale']);

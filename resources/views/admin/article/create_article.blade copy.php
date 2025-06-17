@@ -8,89 +8,79 @@
     <link rel="stylesheet" href="/css/component/image_overlay.css">
     <div class="container">
         <h2 class="text-center">
-            @if (@isset($article))
-                @if (request()->is('*edit*'))
-                    แก้ไขบทความ
-                @else
-                    เพิ่มภาษาบทความ
-                @endif
-                ({{ request()->query('lang') }}) <span data-id="{{ $article['id'] }}"></span>
+            @if(@isset($article))
+                แก้ไขบทความ <span data-id="{{$article['id']}}"></span>
             @else
-                สร้างบทความ (ภาษาไทย)
+                สร้างบทความ
             @endif
-        </h2>
 
+        </h2>
         <form id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="false">
             <div class="input-group article-input">
+                {{-- @if (request()->url() == 'xxx')
+                    {}
+                @endif --}}
                 <div>
-                    <label for="title">ชื่อบทความ</label>
-                    <input type="text" id="title" class="articleName thai form-control"
+                    <label for="thai-title">ชื่อบทความ</label>
+                    <input type="text" id="thai-title" class="articleName thai form-control"
                         placeholder="กรอกชื่อบทความภาษาไทย" required>
                 </div>
+                <div>
+                    <label for="eng-title">ชื่อบทความ(อังกฤษ)</label>
+                    <input type="text" id="eng-title" class="articleName eng form-control"
+                        placeholder="Enter article name in English" required>
+                </div>
                 <div class="cover-image-input">
-                    <label for="cover">รูปภาพหน้าปก</label>
+                    <label for="thai-cover">รูปภาพหน้าปก</label>
                     <div>
-                        <input type="file" id="cover" accept="image/*" class="articleCoverImage thai form-control"
+                        <input type="file" id="thai-cover" accept="image/*" class="articleCoverImage thai form-control"
                             required>
                         <span class="btn btn-info view-cover">ดูรูปภาพ</span>
                     </div>
                 </div>
-
-                @if (!request()->is('*add_lang*'))
-                    <div id="tag-selector-container"></div>
+                <div class="cover-image-input">
+                    <label for="eng-cover">รูปภาพหน้าปก(อังกฤษ)</label>
                     <div>
-                        <label>สร้าง hashtag</label>
-                        <div class="tag-input-container" id="tagContainer">
-                            <input type="text" class="tag-input" id="tagInput"
-                                placeholder="Search or create new tags...">
-                            <div class="options-container" id="optionsContainer"></div>
-                        </div>
+                        <input type="file" id="eng-cover" accept="image/*" class="articleCoverImage eng form-control"
+                            requried>
+                        <span class="btn btn-info view-cover">ดูรูปภาพ</span>
                     </div>
-                @endif
+                </div>
+                {{-- <div>
+                    <span class="btn btn-danger" id="test-test">
+                        ทดสอบปุ่ม
+                    </span>
+                </div> --}}
+                <div id="tag-selector-container"></div>
             </div>
 
-            <div class="item active thai">
-                <h2>เนื้อหา</h2>
-                <div id="summernote1"></div>
+            <div class="carousel-inner" role="listbox">
+                <div class="item active thai">
+                    <h2>เนื้อหาภาษาไทย</h2>
+                    <div id="summernote1"></div>
+                </div>
+                <div class="item eng">
+                    <h2>เนื้อหาภาษาอังกฤษ</h2>
+                    <div id="summernote2"></div>
+                </div>
             </div>
 
-            <a id="submit" class="btn btn-success">บันทึก</a>
+            <div class="button-container">
+                <a class="active btn btn-primary" id="btn-prev">ย้อนกลับ</a>
+
+                <div class="navigation-buttons">
+                    <button data-target="#carousel-example-generic" data-slide-to="1" class="btn btn-primary"
+                        id="btn-next">ถัดไป</button>
+                    <a id="submit" class="btn btn-success">บันทึก</a>
+                </div>
+            </div>
         </form>
 
         <div id="imageOverlay" class="overlay">
             <span class="close-button">&times;</span>
             <img id="expandedImage" class="overlay-image" src="" alt="Full Image">
         </div>
-        
-        @if (!request()->is('*add_lang*'))
-            <div class="modal_hashtag-overlay" id="bilingualmodal_hashtag">
-                <div class="modal_hashtag">
-                    <div class="modal_hashtag-header">
-                        <h3 class="modal_hashtag-title">Create Bilingual Tag</h3>
-                        <button class="modal_hashtag-close" id="modal_hashtagClose">&times;</button>
-                    </div>
-                    <div class="modal_hashtag-body">
-                        <div class="form-group">
-                            <label class="form-label" for="thaiTagInput">Thai (ภาษาไทย)</label>
-                            <input type="text" class="form-input" id="thaiTagInput" placeholder="ป้ายชื่อภาษาไทย">
-                            <div class="form-error" id="thaiTagError">Thai text is required</div>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="englishTagInput">English</label>
-                            <input type="text" class="form-input" id="englishTagInput" placeholder="English tag name">
-                            <div class="form-error" id="englishTagError">English text is required</div>
-                        </div>
-                    </div>
-                    <div class="modal_hashtag-footer">
-                        <button class="btn btn-secondary" id="cancelBtn">Cancel</button>
-                        <button class="btn btn-primary" id="createTagBtn">Create Tag</button>
-                    </div>
-                </div>
-            </div>
-        @endif
 
-
-        {{-- summernote --}}
         <script>
             $(document).ready(function() {
                 var resize75Btn = function(context) {
@@ -150,6 +140,9 @@
                 }
 
                 $('#summernote1').summernote(settings);
+
+
+                $('#summernote2').summernote(settings);
             });
         </script>
     </div>
@@ -162,39 +155,35 @@
         @endforeach
     </div>
 
-    {{--  --}}
     @if (isset($article))
-        @if (!request()->is('*add_lang*'))
-            <div class="selected-tag-fetch hidden">
-                @foreach ($article['tags'] as $t)
-                    <div data-id="{{ $t['article_tag_id'] }}">
-                        <span>{{ $t['name'] }}</span>
-                    </div>
-                @endforeach
-            </div>
-            <div class="hashtag-fetch hidden">
-                @foreach ($article['hashtags'] as $hashtag)
-                    <div>
-                        @foreach ($hashtag as $key => $h)
-                            <span lang="{{ $key }}">{{ $h }}</span>
-                        @endforeach
-                    </div>
-                @endforeach
-            </div>
-        @endif
+        <div class="selected-tag-fetch hidden">
+            @foreach ($article['tags'] as $t)
+                <div data-id="{{ $t['article_tag_id'] }}">
+                    <span>{{ $t['name'] }}</span>
+                </div>
+            @endforeach
+        </div>
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 const jj = @json($article);
-                const titleThEle = document.getElementById("title");
-                const coverThai = document.getElementById("cover");
+                console.log(jj);
+                const titleThEle = document.getElementById("thai-title");
+                const titleEnEle = document.getElementById("eng-title");
 
-                titleThEle.value = jj.translation.title;
+                const coverThai = document.getElementById("thai-cover");
+                const coverEng = document.getElementById("eng-cover");
+
+                titleThEle.value = "{{ $article['th']['title'] }}";
+                titleEnEle.value = "{{ $article['en']['title'] }}";
+
+                coverThai.dataset.image = "{{ $article['th']['coverPageImg'] }}";
 
                 setTimeout(() => {
-                    document.querySelector('.item.thai .note-editable').innerHTML = jj.translation.content;
+                    document.querySelector('.item.thai .note-editable').innerHTML = jj.th.content;
+                    document.querySelector('.item.eng .note-editable').innerHTML = jj.en.content;
                 }, 100);
 
-                fetch(jj.translation.coverPageImg)
+                fetch(jj.th.coverPageImg)
                     .then(response => {
                         if (!response.ok) {
                             throw new Error('Network response was not ok');
@@ -209,7 +198,25 @@
 
                         const dataTransfer = new DataTransfer();
                         dataTransfer.items.add(file);
-                        document.getElementById('cover').files = dataTransfer.files;
+                        document.getElementById('thai-cover').files = dataTransfer.files;
+                    });
+
+                fetch(jj.en.coverPageImg)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.blob()
+                    })
+                    .then(blob => {
+                        const url = URL.createObjectURL(blob);
+                        const file = new File([blob], 'cover.jpg', {
+                            type: blob.type
+                        });
+
+                        const dataTransfer = new DataTransfer();
+                        dataTransfer.items.add(file);
+                        document.getElementById('eng-cover').files = dataTransfer.files;
                     });
             });
         </script>

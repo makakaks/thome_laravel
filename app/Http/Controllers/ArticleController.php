@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Article;
+use App\Models\ArticleHashTag;
 use App\Models\ArticleTag;
 use App\Models\ArticleTranslation;
 use Exception;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ArticleController extends Controller
 {
@@ -47,21 +49,23 @@ class ArticleController extends Controller
         return view('home.article.index', compact('articles', 'tags'));
     }
 
-    function test_paginate(Request $request)
+    public function show_article(Request $request)
     {
-        $articles = Article::paginate(2);
+        $news_id = $request->news_id;
+        $article = Article::where('id', $news_id)->firstOrFail();
 
-        foreach ($articles as $article) {
-            $article->translation = $article->translation();
-            $article->tags = $article->articleTags->map(function ($tag) {
-                return $tag->translation();
-            });
-        }
+        $article->translation = $article->translation();
+        $article->tags = $article->articleTags->map(function ($tag) {
+            return $tag->translation();
+        });
+        $article->hashtags = $article->articleHashTagsTranslation();
 
-        return $articles;
+        return view('home.article.show_article', compact('article'));
     }
 
-    //
+
+    ////////////////////
+    // admin
     function manage(Request $request)
     {
         $query = Article::query();
@@ -70,21 +74,16 @@ class ArticleController extends Controller
         if ($request->filled('search')) {
             $searchTerm = '%' . $request->search . '%'; // กำหนดตัวแปรสำหรับคำค้นหา
 
-            $query->where('slug', 'like', $searchTerm)
-                ->orWhereHas('translations', function ($q) use ($searchTerm) {
-                    $q->where('title', 'like', $searchTerm);
-                });
-        }
-
-        if ($request->filled('tag')) {
-            $query->whereHas('articleTags', function ($q) use ($request){
-                $q->where('article_tag_id', $request->tag);
+            $query->whereHas('translations', function ($q) use ($searchTerm) {
+                $q->where('title', 'like', $searchTerm);
             });
         }
 
-        // if ($request->has('page') && $request->page > $articles = $query->paginate(1)->lastPage()) {
-        //     return redirect()->route('admin.article.manage', array_merge($request->except('page'), ['page' => 1]));
-        // }
+        if ($request->filled('tag')) {
+            $query->whereHas('articleTags', function ($q) use ($request) {
+                $q->where('article_tag_id', $request->tag);
+            });
+        }
 
         $articles = $query->paginate(8)->appends($request->except('page'));
 
@@ -93,6 +92,11 @@ class ArticleController extends Controller
             $article->tags = $article->articleTags->map(function ($tag) {
                 return $tag->translation();
             });
+            $availablelang = [];
+            foreach ($article->translations as $translation) {
+                $availablelang[] = $translation->locale;
+            }
+            $article->availablelang = $availablelang;
         }
 
         foreach ($tags as $tag) {
@@ -122,39 +126,48 @@ class ArticleController extends Controller
         return view('admin.article.create_article', compact('tags'));
     }
 
+    // ok
     public function create_store(Request $request)
     {
         try {
-            $article = Article::create([
-                'slug' => $request->slug,
-                'status' => '1',
+            $request->validate([
+                'title' => 'required|string|max:255',
+                'content' => 'required|string',
+                'coverPageImg' => 'required',
+                'tags' => 'required|array',
+                'hashtags' => 'required|array',
+            ]);
+            $article = Article::create();
+
+            $article->translations()->create([
+                'locale' => 'th',
+                'title' => $request["title"],
+                'content' => $request["content"],
+                'coverPageImg' => $request['coverPageImg'],
             ]);
 
-            foreach ($request['locale'] as $lang) {
-                $article->translations()->create([
-                    'locale' => $lang['locale'],
-                    'title' => $lang["title"],
-                    'content' => $lang["content"],
-                    'coverPageImg' => $lang['coverPageImg'],
-                ]);
-            }
-
             $article->articleTags()->attach($request['tags']);
+            $article->articleHashTags()->create([
+                'locale' => $request->hashtags,
+            ]);
             return response()->json(['message' => 'Article created successfully.'], 200);
         } catch (Exception $e) {
-            return response()->json(['message' => 'Error creating FAQ: ' . $e->getMessage()], 500);
+            return response()->json(['message' => 'Error creating Article: ' . $e->getMessage()], 500);
         }
     }
 
-    public function edit_view($id)
+    public function edit_view($id, Request $request)
     {
-        $article = tap(Article::with('articleTags')->where('id', $id)->firstOrFail(), function ($article) {
-            $article->th = $article->translation('th');
-            $article->en = $article->translation('en');
-            $article->tags = $article->articleTags->map(function ($tag) {
-                return $tag->translation();
-            });
+        $lang = $request->lang;
+
+        $article = Article::where('id', $id)->firstOrFail();
+        $article->translation = $article->translation($lang);
+        $article->tags = $article->articleTags->map(function ($tag) {
+            return $tag->translation();
         });
+
+        // $article->hashtags = $article->articleHashTagsTranslation;
+        $article->hashtags = $article->articleHashTags->locale;
 
         $tags = ArticleTag::all();
         foreach ($tags as $tag) {
@@ -164,48 +177,64 @@ class ArticleController extends Controller
         return view('admin.article.create_article', compact('article', 'tags'));
     }
 
-    function edit_store(Request $request, $id)
+    public function edit_store(Request $request, $id)
     {
         $article = Article::where('id', $id)->first();
-        $oldSlug = $article->slug;
-
         try {
-            $article->update([
-                'slug' => $request->slug,
-                'status' => '1',
+            $oldImg = (string) $article->translation($request->lang)->coverPageImg;
+            $article->translation($request->lang)->update([
+                'title' => $request["title"],
+                'content' => $request["content"],
+                'coverPageImg' => $request['coverPageImg']
             ]);
 
-            foreach ($request['locale'] as $lang) {
-                $article->translations()->updateOrCreate(
-                    ['locale' => $lang['locale']],
-                    [
-                        'title' => $lang["title"],
-                        'content' => $lang["content"],
-                        'coverPageImg' => $lang['coverPageImg'],
-                    ]
-                );
-            }
+            // return response()->json(['message' => $request->lang], 500);
 
             $article->articleTags()->sync($request['tags']);
-            if ($oldSlug !== $request->slug) {
-                Storage::deleteDirectory('public/article/' . $oldSlug);
+            $article->articleHashTags()->update(['locale' => $request['hashtags']]);
+            if ($oldImg != $article->translation($request->lang)->coverPageImg) {
+                Storage::delete(Str::replaceFirst('/storage', 'public', $oldImg));
             }
-            return response()->json(['message' => 'Article created successfully.'], 200);
+            return response()->json(['message' => 'Article update successfully.'], 200);
         } catch (Exception $e) {
             return response()->json(['message' => 'Error updating FAQ: ' . $e->getMessage()], 500);
         }
     }
 
-    public function show_article($slug)
+    public function add_lang_view($id, Request $request)
     {
-        $article = tap(Article::with('articleTags')->where('slug', $slug)->firstOrFail(), function ($article) {
-            $article->translation = $article->translation();
-            $article->tags = $article->articleTags->map(function ($tag) {
-                return $tag->translation();
-            });
-        });
+        $lang = $request->lang;
 
-        return view('home.article.show_article', ['article' => $article, 'locale' => Session::get('locale')]);
+        $article = Article::where('id', $id)->firstOrFail();
+        $article->translation = $article->translation();
+        // $article->tags = $article->articleTags->map(function ($tag) {
+        //     return $tag->translation();
+        // });
+
+        // $article->hashtags = $article->articleHashTags->locale;
+
+        $tags = ArticleTag::all();
+        foreach ($tags as $tag) {
+            $tag->translation = $tag->translation();
+        }
+
+        return view('admin.article.create_article', compact('article', 'tags'));
+    }
+
+    public function add_lang_store(Request $request, $id)
+    {
+        try {
+            $article = Article::where('id', $id)->first();
+            $article->translations()->create([
+                'locale' => $request->lang,
+                'title' => $request["title"],
+                'content' => $request["content"],
+                'coverPageImg' => $request['coverPageImg']
+            ]);
+            return response()->json(['message' => 'Article add lang successfully.'], 200);
+        } catch (Exception $e) {
+            return response()->json(['message' => 'Error updating FAQ: ' . $e->getMessage()], 500);
+        }
     }
 
     function create_tag(Request $request)

@@ -11,8 +11,6 @@ use Illuminate\Support\Facades\Storage;
 class Article extends Model
 {
     use HasFactory;
-
-    protected $fillable = ['slug', 'status'];
     // protected $visible = ['id', 'slug', 'status', 'translation'];
     protected $hidden = ['updated_at', 'translations', 'articleTags'];
 
@@ -21,8 +19,9 @@ class Article extends Model
         parent::boot();
 
         static::deleting(function ($article) {
-            Storage::deleteDirectory('public/article/' . $article->slug); // ลบไดเรกทอรีที่เก็บภาพของบทความ
+            Storage::deleteDirectory('public/article/' . $article->id); // ลบไดเรกทอรีที่เก็บภาพของบทความ
             $article->translations()->delete();
+            $article->articleHashTags()->delete();
             $article->articleTags()->detach();
         });
     }
@@ -35,6 +34,22 @@ class Article extends Model
     function articleTags()
     {
         return $this->belongsToMany(ArticleTag::class, 'article_with_tag');
+    }
+
+    function articleHashTags()
+    {
+        return $this->hasOne(ArticleHashTag::class);
+    }
+
+    public function articleHashTagsTranslation($locale = null)
+    {
+        $locale = $locale ?? App::getLocale();
+        $articleHashTags = $this->articleHashTags->locale;
+        $articleHashTagsNew = [];
+        foreach ($articleHashTags as $articleHashTag) {
+            $articleHashTagsNew[] = $articleHashTag[$locale] ?? $articleHashTag->locale['en'] ?? '';
+        }
+        return $articleHashTagsNew;
     }
 
     public function translation($locale = null)

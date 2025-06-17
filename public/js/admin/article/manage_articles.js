@@ -7,7 +7,7 @@ let artTags = new Set();
 
 // ข้อมูลตัวอย่าง
 let articles = Array.from(document.querySelectorAll("#articles-list tr"));
-
+const confirmDialog = new ConfirmDialog();
 // เลือก DOM elements
 const searchInput = document.getElementById("search");
 const filterSelect = document.getElementById("articles-filter");
@@ -23,14 +23,12 @@ const cancelBtn = document.getElementById("cancel-btn");
 const closeBtn = document.querySelector(".close");
 const noResults = document.getElementById("no-results");
 
-
 // ค้นหาและกรองบทความ
 async function searchAndFilterArticles() {
     const searchTerm = searchInput.value.toLowerCase();
-    const filterTag = filterSelect.value == "all" ? '': filterSelect.value ;
+    const filterTag = filterSelect.value == "all" ? "" : filterSelect.value;
 
-    location.href = `/admin/manage_article?search=${searchTerm}&tag=${filterTag}`
-
+    location.href = `/admin/manage_article?search=${searchTerm}&tag=${filterTag}`;
 }
 
 // ลบบทความ
@@ -86,7 +84,6 @@ function deleteArticle() {
 function addTag() {
     const btn = document.getElementById("add-tag");
     btn.addEventListener("click", () => {
-        const confirmDialog = new ConfirmDialog();
         confirmDialog.confirmAction(
             "เพิ่มแท็ก",
             `<div class="mt-3">
@@ -144,9 +141,12 @@ function addTag() {
 }
 
 function searchListener() {
-    searchInput.value = new URLSearchParams(window.location.search).get('search');
-    filterSelect.value = new URLSearchParams(window.location.search).get('tag') || 'all';
-    
+    searchInput.value = new URLSearchParams(window.location.search).get(
+        "search"
+    );
+    filterSelect.value =
+        new URLSearchParams(window.location.search).get("tag") || "all";
+
     searchInput.addEventListener("keydown", (event) => {
         if (event.key && event.key !== "Enter") return;
         searchAndFilterArticles();
@@ -157,6 +157,75 @@ function searchListener() {
     filterSelect.addEventListener("change", searchAndFilterArticles);
 }
 
+function editArticle() {
+    const langMap = {
+        th: "ไทย",
+        en: "อังกฤษ",
+        cn: "จีน",
+    }
+    artList.querySelectorAll("tr").forEach((row) => {
+        const articleId = row.getAttribute("data-id");
+        row.querySelector("button[btn-type='edit']").addEventListener("click", () => {
+                let select = `<select class="form-select" id="select-lang">`;
+                // /admin/manage_article/add_lang/{{ $article['id'] }}/admin/manage_article/add_lang/{{ $article['id'] }}
+                // /admin/manage_article/edit/{{ $article['id'] }}
+                row.querySelectorAll("td.d-none span").forEach((lang) => {
+                    select += `<option value="${lang.textContent.trim()}">${langMap[lang.textContent.trim()]}</option>`
+                })
+                select += `</select>`;
+                // <option value="th">ไทย</option>
+                confirmDialog.confirmAction(
+                    "แก้ไขบทความ",
+                    `<div class="mt-3">
+                        <div class="form-group mb-3">
+                            <label for="tag-name">เลือกภาษา</label>
+                            ${select}
+                        </div>
+                    </div>`,
+                    "ไม่",
+                    "ใช่",
+                    '<button class="confirm-btn active confirm-yes" id="confirmYes"> Yes </button>',
+                    async () => {
+                        let select = document.getElementById('select-lang');
+                        location.href = `/admin/manage_article/${articleId}/edit?lang=${select.value}`;
+                    }
+                );
+            }
+        );
+
+        row.querySelector("button[btn-type='add-lang']").addEventListener("click", () => {
+                let select = `<select class="form-select" id="select-lang">`;
+                // /admin/manage_article/add_lang/{{ $article['id'] }}/admin/manage_article/add_lang/{{ $article['id'] }}
+                let availableLang = [];
+                row.querySelectorAll("td.d-none span").forEach((lang) => {
+                    availableLang.push(lang.textContent.trim());
+                })
+                Object.entries(langMap).forEach(([key, val]) => {
+                    if (!availableLang.includes(key))
+                    select += `<option value="${key}">${val}</option>`;
+                })
+
+                select += `</select>`;
+                confirmDialog.confirmAction(
+                    "เพิ่มภาษา",
+                    `<div class="mt-3">
+                        <div class="form-group mb-3">
+                            <label for="tag-name">เลือกภาษา</label>
+                            ${select}
+                        </div>
+                    </div>`,
+                    "ไม่",
+                    "ใช่",
+                    '<button class="confirm-btn active confirm-yes" id="confirmYes"> Yes </button>',
+                    async () => {
+                        let select = document.getElementById('select-lang');
+                        location.href = `/admin/manage_article/${articleId}/add_lang?lang=${select.value}`;
+                    }
+                );
+            }
+        );
+    });
+}
 
 // Event Listeners
 document.addEventListener("DOMContentLoaded", () => {
@@ -164,4 +233,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     addTag();
     deleteArticle();
+
+    editArticle();
 });

@@ -16,7 +16,7 @@ return new class extends Migration
     {
         Schema::create('departments', function (Blueprint $table) {
             $table->id();
-            $table->integer('d_order')->default(1000000000);
+            $table->integer('d_order')->default(1000000000)->nullable(false);
             $table->timestamps();
         });
     }

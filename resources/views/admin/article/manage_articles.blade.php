@@ -37,29 +37,40 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>รูปภาพ</th>
-                                <th>ชื่อหัวข้อ</th>
-                                <th>แท็ก</th>
-                                <th>การจัดการ</th>
+                                <th class="col-1">ID</th>
+                                <th class="col-3">รูปภาพ</th>
+                                <th class="col-5">ชื่อหัวข้อ</th>
+                                <th class="col-1">แท็ก</th>
+                                <th class="col-2">การจัดการ</th>
                             </tr>
                         </thead>
                         <tbody id="articles-list">
                             @foreach ($articles as $article)
                                 <tr data-id="{{ $article['id'] }}">
-                                    <td class="col-2">
+                                    <td class="d-none" label="available-languages">
+                                        @foreach ($article['availablelang'] as $lang)
+                                            <span>{{ $lang }}</span>
+                                        @endforeach
+                                    </td>
+                                    <td>
+                                        <span class="article-id">{{ $article['id'] }}</span>
+                                    </td>
+                                    <td>
                                         <img src="{{ $article->translation->coverPageImg }}" alt="" width="100%">
                                     </td>
                                     <td>
-                                        <a href="/articles/{{ $article->slug }}">{{ $article->translation->title }}</a>
+                                        <a href="/article/detail?news_id={{ $article->id }}">{{ $article->translation->title }}</a>
                                     </td>
-                                    <td class="col-3">
+                                    <td>
                                         @foreach ($article['tags'] as $tag)
                                             <span class="tag">{{ $tag['name'] }}</span>
                                         @endforeach
                                     </td>
-                                    <td class="actions-buttons col-2">
-                                        <a href="/admin/manage_article/edit/{{ $article['id'] }}"
-                                            class="btn btn-edit">แก้ไข</a>
+                                    <td class="actions-buttons">
+                                        <button 
+                                            class="btn btn-success" btn-type="add-lang">เพิ่มภาษา</ิ>
+                                        <button
+                                            class="btn btn-edit" btn-type="edit">แก้ไข</button>
                                         <button class="btn btn-danger delete-article"
                                             data-id="{{ $article['id'] }}">ลบ</button>
                                     </td>

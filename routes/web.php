@@ -106,10 +106,10 @@ Route::get('review_home/{id}', function ($id) {
     return view('home.article.review_home', ['id' => $id]);
 });
 
-Route::prefix('articles')->controller(ArticleController::class)->group(function () {
+Route::prefix('article')->controller(ArticleController::class)->group(function () {
     Route::get('/', 'index');
     Route::get('/test_paginate', 'test_paginate')->name('article.test_paginate');
-    Route::get('/{slug}', 'show_article')->name('article.show');
+    Route::get('/detail', 'show_article')->name('article.show');
 });
 
 
@@ -121,8 +121,11 @@ Route::prefix('admin')->group(function () {
         Route::get('/create', 'create_view')->name('admin.article.create_view');
         Route::post('/create', 'create_store')->name('admin.article.create_store');
 
-        Route::get('/edit/{id}', 'edit_view')->name('admin.article.edit_view');
-        Route::put('/edit/{id}', 'edit_store')->name('admin.article.edit_store');
+        Route::get('/{id}/edit', 'edit_view')->name('admin.article.edit_view');
+        Route::put('/{id}/edit', 'edit_store')->name('admin.article.edit_store');
+
+        Route::get('/{id}/add_lang', 'add_lang_view')->name('admin.article.add_lang_view');
+        Route::post('/{id}/add_lang', 'add_lang_store')->name('admin.article.add_lang_store');
 
         Route::post('/add_tag', 'create_tag')->name('admin.article.create_tag');
     });
