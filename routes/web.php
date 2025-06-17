@@ -123,6 +123,7 @@ Route::prefix('admin')->group(function () {
 
         Route::get('/{id}/edit', 'edit_view')->name('admin.article.edit_view');
         Route::put('/{id}/edit', 'edit_store')->name('admin.article.edit_store');
+        Route::put('/{id}/edit_id', 'edit_id')->name('admin.article.edit_id');
 
         Route::get('/{id}/add_lang', 'add_lang_view')->name('admin.article.add_lang_view');
         Route::post('/{id}/add_lang', 'add_lang_store')->name('admin.article.add_lang_store');

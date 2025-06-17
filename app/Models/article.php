@@ -12,6 +12,11 @@ class Article extends Model
 {
     use HasFactory;
     // protected $visible = ['id', 'slug', 'status', 'translation'];
+
+    protected $fillable = [
+        'id'
+    ];
+
     protected $hidden = ['updated_at', 'translations', 'articleTags'];
 
     protected static function boot()
@@ -19,10 +24,15 @@ class Article extends Model
         parent::boot();
 
         static::deleting(function ($article) {
-            Storage::deleteDirectory('public/article/' . $article->id); // ลบไดเรกทอรีที่เก็บภาพของบทความ
+            // Storage::deleteDirectory('public/article/' . $article->id); // ลบไดเรกทอรีที่เก็บภาพของบทความ
             $article->translations()->delete();
             $article->articleHashTags()->delete();
             $article->articleTags()->detach();
+        });
+
+        static::updating(function ($article) {
+            
+
         });
     }
 

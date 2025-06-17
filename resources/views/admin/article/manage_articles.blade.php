@@ -65,7 +65,7 @@
                                                 </td>
                                                 <td>
                                                     <a
-                                                        href="/article/detail?news_id={{ $article->id }}">{{ $article->translation->title }}</a>
+                                                        href="/article/detail?news_id={{ $article->id }}" class="article-link">{{ $article->translation->title }}</a>
                                                 </td>
                                                 <td>
                                                     @foreach ($article['tags'] as $tag)
@@ -73,7 +73,8 @@
                                                     @endforeach
                                                 </td>
                                                 <td class="actions-buttons">
-                                                    <button class="btn btn-success" btn-type="add-lang">เพิ่มภาษา</ิ>
+                                                    <button class="btn btn-info" btn-type="edit-id">แก้ ID</button>
+                                                    <button class="btn btn-success" btn-type="add-lang">เพิ่มภาษา</button>
                                                         <button class="btn btn-edit" btn-type="edit">แก้ไข</button>
                                                         <button class="btn btn-danger delete-article"
                                                             data-id="{{ $article['id'] }}">ลบ</button>

@@ -278,6 +278,23 @@ class ArticleController extends Controller
         }
     }
 
+    function edit_id(Request $request, $id)
+    {
+        try {
+            $change_id = $request->change_id;
+
+            $isAvailable = Article::where('id', $change_id)->exists();
+            if ($isAvailable) {
+                return response()->json(['message' => 'id already used'], 400);
+            }
+            $tag = Article::findOrFail($id);
+            $tag->update(['id' => $change_id]);
+            return response()->json(['message' => 'ID updated successfully.'], 200);
+        } catch (Exception $e) {
+            return response()->json(['message' => 'Error updating tag ID: ' . $e->getMessage()], 500);
+        }
+    }
+
     function delete_tag($id)
     {
         try {

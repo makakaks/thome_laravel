@@ -1,27 +1,11 @@
 import ConfirmDialog from "/JS/component/confirm_dialog.js";
 
 const artList = document.getElementById("articles-list");
-const artFilterSelect = document.getElementById("articles-filter");
-
-let artTags = new Set();
-
 // ข้อมูลตัวอย่าง
-let articles = Array.from(document.querySelectorAll("#articles-list tr"));
 const confirmDialog = new ConfirmDialog();
 // เลือก DOM elements
 const searchInput = document.getElementById("search");
 const filterSelect = document.getElementById("articles-filter");
-const articlesList = document.getElementById("articles-list");
-const addArticleBtn = document.getElementById("add-article");
-const modal = document.getElementById("article-modal");
-const modalTitle = document.getElementById("modal-title");
-const articleForm = document.getElementById("article-form");
-const articleIdInput = document.getElementById("article-id");
-const articleTitleInput = document.getElementById("article-title");
-const articleTagsInput = document.getElementById("article-tags");
-const cancelBtn = document.getElementById("cancel-btn");
-const closeBtn = document.querySelector(".close");
-const noResults = document.getElementById("no-results");
 
 // ค้นหาและกรองบทความ
 async function searchAndFilterArticles() {
@@ -207,7 +191,6 @@ function editArticle() {
             "click",
             () => {
                 let select = `<select class="form-select" id="select-lang">`;
-                // /admin/manage_article/add_lang/{{ $article['id'] }}/admin/manage_article/add_lang/{{ $article['id'] }}
                 let availableLang = [];
                 row.querySelectorAll("td.d-none span").forEach((lang) => {
                     availableLang.push(lang.textContent.trim());
@@ -232,6 +215,80 @@ function editArticle() {
                     async () => {
                         let select = document.getElementById("select-lang");
                         location.href = `/admin/manage_article/${articleId}/add_lang?lang=${select.value}`;
+                    }
+                );
+            }
+        );
+
+        row.querySelector("button[btn-type='edit-id']").addEventListener(
+            "click",
+            () => {
+                confirmDialog.confirmWithVerify(
+                    "เปลี่ยนเลข ID",
+                    `<div class="mt-3">
+                        <div class="form-group mb-3">
+                            <label for="tag-name">ใส่เลข ID</label>
+                            <input type="number" id="change-id" class="form-control" placeholder="ป้อน ID ของบทความ">
+                            <p class="text-danger mt-1" id="change-id-error" style="font-size: 1rem;"></p>
+                        </div>
+                    </div>`,
+                    "ไม่",
+                    "ใช่",
+                    '<button class="confirm-btn active confirm-yes" id="confirmYes"> Yes </button>',
+                    async () => {
+                        const idInput = document.getElementById("change-id");
+                        const idInputError =
+                            document.getElementById("change-id-error");
+                        if (!idInput.value || idInput.value.trim() == "") {
+                            idInputError.innerText = "*กรุณากรอก ID";
+                            idInput.focus();
+                            return false;
+                        }
+                        window.showLoading();
+                        let res = await fetch(
+                            `/admin/manage_article/${articleId}/edit_id`,
+                            {
+                                method: "PUT",
+                                headers: {
+                                    "content-Type": "application/json",
+                                    "X-CSRF-TOKEN": document.querySelector(
+                                        'meta[name="csrf-token"]'
+                                    ).content,
+                                },
+                                body: JSON.stringify({
+                                    change_id: idInput.value.trim(),
+                                }),
+                            }
+                        );
+                        window.hideLoading();
+                        if (!res.ok) {
+                            await res.json().then((data) => {
+                                let message = "ไม่สามารถแก้ไข ID ได้";
+                                if (
+                                    data.message &&
+                                    data.message == "id already used"
+                                ) {
+                                    message = "ID นี้ถูกใช้แล้ว";
+                                    idInputError.innerText = "*ID นี้ถูกใช้แล้ว";
+                                    idInput.focus();
+                                }
+                                window.showToast(message, "error");
+                            });
+                            console.log("false");
+                            return false;
+                        } else {
+                            window.showToast(
+                                "แก้ไข ID เรียบร้อยแล้ว",
+                                "success"
+                            );
+                            row.querySelector(".article-id").innerText =
+                                idInput.value.trim();
+                            row.querySelector(
+                                ".article-link"
+                            ).href = `/article/detail?news_id=${idInput.value.trim()}`;
+                            row.setAttribute("data-id", idInput.value.trim());
+                            return true;
+                        }
                     }
                 );
             }

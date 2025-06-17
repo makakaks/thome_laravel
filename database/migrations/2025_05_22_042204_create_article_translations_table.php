@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('article_translations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('article_id')->constrined()->onDelete('cascade');
+            $table->foreignId('article_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->string('locale', 5)->nullable(false);
             $table->string('title')->nullable(false);
             $table->text('coverPageImg')->nullable(false);
