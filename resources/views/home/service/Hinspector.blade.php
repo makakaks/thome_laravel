@@ -357,7 +357,7 @@
                         <i class="fas fa-comments"></i>
                     </div>
                     <div class="timeline-content">
-                        <h3>5. แก้ไขตามรายงานรอบสอง</h3>
+                        <h3>5. แก้ไขตามรายงานตรวจรอบสอง</h3>
                         <p>โครงการดำเนินการแก้ไขดีเฟคตามรายงานการตรวจรอบสอง
                             (หากมีรายการคงค้างหรือรายการเพิ่มเติม)</p>
                     </div>
@@ -668,24 +668,6 @@
                     <h2 class="section-title">นัดหมายจองคิวตรวจบ้านกับเราได้ที่ LINE OFFICIAL ACCOUNT</h2>
                     <p class="section-title-sub">ติดต่อง่าย สะดวก ทักหาแอดมินได้ตลอดเวลา</p>
 
-                    <ul class="app-features">
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span>จองบริการได้ตลอด 24 ชั่วโมง</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span>ติดตามสถานะงานแบบเรียลไทม์</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span>ชำระเงินออนไลน์ได้หลายช่องทาง</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span>รับโปรโมชันพิเศษจากทางเรา</span>
-                        </li>
-                    </ul>
 
                     <div class="app-download">
                         <a href="https://line.me/download" class="app-btn">
