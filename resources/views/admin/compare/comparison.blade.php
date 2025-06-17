@@ -3,25 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>เปรียบเทียบบ้าน - รายละเอียด</title>
+    <title>ผลลัพธ์การเปรียบเทียบ - เปรียบเทียบบ้าน</title>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --primary-color:rgb(131, 131, 131);
-            --primary-dark:rgb(128, 128, 128);
+            --primary-color: #4A90E2;
+            --primary-dark: #357ABD;
             --secondary-color: #2c3e50;
-            --accent-blue: #3498db;
-            --success-color: #27ae60;
-            --warning-color: #f39c12;
+            --accent-gold: #FFD700;
+            --success-color: #4CAF50;
+            --error-color: #F44336;
             --text-primary: #2c3e50;
             --text-secondary: #7f8c8d;
+            --text-light: #ffffff;
             --bg-primary: #ffffff;
             --bg-secondary: #f8f9fa;
+            --bg-card: #ffffff;
             --border-color: #e9ecef;
             --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
-            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
-            --shadow-lg: 0 8px 25px rgba(0,0,0,0.15);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.15);
+            --shadow-lg: 0 8px 25px rgba(0,0,0,0.2);
             --border-radius: 12px;
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -39,525 +41,881 @@
             line-height: 1.6;
         }
 
-        .container {
-            max-width: 1400px;
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-image: url('/images/hero-bg.png');
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: overlay;
+            color: var(--text-light);
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 1rem;
         }
 
-        .header {
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
             background: var(--bg-primary);
-            box-shadow: var(--shadow-sm);
             padding: 1rem 0;
-            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
         }
 
-        .header-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .back-btn {
+        .breadcrumb-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.75rem 1rem;
-            background: var(--bg-secondary);
-            border: none;
-            border-radius: var(--border-radius);
-            cursor: pointer;
+            color: var(--text-secondary);
+        }
+
+        .breadcrumb a {
+            color: var(--text-secondary);
             text-decoration: none;
-            color: var(--text-primary);
             transition: var(--transition);
         }
 
-        .back-btn:hover {
-            background: var(--primary-color);
-            color: white;
+        .breadcrumb a:hover {
+            color: var(--primary-color);
         }
 
-        .page-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--text-primary);
+        .breadcrumb-current {
+            color: var(--primary-color);
+            font-weight: 500;
         }
 
-        .comparison-table {
-            background: var(--bg-primary);
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* House Cards */
+        .house-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .house-card {
+            background: var(--bg-card);
             border-radius: var(--border-radius);
             box-shadow: var(--shadow-md);
             overflow: hidden;
-            margin-bottom: 2rem;
+            transition: var(--transition);
+            position: relative;
         }
 
-        .table-header {
-            display: grid;
-            grid-template-columns: 200px repeat({{ $houses->count() }}, 1fr);
-            background: var(--primary-color);
-            color: white;
-        }
-
-        .header-cell {
-            padding: 1.5rem 1rem;
-            text-align: center;
-        }
-
-        .header-cell:first-child {
-            background: var(--primary-dark);
-            font-weight: 600;
+        .house-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
         }
 
         .house-header {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
+            padding: 1.5rem;
+            text-align: center;
+            position: relative;
         }
 
-        .house-header img {
-            width: 500px;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 8px;
-        }
-
-        .house-header h3 {
-            font-size: 1rem;
+        .house-name {
+            font-size: 1.2rem;
             font-weight: 600;
-        }
-
-        .house-header p {
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
-
-        .table-body {
-            display: grid;
-            grid-template-columns: 200px repeat({{ $houses->count() }}, 1fr);
-        }
-
-        .row-header {
-            padding: 1rem;
-            background: var(--bg-secondary);
-            font-weight: 500;
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .data-cell {
-            padding: 1rem;
-            border-bottom: 1px solid var(--border-color);
-            border-right: 1px solid var(--border-color);
+            margin-bottom: 1rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            flex-direction: column;
+            gap: 0.5rem;
         }
 
-        .data-cell:last-child {
+        .crown-icon {
+            color: var(--accent-gold);
+            font-size: 1.5rem;
+        }
+
+        .house-image {
+            width: 100%;
+            height: 200px;
+            background: #f0f0f0;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            overflow: hidden;
+        }
+
+        .house-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .house-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        /* Comparison Table */
+        .comparison-table {
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+        }
+
+        .table-section {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .table-section:last-child {
+            border-bottom: none;
+        }
+
+        .section-header {
+            background: var(--bg-secondary);
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .section-header:hover {
+            background: #e9ecef;
+        }
+
+        .section-header.active {
+            background: var(--primary-color);
+            color: var(--text-light);
+        }
+
+        .section-content {
+            display: none;
+        }
+
+        .section-content.active {
+            display: block;
+        }
+
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 250px repeat(auto-fit, minmax(200px, 1fr));
+            border-bottom: 1px solid var(--border-color);
+            align-items: center;
+        }
+
+        .comparison-row:last-child {
+            border-bottom: none;
+        }
+
+        .row-label {
+            padding: 1rem 1.5rem;
+            background: var(--bg-secondary);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .row-label i {
+            color: var(--text-secondary);
+            width: 20px;
+            text-align: center;
+        }
+
+        .row-data {
+            padding: 1rem;
+            text-align: center;
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .row-data:last-child {
             border-right: none;
         }
 
         .feature-status {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
             justify-content: center;
+            gap: 0.5rem;
         }
 
-        .feature-yes {
-            color: var(--success-color);
+        .status-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8rem;
         }
 
-        .feature-no {
-            color: var(--text-secondary);
+        .status-yes {
+            background: var(--success-color);
+        }
+
+        .status-no {
+            background: var(--error-color);
         }
 
         .feature-spec {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: var(--text-secondary);
-            margin-top: 0.25rem;
             text-align: center;
+            margin-top: 0.25rem;
         }
 
-        .section-title {
-            background: var(--bg-secondary);
-            padding: 0.75rem 1rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            border-bottom: 2px solid var(--primary-color);
-            grid-column: 1 / -1;
+        .chevron-icon {
+            transition: var(--transition);
         }
 
+        .section-header.active .chevron-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .table-header,
-            .table-body {
-                grid-template-columns: 150px repeat({{ $houses->count() }}, 1fr);
+            .hero-title {
+                font-size: 2rem;
             }
 
-            .header-cell,
-            .row-header,
-            .data-cell {
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .house-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-row {
+                grid-template-columns: 200px repeat(auto-fit, minmax(150px, 1fr));
+            }
+
+            .row-label {
+                padding: 0.75rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .row-data {
                 padding: 0.75rem 0.5rem;
                 font-size: 0.9rem;
             }
+        }
 
-            .house-header img {
-                width: 60px;
-                height: 45px;
+        @media (max-width: 480px) {
+            .comparison-row {
+                grid-template-columns: 150px repeat(auto-fit, minmax(120px, 1fr));
             }
 
-            .house-header h3 {
-                font-size: 0.9rem;
-            }
-
-            .house-header p {
+            .row-label {
+                padding: 0.5rem;
                 font-size: 0.8rem;
+            }
+
+            .row-data {
+                padding: 0.5rem 0.25rem;
+                font-size: 0.8rem;
+            }
+
+            .hero-content {
+                padding: 0 0.5rem;
+            }
+
+            .main-content {
+                padding: 1rem 0.5rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <div class="container">
-            <div class="header-content">
-                <a href="{{ route('admin.compare.compare_frontend') }}" class="back-btn">
-                    <i class="fas fa-arrow-left"></i>
-                    กลับ
-                </a>
-                <h1 class="page-title">เปรียบเทียบบ้าน</h1>
-                <div></div>
-            </div>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">ผลลัพธ์การเปรียบเทียบ</h1>
+            <p class="hero-subtitle">
+                ข้อมูลนี้นำมาจากการเปรียบเทียบเพื่อง่ายต่อการตัดสินใจ โปรดศึกษาข้อมูลเพิ่มเติมหรือปรึกษาผู้เชี่ยวชาญที่<br>
+                ดีเตอร์วงษ์ชาติ-ปรีชาพงษ์ ก่อนใดก่อนใดก่อนการตัดสินใจ
+            </p>
         </div>
-    </div>
+    </section>
 
-    <div class="container">
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb">
+        <div class="breadcrumb-content">
+            <a href="{{ route('houses.compare') }}">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <span>/</span>
+            <span class="breadcrumb-current">Comparison results</span>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- House Cards -->
+        <div class="house-cards">
+            @foreach($houses as $house)
+                <div class="house-card">
+                    <div class="house-header">
+                        <div class="house-name">
+                            <i class="fas fa-crown crown-icon"></i>
+                            {{ $house->name }}
+                        </div>
+                        <div class="house-image">
+                            @if($house->image)
+                                <img src="{{ asset('image/' . $house->image) }}" alt="{{ $house->name }}">
+                            @else
+                                <i class="fas fa-home" style="font-size: 3rem; color: #ccc;"></i>
+                            @endif
+                        </div>
+                        <div class="house-price">
+                            {{ number_format($house->price ?? 0) }} Baht
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+
+        <!-- Comparison Table -->
         <div class="comparison-table">
-            <!-- Table Header -->
-            <div class="table-header">
-                <div class="header-cell">รายการ</div>
-                @foreach($houses as $house)
-                    <div class="header-cell">
-                        <div class="house-header">
-                            <img src="{{ $house->image ? asset('image/' . $house->image) : '/placeholder.svg?height=60&width=80' }}" alt="{{ $house->name }}">
-                            <h3>{{ $house->name }}</h3>
-                            <p>{{ $house->location }}</p>
+            <!-- Basic Information Section -->
+            <div class="table-section">
+                <div class="section-header active" onclick="toggleSection(this)">
+                    <span>ข้อมูลบ้าน (House Information)</span>
+                    <i class="fas fa-chevron-down chevron-icon"></i>
+                </div>
+                <div class="section-content active">
+                    <!-- Price Row -->
+                    <div class="comparison-row">
+                        <div class="row-label">
+                            <i class="fas fa-tag"></i>
+                            ราคาบ้าน (House Price)
                         </div>
+                        @foreach($houses as $house)
+                            <div class="row-data">
+                                <strong>{{ number_format($house->price ?? 0) }} Baht</strong>
+                            </div>
+                        @endforeach
                     </div>
-                @endforeach
+
+                    <!-- Usable Area Row -->
+                    <div class="comparison-row">
+                        <div class="row-label">
+                            <i class="fas fa-ruler-combined"></i>
+                            พื้นที่ใช้สอย (Usable Area)
+                        </div>
+                        @foreach($houses as $house)
+                            <div class="row-data">
+                                <strong>{{ $house->area }} m²</strong>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    <!-- Bedrooms Row -->
+                    <div class="comparison-row">
+                        <div class="row-label">
+                            <i class="fas fa-bed"></i>
+                            ห้องนอน (Bedroom)
+                        </div>
+                        @foreach($houses as $house)
+                            <div class="row-data">
+                                <strong>{{ $house->bedrooms }}</strong>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    <!-- Bathrooms Row -->
+                    <div class="comparison-row">
+                        <div class="row-label">
+                            <i class="fas fa-bath"></i>
+                            ห้องน้ำ (Bathroom)
+                        </div>
+                        @foreach($houses as $house)
+                            <div class="row-data">
+                                <strong>{{ $house->bathrooms }}</strong>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    <!-- Maidroom Row -->
+                    <div class="comparison-row">
+                        <div class="row-label">
+                            <i class="fas fa-user-friends"></i>
+                            ห้องแม่บ้าน (Maidroom)
+                        </div>
+                        @foreach($houses as $house)
+                            <div class="row-data">
+                                <strong>{{ $house->maidroom ?? 0 }}</strong>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    <!-- Parking Row -->
+                    <div class="comparison-row">
+                        <div class="row-label">
+                            <i class="fas fa-car"></i>
+                            ที่จอดรถ (Parking)
+                        </div>
+                        @foreach($houses as $house)
+                            <div class="row-data">
+                                <strong>{{ $house->car_park }}</strong>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
             </div>
 
-            <!-- Table Body -->
-            <div class="table-body">
-                <!-- Basic Information Section -->
-                <div class="section-title">ข้อมูลพื้นฐาน</div>
-                
-                <div class="row-header">
-                    <i class="fas fa-bed"></i> ห้องนอน
+            <!-- Sanitation System Section -->
+            <div class="table-section">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <span>งานประปา, สุขาภิบาล (Plumbing Sanitary)</span>
+                    <i class="fas fa-chevron-down chevron-icon"></i>
                 </div>
-                @foreach($houses as $house)
-                    <div class="data-cell">{{ $house->bedrooms }} ห้อง</div>
-                @endforeach
-
-                <div class="row-header">
-                    <i class="fas fa-bath"></i> ห้องน้ำ
-                </div>
-                @foreach($houses as $house)
-                    <div class="data-cell">{{ $house->bathrooms }} ห้อง</div>
-                @endforeach
-
-                <div class="row-header">
-                    <i class="fas fa-ruler-combined"></i> พื้นที่ใช้สอย
-                </div>
-                @foreach($houses as $house)
-                    <div class="data-cell">{{ $house->area }} ตร.ม.</div>
-                @endforeach
-
-                <div class="row-header">
-                    <i class="fas fa-car"></i> ที่จอดรถ
-                </div>
-                @foreach($houses as $house)
-                    <div class="data-cell">{{ $house->car_park }} คัน</div>
-                @endforeach
-
-                <div class="row-header">
-                    <i class="fas fa-layer-group"></i> จำนวนชั้น
-                </div>
-                @foreach($houses as $house)
-                    <div class="data-cell">{{ $house->floors ?? '-' }} ชั้น</div>
-                @endforeach
-
-                <div class="row-header">
-                    <i class="fas fa-building"></i> ประเภทบ้าน
-                </div>
-                @foreach($houses as $house)
-                    <div class="data-cell">{{ $house->type ?? '-' }}</div>
-                @endforeach
-
-                <div class="row-header">
-                    <i class="fas fa-calendar-alt"></i> ปีที่สร้าง
-                </div>
-                @foreach($houses as $house)
-                    <div class="data-cell">{{ $house->year_built ?? '-' }}</div>
-                @endforeach
-
-                <!-- Sanitation System Section -->
-                <div class="section-title">ระบบสุขาภิบาล</div>
-                
-                <div class="row-header">
-                    <i class="fas fa-tint"></i> ถังบำบัดน้ำเสีย
-                </div>
-                @foreach($houses as $house)
-                    <div class="data-cell">
-                        <div class="feature-status">
-                            <i class="fas {{ $house->has_septic_tank ? 'fa-check feature-yes' : 'fa-times feature-no' }}"></i>
-                            <span>{{ $house->has_septic_tank ? 'มี' : 'ไม่มี' }}</span>
+                <div class="section-content">
+                    <!-- Septic Tank Row -->
+                    <div class="comparison-row">
+                        <div class="row-label">
+                            <i class="fas fa-tint"></i>
+                            ถังบำบัดน้ำเสีย (Septic Tank)
                         </div>
-                        @if($house->septic_tank_spec)
-                            <div class="feature-spec">{{ $house->septic_tank_spec }}</div>
-                        @endif
+                        @foreach($houses as $house)
+                            <div class="row-data">
+                                <div class="feature-status">
+                                    <div class="status-icon {{ $house->has_septic_tank ? 'status-yes' : 'status-no' }}">
+                                        <i class="fas {{ $house->has_septic_tank ? 'fa-check' : 'fa-times' }}"></i>
+                                    </div>
+                                </div>
+                                @if($house->septic_tank_spec)
+                                    <div class="feature-spec">{{ $house->septic_tank_spec }}</div>
+                                @endif
+                            </div>
+                        @endforeach
                     </div>
-                @endforeach
 
-                <div class="row-header">
-                    <i class="fas fa-tint"></i> บ่อดักกลิ่น
-                </div>
-                @foreach($houses as $house)
-                    <div class="data-cell">
-                        <div class="feature-status">
-                            <i class="fas {{ $house->has_order_trap ? 'fa-check feature-yes' : 'fa-times feature-no' }}"></i>
-                            <span>{{ $house->has_order_trap ? 'มี' : 'ไม่มี' }}</span>
+                    <!-- Order Trap Row -->
+                    <div class="comparison-row">
+                        <div class="row-label">
+                            <i class="fas fa-filter"></i>
+                            บ่อดักกลิ่น (Order Trap)
                         </div>
-                        @if($house->order_trap_spec)
-                            <div class="feature-spec">{{ $house->order_trap_spec }}</div>
-                        @endif
+                        @foreach($houses as $house)
+                            <div class="row-data">
+                                <div class="feature-status">
+                                    <div class="status-icon {{ $house->has_order_trap ? 'status-yes' : 'status-no' }}">
+                                        <i class="fas {{ $house->has_order_trap ? 'fa-check' : 'fa-times' }}"></i>
+                                    </div>
+                                </div>
+                                @if($house->order_trap_spec)
+                                    <div class="feature-spec">{{ $house->order_trap_spec }}</div>
+                                @endif
+                            </div>
+                        @endforeach
                     </div>
-                @endforeach
 
-                <div class="row-header">
-                    <i class="fas fa-tint"></i> บ่อดักไขมัน
-                </div>
-                @foreach($houses as $house)
-                    <div class="data-cell">
-                        <div class="feature-status">
-                            <i class="fas {{ $house->has_grase_trap ? 'fa-check feature-yes' : 'fa-times feature-no' }}"></i>
-                            <span>{{ $house->has_grase_trap ? 'มี' : 'ไม่มี' }}</span>
+                    <!-- Grease Trap Row -->
+                    <div class="comparison-row">
+                        <div class="row-label">
+                            <i class="fas fa-oil-can"></i>
+                            ดักไขมัน (Grease Trap)
                         </div>
-                        @if($house->grase_trap_spec)
-                            <div class="feature-spec">{{ $house->grase_trap_spec }}</div>
-                        @endif
+                        @foreach($houses as $house)
+                            <div class="row-data">
+                                <div class="feature-status">
+                                    <div class="status-icon {{ $house->has_grase_trap ? 'status-yes' : 'status-no' }}">
+                                        <i class="fas {{ $house->has_grase_trap ? 'fa-check' : 'fa-times' }}"></i>
+                                    </div>
+                                </div>
+                                @if($house->grase_trap_spec)
+                                    <div class="feature-spec">{{ $house->grase_trap_spec }}</div>
+                                @endif
+                            </div>
+                        @endforeach
                     </div>
-                @endforeach
 
-                <div class="row-header">
-                    <i class="fas fa-tint"></i> ถังเก็บน้ำ
-                </div>
-                @foreach($houses as $house)
-                    <div class="data-cell">
-                        <div class="feature-status">
-                            <i class="fas {{ $house->has_water_tank ? 'fa-check feature-yes' : 'fa-times feature-no' }}"></i>
-                            <span>{{ $house->has_water_tank ? 'มี' : 'ไม่มี' }}</span>
+                    <!-- Water Tank Row -->
+                    <div class="comparison-row">
+                        <div class="row-label">
+                            <i class="fas fa-water"></i>
+                            ถังเก็บน้ำ (Water Tank)
                         </div>
-                        @if($house->water_tank_spec)
-                            <div class="feature-spec">{{ $house->water_tank_spec }}</div>
-                        @endif
+                        @foreach($houses as $house)
+                            <div class="row-data">
+                                <div class="feature-status">
+                                    <div class="status-icon {{ $house->has_water_tank ? 'status-yes' : 'status-no' }}">
+                                        <i class="fas {{ $house->has_water_tank ? 'fa-check' : 'fa-times' }}"></i>
+                                    </div>
+                                </div>
+                                @if($house->water_tank_spec)
+                                    <div class="feature-spec">{{ $house->water_tank_spec }}</div>
+                                @endif
+                            </div>
+                        @endforeach
                     </div>
-                @endforeach
 
-                <div class="row-header">
-                    <i class="fas fa-tint"></i> ปั๊มน้ำ
-                </div>
-                @foreach($houses as $house)
-                    <div class="data-cell">
-                        <div class="feature-status">
-                            <i class="fas {{ $house->has_water_pump ? 'fa-check feature-yes' : 'fa-times feature-no' }}"></i>
-                            <span>{{ $house->has_water_pump ? 'มี' : 'ไม่มี' }}</span>
+                    <!-- Water Pump Row -->
+                    <div class="comparison-row">
+                        <div class="row-label">
+                            <i class="fas fa-pump-soap"></i>
+                            ปั๊มน้ำ (Water Pump)
                         </div>
-                        @if($house->water_pump_spec)
-                            <div class="feature-spec">{{ $house->water_pump_spec }}</div>
-                        @endif
+                        @foreach($houses as $house)
+                            <div class="row-data">
+                                <div class="feature-status">
+                                    <div class="status-icon {{ $house->has_water_pump ? 'status-yes' : 'status-no' }}">
+                                        <i class="fas {{ $house->has_water_pump ? 'fa-check' : 'fa-times' }}"></i>
+                                    </div>
+                                </div>
+                                @if($house->water_pump_spec)
+                                    <div class="feature-spec">{{ $house->water_pump_spec }}</div>
+                                @endif
+                            </div>
+                        @endforeach
                     </div>
-                @endforeach
 
-                <!-- Roofing System Section -->
-                <div class="section-title">ระบบหลังคา</div>
-                
-                <div class="row-header">
-                    <i class="fas fa-solar-panel"></i> Solar Roof
-                </div>
-                @foreach($houses as $house)
-                    <div class="data-cell">
-                        <div class="feature-status">
-                            <i class="fas {{ $house->has_solar_roof ? 'fa-check feature-yes' : 'fa-times feature-no' }}"></i>
-                            <span>{{ $house->has_solar_roof ? 'มี' : 'ไม่มี' }}</span>
+                    <!-- Pipe Termites Row -->
+                    <div class="comparison-row">
+                        <div class="row-label">
+                            <i class="fas fa-bug"></i>
+                            ระบบกันปลวก (Pipe Termites)
                         </div>
-                        @if($house->solar_roof_spec)
-                            <div class="feature-spec">{{ $house->solar_roof_spec }}</div>
-                        @endif
+                        @foreach($houses as $house)
+                            <div class="row-data">
+                                <div class="feature-status">
+                                    <div class="status-icon {{ $house->has_pipe_termites ? 'status-yes' : 'status-no' }}">
+                                        <i class="fas {{ $house->has_pipe_termites ? 'fa-check' : 'fa-times' }}"></i>
+                                    </div>
+                                </div>
+                                @if($house->pipe_termites_spec)
+                                    <div class="feature-spec">{{ $house->pipe_termites_spec }}</div>
+                                @endif
+                            </div>
+                        @endforeach
                     </div>
-                @endforeach
+                </div>
+            </div>
 
-                <div class="row-header">
-                    <i class="fas fa-shield-alt"></i> ฉนวนกันความร้อน
+            <!-- Roofing System Section -->
+            <div class="table-section">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <span>งานประปา, สุขาภิบาล (Plumbing Sanitary)</span>
+                    <i class="fas fa-chevron-down chevron-icon"></i>
                 </div>
-                @foreach($houses as $house)
-                    <div class="data-cell">
-                        <div class="feature-status">
-                            <i class="fas {{ $house->has_insulation ? 'fa-check feature-yes' : 'fa-times feature-no' }}"></i>
-                            <span>{{ $house->has_insulation ? 'มี' : 'ไม่มี' }}</span>
+                <div class="section-content">
+                    <!-- Solar Roof Row -->
+                    <div class="comparison-row">
+                        <div class="row-label">
+                            <i class="fas fa-solar-panel"></i>
+                            Solar Roof
                         </div>
-                        @if($house->insulation_spec)
-                            <div class="feature-spec">{{ $house->insulation_spec }}</div>
-                        @endif
+                        @foreach($houses as $house)
+                            <div class="row-data">
+                                <div class="feature-status">
+                                    <div class="status-icon {{ $house->has_solar_roof ? 'status-yes' : 'status-no' }}">
+                                        <i class="fas {{ $house->has_solar_roof ? 'fa-check' : 'fa-times' }}"></i>
+                                    </div>
+                                </div>
+                                @if($house->solar_roof_spec)
+                                    <div class="feature-spec">{{ $house->solar_roof_spec }}</div>
+                                @endif
+                            </div>
+                        @endforeach
                     </div>
-                @endforeach
 
-                <div class="row-header">
-                    <i class="fas fa-fan"></i> พัดลมระบายอากาศ
-                </div>
-                @foreach($houses as $house)
-                    <div class="data-cell">
-                        <div class="feature-status">
-                            <i class="fas {{ $house->has_roof_ventilator ? 'fa-check feature-yes' : 'fa-times feature-no' }}"></i>
-                            <span>{{ $house->has_roof_ventilator ? 'มี' : 'ไม่มี' }}</span>
+                    <!-- Insulation Row -->
+                    <div class="comparison-row">
+                        <div class="row-label">
+                            <i class="fas fa-shield-alt"></i>
+                            ฉนวนกันความร้อน (Insulation)
                         </div>
-                        @if($house->roof_ventilator_spec)
-                            <div class="feature-spec">{{ $house->roof_ventilator_spec }}</div>
-                        @endif
+                        @foreach($houses as $house)
+                            <div class="row-data">
+                                <div class="feature-status">
+                                    <div class="status-icon {{ $house->has_insulation ? 'status-yes' : 'status-no' }}">
+                                        <i class="fas {{ $house->has_insulation ? 'fa-check' : 'fa-times' }}"></i>
+                                    </div>
+                                </div>
+                                @if($house->insulation_spec)
+                                    <div class="feature-spec">{{ $house->insulation_spec }}</div>
+                                @endif
+                            </div>
+                        @endforeach
                     </div>
-                @endforeach
 
-                <!-- Electrical System Section -->
-                <div class="section-title">ระบบไฟฟ้า</div>
-                
-                <div class="row-header">
-                    <i class="fas fa-bolt"></i> มิเตอร์ไฟฟ้า
-                </div>
-                @foreach($houses as $house)
-                    <div class="data-cell">
-                        <div class="feature-status">
-                            <i class="fas {{ $house->has_electric_meter ? 'fa-check feature-yes' : 'fa-times feature-no' }}"></i>
-                            <span>{{ $house->has_electric_meter ? 'มี' : 'ไม่มี' }}</span>
+                    <!-- Roof Ventilator Row -->
+                    <div class="comparison-row">
+                        <div class="row-label">
+                            <i class="fas fa-fan"></i>
+                            พัดลมระบายอากาศ (Roof Ventilator)
                         </div>
-                        @if($house->electric_meter_spec)
-                            <div class="feature-spec">{{ $house->electric_meter_spec }}</div>
-                        @endif
+                        @foreach($houses as $house)
+                            <div class="row-data">
+                                <div class="feature-status">
+                                    <div class="status-icon {{ $house->has_roof_ventilator ? 'status-yes' : 'status-no' }}">
+                                        <i class="fas {{ $house->has_roof_ventilator ? 'fa-check' : 'fa-times' }}"></i>
+                                    </div>
+                                </div>
+                                @if($house->roof_ventilator_spec)
+                                    <div class="feature-spec">{{ $house->roof_ventilator_spec }}</div>
+                                @endif
+                            </div>
+                        @endforeach
                     </div>
-                @endforeach
+                </div>
+            </div>
 
-                <div class="row-header">
-                    <i class="fas fa-bolt"></i> เมนเบรกเกอร์
+            <!-- Electrical System Section -->
+            <div class="table-section">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <span>งานประปา, สุขาภิบาล (Plumbing Sanitary)</span>
+                    <i class="fas fa-chevron-down chevron-icon"></i>
                 </div>
-                @foreach($houses as $house)
-                    <div class="data-cell">
-                        <div class="feature-status">
-                            <i class="fas {{ $house->has_main_breaker ? 'fa-check feature-yes' : 'fa-times feature-no' }}"></i>
-                            <span>{{ $house->has_main_breaker ? 'มี' : 'ไม่มี' }}</span>
+                <div class="section-content">
+                    <!-- Electric Meter Row -->
+                    <div class="comparison-row">
+                        <div class="row-label">
+                            <i class="fas fa-bolt"></i>
+                            มิเตอร์ไฟฟ้า (Electric Meter)
                         </div>
-                        @if($house->main_breaker_spec)
-                            <div class="feature-spec">{{ $house->main_breaker_spec }}</div>
-                        @endif
+                        @foreach($houses as $house)
+                            <div class="row-data">
+                                <div class="feature-status">
+                                    <div class="status-icon {{ $house->has_electric_meter ? 'status-yes' : 'status-no' }}">
+                                        <i class="fas {{ $house->has_electric_meter ? 'fa-check' : 'fa-times' }}"></i>
+                                    </div>
+                                </div>
+                                @if($house->electric_meter_spec)
+                                    <div class="feature-spec">{{ $house->electric_meter_spec }}</div>
+                                @endif
+                            </div>
+                        @endforeach
                     </div>
-                @endforeach
 
-                <div class="row-header">
-                    <i class="fas fa-car-battery"></i> EV Charger
-                </div>
-                @foreach($houses as $house)
-                    <div class="data-cell">
-                        <div class="feature-status">
-                            <i class="fas {{ $house->has_ev_charger ? 'fa-check feature-yes' : 'fa-times feature-no' }}"></i>
-                            <span>{{ $house->has_ev_charger ? 'มี' : 'ไม่มี' }}</span>
+                    <!-- Main Breaker Row -->
+                    <div class="comparison-row">
+                        <div class="row-label">
+                            <i class="fas fa-power-off"></i>
+                            เมนเบรกเกอร์ (Main Breaker)
                         </div>
-                        @if($house->ev_charger_spec)
-                            <div class="feature-spec">{{ $house->ev_charger_spec }}</div>
-                        @endif
+                        @foreach($houses as $house)
+                            <div class="row-data">
+                                <div class="feature-status">
+                                    <div class="status-icon {{ $house->has_main_breaker ? 'status-yes' : 'status-no' }}">
+                                        <i class="fas {{ $house->has_main_breaker ? 'fa-check' : 'fa-times' }}"></i>
+                                    </div>
+                                </div>
+                                @if($house->main_breaker_spec)
+                                    <div class="feature-spec">{{ $house->main_breaker_spec }}</div>
+                                @endif
+                            </div>
+                        @endforeach
                     </div>
-                @endforeach
 
-                <!-- Smart Home & Security Section -->
-                <div class="section-title">Smart Home & ความปลอดภัย</div>
-                
-                <div class="row-header">
-                    <i class="fas fa-brain"></i> Smart Home
-                </div>
-                @foreach($houses as $house)
-                    <div class="data-cell">
-                        <div class="feature-status">
-                            <i class="fas {{ $house->has_smart_home ? 'fa-check feature-yes' : 'fa-times feature-no' }}"></i>
-                            <span>{{ $house->has_smart_home ? 'มี' : 'ไม่มี' }}</span>
+                    <!-- EV Charger Row -->
+                    <div class="comparison-row">
+                        <div class="row-label">
+                            <i class="fas fa-car-battery"></i>
+                            EV Charger
                         </div>
-                        @if($house->smart_home_spec)
-                            <div class="feature-spec">{{ $house->smart_home_spec }}</div>
-                        @endif
+                        @foreach($houses as $house)
+                            <div class="row-data">
+                                <div class="feature-status">
+                                    <div class="status-icon {{ $house->has_ev_charger ? 'status-yes' : 'status-no' }}">
+                                        <i class="fas {{ $house->has_ev_charger ? 'fa-check' : 'fa-times' }}"></i>
+                                    </div>
+                                </div>
+                                @if($house->ev_charger_spec)
+                                    <div class="feature-spec">{{ $house->ev_charger_spec }}</div>
+                                @endif
+                            </div>
+                        @endforeach
                     </div>
-                @endforeach
+                </div>
+            </div>
 
-                <div class="row-header">
-                    <i class="fas fa-shield-alt"></i> ระบบรักษาความปลอดภัย
+            <!-- Smart Home & Security Section -->
+            <div class="table-section">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <span>งานประปา, สุขาภิบาล (Plumbing Sanitary)</span>
+                    <i class="fas fa-chevron-down chevron-icon"></i>
                 </div>
-                @foreach($houses as $house)
-                    <div class="data-cell">
-                        <div class="feature-status">
-                            <i class="fas {{ $house->has_security_home_system ? 'fa-check feature-yes' : 'fa-times feature-no' }}"></i>
-                            <span>{{ $house->has_security_home_system ? 'มี' : 'ไม่มี' }}</span>
+                <div class="section-content">
+                    <!-- Smart Home Row -->
+                    <div class="comparison-row">
+                        <div class="row-label">
+                            <i class="fas fa-brain"></i>
+                            Smart Home
                         </div>
-                        @if($house->security_home_system_spec)
-                            <div class="feature-spec">{{ $house->security_home_system_spec }}</div>
-                        @endif
+                        @foreach($houses as $house)
+                            <div class="row-data">
+                                <div class="feature-status">
+                                    <div class="status-icon {{ $house->has_smart_home ? 'status-yes' : 'status-no' }}">
+                                        <i class="fas {{ $house->has_smart_home ? 'fa-check' : 'fa-times' }}"></i>
+                                    </div>
+                                </div>
+                                @if($house->smart_home_spec)
+                                    <div class="feature-spec">{{ $house->smart_home_spec }}</div>
+                                @endif
+                            </div>
+                        @endforeach
                     </div>
-                @endforeach
 
-                <div class="row-header">
-                    <i class="fas fa-video"></i> CCTV
-                </div>
-                @foreach($houses as $house)
-                    <div class="data-cell">
-                        <div class="feature-status">
-                            <i class="fas {{ $house->has_cctv_camera ? 'fa-check feature-yes' : 'fa-times feature-no' }}"></i>
-                            <span>{{ $house->has_cctv_camera ? 'มี' : 'ไม่มี' }}</span>
+                    <!-- Security System Row -->
+                    <div class="comparison-row">
+                        <div class="row-label">
+                            <i class="fas fa-shield-alt"></i>
+                            ระบบรักษาความปลอดภัย (Security System)
                         </div>
-                        @if($house->cctv_camera_spec)
-                            <div class="feature-spec">{{ $house->cctv_camera_spec }}</div>
-                        @endif
+                        @foreach($houses as $house)
+                            <div class="row-data">
+                                <div class="feature-status">
+                                    <div class="status-icon {{ $house->has_security_home_system ? 'status-yes' : 'status-no' }}">
+                                        <i class="fas {{ $house->has_security_home_system ? 'fa-check' : 'fa-times' }}"></i>
+                                    </div>
+                                </div>
+                                @if($house->security_home_system_spec)
+                                    <div class="feature-spec">{{ $house->security_home_system_spec }}</div>
+                                @endif
+                            </div>
+                        @endforeach
                     </div>
-                @endforeach
 
-                <div class="row-header">
-                    <i class="fas fa-bell"></i> กริ่งประตู
-                </div>
-                @foreach($houses as $house)
-                    <div class="data-cell">
-                        <div class="feature-status">
-                            <i class="fas {{ $house->has_door_bell ? 'fa-check feature-yes' : 'fa-times feature-no' }}"></i>
-                            <span>{{ $house->has_door_bell ? 'มี' : 'ไม่มี' }}</span>
+                    <!-- CCTV Row -->
+                    <div class="comparison-row">
+                        <div class="row-label">
+                            <i class="fas fa-video"></i>
+                            CCTV
                         </div>
-                        @if($house->door_bell_spec)
-                            <div class="feature-spec">{{ $house->door_bell_spec }}</div>
-                        @endif
+                        @foreach($houses as $house)
+                            <div class="row-data">
+                                <div class="feature-status">
+                                    <div class="status-icon {{ $house->has_cctv_camera ? 'status-yes' : 'status-no' }}">
+                                        <i class="fas {{ $house->has_cctv_camera ? 'fa-check' : 'fa-times' }}"></i>
+                                    </div>
+                                </div>
+                                @if($house->cctv_camera_spec)
+                                    <div class="feature-spec">{{ $house->cctv_camera_spec }}</div>
+                                @endif
+                            </div>
+                        @endforeach
                     </div>
-                @endforeach
 
-                <div class="row-header">
-                    <i class="fas fa-fire"></i> Smoke Detector
-                </div>
-                @foreach($houses as $house)
-                    <div class="data-cell">
-                        <div class="feature-status">
-                            <i class="fas {{ $house->has_smoke_detector ? 'fa-check feature-yes' : 'fa-times feature-no' }}"></i>
-                            <span>{{ $house->has_smoke_detector ? 'มี' : 'ไม่มี' }}</span>
+                    <!-- Door Bell Row -->
+                    <div class="comparison-row">
+                        <div class="row-label">
+                            <i class="fas fa-bell"></i>
+                            กริ่งประตู (Door Bell)
                         </div>
-                        @if($house->smoke_detector_spec)
-                            <div class="feature-spec">{{ $house->smoke_detector_spec }}</div>
-                        @endif
+                        @foreach($houses as $house)
+                            <div class="row-data">
+                                <div class="feature-status">
+                                    <div class="status-icon {{ $house->has_door_bell ? 'status-yes' : 'status-no' }}">
+                                        <i class="fas {{ $house->has_door_bell ? 'fa-check' : 'fa-times' }}"></i>
+                                    </div>
+                                </div>
+                                @if($house->door_bell_spec)
+                                    <div class="feature-spec">{{ $house->door_bell_spec }}</div>
+                                @endif
+                            </div>
+                        @endforeach
                     </div>
-                @endforeach
+
+                    <!-- Smoke Detector Row -->
+                    <div class="comparison-row">
+                        <div class="row-label">
+                            <i class="fas fa-fire"></i>
+                            Smoke Detector
+                        </div>
+                        @foreach($houses as $house)
+                            <div class="row-data">
+                                <div class="feature-status">
+                                    <div class="status-icon {{ $house->has_smoke_detector ? 'status-yes' : 'status-no' }}">
+                                        <i class="fas {{ $house->has_smoke_detector ? 'fa-check' : 'fa-times' }}"></i>
+                                    </div>
+                                </div>
+                                @if($house->smoke_detector_spec)
+                                    <div class="feature-spec">{{ $house->smoke_detector_spec }}</div>
+                                @endif
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    </main>
+
+    <script>
+        function toggleSection(header) {
+            const content = header.nextElementSibling;
+            const chevron = header.querySelector('.chevron-icon');
+            
+            // Toggle active class
+            header.classList.toggle('active');
+            content.classList.toggle('active');
+            
+            // Animate chevron
+            if (header.classList.contains('active')) {
+                chevron.style.transform = 'rotate(180deg)';
+            } else {
+                chevron.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // Initialize - show first section by default
+        document.addEventListener('DOMContentLoaded', function() {
+            const firstSection = document.querySelector('.section-header');
+            if (firstSection && !firstSection.classList.contains('active')) {
+                // First section is already active by default
+            }
+        });
+    </script>
 </body>
 </html>
