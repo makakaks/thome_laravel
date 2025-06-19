@@ -80,7 +80,6 @@ class FaqController extends Controller
         } catch (Exception $e) {
             return response()->json(['message' => 'Error creating FAQ: ' . $e->getMessage()], 500);
         }
-        return redirect()->route('admin.faq.manage')->with('success', 'FAQ created successfully.');
     }
 
     function edit_store($id, Request $request)
@@ -193,7 +192,6 @@ class FaqController extends Controller
     {
         try {
             $faq = Faq::findOrFail($id);
-            $faq->translations = $faq->translations;
             $faq->tags = $faq->faqTags->map(function ($tag) {
                 return $tag->translation();
             });
