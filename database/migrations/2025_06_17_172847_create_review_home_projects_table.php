@@ -13,14 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('article_hash_tags', function (Blueprint $table) {
+        Schema::create('review_home_projects', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('article_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
-            $table->jsonb('locale')->nullable(false)->default(json_encode([])); // JSON column for storing localized hash tags
+            $table->jsonb('locale')->nullable(false)->default(json_encode(['en' => '', 'th' => '']));
             $table->timestamps();
         });
     }
-
 
     /**
      * Reverse the migrations.
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('article_hash_tags');
+        Schema::dropIfExists('review_home_projects');
     }
 };

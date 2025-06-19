@@ -1,8 +1,8 @@
 @extends('component.layout_admin')
 
 @section('content')
-    <link rel="stylesheet" href="/css/admin/manage_articles.css">
-    <link rel="stylesheet" href="/css/admin/manage_faq.css">
+    <link rel="stylesheet" href="/css/admin/article/manage.css">
+    <link rel="stylesheet" href="/css/admin/faq/manage.css">
     <link rel="stylesheet" href="/css/component/tag_selector.css">
     <div class="container">
         <header>
@@ -261,7 +261,7 @@
         </div>
     </div>
 
-    <script src="/js/admin/faq/manage_faq.js" type="module"></script>
+    <script src="/js/admin/faq/manage.js" type="module"></script>
     <script>
         const jj = @json($faqs);
         console.log(jj);

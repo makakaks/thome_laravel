@@ -1,7 +1,7 @@
 @extends('component.layout_admin')
 
 @section('content')
-    <link rel="stylesheet" href="{{ asset('css/admin/manage_articles.css') }}">
+    <link rel="stylesheet" href="/css/admin/article/manage.css">
     <div class="container">
         <header>
             <h1>ระบบจัดการบทความ</h1>
@@ -29,7 +29,7 @@
                     <h2>จัดการบทความ</h2>
                     <div>
                         <a id="add-tag" class="btn btn-primary border" style="display:none;">เพิ่ม tag</a>
-                        <a id="add-article" class="btn btn-primary" href="/admin/manage_article/create">เพิ่มบทความ</a>
+                        <a id="add-article" class="btn btn-primary" href="/admin/article/create">เพิ่มบทความ</a>
                         <button class="btn btn-outline-success border" data-bs-target="#carouselExample"
                             data-bs-slide="next">จัดการ tag → </button>
                     </div>
@@ -182,6 +182,6 @@
         </section>
     </div>
 
-    <script src="{{ asset('js/admin/article/manage_articles.js') }}" type="module"></script>
+    <script src="/js/admin/article/manage.js'" type="module"></script>
     <script></script>
 @endsection

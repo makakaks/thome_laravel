@@ -3,29 +3,29 @@
 @section('import', 'bootstrap')
 
 @section('content')
-    <link rel="stylesheet" href="/css/admin/create_articles.css">
+    <link rel="stylesheet" href="/css/admin/article/create.css">
     <link rel="stylesheet" href="/css/component/tag_selector.css">
     <link rel="stylesheet" href="/css/component/image_overlay.css">
     <div class="container">
         <h2 class="text-center">
-            @if (@isset($article))
+            @if (@isset($house))
                 @if (request()->is('*edit*'))
-                    แก้ไขบทความ
+                    แก้ไขรีวิวบ้าน
                 @else
-                    เพิ่มภาษาบทความ
+                    เพิ่มภาษารีวิวบ้าน
                 @endif
-                ({{ request()->query('lang') }}) <span data-id="{{ $article['id'] }}"></span>
+                ({{ request()->query('lang') }}) <span data-id="{{ $house['id'] }}"></span>
             @else
-                สร้างบทความ (ภาษาไทย)
+                สร้างรีวิวบ้าน (ภาษาไทย)
             @endif
         </h2>
 
         <form id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="false">
             <div class="input-group article-input">
                 <div>
-                    <label for="title">ชื่อบทความ</label>
+                    <label for="title">ชื่อรีวิวบ้าน</label>
                     <input type="text" id="title" class="articleName thai form-control"
-                        placeholder="กรอกชื่อบทความภาษาไทย" required>
+                        placeholder="กรอกชื่อรีวิวบ้านภาษาไทย" required>
                 </div>
                 <div class="cover-image-input">
                     <label for="cover">รูปภาพหน้าปก</label>
@@ -37,7 +37,14 @@
                 </div>
 
                 @if (!request()->is('*add_lang*'))
-                    <div id="tag-selector-container"></div>
+                    <div>
+                        <label for="">เลือก Project</label>
+                        <select name="" id="projectSelector" class="form-control">
+                            @foreach ($projects as $project)
+                                <option value="{{$project->id}}">{{$project->translation}}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     <div>
                         <label>สร้าง hashtag</label>
                         <div class="tag-input-container" id="tagContainer">
@@ -61,7 +68,7 @@
             <span class="close-button">&times;</span>
             <img id="expandedImage" class="overlay-image" src="" alt="Full Image">
         </div>
-        
+
         @if (!request()->is('*add_lang*'))
             <div class="modal_hashtag-overlay" id="bilingualmodal_hashtag">
                 <div class="modal_hashtag">
@@ -155,25 +162,23 @@
     </div>
 
     <div class="tag-fetch hidden">
-        @foreach ($tags as $tag)
-            <div data-id="{{ $tag['id'] }}">
-                <span>{{ $tag->translation->name }}</span>
+        @foreach ($projects as $project)
+            <div data-id="{{ $project['id'] }}">
+                <span>{{ $project->translation }}</span>
             </div>
         @endforeach
     </div>
 
     {{--  --}}
-    @if (isset($article))
+    @if (isset($house))
         @if (!request()->is('*add_lang*'))
             <div class="selected-tag-fetch hidden">
-                @foreach ($article['tags'] as $t)
-                    <div data-id="{{ $t['article_tag_id'] }}">
-                        <span>{{ $t['name'] }}</span>
-                    </div>
-                @endforeach
+                <div data-id="{{ $house['project_id'] }}">
+                    <span>{{ $house['project'] }}</span>
+                </div>
             </div>
             <div class="hashtag-fetch hidden">
-                @foreach ($article['hashtags'] as $hashtag)
+                @foreach ($house['hashtags'] as $hashtag)
                     <div>
                         @foreach ($hashtag as $key => $h)
                             <span lang="{{ $key }}">{{ $h }}</span>
@@ -184,7 +189,7 @@
         @endif
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                const jj = @json($article);
+                const jj = @json($house);
                 const titleThEle = document.getElementById("title");
                 const coverThai = document.getElementById("cover");
 
@@ -215,5 +220,5 @@
         </script>
     @endif
     <script src="https://cdnjs.cloudflare.com/ajax/libs/spark-md5/3.0.2/spark-md5.min.js"></script>
-    <script src="/js/admin/article/create_articles.js" type="module"></script>
+    <script src="/js/admin/review_home/create.js" type="module"></script>
 @endsection

@@ -58,7 +58,7 @@ class ArticleController extends Controller
         $article->tags = $article->articleTags->map(function ($tag) {
             return $tag->translation();
         });
-        $article->hashtags = $article->articleHashTagsTranslation();
+        $article->hashtags = $article->articleHashTags->translation();
 
         return view('home.article.show_article', compact('article'));
     }
@@ -106,7 +106,7 @@ class ArticleController extends Controller
             $tag->cn = $tag->translation('cn');
         }
 
-        return view('admin.article.manage_articles', compact('articles', 'tags'));
+        return view('admin.article.manage', compact('articles', 'tags'));
     }
 
     function delete($id)
@@ -126,7 +126,7 @@ class ArticleController extends Controller
         foreach ($tags as $tag) {
             $tag->translation = $tag->translation();
         }
-        return view('admin.article.create_article', compact('tags'));
+        return view('admin.article.create', compact('tags'));
     }
 
     // ok
@@ -177,7 +177,7 @@ class ArticleController extends Controller
             $tag->translation = $tag->translation();
         }
 
-        return view('admin.article.create_article', compact('article', 'tags'));
+        return view('admin.article.create', compact('article', 'tags'));
     }
 
     public function edit_store(Request $request, $id)
@@ -221,7 +221,7 @@ class ArticleController extends Controller
             $tag->translation = $tag->translation();
         }
 
-        return view('admin.article.create_article', compact('article', 'tags'));
+        return view('admin.article.create', compact('article', 'tags'));
     }
 
     public function add_lang_store(Request $request, $id)

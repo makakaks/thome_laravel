@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 use PHPUnit\Framework\Test;
 use App\Http\Controllers\HouseController;
+use App\Http\Controllers\ReviewHomeController;
 use App\Models\Faq;
 /*
 |--------------------------------------------------------------------------
@@ -114,7 +115,7 @@ Route::prefix('article')->controller(ArticleController::class)->group(function (
 
 
 Route::prefix('admin')->group(function () {
-    Route::prefix('manage_article')->controller(ArticleController::class)->group(function () {
+    Route::prefix('article')->controller(ArticleController::class)->group(function () {
         Route::get('/', 'manage')->name('admin.article.manage');
         Route::delete('/{id}', 'delete')->name('admin.article.delete');
 
@@ -133,15 +134,23 @@ Route::prefix('admin')->group(function () {
         Route::delete('/delete_tag/{id}', 'delete_tag')->name('admin.article.delete_tag');
     });
 
-    Route::prefix('manage_review_home')->controller(ArticleController::class)->group(function () {
-        Route::get('/', 'manage')->name('admin.home.manage');
-        Route::delete('/{id}', 'delete')->name('admin.home.delete');
+    Route::prefix('review_home')->controller(ReviewHomeController::class)->group(function () {
+        Route::get('/', 'manage')->name('admin.review_home.manage');
+        Route::delete('/{id}', 'delete')->name('admin.review_home.delete');
 
-        Route::get('/create', 'create_view')->name('admin.home.create_view');
-        Route::post('/create', 'create_store')->name('admin.home.create_store');
+        Route::get('/create', 'create_view')->name('admin.review_home.create_view');
+        Route::post('/create', 'create_store')->name('admin.review_home.create_store');
 
-        Route::get('/edit/{id}', 'edit_view')->name('admin.home.edit_view');
-        Route::put('/edit/{id}', 'edit_store')->name('admin.home.edit_store');
+        Route::get('/{id}/edit', 'edit_view')->name('admin.review_home.edit_view');
+        Route::put('/{id}/edit', 'edit_store')->name('admin.review_home.edit_store');
+        Route::put('/{id}/edit_id', 'edit_id')->name('admin.review_home.edit_id');
+
+        Route::get('/{id}/add_lang', 'add_lang_view')->name('admin.review_home.add_lang_view');
+        Route::post('/{id}/add_lang', 'add_lang_store')->name('admin.review_home.add_lang_store');
+
+        Route::post('/add_project', 'create_project')->name('admin.review_home.add_project');
+        Route::put('/edit_project/{id}', 'edit_project')->name('admin.review_home.edit_project');
+        Route::delete('/delete_project/{id}', 'delete_project')->name('admin.review_home.delete_project');
     });
 
     Route::prefix('manage_faq')->controller(FaqController::class)->group(function () {

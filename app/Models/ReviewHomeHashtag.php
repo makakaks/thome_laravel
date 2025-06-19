@@ -6,27 +6,28 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\App;
 
-class ArticleHashTag extends Model
+class ReviewHomeHashtag extends Model
 {
     use HasFactory;
+
     protected $casts = [
         'locale' => 'array',
     ];
     protected $fillable = ['locale'];
 
-    public function article()
+    public function reviewHome()
     {
         return $this->belongsTo(Article::class);
     }
 
     public function translation($locale = null)
     {
-        $locale = $locale ?? App::getLocale();
-        $hashTags = $this->locale;
-        $hashTagsNew = [];
-        foreach ($hashTags as $hashTag) {
-            $hashTagsNew[] = $hashTag[$locale] ?? $hashTag['en'] ?? $hashTag['th'] ?? '';
+        $hashtags = $this->locale;
+        $hashtagsNew = [];
+        foreach ($hashtags as $hashtag) {
+            $hashtagsNew[] = $hashtag[$locale] ?? $hashtag['en'] ?? $hashtag['th'] ?? '';
         }
-        return $hashTagsNew;
+        return $hashtagsNew;
     }
 }
+

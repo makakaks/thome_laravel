@@ -54,7 +54,7 @@ class FaqController extends Controller
             $tag->en = $tag->translation('en');
             $tag->cn = $tag->translation('cn');
         }
-        return view('admin.faq.manage_faq', compact('faqs', 'tags'));
+        return view('admin.faq.manage', compact('faqs', 'tags'));
     }
 
     function create_store(Request $request)

@@ -29,11 +29,6 @@ class Article extends Model
             $article->articleHashTags()->delete();
             $article->articleTags()->detach();
         });
-
-        static::updating(function ($article) {
-            
-
-        });
     }
 
     public function translations()
@@ -49,17 +44,6 @@ class Article extends Model
     function articleHashTags()
     {
         return $this->hasOne(ArticleHashTag::class);
-    }
-
-    public function articleHashTagsTranslation($locale = null)
-    {
-        $locale = $locale ?? App::getLocale();
-        $articleHashTags = $this->articleHashTags->locale;
-        $articleHashTagsNew = [];
-        foreach ($articleHashTags as $articleHashTag) {
-            $articleHashTagsNew[] = $articleHashTag[$locale] ?? $articleHashTag->locale['en'] ?? '';
-        }
-        return $articleHashTagsNew;
     }
 
     public function translation($locale = null)

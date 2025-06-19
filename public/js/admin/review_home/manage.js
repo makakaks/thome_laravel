@@ -12,7 +12,7 @@ async function searchAndFilterArticles() {
     const searchTerm = searchInput.value.toLowerCase();
     const filterTag = filterSelect.value == "all" ? "" : filterSelect.value;
 
-    location.href = `/admin/manage_article?search=${searchTerm}&tag=${filterTag}`;
+    location.href = `/admin/review_home?search=${searchTerm}&project=${filterTag}`;
 }
 
 // ลบบทความ
@@ -31,7 +31,7 @@ function deleteArticle() {
                     '<button class="confirm-btn active confirm-yes" id="confirmYes"> ลบ </button>',
                     async () => {
                         window.showLoading();
-                        await fetch(`/admin/manage_article/${id}`, {
+                        await fetch(`/admin/review_home/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "X-CSRF-TOKEN": document.querySelector(
@@ -69,15 +69,15 @@ function addTag() {
     const btn = document.getElementById("add-tag");
     btn.addEventListener("click", () => {
         confirmDialog.confirmAction(
-            "เพิ่มแท็ก",
+            "เพิ่มproject",
             `<div class="mt-3">
                 <div class="form-group mb-3">
-                    <label for="tag-name">ชื่อแท็ก:</label>
-                    <input type="text" id="add-tag-name" class="form-control" placeholder="ป้อนชื่อแท็ก">
+                    <label for="tag-name">ชื่อproject:</label>
+                    <input type="text" id="add-tag-name" class="form-control" placeholder="ป้อนชื่อproject">
                 </div>
                 <div class="form-group">
-                    <label for="tag-name">ชื่อแท็ก(en):</label>
-                    <input type="text" id="add-tag-name-en" class="form-control" placeholder="ป้อนชื่อแท็ก">
+                    <label for="tag-name">ชื่อproject(en):</label>
+                    <input type="text" id="add-tag-name-en" class="form-control" placeholder="ป้อนชื่อproject">
                 </div>
             </div>`,
             "ไม่",
@@ -93,7 +93,7 @@ function addTag() {
 
                 window.showLoading();
 
-                await fetch("/admin/manage_article/add_tag", {
+                await fetch("/admin/review_home/add_project", {
                     method: "POST",
                     headers: {
                         "content-Type": "application/json",
@@ -101,25 +101,22 @@ function addTag() {
                             'meta[name="csrf-token"]'
                         ).content,
                     },
-                    body: JSON.stringify([
-                        {
-                            locale: "th",
-                            name: tagName,
-                        },
-                        {
-                            locale: "en",
-                            name: tagNameEn,
-                        },
-                    ]),
+                    body: JSON.stringify({
+                        en: tagNameEn,
+                        th: tagName,
+                    }),
                 }).then(async (res) => {
                     window.hideLoading();
                     if (!res.ok) {
-                        window.showToast("ไม่สามารถเพิ่มแท็กได้", "error");
+                        window.showToast("ไม่สามารถเพิ่มprojectได้", "error");
                         await res.text().then((data) => {
                             console.log(data);
                         });
                     } else {
-                        window.showToast("เพิ่มแท็กเรียบร้อยแล้ว", "success");
+                        window.showToast(
+                            "เพิ่มprojectเรียบร้อยแล้ว",
+                            "success"
+                        );
                         setTimeout(() => {
                             window.location.reload();
                         }, 2500);
@@ -159,8 +156,8 @@ function editArticle() {
             "click",
             () => {
                 let select = `<select class="form-select" id="select-lang">`;
-                // /admin/manage_article/add_lang/{{ $article['id'] }}/admin/manage_article/add_lang/{{ $article['id'] }}
-                // /admin/manage_article/edit/{{ $article['id'] }}
+                // /admin/review_home/add_lang/{{ $article['id'] }}/admin/review_home/add_lang/{{ $article['id'] }}
+                // /admin/review_home/edit/{{ $article['id'] }}
                 row.querySelectorAll("td.d-none span").forEach((lang) => {
                     select += `<option value="${lang.textContent.trim()}">${
                         langMap[lang.textContent.trim()]
@@ -181,7 +178,7 @@ function editArticle() {
                     '<button class="confirm-btn active confirm-yes" id="confirmYes"> Yes </button>',
                     async () => {
                         let select = document.getElementById("select-lang");
-                        location.href = `/admin/manage_article/${articleId}/edit?lang=${select.value}`;
+                        location.href = `/admin/review_home/${articleId}/edit?lang=${select.value}`;
                     }
                 );
             }
@@ -214,81 +211,7 @@ function editArticle() {
                     '<button class="confirm-btn active confirm-yes" id="confirmYes"> Yes </button>',
                     async () => {
                         let select = document.getElementById("select-lang");
-                        location.href = `/admin/manage_article/${articleId}/add_lang?lang=${select.value}`;
-                    }
-                );
-            }
-        );
-
-        row.querySelector("button[btn-type='edit-id']").addEventListener(
-            "click",
-            () => {
-                confirmDialog.confirmWithVerify(
-                    "เปลี่ยนเลข ID",
-                    `<div class="mt-3">
-                        <div class="form-group mb-3">
-                            <label for="tag-name">ใส่เลข ID</label>
-                            <input type="number" id="change-id" class="form-control" placeholder="ป้อน ID ของบทความ">
-                            <p class="text-danger mt-1" id="change-id-error" style="font-size: 1rem;"></p>
-                        </div>
-                    </div>`,
-                    "ไม่",
-                    "ใช่",
-                    '<button class="confirm-btn active confirm-yes" id="confirmYes"> Yes </button>',
-                    async () => {
-                        const idInput = document.getElementById("change-id");
-                        const idInputError =
-                            document.getElementById("change-id-error");
-                        if (!idInput.value || idInput.value.trim() == "") {
-                            idInputError.innerText = "*กรุณากรอก ID";
-                            idInput.focus();
-                            return false;
-                        }
-                        window.showLoading();
-                        let res = await fetch(
-                            `/admin/manage_article/${articleId}/edit_id`,
-                            {
-                                method: "PUT",
-                                headers: {
-                                    "content-Type": "application/json",
-                                    "X-CSRF-TOKEN": document.querySelector(
-                                        'meta[name="csrf-token"]'
-                                    ).content,
-                                },
-                                body: JSON.stringify({
-                                    change_id: idInput.value.trim(),
-                                }),
-                            }
-                        );
-                        window.hideLoading();
-                        if (!res.ok) {
-                            await res.json().then((data) => {
-                                let message = "ไม่สามารถแก้ไข ID ได้";
-                                if (
-                                    data.message &&
-                                    data.message == "id already used"
-                                ) {
-                                    message = "ID นี้ถูกใช้แล้ว";
-                                    idInputError.innerText = "*ID นี้ถูกใช้แล้ว";
-                                    idInput.focus();
-                                }
-                                window.showToast(message, "error");
-                            });
-                            console.log("false");
-                            return false;
-                        } else {
-                            window.showToast(
-                                "แก้ไข ID เรียบร้อยแล้ว",
-                                "success"
-                            );
-                            row.querySelector(".article-id").innerText =
-                                idInput.value.trim();
-                            row.querySelector(
-                                ".article-link"
-                            ).href = `/article/detail?news_id=${idInput.value.trim()}`;
-                            row.setAttribute("data-id", idInput.value.trim());
-                            return true;
-                        }
+                        location.href = `/admin/review_home/${articleId}/add_lang?lang=${select.value}`;
                     }
                 );
             }
@@ -328,11 +251,11 @@ function initTagManage() {
 
     async function confirmEdit(superParent, parentDiv, dataLocale, tagId) {
         confirmDialog.confirmAction(
-            `แก้ไขแท็ก ${dataLocale}`,
+            `แก้ไขproject ${dataLocale}`,
             `<div class="mt-3">
                 <div class="form-group mb-3">
-                    <label for="tag-name">ชื่อแท็ก:</label>
-                    <input type="text" value="${parentDiv.innerText.trim()}" id="add-tag-name" class="form-control" placeholder="ป้อนชื่อแท็ก">
+                    <label for="tag-name">ชื่อproject:</label>
+                    <input type="text" value="${parentDiv.innerText.trim()}" id="add-tag-name" class="form-control" placeholder="ป้อนชื่อproject">
                 </div>
             </div>`,
             "ไม่",
@@ -345,7 +268,7 @@ function initTagManage() {
 
                 window.showLoading();
 
-                await fetch(`/admin/manage_article/edit_tag/${tagId}`, {
+                await fetch(`/admin/review_home/edit_project/${tagId}`, {
                     method: "PUT",
                     headers: {
                         "content-Type": "application/json",
@@ -366,7 +289,7 @@ function initTagManage() {
                         });
                         return;
                     }
-                    window.showToast("แก้ไขแท็กเรียบร้อยแล้ว", "success");
+                    window.showToast("แก้ไขprojectเรียบร้อยแล้ว", "success");
                     parentDiv.innerText = tagName;
                 });
             }
@@ -384,8 +307,8 @@ function initTagManage() {
             `เพิ่มภาษา ${dataLocale}`,
             `<div class="mt-3">
                 <div class="form-group mb-3">
-                    <label for="tag-name">ชื่อแท็ก:</label>
-                    <input type="text" id="add-tag-name" class="form-control" placeholder="ป้อนชื่อแท็ก">
+                    <label for="tag-name">ชื่อproject:</label>
+                    <input type="text" id="add-tag-name" class="form-control" placeholder="ป้อนชื่อproject">
                 </div>
             </div>`,
             "ไม่",
@@ -398,7 +321,7 @@ function initTagManage() {
 
                 window.showLoading();
 
-                await fetch(`/admin/manage_article/edit_tag/${tagId}`, {
+                await fetch(`/admin/review_home/edit_project/${tagId}`, {
                     method: "PUT",
                     headers: {
                         "content-Type": "application/json",
@@ -413,9 +336,16 @@ function initTagManage() {
                 }).then(async (res) => {
                     window.hideLoading();
                     if (!res.ok) {
-                        window.showToast("ไม่สามารถเพิ่มแท็กได้", "error");
+                        window.showToast("ไม่สามารถเพิ่มprojectได้", "error");
+                        await res.text().then((data) => {
+                            console.log(data);
+                        });
+                        return
                     } else {
-                        window.showToast("เพิ่มแท็กเรียบร้อยแล้ว", "success");
+                        window.showToast(
+                            "เพิ่มprojectเรียบร้อยแล้ว",
+                            "success"
+                        );
                     }
                     btn.remove();
                     const parent = parentDiv.parentNode;
@@ -473,9 +403,9 @@ function initTagManage() {
                 const superParent = btn.parentNode.parentNode;
 
                 confirmDialog.confirmAction(
-                    `ลบแท็ก`,
+                    `ลบproject`,
                     `<div class="mt-3">
-                        <p>คุณแน่ใจหรือไม่ว่าต้องการลบแท็กนี้?</p>
+                        <p>คุณแน่ใจหรือไม่ว่าต้องการลบprojectนี้?</p>
                     </div>`,
                     "ไม่",
                     "ใช่",
@@ -483,7 +413,7 @@ function initTagManage() {
                     async () => {
                         window.showLoading();
                         await fetch(
-                            `/admin/manage_article/delete_tag/${tagId}`,
+                            `/admin/review_home/delete_project/${tagId}`,
                             {
                                 method: "DELETE",
                                 headers: {
@@ -495,13 +425,16 @@ function initTagManage() {
                         ).then(async (res) => {
                             window.hideLoading();
                             if (!res.ok) {
-                                window.showToast("ไม่สามารถลบแท็กได้", "error");
+                                window.showToast(
+                                    "ไม่สามารถลบprojectได้",
+                                    "error"
+                                );
                                 await res.text().then((data) => {
                                     console.log(data);
                                 });
                             } else {
                                 window.showToast(
-                                    "ลบแท็กเรียบร้อยแล้ว",
+                                    "ลบprojectเรียบร้อยแล้ว",
                                     "success"
                                 );
                                 superParent.remove();

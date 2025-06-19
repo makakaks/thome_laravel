@@ -11,7 +11,7 @@ const expandedImage = document.getElementById("expandedImage");
 const closeButton = document.querySelector(".close-button");
 const coverImgInput = document.querySelectorAll(".cover-image-input");
 
-let tagSelector;
+const projectSelector = document.getElementById("projectSelector");
 let hashTagSelector;
 
 function makeid(length = 40) {
@@ -29,20 +29,7 @@ function makeid(length = 40) {
 
 async function tag_selector() {
     const initHashTag = [];
-    const tagss = [];
-    const tagFetch = document.querySelectorAll(".tag-fetch div");
-    tagFetch.forEach((tag) => {
-        tagss.push({
-            id: tag.getAttribute("data-id"),
-            name: tag.querySelector("span").textContent,
-        });
-    });
-    tagSelector = createTagSelector("tag-selector-container", tagss);
-
     if (location.href.includes("edit")) {
-        document.querySelectorAll(".selected-tag-fetch div").forEach((tag) => {
-            tagSelector.selectOptionById(tag.getAttribute("data-id"));
-        });
         document.querySelectorAll(".hashtag-fetch div").forEach((tag) => {
             let obj = {};
             tag.querySelectorAll("span").forEach((span) => {
@@ -60,12 +47,12 @@ function initListener() {
         // console.log("tag :", hashTagSelector.selectedTags)
         const title = titleEle.value;
         if (title === "" || cover.files.length === 0) {
-            window.showToast("กรุณาใส่ชื่อบทความและอัปโหลดภาพหน้าปก", "error");
+            window.showToast("กรุณาใส่ชื่อรีวิวบ้านและอัปโหลดภาพหน้าปก", "error");
             return;
         }
 
         async function uploadImg(formData, filename = makeid()) {
-            formData.append("folder", `article`);
+            formData.append("folder", `review_home`);
             formData.append("filename", filename + ".png");
             const response = await fetch("/admin/upload_image", {
                 method: "POST",
@@ -141,7 +128,7 @@ function initListener() {
 
         if (location.href.includes("edit")) {
             confirmDialog.confirmAction(
-                "ยืนยันการแก้ไขบทความ",
+                "ยืนยันการแก้ไขรีวิวบ้าน",
                 "คุณต้องการแก้ไขหรือไม่",
                 "ไม่",
                 "ยืนยัน",
@@ -153,7 +140,7 @@ function initListener() {
                         title: title,
                         content: note1,
                         coverPageImg: coverPath,
-                        tags: tagSelector.getSelectedTags(),
+                        project: projectSelector.value,
                         hashtags: hashTagSelector.getSelectedTags()
                     };
                     window.showLoading();
@@ -172,14 +159,14 @@ function initListener() {
                     );
 
                     if (res.ok) {
-                        window.showToast("แก้ไขบทความสำเร็จ", "success");
+                        window.showToast("แก้ไขรีวิวบ้านสำเร็จ", "success");
                         window.hideLoading();
-                        window.location.href = "/admin/manage_article";
+                        window.location.href = "/admin/review_home";
                     } else {
                         const errorText = await res.text();
                         console.log("errorText: ", errorText);
                         window.showToast(
-                            "เกิดข้อผิดพลาดในการแก้ไขบทความ",
+                            "เกิดข้อผิดพลาดในการแก้ไขรีวิวบ้าน",
                             "error"
                         );
                         window.hideLoading();
@@ -217,14 +204,14 @@ function initListener() {
                     );
 
                     if (res.ok) {
-                        window.showToast("แก้ไขบทความสำเร็จ", "success");
+                        window.showToast("แก้ไขรีวิวบ้านสำเร็จ", "success");
                         window.hideLoading();
-                        window.location.href = "/admin/manage_article";
+                        window.location.href = "/admin/review_home";
                     } else {
                         const errorText = await res.text();
                         console.log("errorText: ", errorText);
                         window.showToast(
-                            "เกิดข้อผิดพลาดในการแก้ไขบทความ",
+                            "เกิดข้อผิดพลาดในการแก้ไขรีวิวบ้าน",
                             "error"
                         );
                         window.hideLoading();
@@ -233,7 +220,7 @@ function initListener() {
             );
         } else {
             confirmDialog.confirmAction(
-                "ยืนยันการสร้างบทความ",
+                "ยืนยันการสร้างรีวิวบ้าน",
                 "คุณต้องการสร้างหรือไม่",
                 "ไม่",
                 "ยืนยัน",
@@ -245,11 +232,11 @@ function initListener() {
                         title: title,
                         content: note1,
                         coverPageImg: coverPath,
-                        tags: tagSelector.getSelectedTags(),
+                        project: projectSelector.value,
                         hashtags: hashTagSelector.getSelectedTags()
                     };
                     window.showLoading();
-                    const res = await fetch("/admin/manage_article/create", {
+                    const res = await fetch("/admin/review_home/create", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -260,16 +247,16 @@ function initListener() {
                         body: JSON.stringify(req),
                     });
                     if (res.ok) {
-                        window.showToast("สร้างบทความสำเร็จ", "success");
+                        window.showToast("สร้างรีวิวบ้านสำเร็จ", "success");
                         window.hideLoading();
                         setTimeout(() => {
-                            window.location.href = "/admin/manage_article";
+                            window.location.href = "/admin/review_home";
                         }, 2500);
                     } else {
                         const errorText = await res.text();
                         console.log("errorText: ", errorText);
                         window.showToast(
-                            "เกิดข้อผิดพลาดในการสร้างบทความ",
+                            "เกิดข้อผิดพลาดในการสร้างรีวิวบ้าน",
                             "error"
                         );
                         window.hideLoading();
