@@ -16,6 +16,7 @@
 body {
     display: flex;
     overflow: auto;
+    background-color: #f5f7fa;
 }
 
 body.hide-over {
