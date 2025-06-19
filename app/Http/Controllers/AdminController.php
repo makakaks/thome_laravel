@@ -10,6 +10,7 @@ use Exception;
 use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
+
 {
     //
 

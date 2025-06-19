@@ -16,14 +16,13 @@
         <>
             <div class="container">
                 <header class="main-header">
-                    <h1 class="title">สมาชิกทีมงาน ต ตรวจบ้านของเรา</h1>
+                    <h1 class="title">สมาชิกทีมงานของเรา</h1>
                     <div class="title-underline"></div>
                 </header>
 
                 <div class="filter-container">
                     <div class="filter-header">
                         <i class="fas fa-filter"></i>
-                        <h2>กรองตามแผนก</h2>
                     </div>
                     <div class="filter-tabs">
                         <button class="filter-btn active" data-department="all">ทั้งหมด</button>
@@ -47,7 +46,7 @@
                         <div class="team-card" data-id="1">
                             <div class="card-image">
                                 <div class="image-overlay"></div>
-                                <img src="https://via.placeholder.com/300x400/1a75ff/ffffff?text=ธนพล"
+                                <img src="/img/staff/CEO.jpg" class="card-image" style="width: 100%; height: 100%; object-fit: cover;"
                                     alt="ธนพล สุขสวัสดิ์">
                                 <div class="card-image-content">
                                     <span class="department-badge">ผู้บริหาร</span>
@@ -64,7 +63,6 @@
                                     <span class="skill-badge">ภาวะผู้นำ</span>
                                     <span class="skill-badge">วางแผนกลยุทธ์</span>
                                 </div>
-                                <button class="view-profile-btn">ดูโปรไฟล์</button>
                             </div>
                         </div>
 
@@ -88,7 +86,6 @@
                                     <span class="skill-badge">การจัดการ</span>
                                     <span class="skill-badge">พัฒนาทีม</span>
                                 </div>
-                                <button class="view-profile-btn">ดูโปรไฟล์</button>
                             </div>
                         </div>
 
@@ -112,7 +109,7 @@
                                     <span class="skill-badge">วิเคราะห์การเงิน</span>
                                     <span class="skill-badge">บริหารความเสี่ยง</span>
                                 </div>
-                                <button class="view-profile-btn">ดูโปรไฟล์</button>
+                                
                             </div>
                         </div>
                     </div>
@@ -147,7 +144,7 @@
                                     <span class="skill-badge">ดิจิทัลมาร์เก็ตติ้ง</span>
                                     <span class="skill-badge">กลยุทธ์แบรนด์</span>
                                 </div>
-                                <button class="view-profile-btn">ดูโปรไฟล์</button>
+                                
                             </div>
                         </div>
 
@@ -171,7 +168,7 @@
                                     <span class="skill-badge">โซเชียลมีเดีย</span>
                                     <span class="skill-badge">สร้างคอนเทนต์</span>
                                 </div>
-                                <button class="view-profile-btn">ดูโปรไฟล์</button>
+                                
                             </div>
                         </div>
 
@@ -195,7 +192,7 @@
                                     <span class="skill-badge">กลยุทธ์คอนเทนต์</span>
                                     <span class="skill-badge">SEO</span>
                                 </div>
-                                <button class="view-profile-btn">ดูโปรไฟล์</button>
+                                
                             </div>
                         </div>
                     </div>
@@ -230,7 +227,7 @@
                                     <span class="skill-badge">สถาปัตยกรรมซอฟต์แวร์</span>
                                     <span class="skill-badge">คลาวด์คอมพิวติ้ง</span>
                                 </div>
-                                <button class="view-profile-btn">ดูโปรไฟล์</button>
+                                
                             </div>
                         </div>
 
@@ -254,7 +251,7 @@
                                     <span class="skill-badge">Full-Stack</span>
                                     <span class="skill-badge">Agile</span>
                                 </div>
-                                <button class="view-profile-btn">ดูโปรไฟล์</button>
+                                
                             </div>
                         </div>
 
@@ -278,7 +275,7 @@
                                     <span class="skill-badge">UX Research</span>
                                     <span class="skill-badge">UI Design</span>
                                 </div>
-                                <button class="view-profile-btn">ดูโปรไฟล์</button>
+                                
                             </div>
                         </div>
 
@@ -302,7 +299,7 @@
                                     <span class="skill-badge">Automated Testing</span>
                                     <span class="skill-badge">QA</span>
                                 </div>
-                                <button class="view-profile-btn">ดูโปรไฟล์</button>
+                                
                             </div>
                         </div>
                     </div>
@@ -337,7 +334,7 @@
                                     <span class="skill-badge">ประสบการณ์ลูกค้า</span>
                                     <span class="skill-badge">บริหารทีม</span>
                                 </div>
-                                <button class="view-profile-btn">ดูโปรไฟล์</button>
+                                
                             </div>
                         </div>
 
@@ -361,7 +358,7 @@
                                     <span class="skill-badge">สนับสนุนทางเทคนิค</span>
                                     <span class="skill-badge">การฝึกอบรม</span>
                                 </div>
-                                <button class="view-profile-btn">ดูโปรไฟล์</button>
+                                
                             </div>
                         </div>
 
@@ -385,7 +382,7 @@
                                     <span class="skill-badge">บริหารบัญชี</span>
                                     <span class="skill-badge">สร้างความสัมพันธ์</span>
                                 </div>
-                                <button class="view-profile-btn">ดูโปรไฟล์</button>
+                                
                             </div>
                         </div>
                     </div>
@@ -420,7 +417,7 @@
                                     <span class="skill-badge">กลยุทธ์การขาย</span>
                                     <span class="skill-badge">ภาวะผู้นำทีม</span>
                                 </div>
-                                <button class="view-profile-btn">ดูโปรไฟล์</button>
+                                
                             </div>
                         </div>
 
@@ -444,7 +441,7 @@
                                     <span class="skill-badge">การขายองค์กร</span>
                                     <span class="skill-badge">การขายโซลูชั่น</span>
                                 </div>
-                                <button class="view-profile-btn">ดูโปรไฟล์</button>
+                                
                             </div>
                         </div>
 
@@ -468,7 +465,7 @@
                                     <span class="skill-badge">ปฏิบัติการขาย</span>
                                     <span class="skill-badge">วิเคราะห์ข้อมูล</span>
                                 </div>
-                                <button class="view-profile-btn">ดูโปรไฟล์</button>
+                                
                             </div>
                         </div>
                     </div>

@@ -881,7 +881,7 @@ header {
     color: var(--font-color);
     text-align: center;
     width: 100vw;
-    min-height: 70vh;
+    height: 45vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
