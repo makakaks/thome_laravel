@@ -70,7 +70,7 @@ h1 {
     }
 }
 
-/* 
+/*
 @media (max-width: 576px) {
     .social-icons{
         display: flex;
@@ -80,11 +80,14 @@ h1 {
 
 .navbar-container {
     width: 100%;
+    display: block !important;
     position: fixed;
     /* กำหนดให้ Navbar ติดอยู่กับหน้าจอ */
     top: 0;
     left: 0;
     z-index: 100;
+    padding: 0 !important;
+    background-color: transparent !important;
     /* กำหนด z-index เพื่อให้ Navbar อยู่เหนือเนื้อหาอื่น */
 }
 
@@ -321,7 +324,7 @@ header {
     padding: 40px;
 }
 
-/* 
+/*
 @media (min-width: 576px) {
     .container {
         max-width: none;

@@ -182,6 +182,5 @@
         </section>
     </div>
 
-    <script src="/js/admin/article/manage.js'" type="module"></script>
-    <script></script>
+    <script src="/js/admin/article/manage.js" type="module"></script>
 @endsection

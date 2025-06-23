@@ -79,13 +79,13 @@
                     บทความ <span class="dropdown-icon"><i class="fa-solid fa-caret-down"></i></span>
                 </a>
                 <ul class="dropdown-menu d-block">
-                    <li><a href="/articles" data-translate="nav.articles">ความรู้ทั่วไป</a>
+                    <li><a href="/article" data-translate="nav.articles">ความรู้ทั่วไป</a>
                     </li>
                     <li><a href="/Review-home" data-translate="nav.reviewHome">รีวิวบ้าน</a>
                     </li>
                 </ul>
             </li> --}}
-            <li><a href="/articles" data-translate="nav.articles">{{ __('header.articles') }}</a></li>
+            <li><a href="/article" data-translate="nav.articles">{{ __('header.articles') }}</a></li>
             <li><a href="/Review-home" data-translate="nav.reviewHome">{{ __('header.review_home') }}</a></li>
             <li><a href="/projects_media.html" data-translate="nav.projects">{{ __('header.projects') }}</a></li>
             <!-- Dropdown Menu -->
@@ -131,7 +131,7 @@
 
             <li class="nav-item"><a href="/projects_media.html" class="nav-link">{{ __('header.projects') }}</a></li>
 
-            <li class="nav-item"><a href="/articles" class="nav-link">{{ __('header.articles') }}</a></li>
+            <li class="nav-item"><a href="/article" class="nav-link">{{ __('header.articles') }}</a></li>
             <li class="nav-item"><a href="/review_home" class="nav-link">{{ __('header.review_home') }}</a></li>
             <li class="nav-item has-dropdown">
                 <a href="#" class="nav-link">{{ __('header.about') }}</a>

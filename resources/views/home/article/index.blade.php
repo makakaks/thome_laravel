@@ -36,72 +36,39 @@
                             <p>ไม่มีบทความในหมวดหมู่นี้</p>
                         </div>
                     @else
-                        @foreach ($articles as $article)
-                            <a href="/article/detail?news_id={{ $article->id }}" class="card" data-category="Roof">
-                                <img src="{{ $article->translation->coverPageImg }}" alt="House Review 1">
-                                <p> {{ $article->translation->title }} </p>
-                                <span
+                        @for ($index = 0; $index < 5; $index++)
+                            @foreach ($articles as $article)
+                                <div class="new-card">
+                                    <a href="/article/detail?news_id={{ $article->id }}"><img
+                                            src="{{ $article->translation->coverPageImg }}" alt="" loading="lazy"></a>
+                                    <a href="/article/detail?news_id={{ $article->id }}"
+                                        class="new-card-title">{{ $article->translation->title }}</a>
+                                    <div class="new-card-tags">
+                                        @foreach ($article->tags as $tag)
+                                            <a href="/article?tag={{ $tag->name }}">{{ $tag->name }}</a>
+                                        @endforeach
+                                    </div>
+                                    <div>
+                                        <span
+                                            class="upload-date">{{ \Carbon\Carbon::parse($article->created_at)->locale(app()->getlocale())->isoFormat('D-MM-YYYY') }}
+                                        </span>
+                                    </div>
+                                    {{-- <span
                                     class="upload-date">{{ \Carbon\Carbon::parse($article->created_at)->locale(app()->getlocale())->isoFormat('D-MM-YYYY') }}
                                     |
                                     @foreach ($article->tags as $tag)
                                         {{ $tag->name }}
-                                        @if (!$loop->last), @endif
+                                        @if (!$loop->last)
+                                            ,
+                                        @endif
                                     @endforeach
-                                </span>
-                            </a>
-                        @endforeach
+                                </span> --}}
+                                </div>
+                            @endforeach
+                        @endfor
+
                         {{ $articles->links('vendor.pagination.default') }}
                     @endif
-                    {{-- <a href="/Homepage/article_view.html" class="card" data-category="Roof">
-                        <img src="/img/article1.1.jpg" alt="House Review 1">
-                        <p>สรุป!! จักรวาลการออกแบบสาย LAN ตามบ้าน </p>
-                        <span class="upload-date">2025-02-10 | Roof</span>
-                    </a>
-                    <a href="/Homepage/article_view2.html" class="card" data-category="Roof">
-                        <img src="/img/releted2.jpg" alt="House Review 2">
-                        <p>เราต่างจากที่อื่นอย่างไร What Makes US Different? </p>
-                        <span class="upload-date">2025-02-08 | Roof</span>
-                    </a>
-                    <a href="/Homepage/article_view3.html" class="card" data-category="Electrical System">
-                        <img src="/img/article_releted.jpg" alt="House Review 3">
-                        <p>ซื้อบ้านใหม่ ติดเครื่องทำน้ำอุ่นยังไง </p>
-                        <span class="upload-date">2025-02-07 | Electrical System</span>
-                    </a>
-                    <a href="/Homepage/article_view4.html" class="card" data-category="Electrical System">
-                        <img src="/img/ebook.jpg" alt="House Review 4">
-                        <p>แจกฟรี!!! ebook ความรู้ระบบไฟฟ้าภายในบ้าน </p>
-                        <span class="upload-date">2024-12-07 | Electrical System</span>
-                    </a>
-                    <a href="/Homepage/article_view5.html" class="card" data-category="Electrical System">
-                        <img src="/img/review5.1.jpg" alt="House Review 5">
-                        <p>ทำอย่างไร เมื่อสายดินหลุดออกจากหลักดิน ? </p>
-                        <span class="upload-date">2024-12-06 | Electrical System</span>
-                    </a>
-                    <a href="/Homepage/article_view6.html" class="card" data-category="Plumbing System">
-                        <img src="/img/ev-charger.jpg" alt="House Review 6">
-                        <p>สิ่งที่ต้องรู้เกี่ยวกับ EV Charger </p>
-                        <span class="upload-date">2024-12-05 | Plumbing System</span>
-                    </a>
-                    <a href="/Homepage/article_view7.html" class="card" data-category="Plumbing System">
-                        <img src="/img/tou.jpg" alt="House Review 7">
-                        <p>ความแตกต่างระหว่างมิเตอร์ปกติกับมิเตอร์ TOU</p>
-                        <span class="upload-date">2024-12-03 | Plumbing System</span>
-                    </a>
-                    <a href="/Homepage/article_view8.html" class="card" data-category="HVAC System">
-                        <img src="/img/review8.1.jpg" alt="House Review 8">
-                        <p>การตรวจสอบสาย LAN </p>
-                        <span class="upload-date">2024-12-02 | HVAC System</span>
-                    </a>
-                    <a href="/Homepage/article_view9.html" class="card" data-category="HVAC System">
-                        <img src="/img/ac.jpg" alt="House Review 9">
-                        <p>การตรวจเช็คเครื่องปรับอากาศ </p>
-                        <span class="upload-date">2025-02-01 | HVAC System</span>
-                    </a>
-                    <a href="/Homepage/article_view10.html" class="card" data-category="Roof">
-                        <img src="/img/article10.png" alt="House Review 10">
-                        <p>Grand Bangkok Boulevard Yard Bangna </p>
-                        <span class="upload-date">2025-01-01 | Roof</span>
-                    </a> --}}
                 </div>
             </div>
         </div>

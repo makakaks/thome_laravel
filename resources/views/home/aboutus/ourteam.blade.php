@@ -1,4 +1,4 @@
-@extends('component.layout  ')
+@extends('component.layout')
 
 @section('content')
     <!DOCTYPE html>
@@ -13,7 +13,6 @@
             <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap"
                 rel="stylesheet">
         </head>
-        <>
             <div class="container">
                 <header class="main-header">
                     <h1 class="title">สมาชิกทีมงานของเรา</h1>
@@ -109,7 +108,7 @@
                                     <span class="skill-badge">วิเคราะห์การเงิน</span>
                                     <span class="skill-badge">บริหารความเสี่ยง</span>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -144,7 +143,7 @@
                                     <span class="skill-badge">ดิจิทัลมาร์เก็ตติ้ง</span>
                                     <span class="skill-badge">กลยุทธ์แบรนด์</span>
                                 </div>
-                                
+
                             </div>
                         </div>
 
@@ -168,7 +167,7 @@
                                     <span class="skill-badge">โซเชียลมีเดีย</span>
                                     <span class="skill-badge">สร้างคอนเทนต์</span>
                                 </div>
-                                
+
                             </div>
                         </div>
 
@@ -192,7 +191,7 @@
                                     <span class="skill-badge">กลยุทธ์คอนเทนต์</span>
                                     <span class="skill-badge">SEO</span>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -227,7 +226,7 @@
                                     <span class="skill-badge">สถาปัตยกรรมซอฟต์แวร์</span>
                                     <span class="skill-badge">คลาวด์คอมพิวติ้ง</span>
                                 </div>
-                                
+
                             </div>
                         </div>
 
@@ -251,7 +250,7 @@
                                     <span class="skill-badge">Full-Stack</span>
                                     <span class="skill-badge">Agile</span>
                                 </div>
-                                
+
                             </div>
                         </div>
 
@@ -275,7 +274,7 @@
                                     <span class="skill-badge">UX Research</span>
                                     <span class="skill-badge">UI Design</span>
                                 </div>
-                                
+
                             </div>
                         </div>
 
@@ -299,7 +298,7 @@
                                     <span class="skill-badge">Automated Testing</span>
                                     <span class="skill-badge">QA</span>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -334,7 +333,7 @@
                                     <span class="skill-badge">ประสบการณ์ลูกค้า</span>
                                     <span class="skill-badge">บริหารทีม</span>
                                 </div>
-                                
+
                             </div>
                         </div>
 
@@ -358,7 +357,7 @@
                                     <span class="skill-badge">สนับสนุนทางเทคนิค</span>
                                     <span class="skill-badge">การฝึกอบรม</span>
                                 </div>
-                                
+
                             </div>
                         </div>
 
@@ -382,7 +381,7 @@
                                     <span class="skill-badge">บริหารบัญชี</span>
                                     <span class="skill-badge">สร้างความสัมพันธ์</span>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -417,7 +416,7 @@
                                     <span class="skill-badge">กลยุทธ์การขาย</span>
                                     <span class="skill-badge">ภาวะผู้นำทีม</span>
                                 </div>
-                                
+
                             </div>
                         </div>
 
@@ -441,7 +440,7 @@
                                     <span class="skill-badge">การขายองค์กร</span>
                                     <span class="skill-badge">การขายโซลูชั่น</span>
                                 </div>
-                                
+
                             </div>
                         </div>
 
@@ -465,7 +464,7 @@
                                     <span class="skill-badge">ปฏิบัติการขาย</span>
                                     <span class="skill-badge">วิเคราะห์ข้อมูล</span>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
