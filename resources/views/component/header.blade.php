@@ -26,10 +26,10 @@
             <div class="actions col justify-content-end">
                 <!-- Language Switcher -->
                 <div class="language-switcher">
-                    <a href="{{url('lang/th')}}" class="lang-link">
+                    <a href="{{ url('lang/th') }}" class="lang-link">
                         <img src="/icon/ICON/thai.png" alt="Thai" title="ภาษาไทย">
                     </a>
-                    <a href="{{url('lang/en')}}" class="lang-link">
+                    <a href="{{ url('lang/en') }}" class="lang-link">
                         <img src="/icon/ICON/eng.png" alt="English" title="English">
                     </a>
                 </div>
@@ -54,23 +54,29 @@
             <!-- Dropdown Menu -->
             <li class="dropdown">
                 <a href="/service" class="menu-item" data-translate="nav.services">
-                    {{ __('header.services') }} <span class="dropdown-icon"><i class="fa-solid fa-caret-down"></i></span>
+                    {{ __('header.services') }} <span class="dropdown-icon"><i
+                            class="fa-solid fa-caret-down"></i></span>
                 </a>
                 <ul class="dropdown-menu d-block">
                     <li><a href="/hinspector" data-translate="nav.hinspector">{{ __('header.hinspector') }}</a></li>
                     <li><a href="/hinterior" data-translate="nav.hinterior">{{ __('header.hinterior') }}</a></li>
-                    <li><a href="/hconstruction" data-translate="nav.hconstruction">{{ __('header.hconstruction') }}</a></li>
+                    <li><a href="/hconstruction" data-translate="nav.hconstruction">{{ __('header.hconstruction') }}</a>
+                    </li>
                     <li><a href="/hbutler" data-translate="nav.hbutler">{{ __('header.hbutler') }}</a></li>
                 </ul>
             </li>
             <li class="dropdown">
                 <a href="#" class="menu-item" data-translate="nav.service">
-                    {{ __('header.addon_services') }} <span class="dropdown-icon"><i class="fa-solid fa-caret-down"></i></span>
+                    {{ __('header.addon_services') }} <span class="dropdown-icon"><i
+                            class="fa-solid fa-caret-down"></i></span>
                 </a>
                 <ul class="dropdown-menu d-block">
-                    <li><a href="/addon_service/app_inspector" data-translate="nav.app-inspector">{{ __('header.app_inspector') }}</a></li>
-                    <li><a href="/addon_service/cal_electric" data-translate="nav.cal-electric">{{ __('header.cal_electric') }}</a></li>
-                    <li><a href="/addon_service/checklist" data-translate="nav.checklist">{{ __('header.checklist') }}</a></li>
+                    <li><a href="/addon_service/app_inspector"
+                            data-translate="nav.app-inspector">{{ __('header.app_inspector') }}</a></li>
+                    <li><a href="/addon_service/cal_electric"
+                            data-translate="nav.cal-electric">{{ __('header.cal_electric') }}</a></li>
+                    <li><a href="/addon_service/checklist"
+                            data-translate="nav.checklist">{{ __('header.checklist') }}</a></li>
                 </ul>
             </li>
             <!-- Dropdown Menu -->
@@ -81,12 +87,12 @@
                 <ul class="dropdown-menu d-block">
                     <li><a href="/article" data-translate="nav.articles">ความรู้ทั่วไป</a>
                     </li>
-                    <li><a href="/Review-home" data-translate="nav.reviewHome">รีวิวบ้าน</a>
+                    <li><a href="/review_home" data-translate="nav.reviewHome">รีวิวบ้าน</a>
                     </li>
                 </ul>
             </li> --}}
             <li><a href="/article" data-translate="nav.articles">{{ __('header.articles') }}</a></li>
-            <li><a href="/Review-home" data-translate="nav.reviewHome">{{ __('header.review_home') }}</a></li>
+            <li><a href="/review" data-translate="nav.reviewHome">{{ __('header.review_home') }}</a></li>
             <li><a href="/projects_media.html" data-translate="nav.projects">{{ __('header.projects') }}</a></li>
             <!-- Dropdown Menu -->
             <li class="dropdown">
@@ -129,7 +135,8 @@
 
             {{-- <li class="nav-item"><a href="/privileges" class="nav-link">{{ __('header.privileges') }}</a></li> --}}
 
-            <li class="nav-item"><a href="/projects_media.html" class="nav-link">{{ __('header.projects') }}</a></li>
+            <li class="nav-item"><a href="/projects_media.html" class="nav-link">{{ __('header.projects') }}</a>
+            </li>
 
             <li class="nav-item"><a href="/article" class="nav-link">{{ __('header.articles') }}</a></li>
             <li class="nav-item"><a href="/review_home" class="nav-link">{{ __('header.review_home') }}</a></li>
@@ -145,10 +152,10 @@
             <li class="nav-item"><a href="/contactus" class="nav-link">{{ __('header.contact') }}</a></li>
             <li class="nav-item">
                 <div class="language-switcher">
-                    <a href="{{url('lang/th')}}" class="lang-link">
+                    <a href="{{ url('lang/th') }}" class="lang-link">
                         <img src="/icon/ICON/thai.png" alt="Thai" title="ภาษาไทย">
                     </a>
-                    <a href="{{url('lang/en')}}" class="lang-link">
+                    <a href="{{ url('lang/en') }}" class="lang-link">
                         <img src="/icon/ICON/eng.png" alt="English" title="English">
                     </a>
                 </div>

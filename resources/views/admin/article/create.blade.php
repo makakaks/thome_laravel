@@ -90,68 +90,6 @@
         @endif
 
 
-        {{-- summernote --}}
-        <script>
-            $(document).ready(function() {
-                var resize75Btn = function(context) {
-                    var ui = $.summernote.ui;
-
-                    var button = ui.button({
-                        contents: '<span class="note-fontsize-10">75%</span>',
-                        tooltip: 'Resize to 75%',
-                        click: function() {
-                            context.invoke('editor.resize', '0.75');
-                        }
-                    });
-
-                    return button.render(); // return button as jquery object
-                }
-
-                const settings = {
-                    toolbar: [
-                        ['style', ['style']],
-                        ['font', ['bold', 'underline', 'italic', 'clear']],
-                        ['fontname', ['fontname', 'fontsize', 'color', 'backcolor']],
-                        ['para', ['ul', 'ol', 'hr', 'paragraph']],
-                        ['table', ['table']],
-                        ['insert', ['link', 'picture', 'video']],
-                        ['view', ['fullscreen', 'help']],
-                    ],
-                    popover: {
-                        image: [
-                            ['image', ['resizeFull', 'resize75', 'resizeHalf', 'resizeQuarter', 'resizeNone']],
-                            ['float', ['paragraph']],
-                            ['remove', ['removeMedia']]
-                        ],
-                        link: [
-                            ['link', ['linkDialogShow', 'unlink']]
-                        ],
-                        table: [
-                            ['add', ['addRowDown', 'addRowUp', 'addColLeft', 'addColRight']],
-                            ['delete', ['deleteRow', 'deleteCol', 'deleteTable']],
-                        ],
-                        air: [
-                            ['color', ['color']],
-                            ['font', ['bold', 'underline', 'clear']],
-                            ['para', ['ul', 'paragraph']],
-                            ['table', ['table']],
-                        ]
-                    },
-                    fontNames: ['FCSound', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Helvetica', 'Impact',
-                        'Lucida Sans Unicode', 'Tahoma', 'Times New Roman', 'Trebuchet MS', 'Verdana'
-                    ],
-                    fontSizes: ['8', '9', '10', '11', '12', '14', '16', '18', '20', '22', '24', '26', '28', '36',
-                        '48', '64', '82'
-                    ],
-                    fontNamesIgnoreCheck: ['FCSound'],
-                    buttons: {
-                        resize75: resize75Btn
-                    },
-                }
-
-                $('#summernote1').summernote(settings);
-            });
-        </script>
     </div>
 
     <div class="tag-fetch hidden">
@@ -214,6 +152,100 @@
             });
         </script>
     @endif
+
+    {{-- summernote --}}
+    <script src="https://unpkg.com/pica@8.0.0/dist/pica.min.js"></script>
+    <script type="module">
+        import ResizeImage from '/js/component/resize_image.js';
+
+        const resizeImage = new ResizeImage();
+
+        $(document).ready(function() {
+            var resize75Btn = function(context) {
+                var ui = $.summernote.ui;
+
+                var button = ui.button({
+                    contents: '<span class="note-fontsize-10">75%</span>',
+                    tooltip: 'Resize to 75%',
+                    click: function() {
+                        context.invoke('editor.resize', '0.75');
+                    }
+                });
+
+                return button.render(); // return button as jquery object
+            }
+
+            const settings = {
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'italic', 'clear']],
+                    ['fontname', ['fontname', 'fontsize', 'color', 'backcolor']],
+                    ['para', ['ul', 'ol', 'hr', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture', 'video']],
+                    ['view', ['fullscreen', 'help']],
+                ],
+                popover: {
+                    image: [
+                        ['image', ['resizeFull', 'resize75', 'resizeHalf', 'resizeQuarter', 'resizeNone']],
+                        ['float', ['paragraph']],
+                        ['remove', ['removeMedia']]
+                    ],
+                    link: [
+                        ['link', ['linkDialogShow', 'unlink']]
+                    ],
+                    table: [
+                        ['add', ['addRowDown', 'addRowUp', 'addColLeft', 'addColRight']],
+                        ['delete', ['deleteRow', 'deleteCol', 'deleteTable']],
+                    ],
+                    air: [
+                        ['color', ['color']],
+                        ['font', ['bold', 'underline', 'clear']],
+                        ['para', ['ul', 'paragraph']],
+                        ['table', ['table']],
+                    ]
+                },
+                fontNames: ['FCSound', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Helvetica', 'Impact',
+                    'Lucida Sans Unicode', 'Tahoma', 'Times New Roman', 'Trebuchet MS', 'Verdana'
+                ],
+                fontSizes: ['8', '9', '10', '11', '12', '14', '16', '18', '20', '22', '24', '26', '28', '36',
+                    '48', '64', '82'
+                ],
+                fontNamesIgnoreCheck: ['FCSound'],
+                buttons: {
+                    resize75: resize75Btn
+                },
+                callbacks: {
+                    onImageUpload: function(files) {
+                        for (let i = 0; i < files.length; i++) {
+                            resizeAndInsert(files[i]);
+                        }
+                    },
+                }
+            }
+
+            $('#summernote1').summernote(settings);
+            resizeImage.addListener(document.getElementById("cover"), "large");
+
+            async function resizeAndInsert(file) {
+                const img = new Image();
+                const reader = new FileReader();
+
+                reader.onload = async function(e) {
+
+                    await resizeImage.resizeBase64(e.target.result, "small").then((res) => {
+                        console.log("resss : ", res);
+                        const img = $('<img>').attr('src', res.base64).css('width', '100%');
+                        $('#summernote1').summernote('insertNode', img[0]);
+                    })
+                };
+
+
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/spark-md5/3.0.2/spark-md5.min.js"></script>
     <script src="/js/admin/article/create.js" type="module"></script>
 @endsection

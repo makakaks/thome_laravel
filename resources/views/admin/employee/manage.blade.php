@@ -17,7 +17,7 @@
             </div>
             <div id="carouselExample" class="carousel slide">
                 <div class="carousel-inner">
-                    <div class="carousel-item active">
+                    <div class="carousel-item active" carousel-item="1">
                         @foreach ($departments as $department)
                             <div class="w-100 mb-4" department-id="{{ $department->id }}">
                                 <h3 class="text-center mb-2"> {{ $department->translation->name }} </h3>
@@ -59,7 +59,7 @@
                             <hr>
                         @endforeach
                     </div>
-                    <div class="carousel-item">
+                    <div class="carousel-item" carousel-item="2">
                         <div class="center">
                             <div class="block-container" id="sortable-container">
                                 @foreach ($departments as $department)
@@ -182,6 +182,15 @@
         <span class="close-button">&times;</span>
         <img id="expandedImage" class="overlay-image" src="" alt="Full Image">
     </div>
+
+    <script src="https://unpkg.com/pica@8.0.0/dist/pica.min.js"></script>
+    <script type="module">
+        import ResizeImage from '/js/component/resize_image.js';
+
+        const resizeImage = new ResizeImage();
+        resizeImage.addListener(document.getElementById('eng-cover'), "med");
+    </script>
+
 
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('review_homes', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('folder_id')->unsigned()->default(0)->nullable();
             $table->foreignIdFor(\App\Models\ReviewHomeProject::class, 'project_id')
                 ->constrained('review_home_projects')
                 ->cascadeOnDelete();

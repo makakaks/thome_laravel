@@ -216,6 +216,84 @@ function editArticle() {
                 );
             }
         );
+
+        row.querySelector("button[btn-type='edit-id']").addEventListener(
+            "click",
+            () => {
+                confirmDialog.confirmWithVerify(
+                    "เปลี่ยนเลข ID",
+                    `<div class="mt-3">
+                        <div class="form-group mb-3">
+                            <label for="tag-name">ใส่เลข ID</label>
+                            <input type="number" id="change-id" class="form-control" placeholder="ป้อน ID ของบทความ">
+                            <p class="text-danger mt-1" id="change-id-error" style="font-size: 1rem;"></p>
+                        </div>
+                    </div>`,
+                    "ไม่",
+                    "ใช่",
+                    '<button class="confirm-btn active confirm-yes" id="confirmYes"> Yes </button>',
+                    async () => {
+                        const idInput = document.getElementById("change-id");
+                        const idInputError =
+                            document.getElementById("change-id-error");
+                        if (!idInput.value || idInput.value.trim() == "") {
+                            idInputError.innerText = "*กรุณากรอก ID";
+                            idInput.focus();
+                            return false;
+                        }
+                        window.showLoading();
+                        let res = await fetch(
+                            `/admin/review_home/${articleId}/edit_id`,
+                            {
+                                method: "PUT",
+                                headers: {
+                                    "content-Type": "application/json",
+                                    "X-CSRF-TOKEN": document.querySelector(
+                                        'meta[name="csrf-token"]'
+                                    ).content,
+                                },
+                                body: JSON.stringify({
+                                    change_id: idInput.value.trim(),
+                                }),
+                            }
+                        );
+                        window.hideLoading();
+                        if (!res.ok) {
+                            await res.text().then((data) => {
+                                console.log(data);
+                            });
+                            // await res.json().then((data) => {
+                            //     let message = "ไม่สามารถแก้ไข ID ได้";
+                            //     if (
+                            //         data.message &&
+                            //         data.message == "id already used"
+                            //     ) {
+                            //         message = "ID นี้ถูกใช้แล้ว";
+                            //         idInputError.innerText =
+                            //             "*ID นี้ถูกใช้แล้ว";
+                            //         idInput.focus();
+                            //     }
+                            //     window.showToast(message, "error");
+                            // });
+                            console.log("false");
+                            return false;
+                        } else {
+                            window.showToast(
+                                "แก้ไข ID เรียบร้อยแล้ว",
+                                "success"
+                            );
+                            row.querySelector(".article-id").innerText =
+                                idInput.value.trim();
+                            row.querySelector(
+                                ".article-link"
+                            ).href = `/review/detail?news_id=${idInput.value.trim()}`;
+                            row.setAttribute("data-id", idInput.value.trim());
+                            return true;
+                        }
+                    }
+                );
+            }
+        );
     });
 }
 
@@ -234,12 +312,12 @@ function initCarusel() {
         ) {
             addTagBtn.style.display = "inline-block";
             addArticleBtn.style.display = "none";
-            navigation.textContent = "← จัดการ Article";
+            navigation.textContent = "← จัดการรีวิวบ้าน";
             navigation.setAttribute("data-bs-slide", "prev");
         } else {
             addTagBtn.style.display = "none";
             addArticleBtn.style.display = "inline-block";
-            navigation.textContent = "จัดการ Tag →";
+            navigation.textContent = "จัดการ Project →";
             navigation.setAttribute("data-bs-slide", "next");
         }
     });

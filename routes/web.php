@@ -56,9 +56,6 @@ Route::get('/hbutler', function () {
     return view('home.service.HbutlerComingSoon');
 });
 
-Route::get('/Review-home', function () {
-    return view('home.Review-home');
-});
 
 Route::get('/contactus', function () {
     return view('home.contact.contactus');
@@ -99,9 +96,9 @@ Route::get('/testkub', function () {
     return view('home.article.test_article');
 });
 
-Route::get('review_home/{id}', function ($id) {
-    return view('home.article.review_home', ['id' => $id]);
-});
+// Route::get('review_home/{id}', function ($id) {
+//     return view('home.article.review_home', ['id' => $id]);
+// });
 
 Route::prefix('article')->controller(ArticleController::class)->group(function () {
     Route::get('/', 'index');
@@ -109,6 +106,10 @@ Route::prefix('article')->controller(ArticleController::class)->group(function (
     Route::get('/detail', 'show_article')->name('article.show');
 });
 
+Route::prefix('review')->controller(ReviewHomeController::class)->group(function () {
+    Route::get('/', 'index')->name('review_home.index');
+    Route::get('/detail', 'show')->name('review_home.show');
+});
 
 Route::prefix('admin')->group(function () {
     Route::prefix('article')->controller(ArticleController::class)->group(function () {
@@ -203,7 +204,7 @@ Route::prefix('api')->group(function () {
     Route::get('/houses', [HouseController::class, 'apiIndex']);
     Route::get('/houses/{id}', [HouseController::class, 'apiShow']);
     Route::prefix('faq')->controller(FaqController::class)->group(function () {
-          Route::get('/faq_and_available_lang/{id}', 'get_faq_and_available_lang')->name('api.faq.get_faq_and_available_lang');
+        Route::get('/faq_and_available_lang/{id}', 'get_faq_and_available_lang')->name('api.faq.get_faq_and_available_lang');
     });
 });
 

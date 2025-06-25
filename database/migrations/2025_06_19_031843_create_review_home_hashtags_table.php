@@ -16,7 +16,10 @@ return new class extends Migration
     {
         Schema::create('review_home_hashtags', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(ReviewHome::class, 'review_home_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignIdFor(ReviewHome::class, 'review_home_id')
+                ->constrained()
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->jsonb('locale')->nullable(false)->default(json_encode([])); // JSON column for storing localized hash tags
             $table->timestamps();
         });

@@ -41,7 +41,7 @@
                         <label for="">เลือก Project</label>
                         <select name="" id="projectSelector" class="form-control">
                             @foreach ($projects as $project)
-                                <option value="{{$project->id}}">{{$project->translation}}</option>
+                                <option value="{{ $project->id }}">{{ $project->translation }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -98,7 +98,12 @@
 
 
         {{-- summernote --}}
-        <script>
+        <script src="https://unpkg.com/pica@8.0.0/dist/pica.min.js"></script>
+        <script type="module">
+            import ResizeImage from '/js/component/resize_image.js';
+
+            const resizeImage = new ResizeImage();
+
             $(document).ready(function() {
                 var resize75Btn = function(context) {
                     var ui = $.summernote.ui;
@@ -154,9 +159,34 @@
                     buttons: {
                         resize75: resize75Btn
                     },
+                    callbacks: {
+                        onImageUpload: function(files) {
+                            for (let i = 0; i < files.length; i++) {
+                                resizeAndInsert(files[i]);
+                            }
+                        },
+                    }
                 }
 
                 $('#summernote1').summernote(settings);
+                resizeImage.addListener(document.getElementById("cover"), "large");
+
+                async function resizeAndInsert(file) {
+                    const img = new Image();
+                    const reader = new FileReader();
+
+                    reader.onload = async function(e) {
+
+                        await resizeImage.resizeBase64(e.target.result, "small").then((res) => {
+                            console.log("resss : ", res);
+                            const img = $('<img>').attr('src', res.base64).css('width', '100%');
+                            $('#summernote1').summernote('insertNode', img[0]);
+                        })
+                    };
+
+
+                    reader.readAsDataURL(file);
+                }
             });
         </script>
     </div>

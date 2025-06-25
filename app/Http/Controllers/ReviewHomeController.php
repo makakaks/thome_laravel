@@ -9,6 +9,7 @@ use Exception;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use DOMDocument;
 
 class ReviewHomeController extends Controller
 {
@@ -35,30 +36,26 @@ class ReviewHomeController extends Controller
 
         foreach ($houses as $house) {
             $house->translation = $house->translation();
-            $house->projects = $house->houseTags->map(function ($project) {
-                return $project->translation();
-            });
+            $house->project = $house->reviewHomeProject->translation();
         }
 
         foreach ($projects as $project) {
             $project->translation = $project->translation();
         }
 
-        return view('home.house.index', compact('houses', 'projects'));
+        return view('home.review_home.index', compact('houses', 'projects'));
     }
 
-    public function show_house(Request $request)
+    public function show(Request $request)
     {
         $news_id = $request->news_id;
         $house = ReviewHome::where('id', $news_id)->firstOrFail();
 
         $house->translation = $house->translation();
-        $house->projects = $house->houseTags->map(function ($project) {
-            return $project->translation();
-        });
-        $house->hashprojects = $house->houseHashTagsTranslation();
+        $house->project = $house->reviewHomeProject->translation();
+        $house->hashtags = $house->reviewHomeHashtags->translation();
 
-        return view('home.house.show_house', compact('house'));
+        return view('home.review_home.show_review_home', compact('house'));
     }
 
 
@@ -144,11 +141,42 @@ class ReviewHomeController extends Controller
 
             $house = $project->reviewHomes()->create();
 
+            $folderName = 'review_home/' . $house->folder_id . '/';
+            $tempCoverName = basename($request->coverPageImg);
+            $updateCoverPage = "";
+
+            if (Storage::exists('public/temp_uploads/' . $tempCoverName)) {
+                $updateCoverPage = "/storage" . "/" . $folderName . $tempCoverName;
+                Storage::move('public/temp_uploads/' . $tempCoverName, 'public/' . $folderName . $tempCoverName);
+            }
+
+            $content = $request->input('content');
+
+            $doc = new DOMDocument();
+            @$doc->loadHTML('<?xml encoding="utf-8" ?>' . $content);
+            $images = $doc->getElementsByTagName('img');
+
+            foreach ($images as $img) {
+                $currentSrc = $img->getAttribute('src');
+                $tempFileName = basename($currentSrc);
+                $newPath = $folderName . $tempFileName;
+
+                if (Str::startsWith($currentSrc, '/storage/temp_uploads/' == false)) {
+                    continue;
+                }
+                if (Storage::exists('public/temp_uploads/' . $tempFileName)) {
+                    Storage::move('public/temp_uploads/' . $tempFileName, 'public/' . $newPath);
+                    $img->setAttribute('src', '/storage' . '/' . $newPath);
+                }
+            }
+            $updatedContent = $doc->saveHTML();
+
+
             $house->translations()->create([
                 'locale' => 'th',
                 'title' => $request["title"],
-                'content' => $request["content"],
-                'coverPageImg' => $request['coverPageImg'],
+                'content' => $updatedContent,
+                'coverPageImg' => $updateCoverPage,
             ]);
 
             $house->reviewHomeHashtags()->create([
@@ -183,20 +211,83 @@ class ReviewHomeController extends Controller
     {
         $house = ReviewHome::where('id', $id)->first();
         try {
-            $oldImg = (string) $house->translation($request->lang)->coverPageImg;
+            $project = ReviewHomeProject::where('id', $request['project'])->first();
+            if (!$project) {
+                return response()->json(['message' => 'Project not found.'], 404);
+            }
+
+            $folderName = "review_home/$house->folder_id/";
+            $newCoverName = basename($request->coverPageImg);
+            $oldCoverPage = $house->translation($request->lang)->coverPageImg;
+            $updateCoverPage = $oldCoverPage;
+
+            if (Storage::exists('public/temp_uploads/' . $newCoverName)) {
+                if ($newCoverName != basename($oldCoverPage)) {
+                    $updateCoverPage = "/storage/$folderName/$newCoverName";
+                    Storage::move("public/temp_uploads/$newCoverName", "public/$folderName/$newCoverName");
+                    Storage::delete(Str::replaceFirst('/storage', 'public', $oldCoverPage));
+                } else {
+                    Storage::delete("public/temp_uploads/$newCoverName");
+                }
+            }
+
+            $content = $request->input('content');
+            $doc = new DOMDocument();
+            @$doc->loadHTML('<?xml encoding="utf-8" ?>' . $content);
+            $images = $doc->getElementsByTagName('img');
+            $newImgUse = [];
+
+            foreach ($images as $img) {
+                $currentSrc = $img->getAttribute('src');
+                $newFileName = basename($currentSrc);
+                $newPath = $folderName . $newFileName;
+
+                if (Str::startsWith($currentSrc, '/storage/temp_uploads/') && (Storage::exists('public/temp_uploads/' . $newFileName))) {
+                    Storage::move('public/temp_uploads/' . $newFileName, 'public/' . $newPath);
+                    $img->setAttribute('src', '/storage' . '/' . $newPath);
+                }
+                $newImgUse[] = basename($img->getAttribute('src'));
+            }
+
+            foreach ($house->translations as $translation) {
+                if ($translation->locale != $request->lang){
+                    if (is_array($newImgUse)) {
+                        $newImgUse = array_merge($newImgUse, is_array($this->extractImagePathsFromHtml($translation->content, $folderName)) ? $this->extractImagePathsFromHtml($translation->content, $folderName) : []);
+                        $newImgUse = array_unique($newImgUse);
+                    }
+                    else {
+                        $newImgUse[] = $this->extractImagePathsFromHtml($translation->content, $folderName);
+                    }
+                }
+            }
+            $updatedContent = $doc->saveHTML();
+
+
+            $oldContent = $house->translation($request->lang)->content;
+            $oldDoc = new DOMDocument();
+            @$oldDoc->loadHTML('<?xml encoding="utf-8" ?>' . $oldContent);
+            $oldImages = $oldDoc->getElementsByTagName('img');
+
+            foreach ($oldImages as $oldImg) {
+                $oldSrc = $oldImg->getAttribute('src');
+                $oldName = basename($oldSrc);
+
+                if (!in_array($oldName, $newImgUse) && Str::startsWith($oldSrc, "storage/$folderName/")) {
+                    Storage::delete(Str::replaceFirst('/storage', 'public', $oldSrc));
+                }
+            }
+
             $house->translation($request->lang)->update([
                 'title' => $request["title"],
-                'content' => $request["content"],
-                'coverPageImg' => $request['coverPageImg']
+                'content' => $updatedContent,
+                'coverPageImg' => $updateCoverPage
             ]);
 
-            // return response()->json(['message' => $request->lang], 500);
 
-            $house->houseTags()->sync($request['projects']);
-            $house->houseHashTags()->update(['locale' => $request['hashprojects']]);
-            if ($oldImg != $house->translation($request->lang)->coverPageImg) {
-                Storage::delete(Str::replaceFirst('/storage', 'public', $oldImg));
-            }
+
+            $house->reviewHomeProject()->associate($project);
+            $house->reviewHomeHashtags()->update(['locale' => $request['hashtags']]);
+            $house->save();
             return response()->json(['message' => 'ReviewHome update successfully.'], 200);
         } catch (Exception $e) {
             return response()->json(['message' => 'Error updating FAQ: ' . $e->getMessage()], 500);
@@ -209,11 +300,6 @@ class ReviewHomeController extends Controller
 
         $house = ReviewHome::where('id', $id)->firstOrFail();
         $house->translation = $house->translation();
-        // $house->projects = $house->houseTags->map(function ($project) {
-        //     return $project->translation();
-        // });
-
-        // $house->hashprojects = $house->houseHashTags->locale;
 
         $projects = ReviewHomeProject::all();
         foreach ($projects as $project) {
@@ -227,11 +313,43 @@ class ReviewHomeController extends Controller
     {
         try {
             $house = ReviewHome::where('id', $id)->first();
+
+            $folderName = 'review_home/' . $house->folder_id . '/';
+            $tempFileName = basename($request->coverPageImg);
+            $updateCoverPage = "";
+
+            if (Storage::exists('public/temp_uploads/' . $tempFileName)) {
+                $updateCoverPage = "/storage" . "/" . $folderName . $tempFileName;
+                Storage::move('public/temp_uploads/' . $tempFileName, 'public/' . $folderName . $tempFileName);
+            }
+
+            $content = $request->input('content');
+
+            $doc = new DOMDocument();
+            @$doc->loadHTML('<?xml encoding="utf-8" ?>' . $content);
+            $images = $doc->getElementsByTagName('img');
+
+            foreach ($images as $img) {
+                $currentSrc = $img->getAttribute('src');
+                $tempFileName = basename($currentSrc);
+                $newPath = $folderName . $tempFileName;
+
+                if (Str::startsWith($currentSrc, '/storage/temp_uploads/' == false)) {
+                    continue;
+                }
+                if (Storage::exists('public/temp_uploads/' . $tempFileName)) {
+                    Storage::move('public/temp_uploads/' . $tempFileName, 'public/' . $newPath);
+                    $img->setAttribute('src', '/storage' . '/' . $newPath);
+                }
+            }
+            $updatedContent = $doc->saveHTML();
+
+
             $house->translations()->create([
                 'locale' => $request->lang,
                 'title' => $request["title"],
-                'content' => $request["content"],
-                'coverPageImg' => $request['coverPageImg']
+                'content' => $updatedContent,
+                'coverPageImg' => $updateCoverPage,
             ]);
             return response()->json(['message' => 'ReviewHome add lang successfully.'], 200);
         } catch (Exception $e) {
@@ -298,6 +416,23 @@ class ReviewHomeController extends Controller
             return response()->json(['message' => 'Tag deleted successfully.'], 200);
         } catch (Exception $e) {
             return response()->json(['message' => 'Error deleting project: ' . $e->getMessage()], 500);
+        }
+    }
+
+    function edit_id(Request $request, $id)
+    {
+        try {
+            $change_id = $request->change_id;
+
+            $isAvailable = ReviewHome::where('id', $change_id)->exists();
+            if ($isAvailable) {
+                return response()->json(['message' => 'id already used'], 400);
+            }
+            $tag = ReviewHome::findOrFail($id);
+            $tag->update(['id' => $change_id]);
+            return response()->json(['message' => 'ID updated successfully.'], 200);
+        } catch (Exception $e) {
+            return response()->json(['message' => 'Error updating tag ID: ' . $e->getMessage()], 500);
         }
     }
 

@@ -11,6 +11,7 @@ use Exception;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use DOMDocument;
 
 class ArticleController extends Controller
 {
@@ -70,6 +71,8 @@ class ArticleController extends Controller
     {
         $query = Article::query();
         $tags = ArticleTag::all();
+
+        $query->whereHas('translations');
 
         if ($request->filled('search')) {
             $searchTerm = '%' . $request->search . '%'; // กำหนดตัวแปรสำหรับคำค้นหา
@@ -140,13 +143,45 @@ class ArticleController extends Controller
                 'tags' => 'required|array',
                 'hashtags' => 'required|array',
             ]);
+
             $article = Article::create();
+
+            $folderName = 'article/' . $article->folder_id . '/';
+            $tempFileName = basename($request->coverPageImg);
+            $updateCoverPage = "";
+
+            if (Storage::exists('public/temp_uploads/' . $tempFileName)) {
+                $updateCoverPage = "/storage" . "/" . $folderName . $tempFileName;
+                Storage::move('public/temp_uploads/' . $tempFileName, 'public/' . $folderName . $tempFileName);
+            }
+
+            $content = $request->input('content');
+
+            $doc = new DOMDocument();
+            @$doc->loadHTML('<?xml encoding="utf-8" ?>' . $content);
+            $images = $doc->getElementsByTagName('img');
+
+            foreach ($images as $img) {
+                $currentSrc = $img->getAttribute('src');
+                $tempFileName = basename($currentSrc);
+                $newPath = $folderName . $tempFileName;
+
+                if (Str::startsWith($currentSrc, '/storage/temp_uploads/' == false)) {
+                    continue;
+                }
+                if (Storage::exists('public/temp_uploads/' . $tempFileName)) {
+                    Storage::move('public/temp_uploads/' . $tempFileName, 'public/' . $newPath);
+                    $img->setAttribute('src', '/storage' . '/' . $newPath);
+                }
+            }
+            $updatedContent = $doc->saveHTML();
+
 
             $article->translations()->create([
                 'locale' => 'th',
                 'title' => $request["title"],
-                'content' => $request["content"],
-                'coverPageImg' => $request['coverPageImg'],
+                'content' => $updatedContent,
+                'coverPageImg' => $updateCoverPage,
             ]);
 
             $article->articleTags()->attach($request['tags']);
@@ -184,20 +219,75 @@ class ArticleController extends Controller
     {
         $article = Article::where('id', $id)->first();
         try {
-            $oldImg = (string) $article->translation($request->lang)->coverPageImg;
+            $folderName = "article/$article->folder_id/";
+            $newCoverName = basename($request->coverPageImg);
+            $oldCoverPage = $article->translation($request->lang)->coverPageImg;
+            $updateCoverPage = $oldCoverPage;
+
+            if (Storage::exists('public/temp_uploads/' . $newCoverName)) {
+                if ($newCoverName != basename($oldCoverPage)) {
+                    $updateCoverPage = "/storage/$folderName/$newCoverName";
+                    Storage::move("public/temp_uploads/$newCoverName", "public/$folderName/$newCoverName");
+                    Storage::delete(Str::replaceFirst('/storage', 'public', $oldCoverPage));
+                } else {
+                    Storage::delete("public/temp_uploads/$newCoverName");
+                }
+            }
+
+            $content = $request->input('content');
+            $doc = new DOMDocument();
+            @$doc->loadHTML('<?xml encoding="utf-8" ?>' . $content);
+            $images = $doc->getElementsByTagName('img');
+            $newImgUse = [];
+
+            foreach ($images as $img) {
+                $currentSrc = $img->getAttribute('src');
+                $newFileName = basename($currentSrc);
+                $newPath = $folderName . $newFileName;
+
+                if (Str::startsWith($currentSrc, '/storage/temp_uploads/') && (Storage::exists('public/temp_uploads/' . $newFileName))) {
+                    Storage::move('public/temp_uploads/' . $newFileName, 'public/' . $newPath);
+                    $img->setAttribute('src', '/storage' . '/' . $newPath);
+                }
+                $newImgUse[] = basename($img->getAttribute('src'));
+            }
+
+            foreach ($article->translations as $translation) {
+                if ($translation->locale != $request->lang){
+                    if (is_array($newImgUse)) {
+                        $newImgUse = array_merge($newImgUse, is_array($this->extractImagePathsFromHtml($translation->content, $folderName)) ? $this->extractImagePathsFromHtml($translation->content, $folderName) : []);
+                        $newImgUse = array_unique($newImgUse);
+                    }
+                    else {
+                        $newImgUse[] = $this->extractImagePathsFromHtml($translation->content, $folderName);
+                    }
+                }
+            }
+            $updatedContent = $doc->saveHTML();
+
+
+            $oldContent = $article->translation($request->lang)->content;
+            $oldDoc = new DOMDocument();
+            @$oldDoc->loadHTML('<?xml encoding="utf-8" ?>' . $oldContent);
+            $oldImages = $oldDoc->getElementsByTagName('img');
+
+            foreach ($oldImages as $oldImg) {
+                $oldSrc = $oldImg->getAttribute('src');
+                $oldName = basename($oldSrc);
+
+                if (!in_array($oldName, $newImgUse) && Str::startsWith($oldSrc, "storage/$folderName/")) {
+                    Storage::delete(Str::replaceFirst('/storage', 'public', $oldSrc));
+                }
+            }
+
             $article->translation($request->lang)->update([
                 'title' => $request["title"],
-                'content' => $request["content"],
-                'coverPageImg' => $request['coverPageImg']
+                'content' => $updatedContent,
+                'coverPageImg' => $updateCoverPage
             ]);
-
-            // return response()->json(['message' => $request->lang], 500);
 
             $article->articleTags()->sync($request['tags']);
             $article->articleHashTags()->update(['locale' => $request['hashtags']]);
-            if ($oldImg != $article->translation($request->lang)->coverPageImg) {
-                Storage::delete(Str::replaceFirst('/storage', 'public', $oldImg));
-            }
             return response()->json(['message' => 'Article update successfully.'], 200);
         } catch (Exception $e) {
             return response()->json(['message' => 'Error updating FAQ: ' . $e->getMessage()], 500);
@@ -228,15 +318,48 @@ class ArticleController extends Controller
     {
         try {
             $article = Article::where('id', $id)->first();
+
+            $folderName = 'article/' . $article->folder_id . '/';
+            $tempFileName = basename($request->coverPageImg);
+            $updateCoverPage = "";
+
+            if (Storage::exists('public/temp_uploads/' . $tempFileName)) {
+                $updateCoverPage = "/storage" . "/" . $folderName . $tempFileName;
+                Storage::move('public/temp_uploads/' . $tempFileName, 'public/' . $folderName . $tempFileName);
+            }
+
+            $content = $request->input('content');
+
+            $doc = new DOMDocument();
+            @$doc->loadHTML('<?xml encoding="utf-8" ?>' . $content);
+            $images = $doc->getElementsByTagName('img');
+
+            foreach ($images as $img) {
+                $currentSrc = $img->getAttribute('src');
+                $tempFileName = basename($currentSrc);
+                $newPath = $folderName . $tempFileName;
+
+                if (Str::startsWith($currentSrc, '/storage/temp_uploads/' == false)) {
+                    continue;
+                }
+                if (Storage::exists('public/temp_uploads/' . $tempFileName)) {
+                    Storage::move('public/temp_uploads/' . $tempFileName, 'public/' . $newPath);
+                    $img->setAttribute('src', '/storage' . '/' . $newPath);
+                }
+            }
+            $updatedContent = $doc->saveHTML();
+
+
             $article->translations()->create([
                 'locale' => $request->lang,
                 'title' => $request["title"],
-                'content' => $request["content"],
-                'coverPageImg' => $request['coverPageImg']
+                'content' => $updatedContent,
+                'coverPageImg' => $updateCoverPage,
             ]);
+
             return response()->json(['message' => 'Article add lang successfully.'], 200);
         } catch (Exception $e) {
-            return response()->json(['message' => 'Error updating FAQ: ' . $e->getMessage()], 500);
+            return response()->json(['message' => 'Error updating Article: ' . $e->getMessage()], 500);
         }
     }
 
@@ -305,7 +428,7 @@ class ArticleController extends Controller
             return response()->json(['message' => 'Error deleting tag: ' . $e->getMessage()], 500);
         }
     }
-
+    
     static public function get_latest_articles($count = 5)
     {
         $articles = Article::latest()->take($count)->get();

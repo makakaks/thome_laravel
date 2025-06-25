@@ -23,11 +23,13 @@ class Article extends Model
     {
         parent::boot();
 
+        static::created(function ($article) {
+            $article->folder_id = $article->id;
+            $article->save();
+        });
+
         static::deleting(function ($article) {
-            // Storage::deleteDirectory('public/article/' . $article->id); // ลบไดเรกทอรีที่เก็บภาพของบทความ
-            $article->translations()->delete();
-            $article->articleHashTags()->delete();
-            $article->articleTags()->detach();
+            Storage::deleteDirectory('public/article/' . $article->folder_id); // ลบไดเรกทอรีที่เก็บภาพของบทความ
         });
     }
 

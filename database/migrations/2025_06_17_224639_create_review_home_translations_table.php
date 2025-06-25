@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\ReviewHome::class, 'review_home_id')
                 ->constrained('review_homes')
+                ->cascadeOnUpdate()
                 ->cascadeOnDelete();
             $table->string('locale', 5)->nullable(false);
             $table->string('title')->nullable(false);

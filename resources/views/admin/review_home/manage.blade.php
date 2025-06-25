@@ -31,7 +31,7 @@
                         <a id="add-tag" class="btn btn-primary border" style="display:none;">เพิ่ม project</a>
                         <a id="add-article" class="btn btn-primary" href="/admin/review_home/create">เพิ่มรีวิวบ้าน</a>
                         <button class="btn btn-outline-success border" data-bs-target="#carouselExample"
-                            data-bs-slide="next">จัดการ รีวิวบ้าน → </button>
+                            data-bs-slide="next">จัดการ Project → </button>
                     </div>
                 </div>
                 <div id="carouselExample" class="carousel slide">
@@ -64,13 +64,14 @@
                                                         width="100%">
                                                 </td>
                                                 <td>
-                                                    <a href="/article/detail?news_id={{ $house->id }}"
+                                                    <a href="/review/detail?news_id={{ $house->id }}"
                                                         class="article-link">{{ $house->translation->title }}</a>
                                                 </td>
                                                 <td>
                                                     <span class="tag">{{ $house['project'] }}</span>
                                                 </td>
                                                 <td class="actions-buttons">
+                                                    <button class="btn btn-info" btn-type="edit-id">แก้ ID</button>
                                                     <button class="btn btn-success" btn-type="add-lang">เพิ่มภาษา</button>
                                                     <button class="btn btn-edit" btn-type="edit">แก้ไข</button>
                                                     <button class="btn btn-danger delete-article"

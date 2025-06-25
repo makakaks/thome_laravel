@@ -22,7 +22,7 @@ class DepartmentController extends Controller
                 'name' => $request['name'],
             ]);
 
-            return response()->json(['message' => 'Department created successfully', 'department' => $department]);
+            return response()->json(['message' => 'Department created successfully', 'id' => $department->id]);
         } catch (Exception $e) {
             return response()->json(['message' => 'An error occurred while creating the department: ' . $e->getMessage()], 500);
         }

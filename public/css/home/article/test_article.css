@@ -172,7 +172,7 @@ main {
 
 .art-cover-img img {
     width: 100%;
-    aspect-ratio: 6/3;
+    aspect-ratio: 20/9;
     /* height: auto; */
     object-fit: contain;
     display: block;
@@ -239,7 +239,7 @@ main {
 }
 
 .art-content {
-    flex: 2;
+    flex: 3;
 }
 
 @media (max-width: 768px) {

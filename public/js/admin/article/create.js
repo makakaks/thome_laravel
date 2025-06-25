@@ -64,9 +64,9 @@ function initListener() {
             return;
         }
 
-        async function uploadImg(formData, filename = makeid()) {
+        async function uploadImg(formData) {
             formData.append("folder", `article`);
-            formData.append("filename", filename + ".png");
+            // formData.append("filename", filename);
             const response = await fetch("/admin/upload_image", {
                 method: "POST",
                 headers: {
@@ -77,10 +77,11 @@ function initListener() {
                 body: formData,
             });
             if (!response.ok) {
+                const ttt = await response.text();
+                console.log("Failed to upload image:", ttt);
                 return Error("Failed to upload image. Please try again.");
             }
             let path = await response.text();
-            path = path.replace("public/", "/storage/");
             return path;
         }
 
@@ -101,18 +102,13 @@ function initListener() {
                         a.onloadend = async function () {
                             try {
                                 const formData = new FormData();
-                                const filename = SparkMD5.ArrayBuffer.hash(
-                                    a.result
-                                );
-                                console.log("filename: ", filename);
                                 formData.append(
                                     "image",
                                     blob,
-                                    `${filename}.png`
+                                    `image.png`
                                 );
                                 const path = await uploadImg(
-                                    formData,
-                                    filename
+                                    formData
                                 );
                                 img.setAttribute("src", path);
                                 resolve();
@@ -150,6 +146,7 @@ function initListener() {
                 "ยืนยัน",
                 "",
                 async () => {
+                    window.showLoading();
                     const note1 = await uploadTagImage("#summernote1");
                     const coverPath = await uploadCoverImage("cover");
                     const req = {
@@ -159,7 +156,6 @@ function initListener() {
                         tags: tagSelector.getSelectedTags(),
                         hashtags: hashTagSelector.getSelectedTags(),
                     };
-                    window.showLoading();
                     const res = await fetch(
                         window.location.pathname + window.location.search,
                         {
@@ -197,6 +193,7 @@ function initListener() {
                 "ยืนยัน",
                 "",
                 async () => {
+                    window.showLoading();
                     const note1 = await uploadTagImage("#summernote1");
                     const coverPath = await uploadCoverImage("cover");
                     const req = {
@@ -204,7 +201,6 @@ function initListener() {
                         content: note1,
                         coverPageImg: coverPath,
                     };
-                    window.showLoading();
                     const res = await fetch(
                         window.location.pathname + window.location.search,
                         {
@@ -242,6 +238,7 @@ function initListener() {
                 "ยืนยัน",
                 "",
                 async () => {
+                    window.showLoading();
                     const note1 = await uploadTagImage("#summernote1");
                     const coverPath = await uploadCoverImage("cover");
                     const req = {
@@ -251,7 +248,7 @@ function initListener() {
                         tags: tagSelector.getSelectedTags(),
                         hashtags: hashTagSelector.getSelectedTags(),
                     };
-                    window.showLoading();
+                    console.log("req: ", req);
                     const res = await fetch("/admin/article/create", {
                         method: "POST",
                         headers: {

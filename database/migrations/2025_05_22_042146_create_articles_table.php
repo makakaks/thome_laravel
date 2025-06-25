@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('folder_id')->unsigned()->default(0)->nullable();
             $table->timestamps();
         });
     }
