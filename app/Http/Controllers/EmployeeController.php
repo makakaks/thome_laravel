@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Department;
 use App\Models\Employee;
+use Illuminate\Support\Facades\Storage;
 use Exception;
 
 class EmployeeController extends Controller
@@ -35,8 +36,15 @@ class EmployeeController extends Controller
             if (!$department) {
                 return response()->json(['message' => 'Department not found'], 404);
             }
+
+            $fileName = basename($request['cover_image']);
+
+            if (Storage::exists('public/temp_uploads/' . $fileName)) {
+                Storage::move('public/temp_uploads/' . $fileName, 'public/' . $department->id . "/" . $fileName);
+            }
+
             $employee = $department->employees()->create([
-                'cover_image' => $request['cover_image'],
+                'cover_image' => "/storage/$department->id/$fileName",
             ]);
 
             $employee->translations()->create([

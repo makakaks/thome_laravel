@@ -34,7 +34,7 @@ class ArticleController extends Controller
             });
         }
 
-        $articles = $query->paginate(16)->appends($request->except('page'));
+        $articles = $query->paginate(1)->appends($request->except('page'));
 
         foreach ($articles as $article) {
             $article->translation = $article->translation();
@@ -428,7 +428,7 @@ class ArticleController extends Controller
             return response()->json(['message' => 'Error deleting tag: ' . $e->getMessage()], 500);
         }
     }
-    
+
     static public function get_latest_articles($count = 5)
     {
         $articles = Article::latest()->take($count)->get();

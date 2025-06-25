@@ -14,10 +14,10 @@
         <!-- Categories Section -->
         <div class="categories" data-aos="fade-up" data-aos-duration="1500">
             {{-- <button class="category-btn active" data-category="all">All</button> --}}
-            @if (request()->query('tag') == '' || request()->query('tag') == null)
+            @if (request()->query('project') == '' || request()->query('project') == null)
                 <a class="category-btn active all" href="#">All</a>
             @else
-                <a class="category-btn" href="/article">All</a>
+                <a class="category-btn" href="/review">All</a>
             @endif
 
             @foreach ($projects as $project)
@@ -34,7 +34,7 @@
         <div class="review-cards">
             @if ($houses->isEmpty())
                 <div class="no-articles">
-                    <p>ไม่มีบทความในหมวดหมู่นี้</p>
+                    <p>ไม่มีรีวิวบ้านในโครงการนี้</p>
                 </div>
             @else
                 @foreach ($houses as $house)
@@ -43,9 +43,10 @@
                         <p>{{ $house->translation->title }}</p>
                     </a>
                 @endforeach
-                {{ $houses->links('vendor.pagination.default') }}
+
             @endif
         </div>
+        {{ $houses->links('vendor.pagination.default') }}
     </div>
 
 

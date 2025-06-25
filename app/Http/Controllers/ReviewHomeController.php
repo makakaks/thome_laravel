@@ -27,12 +27,12 @@ class ReviewHomeController extends Controller
         }
 
         if ($request->filled('project')) {
-            $query->whereHas('houseTags.translations', function ($q) use ($request) {
-                $q->where('name', 'like', '%' . $request->project . '%');
+            $query->whereHas('reviewHomeProject', function ($q) use ($request) {
+                $q->where('locale', 'like', '%' . $request->project . '%');
             });
         }
 
-        $houses = $query->paginate(16)->appends($request->except('page'));
+        $houses = $query->paginate(1)->appends($request->except('page'));
 
         foreach ($houses as $house) {
             $house->translation = $house->translation();

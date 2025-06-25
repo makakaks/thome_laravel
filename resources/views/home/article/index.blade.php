@@ -66,10 +66,9 @@
                                 </div>
                             @endforeach
                         @endfor
-
-                        {{ $articles->links('vendor.pagination.default') }}
                     @endif
                 </div>
+                {{ $articles->links('vendor.pagination.default') }}
             </div>
         </div>
     </div>

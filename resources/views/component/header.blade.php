@@ -139,7 +139,7 @@
             </li>
 
             <li class="nav-item"><a href="/article" class="nav-link">{{ __('header.articles') }}</a></li>
-            <li class="nav-item"><a href="/review_home" class="nav-link">{{ __('header.review_home') }}</a></li>
+            <li class="nav-item"><a href="/review" class="nav-link">{{ __('header.review_home') }}</a></li>
             <li class="nav-item has-dropdown">
                 <a href="#" class="nav-link">{{ __('header.about') }}</a>
                 <ul class="dropdown">
