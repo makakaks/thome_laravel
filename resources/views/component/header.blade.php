@@ -26,10 +26,10 @@
             <div class="actions col justify-content-end">
                 <!-- Language Switcher -->
                 <div class="language-switcher">
-                    <a href="{{url('lang/th')}}" class="lang-link">
+                    <a href="{{ url('lang/th') }}" class="lang-link">
                         <img src="/icon/ICON/thai.png" alt="Thai" title="ภาษาไทย">
                     </a>
-                    <a href="{{url('lang/en')}}" class="lang-link">
+                    <a href="{{ url('lang/en') }}" class="lang-link">
                         <img src="/icon/ICON/eng.png" alt="English" title="English">
                     </a>
                 </div>
@@ -48,36 +48,35 @@
 
     <div class="nav-links" id="nav-links">
         <ul>
-            <li><a href="/" data-translate="nav.home">หน้าหลัก</a>
+            <li><a href="/" data-translate="nav.home">{{ __('header.home') }}</a>
             </li>
             <!-- <li><a href="/service" data-translate="nav.services">บริการ</a></li> -->
             <!-- Dropdown Menu -->
             <li class="dropdown">
                 <a href="/service" class="menu-item" data-translate="nav.services">
-                    บริการ <span class="dropdown-icon"><i class="fa-solid fa-caret-down"></i></span>
+                    {{ __('header.services') }} <span class="dropdown-icon"><i
+                            class="fa-solid fa-caret-down"></i></span>
                 </a>
                 <ul class="dropdown-menu d-block">
-                    <li><a href="/hinspector">ตรวจบ้าน</a>
+                    <li><a href="/hinspector" data-translate="nav.hinspector">{{ __('header.hinspector') }}</a></li>
+                    <li><a href="/hinterior" data-translate="nav.hinterior">{{ __('header.hinterior') }}</a></li>
+                    <li><a href="/hconstruction" data-translate="nav.hconstruction">{{ __('header.hconstruction') }}</a>
                     </li>
-                    <li><a href="/hinterior">ตกแต่งภายใน</a>
-                    </li>
-                    <li><a href="/hconstruction" data-translate="nav.articles">รีโนเวท</a>
-                    </li>
-                    <li><a href="/hbutler">ทำความสะอาด</a>
-                    </li>
+                    <li><a href="/hbutler" data-translate="nav.hbutler">{{ __('header.hbutler') }}</a></li>
                 </ul>
             </li>
             <li class="dropdown">
                 <a href="#" class="menu-item" data-translate="nav.service">
-                    บริการเสริม <span class="dropdown-icon"><i class="fa-solid fa-caret-down"></i></span>
+                    {{ __('header.addon_services') }} <span class="dropdown-icon"><i
+                            class="fa-solid fa-caret-down"></i></span>
                 </a>
                 <ul class="dropdown-menu d-block">
-                    <li><a href="/addon_service/app_inspector" data-translate="nav.app-inspector">ตรวจบ้านเอง</a>
-                    </li>
-                    <li><a href="/addon_service/cal_electric" data-translate="nav.cal-electric">คำนวณไฟฟ้า</a>
-                    </li>
-                    <li><a href="/addon_service/checklist" data-translate="nav.checklist">เทียบสเปกบ้าน</a>
-                    </li>
+                    <li><a href="/addon_service/app_inspector"
+                            data-translate="nav.app-inspector">{{ __('header.app_inspector') }}</a></li>
+                    <li><a href="/addon_service/cal_electric"
+                            data-translate="nav.cal-electric">{{ __('header.cal_electric') }}</a></li>
+                    <li><a href="/addon_service/checklist"
+                            data-translate="nav.checklist">{{ __('header.checklist') }}</a></li>
                 </ul>
             </li>
             <!-- Dropdown Menu -->
@@ -86,87 +85,77 @@
                     บทความ <span class="dropdown-icon"><i class="fa-solid fa-caret-down"></i></span>
                 </a>
                 <ul class="dropdown-menu d-block">
-                    <li><a href="/articles" data-translate="nav.articles">ความรู้ทั่วไป</a>
+                    <li><a href="/article" data-translate="nav.articles">ความรู้ทั่วไป</a>
                     </li>
-                    <li><a href="/Review-home" data-translate="nav.reviewHome">รีวิวบ้าน</a>
+                    <li><a href="/review_home" data-translate="nav.reviewHome">รีวิวบ้าน</a>
                     </li>
                 </ul>
             </li> --}}
-            <li><a href="/articles" data-translate="nav.articles">บทความ</a></li>
-            <li><a href="/Review-home" data-translate="nav.reviewHome">รีวิวบ้าน</a></li>
-            <li><a href="/projects_media.html" data-translate="nav.projects">ผลงาน</a></li>
+            <li><a href="/article" data-translate="nav.articles">{{ __('header.articles') }}</a></li>
+            <li><a href="/review" data-translate="nav.reviewHome">{{ __('header.review_home') }}</a></li>
+            <li><a href="/projects_media.html" data-translate="nav.projects">{{ __('header.projects') }}</a></li>
             <!-- Dropdown Menu -->
             <li class="dropdown">
                 <a href="#" class="menu-item" data-translate="nav.aboutUs">
-                    เกี่ยวกับเรา <span class="dropdown-icon"><i class="fa-solid fa-caret-down"></i></span>
+                    {{ __('header.about') }} <span class="dropdown-icon"><i class="fa-solid fa-caret-down"></i></span>
                 </a>
                 <ul class="dropdown-menu d-block">
-                    <li><a href="/ourstory" data-translate="nav.ourStory">ประวัติของเรา</a>
-                    </li>
-                    <li><a href="/ourteam" data-translate="nav.ourTeam">ทีมงานของเรา</a></li>
+                    <li><a href="/ourstory" data-translate="nav.ourStory">{{ __('header.ourstory') }}</a></li>
+                    <li><a href="/ourteam" data-translate="nav.ourTeam">{{ __('header.ourteam') }}</a></li>
                 </ul>
             </li>
-            <li><a href="/joinwithus" data-translate="nav.joinUs">ร่วมงานกับเรา</a>
-            </li>
-            <li><a href="/contactus" data-translate="nav.contact">ติดต่อเรา</a>
-            </li>
+            <li><a href="/joinwithus" data-translate="nav.joinUs">{{ __('header.joinus') }}</a></li>
+            <li><a href="/contactus" data-translate="nav.contact">{{ __('header.contact') }}</a></li>
         </ul>
     </div>
 
     <!-- Fullscreen Navigation -->
     <div class="nav-fullscreen">
         <ul class="nav-menu">
-            <li class="nav-item"><a href="/" class="nav-link">หน้าหลัก</a></li>
+            <li class="nav-item"><a href="/" class="nav-link">{{ __('header.home') }}</a></li>
 
             <li class="nav-item has-dropdown">
-                <a href="#" class="nav-link">บริการ</a>
+                <a href="#" class="nav-link">{{ __('header.services') }}</a>
                 <ul class="dropdown">
-                    <li><a href="/hinspector">ตรวจบ้าน</a></li>
-                    <li><a href="/hinterior">ตกแต่ง</a></li>
-                    <li><a href="/hconstruction">ต่อเติม</a></li>
-                    <li><a href="/hbutler">ทำความสะอาด</a></li>
+                    <li><a href="/hinspector">{{ __('header.hinspector') }}</a></li>
+                    <li><a href="/hinterior">{{ __('header.hinterior') }}</a></li>
+                    <li><a href="/hconstruction">{{ __('header.hconstruction') }}</a></li>
+                    <li><a href="/hbutler">{{ __('header.hbutler') }}</a></li>
                 </ul>
             </li>
 
             <li class="nav-item has-dropdown">
-                <a href="#" class="nav-link">บริการเสริม</a>
+                <a href="#" class="nav-link">{{ __('header.addon_services') }}</a>
                 <ul class="dropdown">
-                    <li><a href="/">ตรวจบ้านเอง</a></li>
-                    <li><a href="/">คำนวณไฟฟ้า</a></li>
-                    <li><a href="/">เทียบสเปคบ้าน</a></li>
+                    <li><a href="/addon_service/app_inspector">{{ __('header.app_inspector') }}</a></li>
+                    <li><a href="/addon_service/cal_electric">{{ __('header.cal_electric') }}</a></li>
+                    <li><a href="/addon_service/checklist">{{ __('header.checklist') }}</a></li>
                 </ul>
             </li>
 
-            <li class="nav-item"><a href="/" class="nav-link">สิทธิพิเศษ</a></li>
+            {{-- <li class="nav-item"><a href="/privileges" class="nav-link">{{ __('header.privileges') }}</a></li> --}}
 
-            <li class="nav-item"><a href="/" class="nav-link">ผลงาน</a></li>
+            <li class="nav-item"><a href="/projects_media.html" class="nav-link">{{ __('header.projects') }}</a>
+            </li>
 
-            {{-- <li class="nav-item has-dropdown">
-                <a href="#" class="nav-link">บทความ</a>
-                <ul class="dropdown">
-                    <li><a href="/articles">ความรู้ทั่วไป</a></li>
-                    <li><a href="/review_home">รีวิวบ้าน</a></li>
-                </ul>
-            </li> --}}
-            <li class="nav-item"><a href="/articles" class="nav-link">บทความ</a></li>
-            <li class="nav-item"><a href="/review_home" class="nav-link">รีวิวบ้าน</a></li>
+            <li class="nav-item"><a href="/article" class="nav-link">{{ __('header.articles') }}</a></li>
+            <li class="nav-item"><a href="/review" class="nav-link">{{ __('header.review_home') }}</a></li>
             <li class="nav-item has-dropdown">
-                <a href="#" class="nav-link">เกี่ยวกับเรา</a>
+                <a href="#" class="nav-link">{{ __('header.about') }}</a>
                 <ul class="dropdown">
-                    <li><a href="/ourstory">ประวัติของเรา</a></li>
-                    <li><a href="/ourteam">ทีมงานของเรา</a></li>
+                    <li><a href="/ourstory">{{ __('header.ourstory') }}</a></li>
+                    <li><a href="/ourteam">{{ __('header.ourteam') }}</a></li>
                 </ul>
             </li>
 
-            <li class="nav-item"><a href="/joinwithus" class="nav-link">ร่วมงานกับเรา</a>
-            </li>
-            <li class="nav-item"><a href="/Contactus" class="nav-link">ติดต่อเรา</a></li>
+            <li class="nav-item"><a href="/joinwithus" class="nav-link">{{ __('header.joinus') }}</a></li>
+            <li class="nav-item"><a href="/contactus" class="nav-link">{{ __('header.contact') }}</a></li>
             <li class="nav-item">
                 <div class="language-switcher">
-                    <a href="{{url('lang/th')}}" class="lang-link">
+                    <a href="{{ url('lang/th') }}" class="lang-link">
                         <img src="/icon/ICON/thai.png" alt="Thai" title="ภาษาไทย">
                     </a>
-                    <a href="{{url('lang/en')}}" class="lang-link">
+                    <a href="{{ url('lang/en') }}" class="lang-link">
                         <img src="/icon/ICON/eng.png" alt="English" title="English">
                     </a>
                 </div>

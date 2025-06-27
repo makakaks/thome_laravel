@@ -243,3 +243,9 @@ header h1 {
         font-size: 0.9rem;
     }
 }
+
+
+#tags-list tr td div{
+    display: flex;
+    justify-content: space-between;
+}

@@ -13,6 +13,11 @@ main {
 }
 
 /* Article Header */
+.art-track-area a{
+    text-decoration: none;
+    color: black;
+}
+
 .art-header {
     margin-bottom: 40px;
 }
@@ -51,6 +56,7 @@ main {
 .art-tag {
     background-color: #ff6b6b;
     color: white;
+    text-decoration: none;
     padding: 0.3rem 1rem;
     border-radius: 20px;
     font-size: 0.9rem;
@@ -58,7 +64,40 @@ main {
     display: inline-block;
     margin-right: 0.5rem;
     box-shadow: 0 2px 4px rgba(255, 107, 107, 0.2);
+    transition: all 0.2s ease;
 }
+
+.art-tag:hover {
+    background-color: #ff5252;
+    color: whitesmoke;
+    scale: 1.05;
+}
+
+/* art hashtag */
+.art-hashtag {
+
+    border: 1px solid #90caf9;
+    background-color: #ffffff;
+    color: black;
+    text-decoration: none;
+    padding: 0.3rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    display: inline-block;
+    margin-right: 0.5rem;
+    box-shadow: 0 2px 4px rgba(255, 107, 107, 0.2);
+    transition: all 0.2s ease;
+    cursor: default;
+}
+
+.art-hashtag:hover {
+    scale: 1.05;
+    background-color: #e3f2fd;
+    color: #1976d2;
+    border: 1px solid #90caf9;
+}
+
 
 /* Social Share Buttons */
 .social-share {
@@ -133,7 +172,7 @@ main {
 
 .art-cover-img img {
     width: 100%;
-    aspect-ratio: 6/3;
+    aspect-ratio: 20/9;
     /* height: auto; */
     object-fit: contain;
     display: block;
@@ -200,7 +239,7 @@ main {
 }
 
 .art-content {
-    flex: 2;
+    flex: 3;
 }
 
 @media (max-width: 768px) {

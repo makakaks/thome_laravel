@@ -3,14 +3,17 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\FaqController;
-use App\Http\Controllers\ReviewHomeController;
+use App\Http\Controllers\EmployeeController;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 use PHPUnit\Framework\Test;
 use App\Http\Controllers\HouseController;
+use App\Http\Controllers\ReviewHomeController;
+use App\Models\Faq;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,7 +28,16 @@ use App\Http\Controllers\HouseController;
 Route::get('/lang/{locale}', [TestController::class, 'setLocale'])->name('lang.change');
 
 Route::get('/', function () {
-    return view('home.index');
+    $latestArticles = ArticleController::get_latest_articles(6);
+
+    $faqs = Faq::all();
+    foreach ($faqs as $faq) {
+        $faq->translation = $faq->translation();
+        $faq->tags = $faq->faqTags->map(function ($tag) {
+            return $tag->translation();
+        });
+    }
+    return view('home.index', compact('faqs', 'latestArticles'));
 });
 
 Route::get('/hinspector', function () {
@@ -44,15 +56,12 @@ Route::get('/hbutler', function () {
     return view('home.service.HbutlerComingSoon');
 });
 
-Route::get('/Review-home', function () {
-    return view('home.Review-home');
-});
 
 Route::get('/contactus', function () {
     return view('home.contact.contactus');
 });
 
-Route::get('/joinwithus', function() {
+Route::get('/joinwithus', function () {
     return view('home.contact.joinwithus');
 });
 
@@ -83,44 +92,62 @@ Route::prefix('addon_service')->group(function () {
     });
 });
 
-Route::get('/testkub', function(){
+Route::get('/testkub', function () {
     return view('home.article.test_article');
 });
 
-Route::get('review_home/{id}', function ($id) {
-    return view('home.article.review_home', ['id' => $id]);
-});
+// Route::get('review_home/{id}', function ($id) {
+//     return view('home.article.review_home', ['id' => $id]);
+// });
 
-Route::prefix('articles')->controller(ArticleController::class)->group(function () {
+Route::prefix('article')->controller(ArticleController::class)->group(function () {
     Route::get('/', 'index');
     Route::get('/test_paginate', 'test_paginate')->name('article.test_paginate');
-    Route::get('/{slug}', 'show_article')->name('article.show');
+    Route::get('/detail', 'show_article')->name('article.show');
 });
 
+Route::prefix('review')->controller(ReviewHomeController::class)->group(function () {
+    Route::get('/', 'index')->name('review_home.index');
+    Route::get('/detail', 'show')->name('review_home.show');
+});
 
 Route::prefix('admin')->group(function () {
-    Route::prefix('manage_article')->controller(ArticleController::class)->group(function () {
+    Route::prefix('article')->controller(ArticleController::class)->group(function () {
         Route::get('/', 'manage')->name('admin.article.manage');
         Route::delete('/{id}', 'delete')->name('admin.article.delete');
 
         Route::get('/create', 'create_view')->name('admin.article.create_view');
         Route::post('/create', 'create_store')->name('admin.article.create_store');
 
-        Route::get('/edit/{id}', 'edit_view')->name('admin.article.edit_view');
-        Route::put('/edit/{id}', 'edit_store')->name('admin.article.edit_store');
+        Route::get('/{id}/edit', 'edit_view')->name('admin.article.edit_view');
+        Route::put('/{id}/edit', 'edit_store')->name('admin.article.edit_store');
+        Route::put('/{id}/edit_id', 'edit_id')->name('admin.article.edit_id');
 
-        Route::post('/add_tag', 'create_tag')->name('admin.article.create_tag');
+        Route::get('/{id}/add_lang', 'add_lang_view')->name('admin.article.add_lang_view');
+        Route::post('/{id}/add_lang', 'add_lang_store')->name('admin.article.add_lang_store');
+
+        Route::post('/add_tag', 'create_tag')->name('admin.article.add_tag');
+        Route::put('/edit_tag/{id}', 'edit_tag')->name('admin.article.edit_tag');
+        Route::delete('/delete_tag/{id}', 'delete_tag')->name('admin.article.delete_tag');
     });
 
-    Route::prefix('manage_review_home')->controller(ArticleController::class)->group(function () {
-        Route::get('/', 'manage')->name('admin.home.manage');
-        Route::delete('/{id}', 'delete')->name('admin.home.delete');
+    Route::prefix('review_home')->controller(ReviewHomeController::class)->group(function () {
+        Route::get('/', 'manage')->name('admin.review_home.manage');
+        Route::delete('/{id}', 'delete')->name('admin.review_home.delete');
 
-        Route::get('/create', 'create_view')->name('admin.home.create_view');
-        Route::post('/create', 'create_store')->name('admin.home.create_store');
+        Route::get('/create', 'create_view')->name('admin.review_home.create_view');
+        Route::post('/create', 'create_store')->name('admin.review_home.create_store');
 
-        Route::get('/edit/{id}', 'edit_view')->name('admin.home.edit_view');
-        Route::put('/edit/{id}', 'edit_store')->name('admin.home.edit_store');
+        Route::get('/{id}/edit', 'edit_view')->name('admin.review_home.edit_view');
+        Route::put('/{id}/edit', 'edit_store')->name('admin.review_home.edit_store');
+        Route::put('/{id}/edit_id', 'edit_id')->name('admin.review_home.edit_id');
+
+        Route::get('/{id}/add_lang', 'add_lang_view')->name('admin.review_home.add_lang_view');
+        Route::post('/{id}/add_lang', 'add_lang_store')->name('admin.review_home.add_lang_store');
+
+        Route::post('/add_project', 'create_project')->name('admin.review_home.add_project');
+        Route::put('/edit_project/{id}', 'edit_project')->name('admin.review_home.edit_project');
+        Route::delete('/delete_project/{id}', 'delete_project')->name('admin.review_home.delete_project');
     });
 
     Route::prefix('manage_faq')->controller(FaqController::class)->group(function () {
@@ -130,6 +157,22 @@ Route::prefix('admin')->group(function () {
         Route::put('/{id}', 'edit_store')->name('admin.faq.edit');
 
         Route::post('/add_tag', 'create_tag')->name('admin.faq.add_tag');
+        Route::put('/edit_tag/{id}', 'edit_tag')->name('admin.faq.edit_tag');
+        Route::delete('/delete_tag/{id}', 'delete_tag')->name('admin.faq.delete_tag');
+    });
+
+    Route::prefix('employee')->controller(EmployeeController::class)->group(function () {
+        Route::get('/', 'manage')->name('admin.employee.manage');
+        Route::put('/{id}', 'edit')->name('admin.employee.edit');
+        Route::delete('/{id}', 'delete')->name('admin.employee.delete');
+        Route::post('/', 'create')->name('admin.employee.create');
+    });
+
+    Route::prefix('department')->controller(DepartmentController::class)->group(function () {
+        Route::post('/', 'create')->name('admin.department.create');
+        Route::put('/{id}', 'edit')->name('admin.department.edit');
+        Route::delete('/{id}', 'delete')->name('admin.department.delete');
+        Route::post('/reorder', 'reorder')->name('admin.department.reorder');
     });
 
     Route::post('/upload_image', [AdminController::class, 'upload_image'])->name('admin.upload');
@@ -160,6 +203,9 @@ Route::get('/admin/compare/comparison', [HouseController::class, 'comparisonView
 Route::prefix('api')->group(function () {
     Route::get('/houses', [HouseController::class, 'apiIndex']);
     Route::get('/houses/{id}', [HouseController::class, 'apiShow']);
+    Route::prefix('faq')->controller(FaqController::class)->group(function () {
+        Route::get('/faq_and_available_lang/{id}', 'get_faq_and_available_lang')->name('api.faq.get_faq_and_available_lang');
+    });
 });
 
 // Route::prefix('test')->controller(TestController::class)->group(function () {

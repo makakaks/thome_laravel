@@ -1,17 +1,22 @@
-@extends('component.layout  ')
+@extends('component.layout')
 
 @section('content')
     <link rel="stylesheet" href="/css/home/article/test_article.css">
     <main>
         <div class="art-header">
+            <div class="art-track-area mb-4">
+                <a href="/">หน้าหลัก</a> >
+                <a href="/article">บทความ</a> >
+                <a href="/article/detail?news_id={{ $article['id'] }}">{{ $article['translation']['title'] }}</a>
+            </div>
             {{-- <h1>{{$locale}}</h1> --}}
             <h1 class="art-name">{{ $article['translation']['title'] }}</h1>
             <div class="art-name-below">
                 <div class="art-tag-container">
                     @foreach ($article->tags as $tag)
-                        <div class="art-tag">
+                        <a class="art-tag" href="/article?tag={{ $tag['name'] }}">
                             {{ $tag['name'] }}
-                        </div>
+                        </a>
                     @endforeach
                 </div>
                 <div class="social-share" style="display: flex; gap: 4px;">
@@ -47,8 +52,8 @@
             <div class="art-cover-img">
                 <img src="{{ $article['translation']['coverPageImg'] }}" alt="">
                 <div class="art-date">
-                    {{ \Carbon\Carbon::parse($article['created_at'])->locale(app()->getLocale())->isoFormat('D MMM YYYY h:mm') }} 
-                        {{-- $article['created_at']->format('d M Y H:i') --}}
+                    {{ \Carbon\Carbon::parse($article['created_at'])->locale(app()->getLocale())->isoFormat('D MMM YYYY h:mm') }}
+                    {{-- $article['created_at']->format('d M Y H:i') --}}
                     {{-- 14 พ.ค. 2568 13:44 น --}}
                     {{-- {{print_r($article, true)}} --}}
                 </div>
@@ -57,6 +62,17 @@
         <div class="art-body">
             <div class="art-content">
                 {!! $article['translation']['content'] !!}
+
+                <div>
+                    Hashtag :
+                    @foreach ($article['hashtags'] as $hashtag)
+                        <span class="art-hashtag">
+                            {{-- #{{ $hashtag }} --}}
+                            #{{ $hashtag }}
+                        </span>
+                    @endforeach
+                </div>
+
             </div>
             <div class="art-promote">
                 <div class="card">
@@ -172,8 +188,8 @@
                 <button class="prev">❮</button>
                 <div class="video-wrapper" id="videoSlider">
                     <!-- <div class="video-item">
-                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/M-nLhplc-mc?si=cXWxjwDwR4Tk84WZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                                </div> -->
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/M-nLhplc-mc?si=cXWxjwDwR4Tk84WZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                    </div> -->
                     <a class="content-carousel-item video-item" href="/articles_view3">
                         <img src="https://www.thomeinspector.com/assets/upload/newsThumbnail/b764dd4c5037789dd95efac895cfbac14aa2a041.jpg"
                             alt="Content 1">
