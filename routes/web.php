@@ -153,9 +153,9 @@ Route::get('/compare-houses', function () {
 
 Route::get('/admin/compare-house', [HouseController::class, 'adminView'])->name('admin.compare.compare_house');
 
-Route::get('/admin/compare/comparison', [HouseController::class, 'comparisonView'])->name('admin.compare.comparison');
+Route::get('/admin/compare/compare_frontend', [HouseController::class, 'compareFrontend'])->name('admin.compare.compare_frontend');
 
-Route::get('/admin/compare/compare_frontend', [HouseController::class, 'comparisonView'])->name('admin.compare.compare_frontend');
+Route::get('/admin/compare/comparison', [HouseController::class, 'comparisonView'])->name('admin.compare.comparison');
 
 Route::prefix('api')->group(function () {
     Route::get('/houses', [HouseController::class, 'apiIndex']);
