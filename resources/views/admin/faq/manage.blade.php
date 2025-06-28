@@ -1,4 +1,4 @@
-@extends('component.layout_admin')
+@extends('layouts.layout_admin')
 
 @section('content')
     <link rel="stylesheet" href="/css/admin/article/manage.css">
@@ -134,8 +134,7 @@
                                                             <div>
                                                                 {{ $t->en->name }}
                                                             </div>
-                                                            <button class="btn btn-warning"
-                                                                btn-type="tag-edit">
+                                                            <button class="btn btn-warning" btn-type="tag-edit">
                                                                 แก้ไข
                                                             </button>
                                                         </div>
@@ -145,8 +144,7 @@
                                                                 ยังไม่มีภาษาอังกฤษ
                                                             </div>
 
-                                                            <button class="btn btn-success"
-                                                                btn-type="tag-addlang" >
+                                                            <button class="btn btn-success" btn-type="tag-addlang">
                                                                 เพิ่มภาษา
                                                             </button>
                                                         </div>
@@ -158,8 +156,7 @@
                                                             <div>
                                                                 {{ $t->cn->name }}
                                                             </div>
-                                                            <button class="btn btn-warning"
-                                                                btn-type="tag-edit">
+                                                            <button class="btn btn-warning" btn-type="tag-edit">
                                                                 แก้ไข
                                                             </button>
                                                         </div>
@@ -168,8 +165,7 @@
                                                             <div>
                                                                 ยังไม่มีภาษาจีน
                                                             </div>
-                                                            <button class="btn btn-success"
-                                                                btn-type="tag-addlang">
+                                                            <button class="btn btn-success" btn-type="tag-addlang">
                                                                 เพิ่มภาษา
                                                             </button>
                                                         </div>

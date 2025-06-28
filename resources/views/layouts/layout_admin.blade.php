@@ -10,9 +10,15 @@
     <title>Test</title>
     <link rel="icon" type="image/x-icon" href="/img/favicon1.png">
 
+    @hasSection('import')
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-    @if (!trim($__env->yieldContent('import')))
-        <!-- Do something here -->
+        <!-- include summernote css/js-->
+        <link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.js"></script>
+    @else
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
             integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
             crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -23,14 +29,6 @@
         </script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
         <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    @else
-        <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-        <!-- include summernote css/js-->
-        <link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.js"></script>
     @endif
 
 
@@ -42,7 +40,7 @@
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <h2>Admin Panel</h2>
+            <h2>{{ Auth::user()->name }}</h2>
             <button class="close-sidebar" id="closeSidebar">×</button>
         </div>
         {{-- <div class="user-info">
@@ -108,9 +106,9 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/admin/change_password">
+                    <a href="/admin/profile">
                         <img src="https://www.svgrepo.com/show/375092/reset-password.svg" class="icon"></i>
-                        เปลี่ยนรหัสผ่าน
+                        จัดการบัญชีผู้ใช้
                     </a>
                 </li>
                 <!-- <li>
@@ -128,26 +126,29 @@
             </ul>
             <ul class="flex me-4 h-fit-content">
                 <li class="flex justify-content-start row lang-link">
-                    <a href="{{url('lang/th')}}" class="col-1 hover:none">
+                    <a href="{{ url('lang/th') }}" class="col-1 hover:none">
                         <img src="/icon/ICON/thai.png" alt="Thai" title="ภาษาไทย">
                     </a>
-                    <a href="{{url('lang/en')}}" class="col-1 hover:none">
+                    <a href="{{ url('lang/en') }}" class="col-1 hover:none">
                         <img src="/icon/ICON/eng.png" alt="English" title="English">
                     </a>
                 </li>
             </ul>
         </nav>
         <div class="sidebar-footer">
-            <a href="#logout" class="logout-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round" class="icon">
-                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                    <polyline points="16 17 21 12 16 7"></polyline>
-                    <line x1="21" y1="12" x2="9" y2="12"></line>
-                </svg>
-                Logout
-            </a>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="logout-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="icon">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                    Logout
+                </button>
+            </form>
         </div>
     </div>
 
@@ -159,7 +160,7 @@
 
     <script type="module">
         // Global function to show loading indicator
-        window.showLoading = function () {
+        window.showLoading = function() {
             document.getElementById('loading-indicator').style.display = 'flex';
             document.querySelector("body").classList.add('hide-over') // Prevent scrolling while loading
         }

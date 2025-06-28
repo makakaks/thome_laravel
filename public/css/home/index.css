@@ -1317,7 +1317,7 @@ header {
 .cal {
     display: flex;
     justify-content: space-between;
-    height: calc(100vh - 100px);
+    height: fit-content;
     /* align-items: stretch; */
     gap: 30px;
     background: #f9f9f9;
@@ -1330,6 +1330,7 @@ header {
 /* Left Side */
 .cal-item {
     flex: 1;
+    height: fit-content;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -1895,12 +1896,80 @@ button.next-btn:hover {
 
 .review-cards {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    gap: 50px 30px;
     justify-content: center;
+    flex-wrap: wrap;
     text-decoration: none;
-    padding: 20px;
 }
+
+.new-card {
+    width: 30%;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    position: relative;
+    text-align: left;
+    padding-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.new-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.new-card img {
+    aspect-ratio: 16 / 9 !important;
+    object-fit: cover !important;
+    border-radius: 10px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.new-card a {
+    text-decoration: none;
+    color: inherit;
+    height: fit-content;
+}
+
+.new-card-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1a1a1a;
+    line-height: 1.4;
+    margin-left: 5px;
+}
+
+.new-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-left: 5px;
+}
+
+.new-card-tags a {
+    background: #e3f2fd;
+    color: #1565c0;
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.upload-date {
+    color: #888;
+    margin-left: 5px;
+}
+
+@media (max-width: 968px) {
+    .new-card {
+        width: 45%;
+    }
+}
+
 
 .card {
     width: 300px;
@@ -1929,16 +1998,6 @@ button.next-btn:hover {
     font-size: 14px;
     color: #333;
     transition: color 0.3s ease-in-out;
-}
-
-/* Upload Date */
-.upload-date {
-    display: block;
-    margin-top: 5px;
-    font-size: 16px;
-    color: #888;
-    text-align: right;
-    padding: 5px;
 }
 
 

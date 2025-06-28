@@ -1,4 +1,4 @@
-@extends('component.layout')
+@extends('layouts.layout_home')
 
 @section('content')
     <link rel="stylesheet" href="/css/home/contact/joinwithus.css">
@@ -39,11 +39,11 @@
             </div>
 
             <!-- <div class="job-listing" data-aos="fade-up-left">
-                            <h2>Intern Student</h2>
-                            <p><strong>Location:</strong> On-site</p>
-                            <p><strong>Requirements:</strong> Currently enrolled in a relevant degree program, eager to learn, and strong analytical skills.</p>
-                            <a href="job3.html" class="apply-btn">Apply Now</a>
-                        </div>  -->
+                                <h2>Intern Student</h2>
+                                <p><strong>Location:</strong> On-site</p>
+                                <p><strong>Requirements:</strong> Currently enrolled in a relevant degree program, eager to learn, and strong analytical skills.</p>
+                                <a href="job3.html" class="apply-btn">Apply Now</a>
+                            </div>  -->
         </div>
     </div>
 @endsection

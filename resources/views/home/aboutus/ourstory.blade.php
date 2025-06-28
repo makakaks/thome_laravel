@@ -1,4 +1,4 @@
-@extends('component.layout')
+@extends('layouts.layout_home')
 
 @section('content')
     <link rel="stylesheet" href="/css/home/aboutus/ourstory.css">
@@ -33,7 +33,7 @@
                     <span class="title-highlight">การตรวจบ้าน</span>
                 </h1>
                 <p class="hero-subtitle">บริการตรวจสอบบ้านมือสองที่ลูกค้าเชื่อถือมากที่สุดในประเทศไทย</p>
-            
+
             </div>
         </div>
     </section>
@@ -80,7 +80,9 @@
                         </div>
                         <div class="card-content">
                             <h3>ความมุ่งมั่นในคุณภาพ</h3>
-                            <p>ต.ตรวจบ้าน เริ่มต้นเมื่อปี 2015 โดยเจ้าของ คุณสุเมธ เจตธำรงชัย และคุณสุเทพ เจตธำรงชัย เริ่มจากการที่รับตรวจบ้าน และคอนโดให้กับกลุ่มพี่น้องและเพื่อนฝูงคนรู้จักจนได้รับการบอกต่อปากต่อปาก</p>
+                            <p>ต.ตรวจบ้าน เริ่มต้นเมื่อปี 2015 โดยเจ้าของ คุณสุเมธ เจตธำรงชัย และคุณสุเทพ เจตธำรงชัย
+                                เริ่มจากการที่รับตรวจบ้าน
+                                และคอนโดให้กับกลุ่มพี่น้องและเพื่อนฝูงคนรู้จักจนได้รับการบอกต่อปากต่อปาก</p>
                             <div class="card-features">
                                 <div class="feature-item">
                                     <span class="feature-icon">🎯</span>
@@ -115,7 +117,8 @@
                         <h2 class="card-title">Our Vision and Mission</h2>
                     </div>
                     <div class="card-body">
-                        <p class="vision-text">บริการตรวจสอบบ้านมือสองของบ้านและคอนโดก่อนโอนกรรมสิทธิ์ดีที่สุด อันดับ 1 ที่ลูกค้าเลือกมากที่สุดในประเทศไทย</p>
+                        <p class="vision-text">บริการตรวจสอบบ้านมือสองของบ้านและคอนโดก่อนโอนกรรมสิทธิ์ดีที่สุด อันดับ 1
+                            ที่ลูกค้าเลือกมากที่สุดในประเทศไทย</p>
                         <div class="vision-features">
                             <div class="feature-grid">
                                 <div class="grid-item">
@@ -172,7 +175,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="value-card" data-tilt>
                     <div class="card-background"></div>
                     <div class="card-header">
@@ -191,7 +194,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="value-card" data-tilt>
                     <div class="card-background"></div>
                     <div class="card-header">
@@ -254,7 +257,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="founder-card">
                     <div class="card-background"></div>
                     <div class="founder-image">
@@ -298,94 +301,95 @@
                 <h2 class="section-title">Our Commitment to the Client</h2>
                 <p class="section-subtitle">สิ่งที่เรามุ่งมั่นให้กับลูกค้าทุกท่าน</p>
             </div>
-            
+
             <div class="commitment-showcase">
-                        <span class="badge-icon">✨</span>
-                        <span class="badge-text">มาตรฐานสูงสุด</span>
-                    </div>
+                <span class="badge-icon">✨</span>
+                <span class="badge-text">มาตรฐานสูงสุด</span>
+            </div>
+        </div>
+        </div>
+
+        <div class="commitment-grid">
+            <div class="commitment-item">
+                <div class="item-icon">
+                    <span class="icon-bg"></span>
+                    <span class="icon-symbol">🎯</span>
+                </div>
+                <div class="item-content">
+                    <h3 class="item-title">ความซื่อสัตย์และโปร่งใส</h3>
+                    <p class="item-description">ไม่ใช่คนในบริษัทอสังหาริมทรัพย์ออกมารับงานเองหรือตรวจงานโครงการตัวเอง</p>
                 </div>
             </div>
 
-            <div class="commitment-grid">
-                <div class="commitment-item">
-                    <div class="item-icon">
-                        <span class="icon-bg"></span>
-                        <span class="icon-symbol">🎯</span>
-                    </div>
-                    <div class="item-content">
-                        <h3 class="item-title">ความซื่อสัตย์และโปร่งใส</h3>
-                        <p class="item-description">ไม่ใช่คนในบริษัทอสังหาริมทรัพย์ออกมารับงานเองหรือตรวจงานโครงการตัวเอง</p>
-                    </div>
+            <div class="commitment-item">
+                <div class="item-icon">
+                    <span class="icon-bg"></span>
+                    <span class="icon-symbol">🔍</span>
                 </div>
-
-                <div class="commitment-item">
-                    <div class="item-icon">
-                        <span class="icon-bg"></span>
-                        <span class="icon-symbol">🔍</span>
-                    </div>
-                    <div class="item-content">
-                        <h3 class="item-title">การตรวจสอบครบถ้วน</h3>
-                        <p class="item-description">ตรวจครบทุกฟังก์ชันการใช้งานหลัก ใช้เทคโนโลยีที่ทันสมัยเข้ามาใช้ในการตรวจเพื่อความแม่นยำ</p>
-                    </div>
-                </div>
-
-                <div class="commitment-item">
-                    <div class="item-icon">
-                        <span class="icon-bg"></span>
-                        <span class="icon-symbol">💼</span>
-                    </div>
-                    <div class="item-content">
-                        <h3 class="item-title">อาชีพหลัก ไม่ใช่งานเสริม</h3>
-                        <p class="item-description">ตรวจบ้านทุกวันเป็น "อาชีพหลัก ไม่ใช่งานเสริม"</p>
-                    </div>
-                </div>
-
-                <div class="commitment-item">
-                    <div class="item-icon">
-                        <span class="icon-bg"></span>
-                        <span class="icon-symbol">👨‍🔧</span>
-                    </div>
-                    <div class="item-content">
-                        <h3 class="item-title">ช่างผู้เชี่ยวชาญ</h3>
-                        <p class="item-description">ตรวจด้วยช่างผู้เชี่ยวชาญงานจริง ไม่ใช้คำว่าวิศวกรมาหากิน</p>
-                    </div>
-                </div>
-
-                <div class="commitment-item">
-                    <div class="item-icon">
-                        <span class="icon-bg"></span>
-                        <span class="icon-symbol">📋</span>
-                    </div>
-                    <div class="item-content">
-                        <h3 class="item-title">คุณภาพ ไม่ใช่ปริมาณ</h3>
-                        <p class="item-description">ไม่เน้นล่ารายการดีเฟคเพื่อให้เล่มรายงานดูเยอะ</p>
-                    </div>
-                </div>
-
-                <div class="commitment-item">
-                    <div class="item-icon">
-                        <span class="icon-bg"></span>
-                        <span class="icon-symbol">🏢</span>
-                    </div>
-                    <div class="item-content">
-                        <h3 class="item-title">บริการโดยตรง</h3>
-                        <p class="item-description">บริษัทรับงานเองและไม่มีการส่งงานต่อให้ซับกินค่าหัวคิว</p>
-                    </div>
+                <div class="item-content">
+                    <h3 class="item-title">การตรวจสอบครบถ้วน</h3>
+                    <p class="item-description">ตรวจครบทุกฟังก์ชันการใช้งานหลัก
+                        ใช้เทคโนโลยีที่ทันสมัยเข้ามาใช้ในการตรวจเพื่อความแม่นยำ</p>
                 </div>
             </div>
 
-            <div class="motto-section">
-                <div class="motto-card">
-                    <div class="motto-icon">💫</div>
-                    <h3 class="motto-title">คติของเรา</h3>
-                    <p class="motto-text">"ตรวจจริง เห็นกับตา ไปพร้อมลูกค้า"</p>
-                    <div class="motto-decoration">
-                        <div class="decoration-line"></div>
-                        <div class="decoration-dot"></div>
-                        <div class="decoration-line"></div>
-                    </div>
+            <div class="commitment-item">
+                <div class="item-icon">
+                    <span class="icon-bg"></span>
+                    <span class="icon-symbol">💼</span>
+                </div>
+                <div class="item-content">
+                    <h3 class="item-title">อาชีพหลัก ไม่ใช่งานเสริม</h3>
+                    <p class="item-description">ตรวจบ้านทุกวันเป็น "อาชีพหลัก ไม่ใช่งานเสริม"</p>
                 </div>
             </div>
+
+            <div class="commitment-item">
+                <div class="item-icon">
+                    <span class="icon-bg"></span>
+                    <span class="icon-symbol">👨‍🔧</span>
+                </div>
+                <div class="item-content">
+                    <h3 class="item-title">ช่างผู้เชี่ยวชาญ</h3>
+                    <p class="item-description">ตรวจด้วยช่างผู้เชี่ยวชาญงานจริง ไม่ใช้คำว่าวิศวกรมาหากิน</p>
+                </div>
+            </div>
+
+            <div class="commitment-item">
+                <div class="item-icon">
+                    <span class="icon-bg"></span>
+                    <span class="icon-symbol">📋</span>
+                </div>
+                <div class="item-content">
+                    <h3 class="item-title">คุณภาพ ไม่ใช่ปริมาณ</h3>
+                    <p class="item-description">ไม่เน้นล่ารายการดีเฟคเพื่อให้เล่มรายงานดูเยอะ</p>
+                </div>
+            </div>
+
+            <div class="commitment-item">
+                <div class="item-icon">
+                    <span class="icon-bg"></span>
+                    <span class="icon-symbol">🏢</span>
+                </div>
+                <div class="item-content">
+                    <h3 class="item-title">บริการโดยตรง</h3>
+                    <p class="item-description">บริษัทรับงานเองและไม่มีการส่งงานต่อให้ซับกินค่าหัวคิว</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="motto-section">
+            <div class="motto-card">
+                <div class="motto-icon">💫</div>
+                <h3 class="motto-title">คติของเรา</h3>
+                <p class="motto-text">"ตรวจจริง เห็นกับตา ไปพร้อมลูกค้า"</p>
+                <div class="motto-decoration">
+                    <div class="decoration-line"></div>
+                    <div class="decoration-dot"></div>
+                    <div class="decoration-line"></div>
+                </div>
+            </div>
+        </div>
         </div>
     </section>
 
@@ -424,7 +428,7 @@
     </button>
 
     <script>
-                // DOM Elements
+        // DOM Elements
         const loadingScreen = document.getElementById("loadingScreen")
         const navbar = document.getElementById("navbar")
         const navToggle = document.getElementById("navToggle")
@@ -433,186 +437,189 @@
 
         // Loading Screen
         window.addEventListener("load", () => {
-        setTimeout(() => {
-            loadingScreen.classList.add("hidden")
-        }, 1500)
+            setTimeout(() => {
+                loadingScreen.classList.add("hidden")
+            }, 1500)
         })
 
         // Navigation
         let lastScrollTop = 0
 
         window.addEventListener("scroll", () => {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop
 
-        // Navbar scroll effect
-        if (scrollTop > 100) {
-            navbar.classList.add("scrolled")
-        } else {
-            navbar.classList.remove("scrolled")
-        }
+            // Navbar scroll effect
+            if (scrollTop > 100) {
+                navbar.classList.add("scrolled")
+            } else {
+                navbar.classList.remove("scrolled")
+            }
 
-        // Back to top button
-        if (scrollTop > 500) {
-            backToTop.classList.add("visible")
-        } else {
-            backToTop.classList.remove("visible")
-        }
+            // Back to top button
+            if (scrollTop > 500) {
+                backToTop.classList.add("visible")
+            } else {
+                backToTop.classList.remove("visible")
+            }
 
-        // Parallax effect for floating elements
-        const floatingElements = document.querySelectorAll(".floating-element")
-        floatingElements.forEach((element, index) => {
-            const speed = Number.parseFloat(element.dataset.speed) || 0.5
-            const yPos = -(scrollTop * speed)
-            element.style.transform = `translateY(${yPos}px)`
-        })
+            // Parallax effect for floating elements
+            const floatingElements = document.querySelectorAll(".floating-element")
+            floatingElements.forEach((element, index) => {
+                const speed = Number.parseFloat(element.dataset.speed) || 0.5
+                const yPos = -(scrollTop * speed)
+                element.style.transform = `translateY(${yPos}px)`
+            })
 
-        lastScrollTop = scrollTop
+            lastScrollTop = scrollTop
         })
 
         // Mobile Navigation Toggle
         navToggle.addEventListener("click", () => {
-        navToggle.classList.toggle("active")
-        navMenu.classList.toggle("active")
+            navToggle.classList.toggle("active")
+            navMenu.classList.toggle("active")
         })
 
         // Close mobile menu when clicking on a link
         document.querySelectorAll(".nav-link").forEach((link) => {
-        link.addEventListener("click", () => {
-            navToggle.classList.remove("active")
-            navMenu.classList.remove("active")
-        })
+            link.addEventListener("click", () => {
+                navToggle.classList.remove("active")
+                navMenu.classList.remove("active")
+            })
         })
 
         // Back to Top Button
         backToTop.addEventListener("click", () => {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth",
-        })
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+            })
         })
 
         // Smooth Scrolling for Navigation Links
         document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault()
-            const target = document.querySelector(this.getAttribute("href"))
-            if (target) {
-            const offsetTop = target.offsetTop - 80
-            window.scrollTo({
-                top: offsetTop,
-                behavior: "smooth",
+            anchor.addEventListener("click", function(e) {
+                e.preventDefault()
+                const target = document.querySelector(this.getAttribute("href"))
+                if (target) {
+                    const offsetTop = target.offsetTop - 80
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: "smooth",
+                    })
+                }
             })
-            }
-        })
         })
 
         // Active Navigation Link
         window.addEventListener("scroll", () => {
-        const sections = document.querySelectorAll("section[id]")
-        const navLinks = document.querySelectorAll(".nav-link")
+            const sections = document.querySelectorAll("section[id]")
+            const navLinks = document.querySelectorAll(".nav-link")
 
-        let current = ""
-        sections.forEach((section) => {
-            const sectionTop = section.offsetTop - 100
-            const sectionHeight = section.clientHeight
-            if (window.pageYOffset >= sectionTop && window.pageYOffset < sectionTop + sectionHeight) {
-            current = section.getAttribute("id")
-            }
-        })
+            let current = ""
+            sections.forEach((section) => {
+                const sectionTop = section.offsetTop - 100
+                const sectionHeight = section.clientHeight
+                if (window.pageYOffset >= sectionTop && window.pageYOffset < sectionTop + sectionHeight) {
+                    current = section.getAttribute("id")
+                }
+            })
 
-        navLinks.forEach((link) => {
-            link.classList.remove("active")
-            if (link.getAttribute("href") === `#${current}`) {
-            link.classList.add("active")
-            }
-        })
+            navLinks.forEach((link) => {
+                link.classList.remove("active")
+                if (link.getAttribute("href") === `#${current}`) {
+                    link.classList.add("active")
+                }
+            })
         })
 
         // Intersection Observer for Animations
         const observerOptions = {
-        threshold: 0.1,
-        rootMargin: "0px 0px -50px 0px",
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px",
         }
 
         const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-            entry.target.classList.add("visible")
-            }
-        })
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible")
+                }
+            })
         }, observerOptions)
 
         // Observe elements for animations
         document.addEventListener("DOMContentLoaded", () => {
-        const animatedElements = document.querySelectorAll(".fade-in, .slide-in-left, .slide-in-right, .scale-in")
-        animatedElements.forEach((el) => observer.observe(el))
+            const animatedElements = document.querySelectorAll(
+                ".fade-in, .slide-in-left, .slide-in-right, .scale-in")
+            animatedElements.forEach((el) => observer.observe(el))
         })
 
         // Counter Animation
         function animateCounter(element, target, duration = 2000) {
-        let start = 0
-        const increment = target / (duration / 16)
+            let start = 0
+            const increment = target / (duration / 16)
 
-        const timer = setInterval(() => {
-            start += increment
-            if (start >= target) {
-            element.textContent = target
-            clearInterval(timer)
-            } else {
-            element.textContent = Math.floor(start)
-            }
-        }, 16)
+            const timer = setInterval(() => {
+                start += increment
+                if (start >= target) {
+                    element.textContent = target
+                    clearInterval(timer)
+                } else {
+                    element.textContent = Math.floor(start)
+                }
+            }, 16)
         }
 
         // Animate counters when they come into view
         const counterObserver = new IntersectionObserver(
-        (entries) => {
-            entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                const counter = entry.target
-                const target = Number.parseInt(counter.dataset.count)
-                animateCounter(counter, target)
-                counterObserver.unobserve(counter)
-            }
-            })
-        },
-        { threshold: 0.5 },
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        const counter = entry.target
+                        const target = Number.parseInt(counter.dataset.count)
+                        animateCounter(counter, target)
+                        counterObserver.unobserve(counter)
+                    }
+                })
+            }, {
+                threshold: 0.5
+            },
         )
 
         document.querySelectorAll(".stat-number").forEach((counter) => {
-        counterObserver.observe(counter)
+            counterObserver.observe(counter)
         })
 
         // Tilt Effect for Cards
         document.querySelectorAll("[data-tilt]").forEach((card) => {
-        card.addEventListener("mousemove", (e) => {
-            const rect = card.getBoundingClientRect()
-            const x = e.clientX - rect.left
-            const y = e.clientY - rect.top
+            card.addEventListener("mousemove", (e) => {
+                const rect = card.getBoundingClientRect()
+                const x = e.clientX - rect.left
+                const y = e.clientY - rect.top
 
-            const centerX = rect.width / 2
-            const centerY = rect.height / 2
+                const centerX = rect.width / 2
+                const centerY = rect.height / 2
 
-            const rotateX = (y - centerY) / 10
-            const rotateY = (centerX - x) / 10
+                const rotateX = (y - centerY) / 10
+                const rotateY = (centerX - x) / 10
 
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`
-        })
+                card.style.transform =
+                    `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`
+            })
 
-        card.addEventListener("mouseleave", () => {
-            card.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)"
-        })
+            card.addEventListener("mouseleave", () => {
+                card.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)"
+            })
         })
 
         // Particle Effect (Simple version)
         function createParticles() {
-        const particlesContainer = document.getElementById("particles-js")
-        if (!particlesContainer) return
+            const particlesContainer = document.getElementById("particles-js")
+            if (!particlesContainer) return
 
-        for (let i = 0; i < 50; i++) {
-            const particle = document.createElement("div")
-            particle.className = "particle"
-            particle.style.cssText = `
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement("div")
+                particle.className = "particle"
+                particle.style.cssText = `
                     position: absolute;
                     width: 2px;
                     height: 2px;
@@ -623,8 +630,8 @@
                     animation: float ${3 + Math.random() * 4}s ease-in-out infinite;
                     animation-delay: ${Math.random() * 2}s;
                 `
-            particlesContainer.appendChild(particle)
-        }
+                particlesContainer.appendChild(particle)
+            }
         }
 
         // Initialize particles
@@ -632,106 +639,106 @@
 
         // Form Validation (if forms are added later)
         function validateForm(form) {
-        const inputs = form.querySelectorAll("input[required], textarea[required]")
-        let isValid = true
+            const inputs = form.querySelectorAll("input[required], textarea[required]")
+            let isValid = true
 
-        inputs.forEach((input) => {
-            if (!input.value.trim()) {
-            input.classList.add("error")
-            isValid = false
-            } else {
-            input.classList.remove("error")
-            }
-        })
+            inputs.forEach((input) => {
+                if (!input.value.trim()) {
+                    input.classList.add("error")
+                    isValid = false
+                } else {
+                    input.classList.remove("error")
+                }
+            })
 
-        return isValid
+            return isValid
         }
 
         // Lazy Loading for Images
         const imageObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-            const img = entry.target
-            img.src = img.dataset.src
-            img.classList.remove("lazy")
-            imageObserver.unobserve(img)
-            }
-        })
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    const img = entry.target
+                    img.src = img.dataset.src
+                    img.classList.remove("lazy")
+                    imageObserver.unobserve(img)
+                }
+            })
         })
 
         document.querySelectorAll("img[data-src]").forEach((img) => {
-        imageObserver.observe(img)
+            imageObserver.observe(img)
         })
 
         // Keyboard Navigation
         document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") {
-            // Close mobile menu
-            navToggle.classList.remove("active")
-            navMenu.classList.remove("active")
-        }
+            if (e.key === "Escape") {
+                // Close mobile menu
+                navToggle.classList.remove("active")
+                navMenu.classList.remove("active")
+            }
         })
 
         // Performance Optimization
         let ticking = false
 
         function updateOnScroll() {
-        // Throttle scroll events
-        if (!ticking) {
-            requestAnimationFrame(() => {
-            // Scroll-dependent updates here
-            ticking = false
-            })
-            ticking = true
-        }
+            // Throttle scroll events
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    // Scroll-dependent updates here
+                    ticking = false
+                })
+                ticking = true
+            }
         }
 
         window.addEventListener("scroll", updateOnScroll)
 
         // Error Handling
         window.addEventListener("error", (e) => {
-        console.error("JavaScript Error:", e.error)
+            console.error("JavaScript Error:", e.error)
         })
 
         // Service Worker Registration (for PWA capabilities)
         if ("serviceWorker" in navigator) {
-        window.addEventListener("load", () => {
-            navigator.serviceWorker
-            .register("/sw.js")
-            .then((registration) => {
-                console.log("SW registered: ", registration)
+            window.addEventListener("load", () => {
+                navigator.serviceWorker
+                    .register("/sw.js")
+                    .then((registration) => {
+                        console.log("SW registered: ", registration)
+                    })
+                    .catch((registrationError) => {
+                        console.log("SW registration failed: ", registrationError)
+                    })
             })
-            .catch((registrationError) => {
-                console.log("SW registration failed: ", registrationError)
-            })
-        })
         }
 
         // Analytics (placeholder for Google Analytics or similar)
         function trackEvent(action, category, label) {
-        if (typeof gtag !== "undefined") {
-            gtag("event", action, {
-            event_category: category,
-            event_label: label,
-            })
-        }
+            if (typeof gtag !== "undefined") {
+                gtag("event", action, {
+                    event_category: category,
+                    event_label: label,
+                })
+            }
         }
 
         // Track button clicks
         document.querySelectorAll(".btn").forEach((btn) => {
-        btn.addEventListener("click", () => {
-            trackEvent("click", "button", btn.textContent.trim())
-        })
+            btn.addEventListener("click", () => {
+                trackEvent("click", "button", btn.textContent.trim())
+            })
         })
 
         // Accessibility Improvements
         document.addEventListener("DOMContentLoaded", () => {
-        // Add skip link
-        const skipLink = document.createElement("a")
-        skipLink.href = "#main-content"
-        skipLink.textContent = "Skip to main content"
-        skipLink.className = "skip-link"
-        skipLink.style.cssText = `
+            // Add skip link
+            const skipLink = document.createElement("a")
+            skipLink.href = "#main-content"
+            skipLink.textContent = "Skip to main content"
+            skipLink.className = "skip-link"
+            skipLink.style.cssText = `
                 position: absolute;
                 top: -40px;
                 left: 6px;
@@ -744,35 +751,32 @@
                 transition: top 0.3s;
             `
 
-        skipLink.addEventListener("focus", () => {
-            skipLink.style.top = "6px"
-        })
+            skipLink.addEventListener("focus", () => {
+                skipLink.style.top = "6px"
+            })
 
-        skipLink.addEventListener("blur", () => {
-            skipLink.style.top = "-40px"
-        })
+            skipLink.addEventListener("blur", () => {
+                skipLink.style.top = "-40px"
+            })
 
-        document.body.insertBefore(skipLink, document.body.firstChild)
+            document.body.insertBefore(skipLink, document.body.firstChild)
 
-        // Add main content landmark
-        const mainContent = document.querySelector(".main-content") || document.querySelector("main")
-        if (mainContent) {
-            mainContent.id = "main-content"
-            mainContent.setAttribute("role", "main")
-        }
+            // Add main content landmark
+            const mainContent = document.querySelector(".main-content") || document.querySelector("main")
+            if (mainContent) {
+                mainContent.id = "main-content"
+                mainContent.setAttribute("role", "main")
+            }
         })
 
         // Initialize everything when DOM is loaded
         document.addEventListener("DOMContentLoaded", () => {
-        console.log("🏠 ต.ตรวจบ้าน website loaded successfully!")
+            console.log("🏠 ต.ตรวจบ้าน website loaded successfully!")
 
-        // Add any additional initialization here
-        setTimeout(() => {
-            document.body.classList.add("loaded")
-        }, 100)
+            // Add any additional initialization here
+            setTimeout(() => {
+                document.body.classList.add("loaded")
+            }, 100)
         })
-
-
-
     </script>
 @endsection

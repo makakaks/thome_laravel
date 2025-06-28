@@ -1,4 +1,4 @@
-@extends('component.layout')
+@extends('layouts.layout_home')
 
 @section('content')
     <link rel="stylesheet" href="/css/home/article/test_article.css">
@@ -188,8 +188,8 @@
                 <button class="prev">❮</button>
                 <div class="video-wrapper" id="videoSlider">
                     <!-- <div class="video-item">
-                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/M-nLhplc-mc?si=cXWxjwDwR4Tk84WZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                                    </div> -->
+                                            <iframe width="560" height="315" src="https://www.youtube.com/embed/M-nLhplc-mc?si=cXWxjwDwR4Tk84WZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                        </div> -->
                     <a class="content-carousel-item video-item" href="/articles_view3">
                         <img src="https://www.thomeinspector.com/assets/upload/newsThumbnail/b764dd4c5037789dd95efac895cfbac14aa2a041.jpg"
                             alt="Content 1">

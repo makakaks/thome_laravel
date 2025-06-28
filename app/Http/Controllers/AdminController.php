@@ -11,11 +11,12 @@ use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Hash;
 
+use App\Models\User;
+
 class AdminController extends Controller
 
 {
     //
-
     function index()
     {
         $article = Article::where('id', 1)->first();
@@ -50,8 +51,24 @@ class AdminController extends Controller
         }
     }
 
-    function change_password()
-    {
-        return view('admin.change_password');
-    }
+    // function change_password()
+    // {
+    //     return view('admin.change_password');
+    // }
+
+    // function user_manage()
+    // {
+    //     $user = auth()->user();
+    //     // if IsSuperAdmin
+    //     if (auth()->user()->id != 1){
+    //         $query = User::query();
+    //         $users = $query->where('id', '!=', 1);
+    //         $users = $users->get();
+    //         return view('admin.profile.edit', compact('users'));
+    //     }
+    //     else {
+
+    //         return view('admin.profile.edit');
+    //     }
+    // }
 }

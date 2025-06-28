@@ -111,7 +111,7 @@ Route::prefix('review')->controller(ReviewHomeController::class)->group(function
     Route::get('/detail', 'show')->name('review_home.show');
 });
 
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware('auth')->group(function () {
     Route::prefix('article')->controller(ArticleController::class)->group(function () {
         Route::get('/', 'manage')->name('admin.article.manage');
         Route::delete('/{id}', 'delete')->name('admin.article.delete');
@@ -175,6 +175,10 @@ Route::prefix('admin')->group(function () {
         Route::post('/reorder', 'reorder')->name('admin.department.reorder');
     });
 
+    Route::prefix('user')->controller(AdminController::class)->group(function () {
+        Route::get('/','user_manage')->name('admin.user,manage');
+    });
+
     Route::post('/upload_image', [AdminController::class, 'upload_image'])->name('admin.upload');
     Route::get('/change_password', [AdminController::class, 'change_password_view'])->name('admin.change_password');
 });
@@ -214,3 +218,6 @@ Route::prefix('api')->group(function () {
 //     Route::get('/delete_tag', 'delete_tag')->name('test.delete_tag');
 //     Route::get('/create_tag_article', 'create_tag_article')->name('test.create_tag_article');
 // });
+
+
+require __DIR__.'/auth.php';
