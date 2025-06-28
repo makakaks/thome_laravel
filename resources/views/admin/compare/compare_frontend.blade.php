@@ -105,6 +105,46 @@
             border-color: var(--primary-color);
         }
 
+        .filter-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            z-index: 1000;
+            display: none;
+            max-height: 300px;
+            overflow-y: auto;
+            min-width: 200px;
+        }
+
+        .filter-dropdown.show {
+            display: block;
+        }
+
+        .filter-option {
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .filter-option:last-child {
+            border-bottom: none;
+        }
+
+        .filter-option:hover {
+            background: var(--bg-secondary);
+        }
+
+        .filter-option.selected {
+            background: var(--primary-color);
+            color: white;
+        }
+
         .results-info {
             display: flex;
             align-items: center;
@@ -438,6 +478,44 @@
             cursor: not-allowed;
         }
 
+        /* Error Message */
+        .error-message {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--warning-color);
+        }
+
+        .error-message i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .error-message h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .error-message p {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .retry-btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .retry-btn:hover {
+            background: var(--primary-dark);
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .nav-filters {
@@ -520,6 +598,13 @@
                             <span>ประเภท</span>
                             <i class="fas fa-chevron-down"></i>
                         </button>
+                        <div class="filter-dropdown" id="typeDropdown">
+                            <div class="filter-option selected" data-value="">ทั้งหมด</div>
+                            <div class="filter-option" data-value="บ้านเดี่ยว">บ้านเดี่ยว</div>
+                            <div class="filter-option" data-value="ทาวน์เฮาส์">ทาวน์เฮาส์</div>
+                            <div class="filter-option" data-value="คอนโด">คอนโด</div>
+                            <div class="filter-option" data-value="บ้านแฝด">บ้านแฝด</div>
+                        </div>
                     </div>
                     
                     <div class="filter-group">
@@ -528,6 +613,9 @@
                             <span>ที่ตั้ง</span>
                             <i class="fas fa-chevron-down"></i>
                         </button>
+                        <div class="filter-dropdown" id="locationDropdown">
+                            <div class="filter-option selected" data-value="">ทั้งหมด</div>
+                        </div>
                     </div>
                     
                     <div class="filter-group">
@@ -536,6 +624,14 @@
                             <span>ราคา</span>
                             <i class="fas fa-chevron-down"></i>
                         </button>
+                        <div class="filter-dropdown" id="priceDropdown">
+                            <div class="filter-option selected" data-value="">ทั้งหมด</div>
+                            <div class="filter-option" data-value="0-2000000">ต่ำกว่า 2 ล้าน</div>
+                            <div class="filter-option" data-value="2000000-5000000">2-5 ล้าน</div>
+                            <div class="filter-option" data-value="5000000-10000000">5-10 ล้าน</div>
+                            <div class="filter-option" data-value="10000000-20000000">10-20 ล้าน</div>
+                            <div class="filter-option" data-value="20000000-999999999">มากกว่า 20 ล้าน</div>
+                        </div>
                     </div>
                     
                     <div class="filter-group">
@@ -544,6 +640,13 @@
                             <span>เรียงตาม</span>
                             <i class="fas fa-chevron-down"></i>
                         </button>
+                        <div class="filter-dropdown" id="sortDropdown">
+                            <div class="filter-option selected" data-value="newest">ใหม่ล่าสุด</div>
+                            <div class="filter-option" data-value="price-low">ราคาต่ำ-สูง</div>
+                            <div class="filter-option" data-value="price-high">ราคาสูง-ต่ำ</div>
+                            <div class="filter-option" data-value="area-large">พื้นที่ใหญ่-เล็ก</div>
+                            <div class="filter-option" data-value="area-small">พื้นที่เล็ก-ใหญ่</div>
+                        </div>
                     </div>
                 </div>
 
@@ -571,6 +674,14 @@
             <div class="loading" id="loading">
                 <div class="spinner"></div>
                 <p>กำลังโหลดข้อมูลบ้าน...</p>
+            </div>
+
+            <!-- Error Message -->
+            <div class="error-message" id="errorMessage" style="display: none;">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h3>เกิดข้อผิดพลาด</h3>
+                <p id="errorText">ไม่สามารถโหลดข้อมูลได้ กรุณาลองใหม่อีกครั้ง</p>
+                <button class="retry-btn" onclick="fetchHouses()">ลองใหม่</button>
             </div>
 
             <!-- Houses Grid -->
@@ -614,8 +725,18 @@
         let compareList = [];
         const maxCompare = 3;
 
+        // Filter states
+        let currentFilters = {
+            type: '',
+            location: '',
+            price: '',
+            sort: 'newest'
+        };
+
         // DOM elements
         const loading = document.getElementById('loading');
+        const errorMessage = document.getElementById('errorMessage');
+        const errorText = document.getElementById('errorText');
         const housesGrid = document.getElementById('housesGrid');
         const noResults = document.getElementById('noResults');
         const resultsCount = document.getElementById('resultsCount');
@@ -634,20 +755,256 @@
         // Fetch houses from API
         async function fetchHouses() {
             try {
-                const response = await fetch('/api/houses');
-                if (!response.ok) throw new Error('Failed to fetch houses');
+                showLoading();
+                hideError();
                 
-                houses = await response.json();
+                const response = await fetch('/api/houses');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                houses = data;
                 filteredHouses = [...houses];
                 
+                populateLocationFilter();
+                populateTypeFilter();
                 displayHouses();
                 updateResultsCount();
                 
             } catch (error) {
                 console.error('Error fetching houses:', error);
-                showNoResults();
+                showError(error.message);
             } finally {
                 hideLoading();
+            }
+        }
+
+        // Show loading
+        function showLoading() {
+            loading.style.display = 'flex';
+            housesGrid.style.display = 'none';
+            noResults.style.display = 'none';
+            errorMessage.style.display = 'none';
+        }
+
+        // Hide loading
+        function hideLoading() {
+            loading.style.display = 'none';
+        }
+
+        // Show error
+        function showError(message) {
+            errorText.textContent = message || 'เกิดข้อผิดพลาดในการโหลดข้อมูล';
+            errorMessage.style.display = 'block';
+            housesGrid.style.display = 'none';
+            noResults.style.display = 'none';
+            resultsCount.textContent = 'เกิดข้อผิดพลาด';
+        }
+
+        // Hide error
+        function hideError() {
+            errorMessage.style.display = 'none';
+        }
+
+        // Populate location filter based on available data
+        function populateLocationFilter() {
+            const locations = [...new Set(houses.map(house => house.location))].filter(Boolean);
+            const locationDropdown = document.getElementById('locationDropdown');
+            
+            // Clear existing options except "ทั้งหมด"
+            locationDropdown.innerHTML = '<div class="filter-option selected" data-value="">ทั้งหมด</div>';
+            
+            locations.forEach(location => {
+                const option = document.createElement('div');
+                option.className = 'filter-option';
+                option.dataset.value = location;
+                option.textContent = location;
+                locationDropdown.appendChild(option);
+            });
+        }
+
+        // Populate type filter based on available data
+        function populateTypeFilter() {
+            const types = [...new Set(houses.map(house => house.type))].filter(Boolean);
+            const typeDropdown = document.getElementById('typeDropdown');
+            
+            // Clear existing options except "ทั้งหมด"
+            const allOption = typeDropdown.querySelector('[data-value=""]');
+            typeDropdown.innerHTML = '';
+            typeDropdown.appendChild(allOption);
+            
+            types.forEach(type => {
+                const option = document.createElement('div');
+                option.className = 'filter-option';
+                option.dataset.value = type;
+                option.textContent = type;
+                typeDropdown.appendChild(option);
+            });
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Filter dropdowns
+            setupFilterDropdown('typeFilter', 'typeDropdown', 'type');
+            setupFilterDropdown('locationFilter', 'locationDropdown', 'location');
+            setupFilterDropdown('priceFilter', 'priceDropdown', 'price');
+            setupFilterDropdown('sortFilter', 'sortDropdown', 'sort');
+
+            // Compare toggle
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('.compare-toggle')) {
+                    const btn = e.target.closest('.compare-toggle');
+                    const houseId = parseInt(btn.dataset.houseId);
+                    toggleCompare(houseId);
+                }
+            });
+
+            // Compare actions
+            compareBtn.addEventListener('click', showComparison);
+            clearCompareBtn.addEventListener('click', clearCompare);
+
+            // View toggle
+            document.querySelectorAll('.view-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const view = this.dataset.view;
+                    if (view === 'list') {
+                        housesGrid.style.gridTemplateColumns = '1fr';
+                    } else {
+                        housesGrid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(320px, 1fr))';
+                    }
+                });
+            });
+
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.filter-group')) {
+                    document.querySelectorAll('.filter-dropdown').forEach(dropdown => {
+                        dropdown.classList.remove('show');
+                    });
+                }
+            });
+        }
+
+        // Setup individual filter dropdown
+        function setupFilterDropdown(buttonId, dropdownId, filterType) {
+            const button = document.getElementById(buttonId);
+            const dropdown = document.getElementById(dropdownId);
+
+            button.addEventListener('click', function(e) {
+                e.stopPropagation();
+                
+                // Close other dropdowns
+                document.querySelectorAll('.filter-dropdown').forEach(d => {
+                    if (d !== dropdown) d.classList.remove('show');
+                });
+                
+                dropdown.classList.toggle('show');
+            });
+
+            dropdown.addEventListener('click', function(e) {
+                if (e.target.classList.contains('filter-option')) {
+                    const value = e.target.dataset.value;
+                    const text = e.target.textContent;
+                    
+                    // Update selected option
+                    dropdown.querySelectorAll('.filter-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    e.target.classList.add('selected');
+                    
+                    // Update button text
+                    const span = button.querySelector('span');
+                    if (value === '') {
+                        span.textContent = getFilterLabel(filterType);
+                        button.classList.remove('active');
+                    } else {
+                        span.textContent = text;
+                        button.classList.add('active');
+                    }
+                    
+                    // Update filter
+                    currentFilters[filterType] = value;
+                    applyFilters();
+                    
+                    dropdown.classList.remove('show');
+                }
+            });
+        }
+
+        // Get filter label
+        function getFilterLabel(filterType) {
+            const labels = {
+                type: 'ประเภท',
+                location: 'ที่ตั้ง',
+                price: 'ราคา',
+                sort: 'เรียงตาม'
+            };
+            return labels[filterType] || '';
+        }
+
+        // Apply filters
+        function applyFilters() {
+            filteredHouses = houses.filter(house => {
+                // Type filter
+                if (currentFilters.type && house.type !== currentFilters.type) {
+                    return false;
+                }
+                
+                // Location filter
+                if (currentFilters.location && house.location !== currentFilters.location) {
+                    return false;
+                }
+                
+                // Price filter
+                if (currentFilters.price) {
+                    const [min, max] = currentFilters.price.split('-').map(Number);
+                    const housePrice = parseFloat(house.price) || 0;
+                    if (housePrice < min || housePrice > max) {
+                        return false;
+                    }
+                }
+                
+                return true;
+            });
+
+            // Apply sorting
+            applySorting();
+            
+            displayHouses();
+            updateResultsCount();
+        }
+
+        // Apply sorting
+        function applySorting() {
+            switch (currentFilters.sort) {
+                case 'price-low':
+                    filteredHouses.sort((a, b) => (parseFloat(a.price) || 0) - (parseFloat(b.price) || 0));
+                    break;
+                case 'price-high':
+                    filteredHouses.sort((a, b) => (parseFloat(b.price) || 0) - (parseFloat(a.price) || 0));
+                    break;
+                case 'area-large':
+                    filteredHouses.sort((a, b) => (parseFloat(b.area) || 0) - (parseFloat(a.area) || 0));
+                    break;
+                case 'area-small':
+                    filteredHouses.sort((a, b) => (parseFloat(a.area) || 0) - (parseFloat(b.area) || 0));
+                    break;
+                case 'newest':
+                default:
+                    filteredHouses.sort((a, b) => {
+                        const yearA = parseInt(a.year_built) || 0;
+                        const yearB = parseInt(b.year_built) || 0;
+                        if (yearA === yearB) {
+                            return (b.id || 0) - (a.id || 0); // Sort by ID if year is same
+                        }
+                        return yearB - yearA;
+                    });
+                    break;
             }
         }
 
@@ -693,29 +1050,25 @@
             if (house.has_cctv_camera) features.push('CCTV');
             if (house.has_security_home_system) features.push('Security System');
 
+            // Format price
+            const price = parseFloat(house.price) || 0;
+            const formattedPrice = price > 0 ? (price / 1000000).toFixed(1) + ' ล้านบาท' : 'ราคาติดต่อ';
+
             card.innerHTML = `
                 <div class="house-image">
-                    <img src="${imageUrl}" alt="${house.name}" loading="lazy">
+                    <img src="${imageUrl}" alt="${house.name || 'บ้าน'}" loading="lazy" onerror="this.src='/placeholder.svg?height=240&width=320'">
                     ${statusHtml}
                     <div class="house-actions">
                         <button class="action-btn compare-toggle ${isInCompare ? 'active' : ''}" 
                                 data-house-id="${house.id}" title="เปรียบเทียบ">
                             <i class="fas fa-balance-scale"></i>
                         </button>
-                        <button class="action-btn favorite-toggle" 
-                                data-house-id="${house.id}" title="รายการโปรด">
-                            <i class="far fa-heart"></i>
-                        </button>
-                        <button class="action-btn share-btn" 
-                                data-house-id="${house.id}" title="แชร์">
-                            <i class="fas fa-share-alt"></i>
-                        </button>
                     </div>
                     <div class="house-overlay">
-                        <div class="house-title">${house.name}</div>
+                        <div class="house-title">${house.name || 'บ้าน'}</div>
                         <div class="house-location">
                             <i class="fas fa-map-marker-alt"></i>
-                            ${house.location}
+                            ${house.location || 'ไม่ระบุ'}
                         </div>
                     </div>
                 </div>
@@ -723,23 +1076,23 @@
                     <div class="house-specs">
                         <div class="spec-item">
                             <i class="fas fa-bed"></i>
-                            <span>${house.bedrooms}</span>
+                            <span>${house.bedrooms || 0}</span>
                         </div>
                         <div class="spec-item">
                             <i class="fas fa-bath"></i>
-                            <span>${house.bathrooms}</span>
+                            <span>${house.bathrooms || 0}</span>
                         </div>
                         <div class="spec-item">
                             <i class="fas fa-ruler-combined"></i>
-                            <span>${house.area} ตร.ม.</span>
+                            <span>${house.area || 0} ตร.ม.</span>
                         </div>
                         <div class="spec-item">
                             <i class="fas fa-car"></i>
-                            <span>${house.car_park}</span>
+                            <span>${house.car_park || 0}</span>
                         </div>
                     </div>
                     <div class="house-price">
-                        ${house.type || 'บ้าน'} ${house.floors ? house.floors + ' ชั้น' : ''}
+                        ${formattedPrice}
                     </div>
                     <div class="house-features">
                         ${features.slice(0, 3).map(feature => 
@@ -751,63 +1104,6 @@
             `;
 
             return card;
-        }
-
-        // Setup event listeners
-        function setupEventListeners() {
-            // Compare toggle
-            document.addEventListener('click', function(e) {
-                if (e.target.closest('.compare-toggle')) {
-                    const btn = e.target.closest('.compare-toggle');
-                    const houseId = parseInt(btn.dataset.houseId);
-                    toggleCompare(houseId);
-                }
-            });
-
-            // Favorite toggle
-            document.addEventListener('click', function(e) {
-                if (e.target.closest('.favorite-toggle')) {
-                    const btn = e.target.closest('.favorite-toggle');
-                    const icon = btn.querySelector('i');
-                    
-                    if (icon.classList.contains('far')) {
-                        icon.classList.remove('far');
-                        icon.classList.add('fas');
-                        btn.classList.add('active');
-                    } else {
-                        icon.classList.remove('fas');
-                        icon.classList.add('far');
-                        btn.classList.remove('active');
-                    }
-                }
-            });
-
-            // Share button
-            document.addEventListener('click', function(e) {
-                if (e.target.closest('.share-btn')) {
-                    const houseId = e.target.closest('.share-btn').dataset.houseId;
-                    shareHouse(houseId);
-                }
-            });
-
-            // Compare actions
-            compareBtn.addEventListener('click', showComparison);
-            clearCompareBtn.addEventListener('click', clearCompare);
-
-            // View toggle
-            document.querySelectorAll('.view-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    const view = this.dataset.view;
-                    if (view === 'list') {
-                        housesGrid.style.gridTemplateColumns = '1fr';
-                    } else {
-                        housesGrid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(320px, 1fr))';
-                    }
-                });
-            });
         }
 
         // Toggle compare
@@ -844,10 +1140,10 @@
                 const imageUrl = house.image_url || '/placeholder.svg?height=40&width=50';
                 
                 item.innerHTML = `
-                    <img src="${imageUrl}" alt="${house.name}">
+                    <img src="${imageUrl}" alt="${house.name || 'บ้าน'}" onerror="this.src='/placeholder.svg?height=40&width=50'">
                     <div class="compare-item-info">
-                        <h4>${house.name}</h4>
-                        <p>${house.location}</p>
+                        <h4>${house.name || 'บ้าน'}</h4>
+                        <p>${house.location || 'ไม่ระบุ'}</p>
                     </div>
                     <button class="remove-compare" onclick="toggleCompare(${house.id})">
                         <i class="fas fa-times"></i>
@@ -892,7 +1188,7 @@
             updateCompareButtons();
         }
 
-        // Show comparison - แก้ไขให้ใช้ Laravel route
+        // Show comparison - ใช้ Laravel route
         function showComparison() {
             if (compareList.length < 2) {
                 alert('กรุณาเลือกบ้านอย่างน้อย 2 หลังเพื่อเปรียบเทียบ');
@@ -901,27 +1197,10 @@
 
             // Create comparison URL with house IDs - ใช้ Laravel route
             const houseIds = compareList.map(house => house.id).join(',');
-            window.open(`{{ route('admin.compare.comparison') }}?houses=${houseIds}`, '_blank');
-        }
-
-        // Share house
-        function shareHouse(houseId) {
-            const house = houses.find(h => h.id == houseId);
-            if (!house) return;
-
-            if (navigator.share) {
-                navigator.share({
-                    title: house.name,
-                    text: `ดูบ้าน ${house.name} ที่ ${house.location}`,
-                    url: window.location.href + `?house=${houseId}`
-                });
-            } else {
-                // Fallback: copy to clipboard
-                const url = window.location.href + `?house=${houseId}`;
-                navigator.clipboard.writeText(url).then(() => {
-                    alert('คัดลอกลิงก์แล้ว!');
-                });
-            }
+            
+            // สร้าง URL สำหรับ Laravel route
+            const comparisonUrl = `/admin/compare/comparison?houses=${houseIds}`;
+            window.open(comparisonUrl, '_blank');
         }
 
         // Update results count
@@ -934,11 +1213,6 @@
             housesGrid.style.display = 'none';
             noResults.style.display = 'block';
             resultsCount.textContent = 'ไม่พบข้อมูล';
-        }
-
-        // Hide loading
-        function hideLoading() {
-            loading.style.display = 'none';
         }
     </script>
 </body>
