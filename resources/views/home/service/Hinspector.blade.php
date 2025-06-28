@@ -416,26 +416,6 @@
         });
     </script>
 
-<<<<<<< HEAD
-
-    <!-- <section id ="pricing" class="pricing-section">
-            <h2 class="pricing-heading" data-aos="fade-up">ค่าบริการตรวจบ้านและคอนโด</h2> -->
-
-    <div class="pricing-container">
-        <header>
-            <div class="logo-container">
-                <div class="logo-text">
-                    <h1>ค่าบริการตรวจบ้านและคอนโด</h1>
-                    <p>T. HOME INSPECTOR</p>
-                </div>
-            </div>
-        </header>
-
-        <div class="tabs">
-            <button class="tab-btn active" data-tab="condo">คอนโดมิเนียม</button>
-            <button class="tab-btn" data-tab="house">บ้าน/ทาวน์โฮม</button>
-        </div>
-=======
 <div class="pricing-body">
         <div class="pricing-container">
             <h1 class="main-title">ค่าบริการตรวจบ้านและคอนโด</h1>
@@ -444,252 +424,12 @@
                 <button class="tab-btn active" data-tab="house">บ้าน</button>
                 <button class="tab-btn" data-tab="condo">คอนโด</button>
             </div>
->>>>>>> 39fcad9ea6e5974911f50eab6b10420ecd64f046
 
             <!-- House Content -->
             <div class="tab-content active" id="house-content">
                 <div class="section-header-pricing">
                     <h2>บ้านเดี่ยว / บ้านแฝด / ทาวน์โฮม</h2>
                 </div>
-<<<<<<< HEAD
-                <div class="table-subheader">
-                    <div class="col-size">ไซส์</div>
-                    <div class="col-sqm">ตร.ม</div>
-                    <div class="col-round1">รอบ 1</div>
-                    <div class="col-round2">รอบ 2</div>
-                    <div class="col-time">ระยะเวลา</div>
-                    <div class="col-staff">จำนวนช่าง</div>
-                </div>
-
-                <!-- S Size -->
-                <div class="table-row">
-                    <div class="col-size">S</div>
-                    <div class="col-sqm">ไม่เกิน 50 ตร.ม</div>
-                    <div class="col-round1">5,350 บาท</div>
-                    <div class="col-round2">2,675 บาท</div>
-                    <div class="col-time">2 ชั่วโมงเศษ</div>
-                    <div class="col-staff">2 คน</div>
-                </div>
-
-                <!-- M Size -->
-                <div class="table-row">
-                    <div class="col-size">M</div>
-                    <div class="col-sqm">ไม่เกิน 100 ตร.ม</div>
-                    <div class="col-round1">6,420 บาท</div>
-                    <div class="col-round2">3,210 บาท</div>
-                    <div class="col-time">3 ชั่วโมงเศษ</div>
-                    <div class="col-staff">2-3 คน</div>
-                </div>
-
-                <!-- L Size -->
-                <div class="table-row">
-                    <div class="col-size">L</div>
-                    <div class="col-sqm">ไม่เกิน 150 ตร.ม</div>
-                    <div class="col-round1">7,490 บาท</div>
-                    <div class="col-round2">3,745 บาท</div>
-                    <div class="col-time">3 ชั่วโมงเศษ</div>
-                    <div class="col-staff">2-3 คน</div>
-                </div>
-
-                <!-- XL Size -->
-                <div class="table-row">
-                    <div class="col-size">XL</div>
-                    <div class="col-sqm">ไม่เกิน 200 ตร.ม</div>
-                    <div class="col-round1">8,560 บาท</div>
-                    <div class="col-round2">4,280 บาท</div>
-                    <div class="col-time">3 ชั่วโมงเศษ</div>
-                    <div class="col-staff">2-3 คน</div>
-                </div>
-
-                <!-- XXL Size -->
-                <div class="table-row">
-                    <div class="col-size">XXL</div>
-                    <div class="col-sqm">ไม่เกิน 400 ตร.ม</div>
-                    <div class="col-round1">12,840 บาท</div>
-                    <div class="col-round2">6,420 บาท</div>
-                    <div class="col-time">6 ชั่วโมงเศษ</div>
-                    <div class="col-staff">3-4 คน</div>
-                </div>
-
-                <!-- XXXL Size -->
-                <div class="table-row">
-                    <div class="col-size">XXXL</div>
-                    <div class="col-sqm">ไม่เกิน 600 ตร.ม</div>
-                    <div class="col-round1">17,120 บาท</div>
-                    <div class="col-round2">8,560 บาท</div>
-                    <div class="col-time">6 ชั่วโมงเศษ</div>
-                    <div class="col-staff">4-5 คน</div>
-                </div>
-            </div>
-
-            <div class="price-note">
-                <p>***ราคาข้างต้นรวมภาษีมูลค่าเพิ่ม 7% เรียบร้อยแล้ว</p>
-            </div>
-
-            <div class="price-info">
-                <div class="info-item">
-                    <div class="info-number">1</div>
-                    <div class="info-text">ค่าบริการตรวจบ้านและคอนโดรอบที่2 และรอบต่อๆ ไป คิดราคา <span
-                            class="highlight">50%</span> จากค่าบริการตรวจรอบแรก</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-number">2</div>
-                    <div class="info-text">ในการตรวจรอบที่2 และรอบต่อๆ ไป จำนวนคนตรวจและเวลา
-                        จะลดเหลือครึ่งหนึ่งจากจำนวนในการตรวจรอบแรก</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-number">3</div>
-                    <div class="info-text">ราคาค่าบริการตรวจบ้านเปลี่ยนแปลงได้ขึ้นอยู่กับ <span
-                            class="highlight">ขนาดพื้นที่รอบตัวบ้าน บ้านตัวอย่างที่มีการตกแต่ง และระยะทาง</span></div>
-                </div>
-                <div class="info-item">
-                    <div class="info-number">4</div>
-                    <div class="info-text">"<span class="highlight">ราคาเหมาะสมกับคุณภาพ</span>"
-                        การตรวจบ้านของเรานั้นเน้นคุณภาพและความคุ้มค่าของบริการที่ได้รับ</div>
-                </div>
-            </div>
-
-            <div class="service-features">
-                <div class="web-app">
-                    <h3>T.HOME WEB-APPLICATION</h3>
-                    <p>เข้าดูรายงานออนไลน์</p>
-                </div>
-                <div class="plus">+</div>
-                <div class="thermal">
-                    <h3>กล้องอินฟาเรด (Thermal Imaging)</h3>
-                    <p>สำหรับตรวจการรั่วซึมที่มองด้วยตาเปล่าไม่เห็น</p>
-                </div>
-                <div class="equipment-note">
-                    <p>"อุปกรณ์ครบครันทุกทีมตรวจและไม่คิดค่าใช้จ่ายเพิ่ม"</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="tab-content" id="house-content">
-            <div class="price-header pink">
-                <h2>บ้าน/ทาวน์โฮม</h2>
-            </div>
-            <div class="price-table">
-                <div class="table-header">
-                    <div class="col-area">พื้นที่ใช้สอย</div>
-                    <div class="col-price">ราคาตรวจ</div>
-                    <div class="col-details">รายละเอียดการตรวจ</div>
-                </div>
-                <div class="table-subheader">
-                    <div class="col-size">ไซส์</div>
-                    <div class="col-sqm">ตร.ม</div>
-                    <div class="col-round1">รอบ 1</div>
-                    <div class="col-round2">รอบ 2</div>
-                    <div class="col-time">ระยะเวลา</div>
-                    <div class="col-staff">จำนวนช่าง</div>
-                </div>
-
-                <!-- S Size -->
-                <div class="table-row">
-                    <div class="col-size">S</div>
-                    <div class="col-sqm">ไม่เกิน 200 ตร.ม</div>
-                    <div class="col-round1">8,560 บาท</div>
-                    <div class="col-round2">4,280 บาท</div>
-                    <div class="col-time">3 ชั่วโมงเศษ</div>
-                    <div class="col-staff">3 คน</div>
-                </div>
-
-                <!-- M Size -->
-                <div class="table-row">
-                    <div class="col-size">M</div>
-                    <div class="col-sqm">ไม่เกิน 400 ตร.ม</div>
-                    <div class="col-round1">12,840 บาท</div>
-                    <div class="col-round2">6,420 บาท</div>
-                    <div class="col-time">3 ชั่วโมงเศษ</div>
-                    <div class="col-staff">3-4 คน</div>
-                </div>
-
-                <!-- L Size -->
-                <div class="table-row">
-                    <div class="col-size">L</div>
-                    <div class="col-sqm">ไม่เกิน 600 ตร.ม</div>
-                    <div class="col-round1">17,120 บาท</div>
-                    <div class="col-round2">8,560 บาท</div>
-                    <div class="col-time">6 ชั่วโมงเศษ</div>
-                    <div class="col-staff">4-5 คน</div>
-                </div>
-
-                <!-- XL Size -->
-                <div class="table-row">
-                    <div class="col-size">XL</div>
-                    <div class="col-sqm">ไม่เกิน 800 ตร.ม</div>
-                    <div class="col-round1">21,400 บาท</div>
-                    <div class="col-round2">10,700 บาท</div>
-                    <div class="col-time">6 ชั่วโมงเศษ</div>
-                    <div class="col-staff">5-6 คน</div>
-                </div>
-
-                <!-- XXL Size -->
-                <div class="table-row">
-                    <div class="col-size">XXL</div>
-                    <div class="col-sqm">ไม่เกิน 1,000 ตร.ม</div>
-                    <div class="col-round1">25,680 บาท</div>
-                    <div class="col-round2">12,840 บาท</div>
-                    <div class="col-time">6 ชั่วโมงเศษ</div>
-                    <div class="col-staff">6-7 คน</div>
-                </div>
-
-                <!-- XXXL Size -->
-                <div class="table-row">
-                    <div class="col-size">XXXL</div>
-                    <div class="col-sqm">ไม่เกิน 1,500 ตร.ม</div>
-                    <div class="col-round1">42,800 บาท</div>
-                    <div class="col-round2">21,400 บาท</div>
-                    <div class="col-time">6 ชั่วโมงเศษ</div>
-                    <div class="col-staff">7-8 คน</div>
-                </div>
-            </div>
-
-            <div class="price-note">
-                <p>***ราคาข้างต้นรวมภาษีมูลค่าเพิ่ม 7% เรียบร้อยแล้ว</p>
-            </div>
-
-            <div class="price-info">
-                <div class="info-item">
-                    <div class="info-number">1</div>
-                    <div class="info-text">ค่าบริการตรวจบ้านและคอนโดรอบที่2 และรอบต่อๆ ไป คิดราคา <span
-                            class="highlight">50%</span> จากค่าบริการตรวจรอบแรก</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-number">2</div>
-                    <div class="info-text">ในการตรวจรอบที่2 และรอบต่อๆ ไป จำนวนคนตรวจและเวลา
-                        จะลดเหลือครึ่งหนึ่งจากจำนวนในการตรวจรอบแรก</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-number">3</div>
-                    <div class="info-text">ราคาค่าบริการตรวจบ้านเปลี่ยนแปลงได้ขึ้นอยู่กับ <span
-                            class="highlight">ขนาดพื้นที่รอบตัวบ้าน บ้านตัวอย่างที่มีการตกแต่ง และระยะทาง</span></div>
-                </div>
-                <div class="info-item">
-                    <div class="info-number">4</div>
-                    <div class="info-text">"<span class="highlight">ราคาเหมาะสมกับคุณภาพ</span>"
-                        การตรวจบ้านของเรานั้นเน้นคุณภาพและความคุ้มค่าของบริการที่ได้รับ</div>
-                </div>
-            </div>
-
-            <div class="service-features house-features">
-                <div class="web-app">
-                    <h3>T.HOME WEB-APPLICATION</h3>
-                    <p>เข้าดูรายงานออนไลน์</p>
-                </div>
-                <div class="plus">+</div>
-                <div class="drone">
-                    <h3>โดรน (Drone)</h3>
-                    <p>ตรวจงานหลังคา</p>
-                </div>
-                <div class="plus">+</div>
-                <div class="thermal">
-                    <h3>กล้องอินฟาเรด (Thermal Imaging)</h3>
-                    <p>สำหรับตรวจการรั่วซึมที่มองด้วยตาเปล่าไม่เห็น</p>
-                </div>
-                <div class="equipment-note">
-                    <p>"อุปกรณ์ครบครันทุกทีมตรวจและไม่คิดค่าใช้จ่ายเพิ่ม"</p>
-=======
 
                 <table class="pricing-table">
                     <thead>
@@ -1134,7 +874,6 @@
                         <div class="text-line">สำหรับตรวจการรั่วซึมในงานก่อสร้างหาตำแหน่งไม่ได้ก็เก็บ</div>
                         <div class="highlight-text">"อุปกรณ์ครบครันทุกกิจกรรมและเมื่อได้คำค่าใช้จ่ายเพิ่ม"</div>
                     </div>
->>>>>>> 39fcad9ea6e5974911f50eab6b10420ecd64f046
                 </div>
             </div>
         </div>
@@ -1443,53 +1182,52 @@ window.addEventListener("load", () => {
         });
 
         document.addEventListener('DOMContentLoaded', function() {
-            const tabButtons = document.querySelectorAll('.tab-btn');
-            const tabContents = document.querySelectorAll('.tab-content');
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
 
-<<<<<<< HEAD
-            // Add click event to tab buttons
-            tabButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    // Remove active class from all buttons and contents
-                    tabButtons.forEach(btn => btn.classList.remove('active'));
-                    tabContents.forEach(content => content.classList.remove('active'));
+    // Add click event to tab buttons
+    tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Remove active class from all buttons and contents
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            tabContents.forEach(content => content.classList.remove('active'));
 
-                    // Add active class to clicked button
-                    button.classList.add('active');
+            // Add active class to clicked button
+            button.classList.add('active');
 
-                    // Show corresponding content
-                    const tabId = button.getAttribute('data-tab');
-                    document.getElementById(`${tabId}-content`).classList.add('active');
-                });
+            // Show corresponding content
+            const tabId = button.getAttribute('data-tab');
+            document.getElementById(`${tabId}-content`).classList.add('active');
+        });
+    });
+
+        const tableRows = document.querySelectorAll('.table-row');
+        tableRows.forEach(row => {
+            row.addEventListener('mouseenter', () => {
+                row.style.transform = 'translateY(-2px)';
+                row.style.boxShadow = '0 4px 8px rgba(0,0,0,0.1)';
+                row.style.transition = 'all 0.3s ease';
             });
 
-            const tableRows = document.querySelectorAll('.table-row');
-            tableRows.forEach(row => {
-                row.addEventListener('mouseenter', () => {
-                    row.style.transform = 'translateY(-2px)';
-                    row.style.boxShadow = '0 4px 8px rgba(0,0,0,0.1)';
-                    row.style.transition = 'all 0.3s ease';
-                });
-
-                row.addEventListener('mouseleave', () => {
-                    row.style.transform = 'translateY(0)';
-                    row.style.boxShadow = 'none';
-                });
-            });
-
-            const infoItems = document.querySelectorAll('.info-item');
-            infoItems.forEach((item, index) => {
-                item.style.opacity = '0';
-                item.style.transform = 'translateY(20px)';
-                item.style.transition = 'all 0.5s ease';
-
-                setTimeout(() => {
-                    item.style.opacity = '1';
-                    item.style.transform = 'translateY(0)';
-                }, 300 + (index * 150));
+            row.addEventListener('mouseleave', () => {
+                row.style.transform = 'translateY(0)';
+                row.style.boxShadow = 'none';
             });
         });
-=======
+
+        const infoItems = document.querySelectorAll('.info-item');
+        infoItems.forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
+            item.style.transition = 'all 0.5s ease';
+
+            setTimeout(() => {
+                item.style.opacity = '1';
+                item.style.transform = 'translateY(0)';
+            }, 300 + (index * 150));
+        });
+    });
+
     document.querySelectorAll('.tab-btn').forEach(button => {
             button.addEventListener('click', () => {
                 const targetTab = button.getAttribute('data-tab');
@@ -1504,7 +1242,6 @@ window.addEventListener("load", () => {
             });
         });
 
->>>>>>> 39fcad9ea6e5974911f50eab6b10420ecd64f046
     </script>
 
 
