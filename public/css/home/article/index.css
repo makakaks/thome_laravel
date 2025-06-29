@@ -1271,18 +1271,17 @@ header {
 
 /*  */
 .review-cards {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    column-gap: 30px;
-    row-gap: 85px;
+    display: flex;
+    gap: 50px 30px;
     justify-content: center;
+    flex-wrap: wrap;
     text-decoration: none;
-    padding: 20px;
 }
 
 
 
 .new-card {
+    width: 30%;
     border-radius: 20px;
     transition: all 0.3s ease;
     position: relative;
@@ -1299,7 +1298,7 @@ header {
 }
 
 .new-card img {
-    aspect-ratio: 1.76 !important;
+    aspect-ratio: 16 / 9 !important;
     object-fit: cover !important;
     border-radius: 10px;
     width: 100%;
@@ -1344,7 +1343,7 @@ header {
 }
 
 @media (max-width: 968px) {
-    .review-cards {
-        grid-template-columns: repeat(2, 1fr);
+    .new-card {
+        width: 45%;
     }
 }

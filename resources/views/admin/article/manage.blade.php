@@ -1,4 +1,4 @@
-@extends('component.layout_admin')
+@extends('layouts.layout_admin')
 
 @section('content')
     <link rel="stylesheet" href="/css/admin/article/manage.css">
@@ -64,8 +64,8 @@
                                                         width="100%">
                                                 </td>
                                                 <td>
-                                                    <a
-                                                        href="/article/detail?news_id={{ $article->id }}" class="article-link">{{ $article->translation->title }}</a>
+                                                    <a href="/article/detail?news_id={{ $article->id }}"
+                                                        class="article-link">{{ $article->translation->title }}</a>
                                                 </td>
                                                 <td>
                                                     @foreach ($article['tags'] as $tag)
@@ -75,9 +75,9 @@
                                                 <td class="actions-buttons">
                                                     <button class="btn btn-info" btn-type="edit-id">แก้ ID</button>
                                                     <button class="btn btn-success" btn-type="add-lang">เพิ่มภาษา</button>
-                                                        <button class="btn btn-edit" btn-type="edit">แก้ไข</button>
-                                                        <button class="btn btn-danger delete-article"
-                                                            data-id="{{ $article['id'] }}">ลบ</button>
+                                                    <button class="btn btn-edit" btn-type="edit">แก้ไข</button>
+                                                    <button class="btn btn-danger delete-article"
+                                                        data-id="{{ $article['id'] }}">ลบ</button>
                                                 </td>
                                             </tr>
                                         @endforeach

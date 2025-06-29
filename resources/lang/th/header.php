@@ -7,7 +7,7 @@ return [
     "hinspector" => "ตรวจบ้าน",
     "hinterior" => "ตกแต่งภายใน",
     "hconstruction" => "รีโนเวท",
-    "hbutler" => "ทำความสะอาด",
+    "hbutler" => "homebutler",
 
     "addon_services" => "บริการเสริม",
     "app_inspector" => "ตรวจบ้านเอง",

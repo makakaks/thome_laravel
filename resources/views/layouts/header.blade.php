@@ -53,7 +53,7 @@
             <!-- <li><a href="/service" data-translate="nav.services">บริการ</a></li> -->
             <!-- Dropdown Menu -->
             <li class="dropdown">
-                <a href="/service" class="menu-item" data-translate="nav.services">
+                <a href="#a" class="menu-item" data-translate="nav.services">
                     {{ __('header.services') }} <span class="dropdown-icon"><i
                             class="fa-solid fa-caret-down"></i></span>
                 </a>
@@ -66,7 +66,7 @@
                 </ul>
             </li>
             <li class="dropdown">
-                <a href="#" class="menu-item" data-translate="nav.service">
+                <a href="#a" class="menu-item" data-translate="nav.service">
                     {{ __('header.addon_services') }} <span class="dropdown-icon"><i
                             class="fa-solid fa-caret-down"></i></span>
                 </a>
@@ -81,7 +81,7 @@
             </li>
             <!-- Dropdown Menu -->
             {{-- <li class="dropdown">
-                <a href="#" class="menu-item" data-translate="nav.articles">
+                <a href="#a" class="menu-item" data-translate="nav.articles">
                     บทความ <span class="dropdown-icon"><i class="fa-solid fa-caret-down"></i></span>
                 </a>
                 <ul class="dropdown-menu d-block">
@@ -96,7 +96,7 @@
             <li><a href="/projects_media.html" data-translate="nav.projects">{{ __('header.projects') }}</a></li>
             <!-- Dropdown Menu -->
             <li class="dropdown">
-                <a href="#" class="menu-item" data-translate="nav.aboutUs">
+                <a href="#a" class="menu-item" data-translate="nav.aboutUs">
                     {{ __('header.about') }} <span class="dropdown-icon"><i class="fa-solid fa-caret-down"></i></span>
                 </a>
                 <ul class="dropdown-menu d-block">
@@ -115,7 +115,7 @@
             <li class="nav-item"><a href="/" class="nav-link">{{ __('header.home') }}</a></li>
 
             <li class="nav-item has-dropdown">
-                <a href="#" class="nav-link">{{ __('header.services') }}</a>
+                <a href="#a" class="nav-link">{{ __('header.services') }}</a>
                 <ul class="dropdown">
                     <li><a href="/hinspector">{{ __('header.hinspector') }}</a></li>
                     <li><a href="/hinterior">{{ __('header.hinterior') }}</a></li>
@@ -125,7 +125,7 @@
             </li>
 
             <li class="nav-item has-dropdown">
-                <a href="#" class="nav-link">{{ __('header.addon_services') }}</a>
+                <a href="#a" class="nav-link">{{ __('header.addon_services') }}</a>
                 <ul class="dropdown">
                     <li><a href="/addon_service/app_inspector">{{ __('header.app_inspector') }}</a></li>
                     <li><a href="/addon_service/cal_electric">{{ __('header.cal_electric') }}</a></li>
@@ -141,7 +141,7 @@
             <li class="nav-item"><a href="/article" class="nav-link">{{ __('header.articles') }}</a></li>
             <li class="nav-item"><a href="/review" class="nav-link">{{ __('header.review_home') }}</a></li>
             <li class="nav-item has-dropdown">
-                <a href="#" class="nav-link">{{ __('header.about') }}</a>
+                <a href="#a" class="nav-link">{{ __('header.about') }}</a>
                 <ul class="dropdown">
                     <li><a href="/ourstory">{{ __('header.ourstory') }}</a></li>
                     <li><a href="/ourteam">{{ __('header.ourteam') }}</a></li>
@@ -256,14 +256,14 @@
 
 <!-- line -->
 <div class="contact-container-float">
-    <a id="phone-link" href="#" class="contact-item" data-aos="fade-up-left">
+    <a id="phone-link" href="#a" class="contact-item" data-aos="fade-up-left">
         <div class="icon">
             <i class="fa-solid fa-phone"></i>
         </div>
         <span id="phone-text">โทร 02-454-2043</span>
     </a>
 
-    <a id="line-link" href="#" target="_blank" class="contact-item" data-aos="fade-up-right">
+    <a id="line-link" href="#a" target="_blank" class="contact-item" data-aos="fade-up-right">
         <div class="icon">
             <i class="fa-brands fa-line" style="color: #00a347;"></i>
         </div>

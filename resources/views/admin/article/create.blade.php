@@ -1,4 +1,4 @@
-@extends('component.layout_admin')
+@extends('layouts.layout_admin')
 
 @section('import', 'bootstrap')
 

@@ -1,4 +1,4 @@
-@extends('component.layout')
+@extends('layouts.layout_home')
 
 @section('content')
     <link rel="stylesheet" href="/css/home/index.css">
@@ -157,75 +157,75 @@
 
 
 
-<section class="services" data-aos="fade-right" data-aos-offset="200" data-aos-easing="ease-in-sine">
+    <section class="services" data-aos="fade-right" data-aos-offset="200" data-aos-easing="ease-in-sine">
         <div class="services-header">
-          <h2>Our Services</h2>
+            <h2>Our Services</h2>
         </div>
         <div class="services-grid">
-          <!-- Service 1 -->
-          <div class="service-card">
-            <div class="service-icon">
-              <a href="/HOMESPECTOR/Homepage/service1.php">
-                <img src="/img/s1.png" alt="T. Home Inspector">
-              </a>
+            <!-- Service 1 -->
+            <div class="service-card">
+                <div class="service-icon">
+                    <a href="/HOMESPECTOR/Homepage/service1.php">
+                        <img src="/img/s1.png" alt="T. Home Inspector">
+                    </a>
+                </div>
+                <h3>T. Home Inspector</h3>
             </div>
-            <h3>T. Home Inspector</h3>
-          </div>
 
-          <!-- Service 2 -->
-          <div class="service-card">
-            <div class="service-icon">
-              <a href="/HOMESPECTOR/Homepage/review_interior.php">
-                <img src="/img/s2.png" alt="T. Home Interior">
-              </a>
+            <!-- Service 2 -->
+            <div class="service-card">
+                <div class="service-icon">
+                    <a href="/HOMESPECTOR/Homepage/review_interior.php">
+                        <img src="/img/s2.png" alt="T. Home Interior">
+                    </a>
+                </div>
+                <h3>T. Home Interior</h3>
             </div>
-            <h3>T. Home Interior</h3>
-          </div>
 
-          <!-- Service 3 -->
-          <div class="service-card">
-            <div class="service-icon">
-              <a href="/HOMESPECTOR/Homepage/Hconstruction.php">
-                <img src="/img/s3.png" alt="T. Home Construction">
-              </a>
+            <!-- Service 3 -->
+            <div class="service-card">
+                <div class="service-icon">
+                    <a href="/HOMESPECTOR/Homepage/Hconstruction.php">
+                        <img src="/img/s3.png" alt="T. Home Construction">
+                    </a>
+                </div>
+                <h3>T. Home Construction</h3>
             </div>
-            <h3>T. Home Construction</h3>
-          </div>
 
-          <!-- Service 4 -->
-          <div class="service-card">
-            <div class="service-icon">
-              <a href="/HOMESPECTOR/Homepage/Hbulter.php">
-                <img src="/img/s4-bg.png" alt="Home Butler">
-              </a>
+            <!-- Service 4 -->
+            <div class="service-card">
+                <div class="service-icon">
+                    <a href="/HOMESPECTOR/Homepage/Hbulter.php">
+                        <img src="/img/s4-bg.png" alt="Home Butler">
+                    </a>
+                </div>
+                <h3>Home Butler</h3>
             </div>
-            <h3>Home Butler</h3>
-          </div>
         </div>
-      </section>
+    </section>
 
-      <script>
-        document.addEventListener("DOMContentLoaded", function () {
-          const servicesSection = document.querySelector(".services");
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const servicesSection = document.querySelector(".services");
 
-          const bgImages = [
-            "/HOMESPECTOR/img/hero-bg3.jpg",
-            "/HOMESPECTOR/img/inspector-bg.jpg",
-            "/HOMESPECTOR/img/interior-bg.jpg",
-            "/HOMESPECTOR/img/construction-bg.jpg",
-          ];
+            const bgImages = [
+                "/HOMESPECTOR/img/hero-bg3.jpg",
+                "/HOMESPECTOR/img/inspector-bg.jpg",
+                "/HOMESPECTOR/img/interior-bg.jpg",
+                "/HOMESPECTOR/img/construction-bg.jpg",
+            ];
 
-          let index = 0;
+            let index = 0;
 
-          function changeBackground() {
-            servicesSection.style.backgroundImage = `url(${bgImages[index]})`;
-            index = (index + 1) % bgImages.length;
-          }
-          setInterval(changeBackground, 5000);
-          changeBackground();
+            function changeBackground() {
+                servicesSection.style.backgroundImage = `url(${bgImages[index]})`;
+                index = (index + 1) % bgImages.length;
+            }
+            setInterval(changeBackground, 5000);
+            changeBackground();
         });
-      </script>
-    
+    </script>
+
 
     <!-- why choose us -->
     <section class="why-choose-us">
@@ -546,21 +546,25 @@
 
     <section class="articles" data-aos="fade-up" data-aos-delay="100">
         <h2 class="articles-title">Latest Articles</h2>
-        <a href="/articles" class="btn btn-firstall">ดูทั้งหมด</a>
+        <a href="/article" class="btn btn-firstall">ดูทั้งหมด</a>
         <div class="review-cards">
             @foreach ($latestArticles as $article)
-                <a href="/articles/{{ $article->slug }}" class="card" data-category="Roof">
-                    <img src="{{ $article->translation->coverPageImg }}"
-                        alt="House Review 1">
-                    <p> {{ $article->translation->title }} </p>
-                    <span class="upload-date">{{ \Carbon\Carbon::parse($article->created_at)->locale(app()->getLocale())->isoFormat('D-MM-YYYY') }}
-                        |
+                <div class="new-card">
+                    <a href="/article/detail?news_id={{ $article->id }}"><img
+                            src="{{ $article->translation->coverPageImg }}" alt="" loading="lazy"></a>
+                    <a href="/article/detail?news_id={{ $article->id }}"
+                        class="new-card-title">{{ $article->translation->title }}</a>
+                    <div class="new-card-tags">
                         @foreach ($article->tags as $tag)
-                            {{  $tag->name }}
-                            @if (!$loop->last) , @endif
+                            <a href="/article?tag={{ $tag->name }}">{{ $tag->name }}</a>
                         @endforeach
-                    </span>
-                </a>
+                    </div>
+                    <div>
+                        <span
+                            class="upload-date">{{ \Carbon\Carbon::parse($article->created_at)->locale(app()->getlocale())->isoFormat('D-MM-YYYY') }}
+                        </span>
+                    </div>
+                </div>
             @endforeach
         </div>
     </section>

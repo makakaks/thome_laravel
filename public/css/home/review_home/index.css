@@ -101,12 +101,23 @@ hr {
 /* review card */
 /* Modern Review Cards CSS */
 .review-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
-    padding: 2rem 0;
-    max-width: 1400px;
-    margin: 0 auto;
+    display: flex;
+    gap: 50px 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+    text-decoration: none;
+}
+
+.new-card {
+    width: 30% !important;
+    height: auto !important;
+    aspect-ratio: 16 / 9;
+}
+
+@media (max-width: 968px) {
+    .new-card {
+        width: 45% !important;
+    }
 }
 
 .review-cards .card {

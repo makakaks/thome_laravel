@@ -1,4 +1,4 @@
-@extends('component.layout  ')
+@extends('layouts.layout_home')
 
 @section('content')
     <!DOCTYPE html>
@@ -1083,7 +1083,7 @@ window.addEventListener("load", () => {
             from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        
+
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
@@ -1184,23 +1184,23 @@ window.addEventListener("load", () => {
         document.addEventListener('DOMContentLoaded', function() {
     const tabButtons = document.querySelectorAll('.tab-btn');
     const tabContents = document.querySelectorAll('.tab-content');
-    
+
     // Add click event to tab buttons
     tabButtons.forEach(button => {
         button.addEventListener('click', () => {
             // Remove active class from all buttons and contents
             tabButtons.forEach(btn => btn.classList.remove('active'));
             tabContents.forEach(content => content.classList.remove('active'));
-            
+
             // Add active class to clicked button
             button.classList.add('active');
-            
+
             // Show corresponding content
             const tabId = button.getAttribute('data-tab');
             document.getElementById(`${tabId}-content`).classList.add('active');
         });
     });
-    
+
         const tableRows = document.querySelectorAll('.table-row');
         tableRows.forEach(row => {
             row.addEventListener('mouseenter', () => {
@@ -1208,19 +1208,19 @@ window.addEventListener("load", () => {
                 row.style.boxShadow = '0 4px 8px rgba(0,0,0,0.1)';
                 row.style.transition = 'all 0.3s ease';
             });
-            
+
             row.addEventListener('mouseleave', () => {
                 row.style.transform = 'translateY(0)';
                 row.style.boxShadow = 'none';
             });
         });
-        
+
         const infoItems = document.querySelectorAll('.info-item');
         infoItems.forEach((item, index) => {
             item.style.opacity = '0';
             item.style.transform = 'translateY(20px)';
             item.style.transition = 'all 0.5s ease';
-            
+
             setTimeout(() => {
                 item.style.opacity = '1';
                 item.style.transform = 'translateY(0)';
@@ -1231,11 +1231,11 @@ window.addEventListener("load", () => {
     document.querySelectorAll('.tab-btn').forEach(button => {
             button.addEventListener('click', () => {
                 const targetTab = button.getAttribute('data-tab');
-                
+
                 // Remove active class from all buttons and content
                 document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
                 document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-                
+
                 // Add active class to clicked button and corresponding content
                 button.classList.add('active');
                 document.getElementById(targetTab + '-content').classList.add('active');

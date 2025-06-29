@@ -7,7 +7,7 @@ return [
     "hinspector" => "Home Inspection",
     "hinterior" => "Interior Decoration",
     "hconstruction" => "Renovation",
-    "hbutler" => "Cleaning",
+    "hbutler" => "homebutler",
 
     "addon_services" => "Additional Services",
     "app_inspector" => "Self Home Inspection",

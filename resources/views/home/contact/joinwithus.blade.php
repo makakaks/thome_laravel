@@ -1,4 +1,4 @@
-@extends('component.layout')
+@extends('layouts.layout_home')
 
 @section('content')
     <!DOCTYPE html>
@@ -477,7 +477,7 @@
         <div class="modal-content">
             <span class="close" onclick="closeJobModal()">&times;</span>
             <h2 id="modalTitle">Apply for Position</h2>
-            
+
             <form id="jobApplicationForm">
                 <div class="form-group">
                     <label for="fullName">ชื่อ-นามสกุล / Full Name *</label>
@@ -621,7 +621,7 @@
             const submitBtn = document.getElementById("submitBtn")
             const loadingSpinner = document.getElementById("loadingSpinner")
             const submitText = document.getElementById("submitText")
-            
+
             submitBtn.disabled = true
             loadingSpinner.style.display = "inline-block"
             submitText.textContent = "กำลังส่ง... / Sending..."
@@ -632,7 +632,7 @@
             const submitBtn = document.getElementById("submitBtn")
             const loadingSpinner = document.getElementById("loadingSpinner")
             const submitText = document.getElementById("submitText")
-            
+
             submitBtn.disabled = false
             loadingSpinner.style.display = "none"
             submitText.textContent = "ส่งใบสมัคร / Submit Application"
@@ -642,7 +642,7 @@
         function showError(message) {
             const errorMessage = document.getElementById("errorMessage")
             const errorText = document.getElementById("errorText")
-            
+
             errorText.textContent = message
             errorMessage.style.display = "block"
         }
