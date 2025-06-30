@@ -228,7 +228,7 @@
 
 
     <!-- why choose us -->
-    <section class="why-choose-us">
+    <section class="why-choose-us" style="overflow: hidden;">
         <h2 class="section-title aos-init aos-animate" data-translate="why-choose-us-title" data-aos="fade-down">
             ทำไมต้องเลือก ต.ตรวจบ้าน</h2>
         <div class="content-container"><!-- Left Text Section -->
@@ -548,24 +548,26 @@
         <h2 class="articles-title">Latest Articles</h2>
         <a href="/article" class="btn btn-firstall">ดูทั้งหมด</a>
         <div class="review-cards">
-            @foreach ($latestArticles as $article)
-                <div class="new-card">
-                    <a href="/article/detail?news_id={{ $article->id }}"><img
-                            src="{{ $article->translation->coverPageImg }}" alt="" loading="lazy"></a>
-                    <a href="/article/detail?news_id={{ $article->id }}"
-                        class="new-card-title">{{ $article->translation->title }}</a>
-                    <div class="new-card-tags">
-                        @foreach ($article->tags as $tag)
-                            <a href="/article?tag={{ $tag->name }}">{{ $tag->name }}</a>
-                        @endforeach
+            @if (isset($latestArticles) && count($latestArticles) > 0)
+                @foreach ($latestArticles as $article)
+                    <div class="new-card">
+                        <a href="/article/detail?news_id={{ $article->id }}"><img
+                                src="{{ $article->translation->coverPageImg }}" alt="" loading="lazy"></a>
+                        <a href="/article/detail?news_id={{ $article->id }}"
+                            class="new-card-title">{{ $article->translation->title }}</a>
+                        <div class="new-card-tags">
+                            @foreach ($article->tags as $tag)
+                                <a href="/article?tag={{ $tag->name }}">{{ $tag->name }}</a>
+                            @endforeach
+                        </div>
+                        <div>
+                            <span
+                                class="upload-date">{{ \Carbon\Carbon::parse($article->created_at)->locale(app()->getlocale())->isoFormat('D-MM-YYYY') }}
+                            </span>
+                        </div>
                     </div>
-                    <div>
-                        <span
-                            class="upload-date">{{ \Carbon\Carbon::parse($article->created_at)->locale(app()->getlocale())->isoFormat('D-MM-YYYY') }}
-                        </span>
-                    </div>
-                </div>
-            @endforeach
+                @endforeach
+            @endif
         </div>
     </section>
 
@@ -672,15 +674,17 @@
 
                 <div class="faq-questions" id="faq-content">
 
-                    {{-- @foreach ($faqs as $faq)
-                        <div> {{ $faq->translation->question }}</div>
-                        <div> {{ $faq->translation->answer }}</div>
-                        <div>
-                            @foreach ($faq->tags as $tag)
-                                <div> {{ $tag->name }}</div>
-                            @endforeach
-                        </div>
-                    @endforeach --}}
+                    @if (isset($faqs) && count($faqs) > 0)
+                        @foreach ($faqs as $faq)
+                            <div> {{ $faq->translation->question }}</div>
+                            <div> {{ $faq->translation->answer }}</div>
+                            <div>
+                                @foreach ($faq->tags as $tag)
+                                    <div> {{ $tag->name }}</div>
+                                @endforeach
+                            </div>
+                        @endforeach
+                    @endif
                 </div>
             </div>
         </div>

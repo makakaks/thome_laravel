@@ -48,7 +48,7 @@ class ArticleController extends Controller
             });
         }
 
-        $articles = $query->paginate(1)->appends($request->except('page'));
+        $articles = $query->paginate(9)->appends($request->except('page'));
 
         foreach ($articles as $article) {
             $article->translation = $article->translation();
@@ -81,8 +81,10 @@ class ArticleController extends Controller
         foreach ($article->articleTags as $tag) {
             $related_articles = array_unique(
                 array_merge(
-                    $related_articles, $tag->articles->where('id', '!=', $article->id)->all()
-            ));
+                    $related_articles,
+                    $tag->articles->where('id', '!=', $article->id)->all()
+                )
+            );
         }
 
         // Get 3 random related articles

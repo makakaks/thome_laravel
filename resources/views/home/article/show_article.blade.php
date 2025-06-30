@@ -186,7 +186,6 @@
             <div class="article-carousel-container">
                 <div class="article-carousel-inner">
                     <div class="article-carousel-wrapper" id="carouselWrapper">
-                        {{-- @for ($index = 1; $index <= 5; $index += 1) --}}
                         @foreach ($related_articles as $related_article)
                             <div class="article-carousel-item">
                                 <div class="article-card">
@@ -201,7 +200,6 @@
                                 </div>
                             </div>
                         @endforeach
-                        {{-- @endfor --}}
                     </div>
                 </div>
 

@@ -40,7 +40,6 @@
 
                 <!-- Review Cards -->
                 <div class="review-cards" id="review-cards">
-                    {{-- @for ($index = 1; $index <= 5; $index += 1) --}}
                     @if ($articles->isEmpty())
                         <div class="no-articles">
                             <p>ไม่มีบทความในหมวดหมู่นี้</p>
@@ -62,20 +61,9 @@
                                         class="upload-date">{{ \Carbon\Carbon::parse($article->created_at)->locale(app()->getlocale())->isoFormat('D-MM-YYYY') }}
                                     </span>
                                 </div>
-                                {{-- <span
-                                    class="upload-date">{{ \Carbon\Carbon::parse($article->created_at)->locale(app()->getlocale())->isoFormat('D-MM-YYYY') }}
-                                    |
-                                    @foreach ($article->tags as $tag)
-                                        {{ $tag->name }}
-                                        @if (!$loop->last)
-                                            ,
-                                        @endif
-                                    @endforeach
-                                </span> --}}
                             </div>
                         @endforeach
                     @endif
-                    {{-- @endfor --}}
                 </div>
                 {{ $articles->links('vendor.pagination.default') }}
             </div>

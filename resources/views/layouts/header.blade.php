@@ -58,9 +58,9 @@
                             class="fa-solid fa-caret-down"></i></span>
                 </a>
                 <ul class="dropdown-menu d-block">
-                    <li><a href="/hinspector" data-translate="nav.hinspector">{{ __('header.hinspector') }}</a></li>
-                    <li><a href="/hinterior" data-translate="nav.hinterior">{{ __('header.hinterior') }}</a></li>
-                    <li><a href="/hconstruction" data-translate="nav.hconstruction">{{ __('header.hconstruction') }}</a>
+                    <li><a href="/hinspector" >{{ __('header.hinspector') }}</a></li>
+                    <li><a href="/hinterior" >{{ __('header.hinterior') }}</a></li>
+                    <li><a href="/hconstruction" >{{ __('header.hconstruction') }}</a>
                     </li>
                     <li><a href="/hbutler" data-translate="nav.hbutler">{{ __('header.hbutler') }}</a></li>
                 </ul>

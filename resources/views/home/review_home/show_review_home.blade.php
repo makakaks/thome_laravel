@@ -186,24 +186,22 @@
             <div class="article-carousel-container">
                 <div class="article-carousel-inner">
                     <div class="article-carousel-wrapper" id="carouselWrapper">
-                        {{-- @for ($index = 1; $index <= 5; $index += 1) --}}
-                            @foreach ($related_reviews as $related_review)
-                                <div class="article-carousel-item">
-                                    <div class="article-card">
-                                        <img class="article-card-image"
-                                            src="{{ $related_review->translation->coverPageImg }}"
-                                            alt="{{ $related_review->translation->title }}">
-                                        <div class="article-card-content">
-                                            <h3 class="article-card-title"> {{ $related_review->translation->title }}
-                                            </h3>
-                                            {{-- <p class="article-card-subtitle">ค้นพบจุดเด่นที่ทำให้เราแตกต่างจากคู่แข่ง</p> --}}
-                                            <a href="/review/detail?news_id={{ $related_review->id }}"
-                                                class="read-more">อ่านต่อ</a>
-                                        </div>
+                        @foreach ($related_reviews as $related_review)
+                            <div class="article-carousel-item">
+                                <div class="article-card">
+                                    <img class="article-card-image"
+                                        src="{{ $related_review->translation->coverPageImg }}"
+                                        alt="{{ $related_review->translation->title }}">
+                                    <div class="article-card-content">
+                                        <h3 class="article-card-title"> {{ $related_review->translation->title }}
+                                        </h3>
+                                        {{-- <p class="article-card-subtitle">ค้นพบจุดเด่นที่ทำให้เราแตกต่างจากคู่แข่ง</p> --}}
+                                        <a href="/review/detail?news_id={{ $related_review->id }}"
+                                            class="read-more">อ่านต่อ</a>
                                     </div>
                                 </div>
-                            @endforeach
-                        {{-- @endfor --}}
+                            </div>
+                        @endforeach
                     </div>
                 </div>
 

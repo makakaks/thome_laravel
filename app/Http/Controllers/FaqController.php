@@ -35,7 +35,7 @@ class FaqController extends Controller
             });
         }
 
-        if ($request->has('page') && $request->page > $articles = $query->paginate(1)->lastPage()) {
+        if ($request->has('page') && $request->page > $articles = $query->paginate(9)->lastPage()) {
             return redirect()->route('admin.article.manage', array_merge($request->except('page'), ['page' => 1]));
         }
 

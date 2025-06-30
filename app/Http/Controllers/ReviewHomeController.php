@@ -43,7 +43,7 @@ class ReviewHomeController extends Controller
             });
         }
 
-        $houses = $query->paginate(1)->appends($request->except('page'));
+        $houses = $query->paginate(9)->appends($request->except('page'));
 
         foreach ($houses as $house) {
             $house->translation = $house->translation();

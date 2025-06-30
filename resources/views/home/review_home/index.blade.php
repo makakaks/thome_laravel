@@ -46,15 +46,13 @@
                     <p>ไม่มีรีวิวบ้านในโครงการนี้</p>
                 </div>
             @else
-                @for ($index = 1; $index <= 5; $index += 1)
-                    @foreach ($houses as $house)
-                        <a href="/review/detail?news_id={{ $house->id }}" class="card new-card"
-                            data-category="{{ $house->project }}">
-                            <img src="{{ $house->translation->coverPageImg }}" alt="House Review 1">
-                            <p>{{ $house->translation->title }}</p>
-                        </a>
-                    @endforeach
-                @endfor
+                @foreach ($houses as $house)
+                    <a href="/review/detail?news_id={{ $house->id }}" class="card new-card"
+                        data-category="{{ $house->project }}">
+                        <img src="{{ $house->translation->coverPageImg }}" alt="House Review 1">
+                        <p>{{ $house->translation->title }}</p>
+                    </a>
+                @endforeach
             @endif
         </div>
         {{ $houses->links('vendor.pagination.default') }}

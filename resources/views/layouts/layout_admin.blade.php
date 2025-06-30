@@ -31,8 +31,7 @@
         <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     @endif
 
-
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{{ asset('css/component/header_admin.css') }}">
 </head>
 
@@ -65,6 +64,12 @@
                             <rect width="7" height="5" x="3" y="16" rx="1"></rect>
                         </svg>
                         Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/static_page">
+                        <i class="bi bi-file-earmark icon"></i>
+                        Static Page
                     </a>
                 </li>
                 <li>

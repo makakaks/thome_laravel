@@ -9,10 +9,11 @@ use App\Http\Controllers\FaqController;
 use App\Http\Controllers\EmployeeController;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Cookie;
 use PHPUnit\Framework\Test;
 use App\Http\Controllers\HouseController;
 use App\Http\Controllers\ReviewHomeController;
+use App\Http\Controllers\StaticPageController;
 use App\Models\Faq;
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +26,14 @@ use App\Models\Faq;
 |
 */
 
-Route::get('/lang/{locale}', [TestController::class, 'setLocale'])->name('lang.change');
+Route::get('/lang/{locale}', function ($locale) {
+    if (! in_array($locale, ['en', 'th', 'cn'])) {
+        abort(400);
+    }
+    Cookie::queue(Cookie::make('locale', $locale, 60 * 24 * 365));
+    // Session::put('locale', $locale);
+    return redirect()->back();
+})->name('lang.change');
 
 Route::get('/', function () {
     $latestArticles = ArticleController::get_latest_articles(6);
@@ -112,6 +120,12 @@ Route::prefix('review')->controller(ReviewHomeController::class)->group(function
 });
 
 Route::prefix('admin')->middleware('auth')->group(function () {
+    Route::prefix('static_page')->controller(StaticPageController::class)->group(function () {
+        Route::get('/', 'index')->name('admin.static_page.index');
+        Route::get('/home', 'home')->name('admin.static_page.home');
+        Route::post('/home', 'home_store')->name('admin.static_page.home_store');
+    });
+
     Route::prefix('article')->controller(ArticleController::class)->group(function () {
         Route::get('/', 'manage')->name('admin.article.manage');
         Route::delete('/{id}', 'delete')->name('admin.article.delete');
@@ -176,7 +190,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     });
 
     Route::prefix('user')->controller(AdminController::class)->group(function () {
-        Route::get('/','user_manage')->name('admin.user,manage');
+        Route::get('/', 'user_manage')->name('admin.user,manage');
     });
 
     Route::post('/upload_image', [AdminController::class, 'upload_image'])->name('admin.upload');
@@ -220,4 +234,4 @@ Route::prefix('api')->group(function () {
 // });
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
