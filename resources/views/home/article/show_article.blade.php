@@ -57,6 +57,10 @@
                     {{-- 14 พ.ค. 2568 13:44 น --}}
                     {{-- {{print_r($article, true)}} --}}
                 </div>
+                <div class="reading-time">
+                    <i class="bi bi-clock"></i>
+                    เวลาในการอ่านโดยประมาณ: <span></span> นาที
+                </div>
             </div>
         </div>
         <div class="art-body">
@@ -76,28 +80,24 @@
             </div>
             <div class="art-promote">
                 <div class="card">
-                    <h5 class="card-title">บทความยอดนิยม</h5>
+                    <h5 class="card-title">บทความล่าสุด</h5>
                     <div class="card-content">
-                        <div class="rec-article">
-                            <img src="/img/articles_releted.jpg" alt="บทความยอดนิยม 1" class="rec-article-image">
-                            <div>
-                                <h4 class="rec-article-title">
-                                    <a href="#">ซื้อบ้านใหม่ ติดเครื่องทำน้ำอุ่นยังไง</a>
-                                </h4>
-                                <p class="rec-article-date">10 พฤษภาคม 2025</p>
-                            </div>
-                        </div>
-                        <div class="rec-article">
-                            <img src="/img/ev-charger.jpg" alt="บทความยอดนิยม 1" class="rec-article-image">
-                            <div>
-                                <h4 class="rec-article-title">
-                                    <a href="#">สิ่งที่ต้องรู้เกี่ยวกับ EV Charger</a>
-                                </h4>
-                                <p class="rec-article-date">10 พฤษภาคม 2025</p>
-                            </div>
-                        </div>
-
-                        <button class="btn btn-outline btn-sm btn-full btn-rec">ดูบทความทั้งหมด</button>
+                        @foreach ($latest_articles as $latest_article)
+                            <a class="rec-article" href="/article/detail?news_id={{ $latest_article->id }}">
+                                <img src="{{ $latest_article->translation->coverPageImg }}"
+                                    alt="{{ $latest_article->translation->title }}" class="rec-article-image">
+                                <div>
+                                    <h4 class="rec-article-title">
+                                        <span
+                                            href="/article/detail?news_id={{ $latest_article->id }}">{{ $latest_article->translation->title }}</span>
+                                    </h4>
+                                    <p class="rec-article-date">
+                                        {{ \Carbon\Carbon::parse($latest_article->created_at)->locale(app()->getLocale())->isoFormat('D MMMM YYYY') }}
+                                    </p>
+                                </div>
+                            </a>
+                        @endforeach
+                        <a class="btn btn-outline btn-sm btn-full" href="/article">ดูบทความทั้งหมด</a>
                     </div>
                 </div>
 
@@ -144,7 +144,7 @@
                             </svg>
                             <span class="contact-text">Info@thomeinspector.com</span>
                         </div>
-                        <button class="btn btn-full mt-2 btn-contact btn-outline-primary">ติดต่อเรา</button>
+                        <a href="/contactus" class="btn btn-full mt-2 btn-contact btn-outline-primary">ติดต่อเรา</a>
                     </div>
                 </div>
             </div>
@@ -180,52 +180,36 @@
             </div>
         </div>
 
+        <section class="article-section">
+            <h2 class="article-section-title">บทความอื่น</h2>
 
-
-        <section class="carousel-content" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
-            <h2>บทความอื่น</h2>
-            <div class="video-carousel aos-init" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
-                <button class="prev">❮</button>
-                <div class="video-wrapper" id="videoSlider">
-                    <!-- <div class="video-item">
-                                            <iframe width="560" height="315" src="https://www.youtube.com/embed/M-nLhplc-mc?si=cXWxjwDwR4Tk84WZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                                        </div> -->
-                    <a class="content-carousel-item video-item" href="/articles_view3">
-                        <img src="https://www.thomeinspector.com/assets/upload/newsThumbnail/b764dd4c5037789dd95efac895cfbac14aa2a041.jpg"
-                            alt="Content 1">
-                        <div class="content-carousel-info">
-                            <h3>เราต่างจากที่อื่นอย่างไร What Makes US Different?<i
-                                    class="fa-solid fa-circle-arrow-right"></i></h3>
-                        </div>
-                    </a>
-                    <a class="content-carousel-item video-item" href="/articles_view3">
-                        <img src="https://www.thomeinspector.com/assets/upload/newsThumbnail/b764dd4c5037789dd95efac895cfbac14aa2a041.jpg"
-                            alt="Content 1">
-                        <div class="content-carousel-info">
-                            <h3>เราต่างจากที่อื่นอย่างไร What Makes US Different?<i
-                                    class="fa-solid fa-circle-arrow-right"></i></h3>
-                        </div>
-                    </a>
-                    <a class="content-carousel-item video-item" href="/articles_view3">
-                        <img src="https://www.thomeinspector.com/assets/upload/newsThumbnail/b764dd4c5037789dd95efac895cfbac14aa2a041.jpg"
-                            alt="Content 1">
-                        <div class="content-carousel-info">
-                            <h3>เราต่างจากที่อื่นอย่างไร What Makes US Different?<i
-                                    class="fa-solid fa-circle-arrow-right"></i></h3>
-                        </div>
-                    </a>
-                    <a class="content-carousel-item video-item" href="/articles_view3">
-                        <img src="https://www.thomeinspector.com/assets/upload/newsThumbnail/b764dd4c5037789dd95efac895cfbac14aa2a041.jpg"
-                            alt="Content 1">
-                        <div class="content-carousel-info">
-                            <h3>เราต่างจากที่อื่นอย่างไร What Makes US Different?<i
-                                    class="fa-solid fa-circle-arrow-right"></i></h3>
-                        </div>
-                    </a>
+            <div class="article-carousel-container">
+                <div class="article-carousel-inner">
+                    <div class="article-carousel-wrapper" id="carouselWrapper">
+                        {{-- @for ($index = 1; $index <= 5; $index += 1) --}}
+                        @foreach ($related_articles as $related_article)
+                            <div class="article-carousel-item">
+                                <div class="article-card">
+                                    <img class="article-card-image"
+                                        src="{{ $related_article->translation->coverPageImg }}"
+                                        alt="{{ $related_article->translation->title }}">
+                                    <div class="article-card-content">
+                                        <h3 class="article-card-title"> {{ $related_article->translation->title }} </h3>
+                                        {{-- <p class="article-card-subtitle">ค้นพบจุดเด่นที่ทำให้เราแตกต่างจากคู่แข่ง</p> --}}
+                                        <a href="/article/detail?news_id={{ $related_article->id }}" class="read-more">อ่านต่อ</a>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                        {{-- @endfor --}}
+                    </div>
                 </div>
-                <button class="next">❯</button>
+
+                <button class="article-nav-button prev" id="prevBtn">‹</button>
+                <button class="article-nav-button next" id="nextBtn">›</button>
             </div>
 
+            <div class="dots-container" id="dotsContainer"></div>
         </section>
     </main>
     <script src='/js/home/article/test_article.js'></script>

@@ -53,7 +53,11 @@
                     {{ \Carbon\Carbon::parse($house['created_at'])->locale(app()->getLocale())->isoFormat('D MMM YYYY h:mm') }}
                     {{-- $house['created_at']->format('d M Y H:i') --}}
                     {{-- 14 พ.ค. 2568 13:44 น --}}
-                    {{-- {{print_r($house, true)}} --}}
+                    {{-- {{print_r($article, true)}} --}}
+                </div>
+                <div class="reading-time">
+                    <i class="bi bi-clock"></i>
+                    เวลาในการอ่านโดยประมาณ: <span></span> นาที
                 </div>
             </div>
         </div>
@@ -74,28 +78,24 @@
             </div>
             <div class="art-promote">
                 <div class="card">
-                    <h5 class="card-title">บทความยอดนิยม</h5>
+                    <h5 class="card-title">รีวิวบ้านล่าสุด</h5>
                     <div class="card-content">
-                        <div class="rec-article">
-                            <img src="/img/articles_releted.jpg" alt="บทความยอดนิยม 1" class="rec-article-image">
-                            <div>
-                                <h4 class="rec-article-title">
-                                    <a href="#">ซื้อบ้านใหม่ ติดเครื่องทำน้ำอุ่นยังไง</a>
-                                </h4>
-                                <p class="rec-article-date">10 พฤษภาคม 2025</p>
-                            </div>
-                        </div>
-                        <div class="rec-article">
-                            <img src="/img/ev-charger.jpg" alt="บทความยอดนิยม 1" class="rec-article-image">
-                            <div>
-                                <h4 class="rec-article-title">
-                                    <a href="#">สิ่งที่ต้องรู้เกี่ยวกับ EV Charger</a>
-                                </h4>
-                                <p class="rec-article-date">10 พฤษภาคม 2025</p>
-                            </div>
-                        </div>
-
-                        <button class="btn btn-outline btn-sm btn-full btn-rec">ดูบทความทั้งหมด</button>
+                        @foreach ($latest_reviews as $latest_review)
+                            <a class="rec-article" href="/review/detail?news_id={{ $latest_review->id }}">
+                                <img src="{{ $latest_review->translation->coverPageImg }}"
+                                    alt="{{ $latest_review->translation->title }}" class="rec-article-image">
+                                <div>
+                                    <h4 class="rec-article-title">
+                                        <span
+                                            href="/review/detail?news_id={{ $latest_review->id }}">{{ $latest_review->translation->title }}</span>
+                                    </h4>
+                                    <p class="rec-article-date">
+                                        {{ \Carbon\Carbon::parse($latest_review->created_at)->locale(app()->getLocale())->isoFormat('D MMMM YYYY') }}
+                                    </p>
+                                </div>
+                            </a>
+                        @endforeach
+                        <a class="btn btn-outline btn-sm btn-full" href="/review">ดูรีวิวบ้านทั้งหมด</a>
                     </div>
                 </div>
 
@@ -142,7 +142,7 @@
                             </svg>
                             <span class="contact-text">Info@thomeinspector.com</span>
                         </div>
-                        <button class="btn btn-full mt-2 btn-contact btn-outline-primary">ติดต่อเรา</button>
+                        <a href="/contactus" class="btn btn-full mt-2 btn-contact btn-outline-primary">ติดต่อเรา</a>
                     </div>
                 </div>
             </div>
@@ -180,50 +180,38 @@
 
 
 
-        <section class="carousel-content" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
-            <h2>บทความอื่น</h2>
-            <div class="video-carousel aos-init" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
-                <button class="prev">❮</button>
-                <div class="video-wrapper" id="videoSlider">
-                    <!-- <div class="video-item">
-                                                <iframe width="560" height="315" src="https://www.youtube.com/embed/M-nLhplc-mc?si=cXWxjwDwR4Tk84WZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                                            </div> -->
-                    <a class="content-carousel-item video-item" href="/articles_view3">
-                        <img src="https://www.thomeinspector.com/assets/upload/newsThumbnail/b764dd4c5037789dd95efac895cfbac14aa2a041.jpg"
-                            alt="Content 1">
-                        <div class="content-carousel-info">
-                            <h3>เราต่างจากที่อื่นอย่างไร What Makes US Different?<i
-                                    class="fa-solid fa-circle-arrow-right"></i></h3>
-                        </div>
-                    </a>
-                    <a class="content-carousel-item video-item" href="/articles_view3">
-                        <img src="https://www.thomeinspector.com/assets/upload/newsThumbnail/b764dd4c5037789dd95efac895cfbac14aa2a041.jpg"
-                            alt="Content 1">
-                        <div class="content-carousel-info">
-                            <h3>เราต่างจากที่อื่นอย่างไร What Makes US Different?<i
-                                    class="fa-solid fa-circle-arrow-right"></i></h3>
-                        </div>
-                    </a>
-                    <a class="content-carousel-item video-item" href="/articles_view3">
-                        <img src="https://www.thomeinspector.com/assets/upload/newsThumbnail/b764dd4c5037789dd95efac895cfbac14aa2a041.jpg"
-                            alt="Content 1">
-                        <div class="content-carousel-info">
-                            <h3>เราต่างจากที่อื่นอย่างไร What Makes US Different?<i
-                                    class="fa-solid fa-circle-arrow-right"></i></h3>
-                        </div>
-                    </a>
-                    <a class="content-carousel-item video-item" href="/articles_view3">
-                        <img src="https://www.thomeinspector.com/assets/upload/newsThumbnail/b764dd4c5037789dd95efac895cfbac14aa2a041.jpg"
-                            alt="Content 1">
-                        <div class="content-carousel-info">
-                            <h3>เราต่างจากที่อื่นอย่างไร What Makes US Different?<i
-                                    class="fa-solid fa-circle-arrow-right"></i></h3>
-                        </div>
-                    </a>
+        <section class="article-section">
+            <h2 class="article-section-title">รีวิวบ้านอื่น</h2>
+
+            <div class="article-carousel-container">
+                <div class="article-carousel-inner">
+                    <div class="article-carousel-wrapper" id="carouselWrapper">
+                        {{-- @for ($index = 1; $index <= 5; $index += 1) --}}
+                            @foreach ($related_reviews as $related_review)
+                                <div class="article-carousel-item">
+                                    <div class="article-card">
+                                        <img class="article-card-image"
+                                            src="{{ $related_review->translation->coverPageImg }}"
+                                            alt="{{ $related_review->translation->title }}">
+                                        <div class="article-card-content">
+                                            <h3 class="article-card-title"> {{ $related_review->translation->title }}
+                                            </h3>
+                                            {{-- <p class="article-card-subtitle">ค้นพบจุดเด่นที่ทำให้เราแตกต่างจากคู่แข่ง</p> --}}
+                                            <a href="/review/detail?news_id={{ $related_review->id }}"
+                                                class="read-more">อ่านต่อ</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        {{-- @endfor --}}
+                    </div>
                 </div>
-                <button class="next">❯</button>
+
+                <button class="article-nav-button prev" id="prevBtn">‹</button>
+                <button class="article-nav-button next" id="nextBtn">›</button>
             </div>
 
+            <div class="dots-container" id="dotsContainer"></div>
         </section>
     </main>
     <script src='/js/home/article/test_article.js'></script>

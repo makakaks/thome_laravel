@@ -15,6 +15,20 @@ use DOMDocument;
 
 class ArticleController extends Controller
 {
+    static public function get_latest_articles($count = 5, $except_id = null)
+    {
+        $articles = Article::orderBy("created_at", "desc")->where('id', '!=', $except_id)->take($count)->get();
+
+        foreach ($articles as $article) {
+            $article->translation = $article->translation();
+            $article->tags = $article->articleTags->map(function ($tag) {
+                return $tag->translation();
+            });
+        }
+        return $articles;
+    }
+
+
     function index(Request $request)
     {
         $query = Article::query();
@@ -61,7 +75,23 @@ class ArticleController extends Controller
         });
         $article->hashtags = $article->articleHashTags->translation();
 
-        return view('home.article.show_article', compact('article'));
+        $latest_articles = $this->get_latest_articles(3, $article->id);
+
+        $related_articles = [];
+        foreach ($article->articleTags as $tag) {
+            $related_articles = array_unique(
+                array_merge(
+                    $related_articles, $tag->articles->where('id', '!=', $article->id)->all()
+            ));
+        }
+
+        // Get 3 random related articles
+        $related_articles = collect($related_articles)->unique('id')->shuffle()->take(3)->values();
+        foreach ($related_articles as $related_article) {
+            $related_article->translation = $related_article->translation();
+        }
+
+        return view('home.article.show_article', compact('article', 'latest_articles', 'related_articles'));
     }
 
 
@@ -253,12 +283,11 @@ class ArticleController extends Controller
             }
 
             foreach ($article->translations as $translation) {
-                if ($translation->locale != $request->lang){
+                if ($translation->locale != $request->lang) {
                     if (is_array($newImgUse)) {
                         $newImgUse = array_merge($newImgUse, is_array($this->extractImagePathsFromHtml($translation->content, $folderName)) ? $this->extractImagePathsFromHtml($translation->content, $folderName) : []);
                         $newImgUse = array_unique($newImgUse);
-                    }
-                    else {
+                    } else {
                         $newImgUse[] = $this->extractImagePathsFromHtml($translation->content, $folderName);
                     }
                 }
@@ -427,19 +456,5 @@ class ArticleController extends Controller
         } catch (Exception $e) {
             return response()->json(['message' => 'Error deleting tag: ' . $e->getMessage()], 500);
         }
-    }
-
-    static public function get_latest_articles($count = 5)
-    {
-        $articles = Article::latest()->take($count)->get();
-
-        foreach ($articles as $article) {
-            $article->translation = $article->translation();
-            $article->tags = $article->articleTags->map(function ($tag) {
-                return $tag->translation();
-            });
-        }
-
-        return $articles;
     }
 }
