@@ -5,11 +5,10 @@
     <main>
         <div class="art-header">
             <div class="art-track-area mb-4">
-                <a href="/">หน้าหลัก</a> >
-                <a href="/review">รีวิวบ้าน</a> >
+                <a href="/">{{ __('review_home.breadcrumb-home') }}</a> >
+                <a href="/review">{{ __('review_home.breadcrumb-review') }}</a> >
                 <a href="/review/detail?news_id={{ $house['id'] }}">{{ $house['translation']['title'] }}</a>
             </div>
-            {{-- <h1>{{$locale}}</h1> --}}
             <h1 class="art-name">{{ $house['translation']['title'] }}</h1>
             <div class="art-name-below">
                 <div class="art-tag-container">
@@ -46,18 +45,14 @@
                 </div>
             </div>
 
-
             <div class="art-cover-img">
                 <img src="{{ $house['translation']['coverPageImg'] }}" alt="">
                 <div class="art-date">
                     {{ \Carbon\Carbon::parse($house['created_at'])->locale(app()->getLocale())->isoFormat('D MMM YYYY h:mm') }}
-                    {{-- $house['created_at']->format('d M Y H:i') --}}
-                    {{-- 14 พ.ค. 2568 13:44 น --}}
-                    {{-- {{print_r($article, true)}} --}}
                 </div>
                 <div class="reading-time">
                     <i class="bi bi-clock"></i>
-                    เวลาในการอ่านโดยประมาณ: <span></span> นาที
+                    {{ __('review_home.reading-time-label') }}: <span></span> {{ __('review_home.minutes') }}
                 </div>
             </div>
         </div>
@@ -66,19 +61,17 @@
                 {!! $house['translation']['content'] !!}
 
                 <div>
-                    Hashtag :
+                    {{ __('review_home.hashtag-label') }}
                     @foreach ($house['hashtags'] as $hashtag)
                         <span class="art-hashtag">
-                            {{-- #{{ $hashtag }} --}}
                             #{{ $hashtag }}
                         </span>
                     @endforeach
                 </div>
-
             </div>
             <div class="art-promote">
                 <div class="card">
-                    <h5 class="card-title">รีวิวบ้านล่าสุด</h5>
+                    <h5 class="card-title">{{ __('review_home.latest-reviews-title') }}</h5>
                     <div class="card-content">
                         @foreach ($latest_reviews as $latest_review)
                             <a class="rec-article" href="/review/detail?news_id={{ $latest_review->id }}">
@@ -95,34 +88,35 @@
                                 </div>
                             </a>
                         @endforeach
-                        <a class="btn btn-outline btn-sm btn-full" href="/review">ดูรีวิวบ้านทั้งหมด</a>
+                        <a class="btn btn-outline btn-sm btn-full"
+                            href="/review">{{ __('review_home.see-all-reviews') }}</a>
                     </div>
                 </div>
 
                 <!-- รีวิวจากลูกค้า -->
                 <div class="card">
-                    <h5 class="card-title">รีวิวจากลูกค้า</h5>
+                    <h5 class="card-title">{{ __('review_home.customer-reviews-title') }}</h5>
                     <div class="card-content">
                         <div class="review">
                             <p class="review-text">
-                                "ทีมงานและเครื่องมือพร้อม ตรวจสอบละเอียด เจ้าหน้าที่ให้คำแนะนำ ดีมากค่ะ"
+                                "{{ __('review_home.review1-text') }}"
                             </p>
-                            <p class="review-author">- คุณลียะกิตติพร</p>
+                            <p class="review-author">- {{ __('review_home.review1-author') }}</p>
                         </div>
                         <div class="review">
                             <p class="review-text">
-                                "ดีใจที่เลือกใช้บริการของ ต ตรวจบ้านครับ ให้คำแนะนำดีมาก ตรวจละเอียด
-                                อุปกรณ์ในการตรวจครบครับ 🙂"
+                                "{{ __('review_home.review2-text') }}"
                             </p>
-                            <p class="review-author">- คุณ Chaiyapond</p>
+                            <p class="review-author">- {{ __('review_home.review2-author') }}</p>
                         </div>
-                        <button class="btn btn-outline btn-sm btn-full btn-review">ดูรีวิวทั้งหมด</button>
+                        <button
+                            class="btn btn-outline btn-sm btn-full btn-review">{{ __('review_home.see-all-reviews') }}</button>
                     </div>
                 </div>
 
                 <!-- ติดต่อเรา -->
                 <div class="card">
-                    <h5 class="card-title">ติดต่อเรา</h5>
+                    <h5 class="card-title">{{ __('review_home.contact-title') }}</h5>
                     <div class="card-content">
                         <div class="contact-item">
                             <svg class="icon contact-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -142,12 +136,13 @@
                             </svg>
                             <span class="contact-text">Info@thomeinspector.com</span>
                         </div>
-                        <a href="/contactus" class="btn btn-full mt-2 btn-contact btn-outline-primary">ติดต่อเรา</a>
+                        <a href="/contactus"
+                            class="btn btn-full mt-2 btn-contact btn-outline-primary">{{ __('review_home.contact-btn') }}</a>
                     </div>
                 </div>
             </div>
             <div class="art-share-tail">
-                <h3>Share Article</h3>
+                <h3>{{ __('review_home.share-article-title') }}</h3>
                 <div class="social-share" style="display: flex;">
                     <a class="facebook" target="_blank">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/2023_Facebook_icon.svg/2048px-2023_Facebook_icon.svg.png"
@@ -178,11 +173,8 @@
             </div>
         </div>
 
-
-
         <section class="article-section">
-            <h2 class="article-section-title">รีวิวบ้านอื่น</h2>
-
+            <h2 class="article-section-title">{{ __('review_home.other-reviews-title') }}</h2>
             <div class="article-carousel-container">
                 <div class="article-carousel-inner">
                     <div class="article-carousel-wrapper" id="carouselWrapper">
@@ -195,20 +187,17 @@
                                     <div class="article-card-content">
                                         <h3 class="article-card-title"> {{ $related_review->translation->title }}
                                         </h3>
-                                        {{-- <p class="article-card-subtitle">ค้นพบจุดเด่นที่ทำให้เราแตกต่างจากคู่แข่ง</p> --}}
                                         <a href="/review/detail?news_id={{ $related_review->id }}"
-                                            class="read-more">อ่านต่อ</a>
+                                            class="read-more">{{ __('review_home.read-more') }}</a>
                                     </div>
                                 </div>
                             </div>
                         @endforeach
                     </div>
                 </div>
-
                 <button class="article-nav-button prev" id="prevBtn">‹</button>
                 <button class="article-nav-button next" id="nextBtn">›</button>
             </div>
-
             <div class="dots-container" id="dotsContainer"></div>
         </section>
     </main>

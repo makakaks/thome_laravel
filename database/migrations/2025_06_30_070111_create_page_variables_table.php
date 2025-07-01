@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('page_variables', function (Blueprint $table) {
             $table->id();
             $table->string('page');
-            $table->jsonb('var')->nullable(false)->default([]);
+            $table->jsonb('var')->nullable();
             $table->timestamps();
         });
     }

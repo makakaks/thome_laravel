@@ -17,6 +17,7 @@ return [
     "articles" => "Articles",
     "review_home" => "Home Reviews",
     "projects" => "Projects",
+    "privilege" => "Privileges",
 
     "about" => "About Us",
     "ourstory" => "Our Story",

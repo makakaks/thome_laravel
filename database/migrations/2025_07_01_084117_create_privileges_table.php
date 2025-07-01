@@ -13,9 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('review_home_projects', function (Blueprint $table) {
+        Schema::create('privileges', function (Blueprint $table) {
             $table->id();
-            $table->jsonb('locale')->nullable();
+            $table->bigInteger('folder_id')->unsigned()->default(0)->nullable();
+            $table->jsonb('hashtag')->nullable(); // JSON column for storing localized hashtags
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('review_home_projects');
+        Schema::dropIfExists('privileges');
     }
 };

@@ -20,7 +20,7 @@ return new class extends Migration
                 ->constrained()
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-            $table->jsonb('locale')->nullable(false)->default([]); // JSON column for storing localized hash tags
+            $table->jsonb('locale')->nullable(); // JSON column for storing localized hash tags
             $table->timestamps();
         });
     }

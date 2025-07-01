@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('article_hash_tags', function (Blueprint $table) {
             $table->id();
             $table->foreignId('article_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
-            $table->jsonb('locale')->nullable(false)->default([]); // JSON column for storing localized hash tags
+            $table->jsonb('locale')->nullable(); // JSON column for storing localized hash tags
             $table->timestamps();
         });
     }

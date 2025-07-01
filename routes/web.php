@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Cookie;
 use PHPUnit\Framework\Test;
 use App\Http\Controllers\HouseController;
 use App\Http\Controllers\ReviewHomeController;
+use App\Http\Controllers\PrivilegeController;
 use App\Http\Controllers\StaticPageController;
 use App\Models\Faq;
 use App\Models\PageVariable;
@@ -104,22 +105,21 @@ Route::prefix('addon_service')->group(function () {
         return view('home.addon_service.checklist');
     });
 });
-
-Route::get('/testkub', function () {
-    return view('home.article.test_article');
-});
-
 // Route::get('review_home/{id}', function ($id) {
 //     return view('home.article.review_home', ['id' => $id]);
 // });
 
 Route::prefix('article')->controller(ArticleController::class)->group(function () {
     Route::get('/', 'index');
-    Route::get('/test_paginate', 'test_paginate')->name('article.test_paginate');
     Route::get('/detail', 'show_article')->name('article.show');
 });
 
 Route::prefix('review')->controller(ReviewHomeController::class)->group(function () {
+    Route::get('/', 'index')->name('review_home.index');
+    Route::get('/detail', 'show')->name('review_home.show');
+});
+
+Route::prefix('privilege')->controller(PrivilegeController::class)->group(function () {
     Route::get('/', 'index')->name('review_home.index');
     Route::get('/detail', 'show')->name('review_home.show');
 });
@@ -194,12 +194,26 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::post('/reorder', 'reorder')->name('admin.department.reorder');
     });
 
-    Route::prefix('user')->controller(AdminController::class)->group(function () {
-        Route::get('/', 'user_manage')->name('admin.user,manage');
+    Route::prefix('privilege')->controller(PrivilegeController::class)->group(function () {
+        Route::get('/', 'manage')->name('admin.privilege.manage');
+        Route::delete('/{id}', 'delete')->name('admin.privilege.delete');
+
+        Route::get('/create', 'create_view')->name('admin.privilege.create_view');
+        Route::post('/create', 'create_store')->name('admin.privilege.create_store');
+
+        Route::get('/{id}/edit', 'edit_view')->name('admin.privilege.edit_view');
+        Route::put('/{id}/edit', 'edit_store')->name('admin.privilege.edit_store');
+        Route::put('/{id}/edit_id', 'edit_id')->name('admin.privilege.edit_id');
+
+        Route::get('/{id}/add_lang', 'add_lang_view')->name('admin.privilege.add_lang_view');
+        Route::post('/{id}/add_lang', 'add_lang_store')->name('admin.privilege.add_lang_store');
     });
 
+    // Route::prefix('user')->controller(AdminController::class)->group(function () {
+    //     Route::get('/', 'user_manage')->name('admin.user,manage');
+    // });
+
     Route::post('/upload_image', [AdminController::class, 'upload_image'])->name('admin.upload');
-    Route::get('/change_password', [AdminController::class, 'change_password_view'])->name('admin.change_password');
 });
 
 

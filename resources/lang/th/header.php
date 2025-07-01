@@ -17,6 +17,7 @@ return [
     "articles" => "บทความ",
     "review_home" => "รีวิวบ้าน",
     "projects" => "ผลงาน",
+    "privilege" => "สิทธิพิเศษ",
 
     "about" => "เกี่ยวกับเรา",
     "ourstory" => "ประวัติของเรา",

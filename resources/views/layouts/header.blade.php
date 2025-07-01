@@ -93,7 +93,8 @@
             </li> --}}
             <li><a href="/article" data-translate="nav.articles">{{ __('header.articles') }}</a></li>
             <li><a href="/review" data-translate="nav.reviewHome">{{ __('header.review_home') }}</a></li>
-            <li><a href="/projects_media.html" data-translate="nav.projects">{{ __('header.projects') }}</a></li>
+            <li><a href="/privilege">{{ __('header.privilege') }}</a></li>
+            {{-- <li><a href="/projects_media.html" data-translate="nav.projects">{{ __('header.projects') }}</a></li> --}}
             <!-- Dropdown Menu -->
             <li class="dropdown">
                 <a href="#a" class="menu-item" data-translate="nav.aboutUs">
