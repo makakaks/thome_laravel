@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('review_home_projects', function (Blueprint $table) {
             $table->id();
-            $table->jsonb('locale')->nullable(false)->default(json_encode(['en' => '', 'th' => '']));
+            $table->jsonb('locale')->nullable(false)->default(['en' => '', 'th' => '']);
             $table->timestamps();
         });
     }

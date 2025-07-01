@@ -607,16 +607,20 @@
 
             <div class="insight-metrics animate-text delay-3">
                 <div class="metric-box">
-                    <span class="metric-number" data-target="1250">1250</span><span class="metric-unit">+</span>
+                    <span class="metric-number" data-target="{{ $var['dev'] }}"></span><span class="metric-unit">developer</span>
                     <p class="metric-label">ตรวจบ้านมาแล้วกว่า</p>
                 </div>
                 <div class="metric-box">
-                    <span class="metric-number" data-target="99.9">99.9</span><span class="metric-unit">%</span>
-                    <p class="metric-label">ความพึงพอใจ</p>
+                    <span class="metric-number" data-target="{{ $var['project'] }}"></span><span class="metric-unit">โครงการ</span>
+                    <p class="metric-label">ตรวจบ้านมาแล้วกว่า</p>
                 </div>
                 <div class="metric-box">
-                    <span class="metric-number" data-target="10">10</span><span class="metric-unit">+ปี</span>
-                    <p class="metric-label">ประสบการณ์กว่า</p>
+                    <span class="metric-number" data-target="{{ $var['house'] }}"></span><span class="metric-unit">หลัง</span>
+                    <p class="metric-label">ตรวจบ้านมาแล้วกว่า</p>
+                </div>
+                <div class="metric-box">
+                    <span class="metric-number" data-target="{{ $var['satisfaction'] }}"></span><span class="metric-unit">%</span>
+                    <p class="metric-label">ความพึงพอใจ</p>
                 </div>
 
                 <div class="metrics-extra" id="stats-container"></div>

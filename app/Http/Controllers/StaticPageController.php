@@ -18,23 +18,23 @@ class StaticPageController extends Controller
     public function home()
     {
         $page = PageVariable::where('page', 'home')->first();
-        $page = $page ? json_decode($page->var, true) : [];
+        $page = $page ? $page->var : [];
         return view('admin.static_page.home', [
-            'dev' => $page['dev'] ?? "",
-            'project' => $page['project'] ?? "",
-            'house' => $page['house'] ?? "",
-            'satisfaction' => $page['satisfaction'] ?? ""]
+            'dev' => $page['dev'],
+            'project' => $page['project'],
+            'house' => $page['house'],
+            'satisfaction' => $page['satisfaction']]
         );
     }
 
     public function home_store(){
         $page = PageVariable::where("page", "home")->first();
-        $page->var = json_encode([
+        $page->var = [
             'dev' => request('dev', ''),
             'project' => request('project', ''),
             'house' => request('house', ''),
             'satisfaction' => request('satisfaction', '')
-        ]);
+        ];
         $page->save();
         return Redirect::back()->with('status', 'Variables updated');
         // return redirect()->back()->with('success', 'Variables updated');

@@ -15,6 +15,7 @@ use App\Http\Controllers\HouseController;
 use App\Http\Controllers\ReviewHomeController;
 use App\Http\Controllers\StaticPageController;
 use App\Models\Faq;
+use App\Models\PageVariable;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,7 +46,11 @@ Route::get('/', function () {
             return $tag->translation();
         });
     }
-    return view('home.index', compact('faqs', 'latestArticles'));
+
+    $pageVariables = PageVariable::where('page', 'home')->first()->toArray();
+    $var = $pageVariables['var'] ?? []; // Default value if not set
+
+    return view('home.index', compact('faqs', 'latestArticles', 'var'));
 });
 
 Route::get('/hinspector', function () {

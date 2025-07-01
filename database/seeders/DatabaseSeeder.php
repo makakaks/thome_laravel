@@ -19,12 +19,12 @@ class DatabaseSeeder extends Seeder
 
         PageVariable::create([
             'page' => 'home',
-            'var' => json_encode([
+            'var' => [
                 'dev' => '',
                 'project' => '',
                 'house' => '',
                 'satisfaction' => ''
-            ])
+            ]
         ]);
     }
 }

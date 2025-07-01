@@ -15,19 +15,19 @@
                 @csrf
                 <div class="form-group mb-3">
                     <label for=""> ตรวจบ้านแล้วกี่ developer </label>
-                    <input class="form-control" type="text" name="dev" value="{{ old('dev', $dev) }}">
+                    <input class="form-control" type="number" name="dev" value="{{ old('dev', $dev) }}">
                 </div>
                 <div class="form-group mb-3">
                     <label for=""> ตรวจบ้านแล้วกี่โครงการ</label>
-                    <input class="form-control" type="text" name="project" value="{{ old('project', $project) }}">
+                    <input class="form-control" type="number" name="project" value="{{ old('project', $project) }}">
                 </div>
                 <div class="form-group mb-3">
                     <label for=""> ตรวจบ้านแล้วกี่หลัง</label>
-                    <input class="form-control" type="text" name="house" value="{{ old('house', $house) }}">
+                    <input class="form-control" type="number" name="house" value="{{ old('house', $house) }}">
                 </div>
                 <div class="form-group mb-3">
                     <label for=""> ความพึงพอใจ</label>
-                    <input class="form-control" type="text" name="satisfaction"
+                    <input class="form-control" type="number" name="satisfaction"
                         value="{{ old('satisfaction', $satisfaction) }}">
                 </div>
                 <button type="submit" class="btn btn-primary"> Submit </button>
