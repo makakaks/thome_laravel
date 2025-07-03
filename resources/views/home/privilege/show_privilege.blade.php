@@ -5,19 +5,19 @@
     <main>
         <div class="art-header">
             <div class="art-track-area mb-4">
-                <a href="/">{{ __('article.breadcrumb-home') }}</a> >
-                <a href="/article">{{ __('article.breadcrumb-article') }}</a> >
-                <a href="/article/detail?news_id={{ $article['id'] }}">{{ $article['translation']['title'] }}</a>
+                <a href="/">{{ __('Privilege.breadcrumb-home') }}</a> >
+                <a href="/article">{{ __('privilege.breadcrumb-privilege') }}</a> >
+                <a href="/article/detail?news_id={{ $privilege['id'] }}">{{ $privilege['translation']['title'] }}</a>
             </div>
-            <h1 class="art-name">{{ $article['translation']['title'] }}</h1>
+            <h1 class="art-name">{{ $privilege['translation']['title'] }}</h1>
             <div class="art-name-below">
-                <div class="art-tag-container">
-                    @foreach ($article->tags as $tag)
+                {{-- <div class="art-tag-container">
+                    @foreach ($privilege->tags as $tag)
                         <a class="art-tag" href="/article?tag={{ $tag['name'] }}">
                             {{ $tag['name'] }}
                         </a>
                     @endforeach
-                </div>
+                </div> --}}
                 <div class="social-share" style="display: flex; gap: 4px;">
                     <a class="facebook" target="_blank">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/2023_Facebook_icon.svg/2048px-2023_Facebook_icon.svg.png"
@@ -48,23 +48,23 @@
             </div>
 
             <div class="art-cover-img">
-                <img src="{{ $article['translation']['coverPageImg'] }}" alt="">
+                <img src="{{ $privilege['translation']['coverPageImg'] }}" alt="">
                 <div class="art-date">
-                    {{ \Carbon\Carbon::parse($article['created_at'])->locale(app()->getLocale())->isoFormat('D MMM YYYY h:mm') }}
+                    {{ \Carbon\Carbon::parse($privilege['created_at'])->locale(app()->getLocale())->isoFormat('D MMM YYYY h:mm') }}
                 </div>
                 <div class="reading-time">
                     <i class="bi bi-clock"></i>
-                    {{ __('article.reading-time-label') }}: <span></span> {{ __('article.minutes') }}
+                    {{ __('privilege.reading-time-label') }}: <span></span> {{ __('privilege.minutes') }}
                 </div>
             </div>
         </div>
         <div class="art-body">
             <div class="art-content">
-                {!! $article['translation']['content'] !!}
+                {!! $privilege['translation']['content'] !!}
 
                 <div>
-                    {{ __('article.hashtag-label') }}
-                    @foreach ($article['hashtags'] as $hashtag)
+                    {{ __('privilege.hashtag-label') }}
+                    @foreach ($privilege['hashtags'] as $hashtag)
                         <span class="art-hashtag">
                             #{{ $hashtag }}
                         </span>
@@ -73,50 +73,50 @@
             </div>
             <div class="art-promote">
                 <div class="card">
-                    <h5 class="card-title">{{ __('article.latest-articles-title') }}</h5>
+                    <h5 class="card-title">{{ __('privilege.latest-privileges-title') }}</h5>
                     <div class="card-content">
-                        @foreach ($latest_articles as $latest_article)
-                            <a class="rec-article" href="/article/detail?news_id={{ $latest_article->id }}">
-                                <img src="{{ $latest_article->translation->coverPageImg }}"
-                                    alt="{{ $latest_article->translation->title }}" class="rec-article-image">
+                        @foreach ($latest_privileges as $latest_privilege)
+                            <a class="rec-article" href="/article/detail?news_id={{ $latest_privilege->id }}">
+                                <img src="{{ $latest_privilege->translation->coverPageImg }}"
+                                    alt="{{ $latest_privilege->translation->title }}" class="rec-article-image">
                                 <div>
                                     <h4 class="rec-article-title">
                                         <span
-                                            href="/article/detail?news_id={{ $latest_article->id }}">{{ $latest_article->translation->title }}</span>
+                                            href="/article/detail?news_id={{ $latest_privilege->id }}">{{ $latest_privilege->translation->title }}</span>
                                     </h4>
                                     <p class="rec-article-date">
-                                        {{ \Carbon\Carbon::parse($latest_article->created_at)->locale(app()->getLocale())->isoFormat('D MMMM YYYY') }}
+                                        {{ \Carbon\Carbon::parse($latest_privilege->created_at)->locale(app()->getLocale())->isoFormat('D MMMM YYYY') }}
                                     </p>
                                 </div>
                             </a>
                         @endforeach
-                        <a class="btn btn-outline btn-sm btn-full" href="/article">{{ __('article.see-all-articles') }}</a>
+                        <a class="btn btn-outline btn-sm btn-full" href="/article">{{ __('privilege.see-all-privileges') }}</a>
                     </div>
                 </div>
 
                 <!-- รีวิวจากลูกค้า -->
                 <div class="card">
-                    <h5 class="card-title">{{ __('article.customer-reviews-title') }}</h5>
+                    <h5 class="card-title">{{ __('privilege.customer-reviews-title') }}</h5>
                     <div class="card-content">
                         <div class="review">
                             <p class="review-text">
-                                "{{ __('article.review1-text') }}"
+                                "{{ __('privilege.review1-text') }}"
                             </p>
-                            <p class="review-author">- {{ __('article.review1-author') }}</p>
+                            <p class="review-author">- {{ __('privilege.review1-author') }}</p>
                         </div>
                         <div class="review">
                             <p class="review-text">
-                                "{{ __('article.review2-text') }}"
+                                "{{ __('privilege.review2-text') }}"
                             </p>
-                            <p class="review-author">- {{ __('article.review2-author') }}</p>
+                            <p class="review-author">- {{ __('privilege.review2-author') }}</p>
                         </div>
-                        <button class="btn btn-outline btn-sm btn-full btn-review">{{ __('article.see-all-reviews') }}</button>
+                        <button class="btn btn-outline btn-sm btn-full btn-review">{{ __('privilege.see-all-reviews') }}</button>
                     </div>
                 </div>
 
                 <!-- ติดต่อเรา -->
                 <div class="card">
-                    <h5 class="card-title">{{ __('article.contact-title') }}</h5>
+                    <h5 class="card-title">{{ __('privilege.contact-title') }}</h5>
                     <div class="card-content">
                         <div class="contact-item">
                             <svg class="icon contact-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -136,12 +136,12 @@
                             </svg>
                             <span class="contact-text">Info@thomeinspector.com</span>
                         </div>
-                        <a href="/contactus" class="btn btn-full mt-2 btn-contact btn-outline-primary">{{ __('article.contact-btn') }}</a>
+                        <a href="/contactus" class="btn btn-full mt-2 btn-contact btn-outline-primary">{{ __('privilege.contact-btn') }}</a>
                     </div>
                 </div>
             </div>
             <div class="art-share-tail">
-                <h3>{{ __('article.share-article-title') }}</h3>
+                <h3>{{ __('privilege.share-privilege-title') }}</h3>
                 <div class="social-share" style="display: flex;">
                     <a class="facebook" target="_blank">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/2023_Facebook_icon.svg/2048px-2023_Facebook_icon.svg.png"
@@ -172,20 +172,20 @@
             </div>
         </div>
 
-        <section class="article-section">
-            <h2 class="article-section-title">{{ __('article.other-articles-title') }}</h2>
+        {{-- <section class="article-section">
+            <h2 class="article-section-title">{{ __('privilege.other-privileges-title') }}</h2>
             <div class="article-carousel-container">
                 <div class="article-carousel-inner">
                     <div class="article-carousel-wrapper" id="carouselWrapper">
-                        @foreach ($related_articles as $related_article)
+                        @foreach ($related_privileges as $related_privilege)
                             <div class="article-carousel-item">
                                 <div class="article-card">
                                     <img class="article-card-image"
-                                        src="{{ $related_article->translation->coverPageImg }}"
-                                        alt="{{ $related_article->translation->title }}">
+                                        src="{{ $related_privilege->translation->coverPageImg }}"
+                                        alt="{{ $related_privilege->translation->title }}">
                                     <div class="article-card-content">
-                                        <h3 class="article-card-title"> {{ $related_article->translation->title }} </h3>
-                                        <a href="/article/detail?news_id={{ $related_article->id }}" class="read-more">{{ __('article.read-more') }}</a>
+                                        <h3 class="article-card-title"> {{ $related_privilege->translation->title }} </h3>
+                                        <a href="/article/detail?news_id={{ $related_privilege->id }}" class="read-more">{{ __('privilege.read-more') }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -196,7 +196,7 @@
                 <button class="article-nav-button next" id="nextBtn">›</button>
             </div>
             <div class="dots-container" id="dotsContainer"></div>
-        </section>
+        </section> --}}
     </main>
     <script src='/js/home/article/test_article.js'></script>
 @endsection

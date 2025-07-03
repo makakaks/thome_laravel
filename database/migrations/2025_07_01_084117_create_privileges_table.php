@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('privileges', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('folder_id')->unsigned()->default(0)->nullable();
-            $table->jsonb('hashtag')->nullable(); // JSON column for storing localized hashtags
+            $table->jsonb('hashtags')->nullable(); // JSON column for storing localized hashtags
             $table->timestamps();
         });
     }

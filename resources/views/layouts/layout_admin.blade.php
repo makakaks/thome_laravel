@@ -99,6 +99,12 @@
                     </a>
                 </li>
                 <li>
+                    <a href="/admin/privilege">
+                        <i class="bi bi-star-fill icon"></i>
+                        สิทธิพิเศษ
+                    </a>
+                </li>
+                <li>
                     <a href="/admin/employee">
                         <img src="https://cdn-icons-png.flaticon.com/512/1134/1134182.png" class="icon"></i>
                         โครงสร้างพนักงาน

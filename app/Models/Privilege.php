@@ -12,11 +12,11 @@ class Privilege extends Model
     use HasFactory;
 
     protected $casts = [
-        'hashtag' => 'array',
+        'hashtags' => 'array',
     ];
 
     protected $fillable = [
-        'hashtag',
+        'hashtags',
     ];
 
     protected static function boot()
@@ -25,6 +25,9 @@ class Privilege extends Model
 
         static::created(function ($priv) {
             $priv->folder_id = $priv->id;
+            if (is_array($priv->hashtags) || is_null($priv->hashtags)) {
+                $priv->hashtags = [];
+            }
             $priv->save();
         });
 
@@ -35,7 +38,7 @@ class Privilege extends Model
 
     public function translations()
     {
-        return $this->hasMany(ReviewHomeTranslation::class);
+        return $this->hasMany(PrivilegeTranslation::class);
     }
 
     public function translation($locale = null)
@@ -51,7 +54,7 @@ class Privilege extends Model
     public function hashtagTranslation($locale = null)
     {
         $locale = $locale ?? App::getLocale();
-        $hashtags = $this->hashtag;
+        $hashtags = $this->hashtags;
         $hashtagsNew = [];
         foreach ($hashtags as $hashtag) {
             $hashtagsNew[] = $hashtag[$locale] ?? $hashtag['en'] ?? $hashtag['th'] ?? '';

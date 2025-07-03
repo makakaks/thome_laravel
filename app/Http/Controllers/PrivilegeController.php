@@ -19,9 +19,6 @@ class PrivilegeController extends Controller
 
         foreach ($privileges as $privilege) {
             $privilege->translation = $privilege->translation();
-            $privilege->tags = $privilege->privilegeTags->map(function ($tag) {
-                return $tag->translation();
-            });
         }
         return $privileges;
     }
@@ -39,52 +36,40 @@ class PrivilegeController extends Controller
             });
         }
 
-        if ($request->filled('tag')) {
-            $query->whereHas('privilegeTags.translations', function ($q) use ($request) {
-                $q->where('name', 'like', '%' . $request->tag . '%');
-            });
-        }
-
         $privileges = $query->paginate(9)->appends($request->except('page'));
 
         foreach ($privileges as $privilege) {
             $privilege->translation = $privilege->translation();
-            $privilege->tags = $privilege->privilegeTags->map(function ($tag) {
-                return $tag->translation();
-            });
         }
 
-        return view('home.privilege.index', compact('privileges', 'tags'));
+        return view('home.privilege.index', compact('privileges'));
     }
 
-    public function show_privilege(Request $request)
+    public function show(Request $request)
     {
         $news_id = $request->news_id;
         $privilege = Privilege::where('id', $news_id)->firstOrFail();
 
         $privilege->translation = $privilege->translation();
-        $privilege->tags = $privilege->privilegeTags->map(function ($tag) {
-            return $tag->translation();
-        });
-        $privilege->hashtags = $privilege->privilegeHashTags->translation();
+        $privilege->hashtags = $privilege->hashtagTranslation();
 
         $latest_privileges = $this->get_latest_privileges(3, $privilege->id);
 
         $related_privileges = [];
-        foreach ($privilege->privilegeTags as $tag) {
-            $related_privileges = array_unique(
-                array_merge(
-                    $related_privileges,
-                    $tag->privileges->where('id', '!=', $privilege->id)->all()
-                )
-            );
-        }
+        // foreach ($privilege->privilegeTags as $tag) {
+        //     $related_privileges = array_unique(
+        //         array_merge(
+        //             $related_privileges,
+        //             $tag->privileges->where('id', '!=', $privilege->id)->all()
+        //         )
+        //     );
+        // }
 
         // Get 3 random related privileges
-        $related_privileges = collect($related_privileges)->unique('id')->shuffle()->take(3)->values();
-        foreach ($related_privileges as $related_privilege) {
-            $related_privilege->translation = $related_privilege->translation();
-        }
+        // $related_privileges = collect($related_privileges)->unique('id')->shuffle()->take(3)->values();
+        // foreach ($related_privileges as $related_privilege) {
+        //     $related_privilege->translation = $related_privilege->translation();
+        // }
 
         return view('home.privilege.show_privilege', compact('privilege', 'latest_privileges', 'related_privileges'));
     }
@@ -106,19 +91,11 @@ class PrivilegeController extends Controller
             });
         }
 
-        if ($request->filled('tag')) {
-            $query->whereHas('privilegeTags', function ($q) use ($request) {
-                $q->where('privilege_tag_id', $request->tag);
-            });
-        }
-
         $privileges = $query->paginate(8)->appends($request->except('page'));
 
         foreach ($privileges as $privilege) {
             $privilege->translation = $privilege->translation();
-            $privilege->tags = $privilege->privilegeTags->map(function ($tag) {
-                return $tag->translation();
-            });
+            // $privilege->hashtags = $privilege->hashtagTranslation;
             $availablelang = [];
             foreach ($privilege->translations as $translation) {
                 $availablelang[] = $translation->locale;
@@ -126,7 +103,7 @@ class PrivilegeController extends Controller
             $privilege->availablelang = $availablelang;
         }
 
-        return view('admin.privilege.manage', compact('privileges', 'tags'));
+        return view('admin.privilege.manage', compact('privileges'));
     }
 
     function delete($id)
@@ -149,11 +126,11 @@ class PrivilegeController extends Controller
     public function create_store(Request $request)
     {
         try {
+
             $request->validate([
                 'title' => 'required|string|max:255',
                 'content' => 'required|string',
                 'coverPageImg' => 'required',
-                'tags' => 'required|array',
                 'hashtags' => 'required|array',
             ]);
 
@@ -197,10 +174,9 @@ class PrivilegeController extends Controller
                 'coverPageImg' => $updateCoverPage,
             ]);
 
-            $privilege->privilegeTags()->attach($request['tags']);
-            $privilege->privilegeHashTags()->create([
-                'locale' => $request->hashtags,
-            ]);
+            $privilege->hashtags = (array) $request->hashtags;
+            $privilege->save();
+            // return response()->json(['message' => 'Privilege created successfully.'], 500);
             return response()->json(['message' => 'Privilege created successfully.'], 200);
         } catch (Exception $e) {
             return response()->json(['message' => 'Error creating Privilege: ' . $e->getMessage()], 500);
@@ -213,14 +189,8 @@ class PrivilegeController extends Controller
 
         $privilege = Privilege::where('id', $id)->firstOrFail();
         $privilege->translation = $privilege->translation($lang);
-        $privilege->tags = $privilege->privilegeTags->map(function ($tag) {
-            return $tag->translation();
-        });
 
-        // $privilege->hashtags = $privilege->privilegeHashTagsTranslation;
-        $privilege->hashtags = $privilege->privilegeHashTags->locale;
-
-        return view('admin.privilege.create', compact('privilege', 'tags'));
+        return view('admin.privilege.create', compact('privilege'));
     }
 
     public function edit_store(Request $request, $id)
@@ -293,8 +263,9 @@ class PrivilegeController extends Controller
                 'coverPageImg' => $updateCoverPage
             ]);
 
-            $privilege->privilegeTags()->sync($request['tags']);
-            $privilege->privilegeHashTags()->update(['locale' => $request['hashtags']]);
+            $privilege->hashtags = $request['hashtags'];
+            $privilege->save();
+
             return response()->json(['message' => 'Privilege update successfully.'], 200);
         } catch (Exception $e) {
             return response()->json(['message' => 'Error updating FAQ: ' . $e->getMessage()], 500);
@@ -307,14 +278,9 @@ class PrivilegeController extends Controller
 
         $privilege = Privilege::where('id', $id)->firstOrFail();
         $privilege->translation = $privilege->translation();
-        // $privilege->tags = $privilege->privilegeTags->map(function ($tag) {
-        //     return $tag->translation();
-        // });
-
-        // $privilege->hashtags = $privilege->privilegeHashTags->locale;
 
 
-        return view('admin.privilege.create', compact('privilege', 'tags'));
+        return view('admin.privilege.create', compact('privilege'));
     }
 
     public function add_lang_store(Request $request, $id)
