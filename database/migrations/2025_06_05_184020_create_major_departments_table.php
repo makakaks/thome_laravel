@@ -3,7 +3,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -14,13 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('departments', function (Blueprint $table) {
+        Schema::create('major_departments', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(App\Models\MajorDepartment::class)
-                ->constrained()
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
-            $table->integer('d_order')->default(1000000000)->nullable(false);
+            $table->string('icon', 40);
+            $table->jsonb('locale')->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('departments');
+        Schema::dropIfExists('major_departments');
     }
 };

@@ -36,6 +36,11 @@ class Department extends Model
         return $this->hasMany(Employee::class);
     }
 
+    public function majorDepartment()
+    {
+        return $this->belongsTo(MajorDepartment::class);
+    }
+
     public function translations()
     {
         return $this->hasMany(DepartmentTranslation::class);

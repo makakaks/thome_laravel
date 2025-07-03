@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\PageVariable;
+use App\Models\MajorDepartment;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,7 +16,27 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        MajorDepartment::create([
+            'icon' => 'fa-search',
+            'locale' => [
+                'en' => 'T. Home Inspector',
+                'th' => 'ตรวจบ้าน'
+            ]
+        ]);
+        MajorDepartment::create([
+            'icon' => 'fa-hammer',
+            'locale' => [
+                'en' => 'T. Home Construction',
+                'th' => 'ต่อเติม'
+            ]
+        ]);
+        MajorDepartment::create([
+            'icon' => 'fa-paint-brush',
+            'locale' => [
+                'en' => 'T. Home Interior',
+                'th' => 'ตกแต่ง'
+            ]
+        ]);
 
         PageVariable::create([
             'page' => 'home',
