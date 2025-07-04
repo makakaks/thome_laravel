@@ -16,6 +16,7 @@
 body {
     display: flex;
     overflow: auto;
+    background-color: #f5f7fa;
 }
 
 body.hide-over {
@@ -98,6 +99,13 @@ body.hide-over {
     color: #666;
 }
 
+.bi::before {
+    width: 20px;
+    height: 20px;
+    line-height: 0.7 !important;
+    font-size: 1.15rem;
+}
+
 .sidebar-nav {
     display: flex;
     flex-direction: column;
@@ -157,6 +165,10 @@ body.hide-over {
     padding: 10px;
     border-radius: 5px;
     transition: all 0.2s ease;
+
+    border: none;
+    background-color: transparent;
+    width: 100%;
 }
 
 .logout-btn .icon {
@@ -218,4 +230,8 @@ a {
 .col-1 {
     flex: 0 0 auto;
     width: 8.33333333%;
+}
+
+header h1 {
+    margin-top: 20px;
 }

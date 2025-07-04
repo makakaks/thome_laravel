@@ -1,8 +1,8 @@
-@extends('component.layout')
+@extends('layouts.layout_home')
 
 @section('content')
     <link rel="stylesheet" href="/css/home/addon_service/app_inspector.css">
-    
+
     <div class="container-newapp aos-init aos-animate" data-aos="fade-up" data-aos-duration="3000">
         <div class="header-newapp">
             <h1>New</h1>

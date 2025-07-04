@@ -1,4 +1,4 @@
-@extends('component.layout')
+@extends('layouts.layout_home')
 
 @section('content')
     <link rel="stylesheet" href="/css/home/index.css">
@@ -157,78 +157,78 @@
 
 
 
-<section class="services" data-aos="fade-right" data-aos-offset="200" data-aos-easing="ease-in-sine">
+    <section class="services" data-aos="fade-right" data-aos-offset="200" data-aos-easing="ease-in-sine">
         <div class="services-header">
-          <h2>Our Services</h2>
+            <h2>Our Services</h2>
         </div>
         <div class="services-grid">
-          <!-- Service 1 -->
-          <div class="service-card">
-            <div class="service-icon">
-              <a href="/HOMESPECTOR/Homepage/service1.php">
-                <img src="/img/s1.png" alt="T. Home Inspector">
-              </a>
+            <!-- Service 1 -->
+            <div class="service-card">
+                <div class="service-icon">
+                    <a href="/HOMESPECTOR/Homepage/service1.php">
+                        <img src="/img/s1.png" alt="T. Home Inspector">
+                    </a>
+                </div>
+                <h3>T. Home Inspector</h3>
             </div>
-            <h3>T. Home Inspector</h3>
-          </div>
 
-          <!-- Service 2 -->
-          <div class="service-card">
-            <div class="service-icon">
-              <a href="/HOMESPECTOR/Homepage/review_interior.php">
-                <img src="/img/s2.png" alt="T. Home Interior">
-              </a>
+            <!-- Service 2 -->
+            <div class="service-card">
+                <div class="service-icon">
+                    <a href="/HOMESPECTOR/Homepage/review_interior.php">
+                        <img src="/img/s2.png" alt="T. Home Interior">
+                    </a>
+                </div>
+                <h3>T. Home Interior</h3>
             </div>
-            <h3>T. Home Interior</h3>
-          </div>
 
-          <!-- Service 3 -->
-          <div class="service-card">
-            <div class="service-icon">
-              <a href="/HOMESPECTOR/Homepage/Hconstruction.php">
-                <img src="/img/s3.png" alt="T. Home Construction">
-              </a>
+            <!-- Service 3 -->
+            <div class="service-card">
+                <div class="service-icon">
+                    <a href="/HOMESPECTOR/Homepage/Hconstruction.php">
+                        <img src="/img/s3.png" alt="T. Home Construction">
+                    </a>
+                </div>
+                <h3>T. Home Construction</h3>
             </div>
-            <h3>T. Home Construction</h3>
-          </div>
 
-          <!-- Service 4 -->
-          <div class="service-card">
-            <div class="service-icon">
-              <a href="/HOMESPECTOR/Homepage/Hbulter.php">
-                <img src="/img/s4-bg.png" alt="Home Butler">
-              </a>
+            <!-- Service 4 -->
+            <div class="service-card">
+                <div class="service-icon">
+                    <a href="/HOMESPECTOR/Homepage/Hbulter.php">
+                        <img src="/img/s4-bg.png" alt="Home Butler">
+                    </a>
+                </div>
+                <h3>Home Butler</h3>
             </div>
-            <h3>Home Butler</h3>
-          </div>
         </div>
-      </section>
+    </section>
 
-      <script>
-        document.addEventListener("DOMContentLoaded", function () {
-          const servicesSection = document.querySelector(".services");
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const servicesSection = document.querySelector(".services");
 
-          const bgImages = [
-            "/HOMESPECTOR/img/hero-bg3.jpg",
-            "/HOMESPECTOR/img/inspector-bg.jpg",
-            "/HOMESPECTOR/img/interior-bg.jpg",
-            "/HOMESPECTOR/img/construction-bg.jpg",
-          ];
+            const bgImages = [
+                "/HOMESPECTOR/img/hero-bg3.jpg",
+                "/HOMESPECTOR/img/inspector-bg.jpg",
+                "/HOMESPECTOR/img/interior-bg.jpg",
+                "/HOMESPECTOR/img/construction-bg.jpg",
+            ];
 
-          let index = 0;
+            let index = 0;
 
-          function changeBackground() {
-            servicesSection.style.backgroundImage = `url(${bgImages[index]})`;
-            index = (index + 1) % bgImages.length;
-          }
-          setInterval(changeBackground, 5000);
-          changeBackground();
+            function changeBackground() {
+                servicesSection.style.backgroundImage = `url(${bgImages[index]})`;
+                index = (index + 1) % bgImages.length;
+            }
+            setInterval(changeBackground, 5000);
+            changeBackground();
         });
-      </script>
-    
+    </script>
+
 
     <!-- why choose us -->
-    <section class="why-choose-us">
+    <section class="why-choose-us" style="overflow: hidden;">
         <h2 class="section-title aos-init aos-animate" data-translate="why-choose-us-title" data-aos="fade-down">
             ทำไมต้องเลือก ต.ตรวจบ้าน</h2>
         <div class="content-container"><!-- Left Text Section -->
@@ -265,7 +265,8 @@
                 </div>
             </div><!-- Right Image Section -->
             <div class="image-section aos-init" data-aos="fade-up-left"><img
-                    src="/img/uploads_old/1743739712_carousel2.1.jpg" alt="Example Image" class="fr-fic fr-dii" loading="lazy"></div>
+                    src="/img/uploads_old/1743739712_carousel2.1.jpg" alt="Example Image" class="fr-fic fr-dii"
+                    loading="lazy"></div>
         </div>
         <div class="certifications aos-init" data-aos="fade-up-right">
             <div class=" certification"><img src="/img/certified1.png" alt="T. Home Inspector" class="fr-fic fr-dii">
@@ -482,7 +483,7 @@
 
         //             totalSlides = data.length;
         //         });
-        // 
+        //
     </script>
 
     <!-- <script>
@@ -545,9 +546,28 @@
 
     <section class="articles" data-aos="fade-up" data-aos-delay="100">
         <h2 class="articles-title">Latest Articles</h2>
-        <a href="/articles" class="btn btn-firstall">ดูทั้งหมด</a>
-        <div class="articles-grid">
-            <!-- Dynamically populated -->
+        <a href="/article" class="btn btn-firstall">ดูทั้งหมด</a>
+        <div class="review-cards">
+            @if (isset($latestArticles) && count($latestArticles) > 0)
+                @foreach ($latestArticles as $article)
+                    <div class="new-card">
+                        <a href="/article/detail?news_id={{ $article->id }}"><img
+                                src="{{ $article->translation->coverPageImg }}" alt="" loading="lazy"></a>
+                        <a href="/article/detail?news_id={{ $article->id }}"
+                            class="new-card-title">{{ $article->translation->title }}</a>
+                        <div class="new-card-tags">
+                            @foreach ($article->tags as $tag)
+                                <a href="/article?tag={{ $tag->name }}">{{ $tag->name }}</a>
+                            @endforeach
+                        </div>
+                        <div>
+                            <span
+                                class="upload-date">{{ \Carbon\Carbon::parse($article->created_at)->locale(app()->getlocale())->isoFormat('D-MM-YYYY') }}
+                            </span>
+                        </div>
+                    </div>
+                @endforeach
+            @endif
         </div>
     </section>
 
@@ -587,16 +607,20 @@
 
             <div class="insight-metrics animate-text delay-3">
                 <div class="metric-box">
-                    <span class="metric-number" data-target="1250">1250</span><span class="metric-unit">+</span>
+                    <span class="metric-number" data-target="{{ $var['dev'] }}"></span><span class="metric-unit">developer</span>
                     <p class="metric-label">ตรวจบ้านมาแล้วกว่า</p>
                 </div>
                 <div class="metric-box">
-                    <span class="metric-number" data-target="99.9">99.9</span><span class="metric-unit">%</span>
-                    <p class="metric-label">ความพึงพอใจ</p>
+                    <span class="metric-number" data-target="{{ $var['project'] }}"></span><span class="metric-unit">โครงการ</span>
+                    <p class="metric-label">ตรวจบ้านมาแล้วกว่า</p>
                 </div>
                 <div class="metric-box">
-                    <span class="metric-number" data-target="10">10</span><span class="metric-unit">+ปี</span>
-                    <p class="metric-label">ประสบการณ์กว่า</p>
+                    <span class="metric-number" data-target="{{ $var['house'] }}"></span><span class="metric-unit">หลัง</span>
+                    <p class="metric-label">ตรวจบ้านมาแล้วกว่า</p>
+                </div>
+                <div class="metric-box">
+                    <span class="metric-number" data-target="{{ $var['satisfaction'] }}"></span><span class="metric-unit">%</span>
+                    <p class="metric-label">ความพึงพอใจ</p>
                 </div>
 
                 <div class="metrics-extra" id="stats-container"></div>
@@ -653,85 +677,91 @@
                 </aside>
 
                 <div class="faq-questions" id="faq-content">
+
+                    @if (isset($faqs) && count($faqs) > 0)
+                        @foreach ($faqs as $faq)
+                            <div> {{ $faq->translation->question }}</div>
+                            <div> {{ $faq->translation->answer }}</div>
+                            <div>
+                                @foreach ($faq->tags as $tag)
+                                    <div> {{ $tag->name }}</div>
+                                @endforeach
+                            </div>
+                        @endforeach
+                    @endif
                 </div>
             </div>
-
-
         </div>
-    </section>
 
+        <script>
+            function slugify(str) {
+                return str.toLowerCase().replace(/\s+/g, '-').replace(/[^\w\-]+/g, '');
+            }
 
-    <script>
-        function slugify(str) {
-            return str.toLowerCase().replace(/\s+/g, '-').replace(/[^\w\-]+/g, '');
-        }
+            function toggleAnswer(button) {
+                const answer = button.nextElementSibling;
+                const icon = button.querySelector(".icon");
+                const isVisible = answer.style.display === "block";
+                answer.style.display = isVisible ? "none" : "block";
+                icon.textContent = isVisible ? "+" : "−";
+            }
 
-        function toggleAnswer(button) {
-            const answer = button.nextElementSibling;
-            const icon = button.querySelector(".icon");
-            const isVisible = answer.style.display === "block";
-            answer.style.display = isVisible ? "none" : "block";
-            icon.textContent = isVisible ? "+" : "−";
-        }
+            function filterFAQ(category) {
+                document.querySelectorAll("#faq-category-list li").forEach(li => li.classList.remove("active"));
+                document.querySelector(`#faq-category-list li[data-category="${category}"]`)?.classList.add("active");
 
-        function filterFAQ(category) {
-            document.querySelectorAll("#faq-category-list li").forEach(li => li.classList.remove("active"));
-            document.querySelector(`#faq-category-list li[data-category="${category}"]`)?.classList.add("active");
+                document.querySelectorAll(".faq-item").forEach(item => {
+                    item.style.display = category === "all" || item.getAttribute("data-category") === category ?
+                        "block" : "none";
+                });
+            }
 
-            document.querySelectorAll(".faq-item").forEach(item => {
-                item.style.display = category === "all" || item.getAttribute("data-category") === category ?
-                    "block" : "none";
-            });
-        }
+            // Fetch FAQs
+            window.addEventListener("DOMContentLoaded", () => {
+                const faqs = @json($faqs);
+                const categories = new Set();
+                const faqContent = document.getElementById("faq-content");
+                const categoryList = document.getElementById("faq-category-list");
+                faqContent.innerHTML = "";
 
-        // Fetch FAQs
-        window.addEventListener("DOMContentLoaded", () => {
-            fetch("/api/faq/get_faqs")
-                .then(res => res.json())
-                .then(data => {
-                    const categories = new Set();
-                    const faqContent = document.getElementById("faq-content");
-                    const categoryList = document.getElementById("faq-category-list");
-                    faqContent.innerHTML = "";
+                const grouped = {};
+                faqs.forEach(faq => {
+                    faq.tags.forEach(cat => {
+                        categories.add(cat.name);
+                        if (!grouped[cat.name]) grouped[cat.name] = [];
+                        grouped[cat.name].push(faq);
+                    })
+                });
 
-                    const grouped = {};
-                    data.forEach(faq => {
-                        const cat = faq.category;
-                        categories.add(cat);
-                        if (!grouped[cat]) grouped[cat] = [];
-                        grouped[cat].push(faq);
-                    });
+                categories.forEach(cat => {
+                    const li = document.createElement("li");
+                    li.textContent = cat;
+                    li.setAttribute("data-category", cat);
+                    li.onclick = () => filterFAQ(cat);
+                    categoryList.appendChild(li);
+                });
 
-                    categories.forEach(cat => {
-                        const li = document.createElement("li");
-                        li.textContent = cat;
-                        li.setAttribute("data-category", cat);
-                        li.onclick = () => filterFAQ(cat);
-                        categoryList.appendChild(li);
-                    });
-
-                    for (const cat in grouped) {
-                        grouped[cat].forEach(faq => {
-                            const item = document.createElement("div");
-                            item.className = "faq-item";
-                            item.setAttribute("data-category", cat);
-                            item.innerHTML = `
+                for (const cat in grouped) {
+                    grouped[cat].forEach(faq => {
+                        const item = document.createElement("div");
+                        item.className = "faq-item";
+                        item.setAttribute("data-category", cat);
+                        item.innerHTML = `
                                 <button class="faq-question" onclick="toggleAnswer(this)">
                                     <span class="icon">+</span>
-                                    <span class="question-text">${faq.question}</span>
+                                    <span class="question-text">${faq.translation.question}</span>
                                 </button>
-                                <div class="faq-answer"><p>${faq.answer}</p></div>
+                                <div class="faq-answer"><p>${faq.translation.answer}</p></div>
                                 `;
-                            faqContent.appendChild(item);
-                        });
-                    }
+                        faqContent.appendChild(item);
+                    });
+                }
 
 
-                    filterFAQ("all");
-                })
-                .catch(err => console.error("โหลด FAQ ไม่สำเร็จ:", err));
-        });
-    </script>
+                filterFAQ("all");
+            });
+        </script>
+    </section>
 
 
     <section class="elfsight" data-aos="fade-up">
