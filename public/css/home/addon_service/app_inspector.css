@@ -770,12 +770,13 @@ header {
 /* Hero Section */
 .hero {
     text-align: center;
-    padding: 60px 20px;
+    padding: 60px 20px !important;
     background: linear-gradient(to right, #003f87, #007bff);
     color: white;
     border-radius: 10px;
     margin: 30px auto;
     max-width: 900px;
+    height: fit-content;
 }
 
 .hero h1 {

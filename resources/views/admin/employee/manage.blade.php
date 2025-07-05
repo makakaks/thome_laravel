@@ -13,7 +13,7 @@
             <div>
                 @foreach ($major as $maj)
                     @if ($maj->id == $major_id)
-                        <a class="btn btn-success" href="/admin/employee?major={{ $maj->id }}"
+                        <a class="btn btn-primary" href="/admin/employee?major={{ $maj->id }}"
                             style="pointer-events: none; ">
                             {{-- <i class="{{ $maj->icon }}"></i> --}}
                             {{ $maj->translation }}

@@ -87,6 +87,17 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-group mb-3">
+                                <label for="">ธีมสี</label>
+                                <select name="theme" id="" class="form-select">
+                                    <option value="blue-theme">สีน้ำเงิน</option>
+                                    <option value="green-theme">สีเขียว</option>
+                                    <option value="red-theme">สีแดง</option>
+                                    <option value="orange-theme">สีส้ม</option>
+                                    <option value="purple-theme">สีม่วง</option>
+                                    <option value="gray-theme">สีเทา</option>
+                                </select>
+                            </div>
+                            <div class="form-group mb-3">
                                 <label for="question">ภาษาไทย</label>
                                 <input type="text" name="name-th" class="form-control mb-2"
                                     placeholder="กรุณากรอกชื่อฝ่าย" required>
@@ -124,6 +135,17 @@
                         </div>
                         <div class="modal-body">
                             <input type="text" hidden name="id">
+                            <div class="form-group mb-3">
+                                <label for="">ธีมสี</label>
+                                <select name="theme" id="" class="form-select">
+                                    <option value="blue-theme">สีน้ำเงิน</option>
+                                    <option value="green-theme">สีเขียว</option>
+                                    <option value="red-theme">สีแดง</option>
+                                    <option value="orange-theme">สีส้ม</option>
+                                    <option value="purple-theme">สีม่วง</option>
+                                    <option value="gray-theme">สีเทา</option>
+                                </select>
+                            </div>
                             <div class="form-group mb-3">
                                 <label for="question">ภาษาไทย</label>
                                 <input type="text" name="name-th" class="form-control mb-2"

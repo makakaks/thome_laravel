@@ -43,6 +43,7 @@ class DepartmentController extends Controller
         try {
             $majorDepartment = MajorDepartment::create([
                 // "icon" => $request['icon'],
+                "theme" => $request['theme'] ?? 'blue-theme',
                 "locale" => [
                     'th' => $request['name-th'] ,
                     'en' => $request['name-en'] ,
@@ -60,6 +61,7 @@ class DepartmentController extends Controller
     {
         try {
             $major = MajorDepartment::findOrFail($request->id);
+            $major->theme = $request['theme'] ?? $major->theme;
             $major->locale = [
                 'th' => $request['name-th'] ?? $major->locale['th'],
                 'en' => $request['name-en'] ?? $major->locale['en'],

@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
     {
         MajorDepartment::create([
             // 'icon' => 'fa-search',
+            "theme" => 'blue-theme',
             'locale' => [
                 'en' => 'T. Home Inspector',
                 'th' => 'ตรวจบ้าน'
@@ -27,6 +28,7 @@ class DatabaseSeeder extends Seeder
         ]);
         MajorDepartment::create([
             // 'icon' => 'fa-hammer',
+            "theme" => 'orange-theme',
             'locale' => [
                 'en' => 'T. Home Construction',
                 'th' => 'ต่อเติม'
@@ -34,6 +36,7 @@ class DatabaseSeeder extends Seeder
         ]);
         MajorDepartment::create([
             // 'icon' => 'fa-paint-brush',
+            "theme" => 'gray-theme',
             'locale' => [
                 'en' => 'T. Home Interior',
                 'th' => 'ตกแต่ง'

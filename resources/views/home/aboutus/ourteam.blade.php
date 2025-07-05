@@ -10,6 +10,7 @@
         <title>บริการบ้าน - ตรวจบ้าน ต่อเติม ตกแต่ง</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/css/home/aboutus/ourteam.css">
         <style>
             * {
                 margin: 0;
@@ -70,20 +71,6 @@
                 box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             }
 
-            .service-btn.inspection {
-                background: linear-gradient(45deg, #3498db, #2980b9);
-                color: white;
-            }
-
-            .service-btn.extension {
-                background: linear-gradient(45deg, #e67e22, #d35400);
-                color: white;
-            }
-
-            .service-btn.decoration {
-                background: linear-gradient(45deg, #ecf0f1, #bdc3c7);
-                color: #2c3e50;
-            }
 
             .service-btn:hover {
                 transform: translateY(-2px);
@@ -141,23 +128,6 @@
             }
 
             /* Theme-specific filter buttons */
-            .inspection .filter-btn.active {
-                background: #3498db;
-                color: white;
-                border-color: #2980b9;
-            }
-
-            .extension .filter-btn.active {
-                background: #e67e22;
-                color: white;
-                border-color: #d35400;
-            }
-
-            .decoration .filter-btn.active {
-                background: #2c3e50;
-                color: white;
-                border-color: #34495e;
-            }
 
             .filter-btn:hover {
                 transform: translateY(-1px);
@@ -188,18 +158,6 @@
             }
 
             /* Theme-specific department lines */
-            .inspection .department-line {
-                background: linear-gradient(45deg, #3498db, #2980b9);
-            }
-
-            .extension .department-line {
-                background: linear-gradient(45deg, #e67e22, #d35400);
-            }
-
-            .decoration .department-line {
-                background: linear-gradient(45deg, #95a5a6, #7f8c8d);
-            }
-
             .department-count {
                 background: #ecf0f1;
                 color: #2c3e50;
@@ -277,17 +235,6 @@
             }
 
             /* Theme-specific badges */
-            .inspection .department-badge {
-                background: #3498db;
-            }
-
-            .extension .department-badge {
-                background: #e67e22;
-            }
-
-            .decoration .department-badge {
-                background: #95a5a6;
-            }
 
             .card-image-content h3 {
                 font-size: 1.3rem;
@@ -501,7 +448,7 @@
     <body>
         <div class="container">
             <header class="main-header">
-                <h1 class="title">บริการบ้านครบวงจร</h1>
+                <h1 class="title">{{__('header.ourteam')}}</h1>
                 <div class="title-underline"></div>
             </header>
 
@@ -509,12 +456,12 @@
             <div class="service-selection">
                 @foreach ($major as $maj)
                     @if ($loop->first)
-                        <button class="service-btn inspection active" data-service="{{ $maj->translation }}">
-                            <i class="fas fa-search"></i> {{ $maj->translation }}
+                        <button class="service-btn active {{ $maj->theme }}" data-service="{{ $maj->translation }}">
+                            {{ $maj->translation }}
                         </button>
                     @else
-                        <button class="service-btn inspection" data-service="{{ $maj->translation }}">
-                            <i class="fas fa-search"></i> {{ $maj->translation }}
+                        <button class="service-btn {{ $maj->theme }}" data-service="{{ $maj->translation }}">
+                            {{ $maj->translation }}
                         </button>
                     @endif
                 @endforeach
@@ -523,9 +470,9 @@
 
             @foreach ($major as $maj)
                 @if($loop->first)
-                <div class="service-content decoration active" id="{{ $maj->translation }}">
+                <div class="service-content {{ $maj->theme }} active" id="{{ $maj->translation }}">
                 @else
-                <div class="service-content decoration" id="{{ $maj->translation }}">
+                <div class="service-content {{ $maj->theme }}" id="{{ $maj->translation }}">
                 @endif
                     <div class="filter-container">
                         <div class="filter-header">
@@ -545,7 +492,7 @@
                             <div class="department-header">
                                 <h2 class="department-title">{{ $department->translation->name }}</h2>
                                 <div class="department-line"></div>
-                                <span class="department-count"> {{ count($department->employees) }} ผู้เชี่ยวชาญ
+                                <span class="department-count"> {{ count($department->employees) }} {{ __('header.ourteam_professor') }}
                                 </span>
                             </div>
                             <div class="team-grid">
