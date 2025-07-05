@@ -9,7 +9,26 @@
         <header class="mb-3 mt-5 text-center" style="font-size: 2.2rem;">
             <h2> ระบบจัดการพนักงาน </h2>
         </header>
-        <div class="content">
+        <div class="mb-4 bg-white p-3 rounded shadow-sm d-flex justify-content-between">
+            <div>
+                @foreach ($major as $maj)
+                    @if ($maj->id == $major_id)
+                        <a class="btn btn-success" href="/admin/employee?major={{ $maj->id }}"
+                            style="pointer-events: none; ">
+                            {{-- <i class="{{ $maj->icon }}"></i> --}}
+                            {{ $maj->translation }}
+                        </a>
+                    @else
+                        <a class="btn btn-outline-primary" href="/admin/employee?major={{ $maj->id }}">
+                            {{-- <i class="{{ $maj->icon }}"></i> --}}
+                            {{ $maj->translation }}
+                        </a>
+                    @endif
+                @endforeach
+            </div>
+            <a class="btn btn-secondary" href="/admin/major_department">จัดการฝ่าย</a>
+        </div>
+        <div class="content" major-id="{{ $major_id }}">
             <div class="d-flex justify-content-end gap-3 mb-4">
                 <button class="btn btn-outline-success de-edit-order" style="display: none;"> แก้ไขลำดับแผนก </button>
                 <button class="btn btn-warning active" data-bs-target="#carouselExample" data-bs-slide="next">จัดการแผนก
@@ -98,9 +117,6 @@
                 </div>
             </div>
         </div>
-
-
-
 
         <div class="modal fade" id="employeeModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
             aria-labelledby="employeeModalLabel" aria-hidden="true">

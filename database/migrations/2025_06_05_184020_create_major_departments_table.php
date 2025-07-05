@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('major_departments', function (Blueprint $table) {
             $table->id();
-            $table->string('icon', 40);
+            // $table->string('icon', 40);
             $table->jsonb('locale')->nullable();
             $table->timestamps();
         });

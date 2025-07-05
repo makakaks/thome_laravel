@@ -2,6 +2,8 @@
 import ConfirmDialog from "/js/component/confirm_dialog.js";
 const confirmDialog = new ConfirmDialog();
 
+const contentDiv = document.querySelector(".content");
+
 const emAddLang = document.querySelectorAll(".em-add-lang");
 const emEdit = document.querySelectorAll(".em-edit");
 const emDelete = document.querySelectorAll(".em-delete");
@@ -89,14 +91,6 @@ function initCarousel() {
             btn.setAttribute("data-bs-slide", "next");
         }
     });
-}
-
-function deCreateClickEvent(){
-
-}
-
-function deEditClickEvent(btn) {
-
 }
 
 function initDepartmentActions() {
@@ -252,6 +246,7 @@ function initDepartmentActions() {
                     ).content,
                 },
                 body: JSON.stringify({
+                    major_id: contentDiv.getAttribute("major-id"),
                     locale: "th",
                     name: deName.value.trim(),
                 }),
@@ -264,24 +259,27 @@ function initDepartmentActions() {
                     window.hideLoading();
                     window.showToast("เพิ่มแผนกใหม่เรียบร้อยแล้ว", "success");
 
-                    let newDiv = document.createElement("div");
-                    newDiv.className = "w-100 mb-4";
-                    newDiv.setAttribute("department-id", res.id);
+                    setTimeout(() => {
+                        location.reload();
+                    }, 2000)
+                    // let newDiv = document.createElement("div");
+                    // newDiv.className = "w-100 mb-4";
+                    // newDiv.setAttribute("department-id", res.id);
 
-                    newDiv.innerHTML = `
-                                <h3 class="text-center mb-2"> ${deName.value.trim()} </h3>
-                                <div class="w-100 d-flex flex-row flex-wrap align-items-stretch justify-content-center gap-5">
-                                                                        <div class="free-card">
-                                        <a data-bs-toggle="modal" data-bs-target="#employeeModal">เพิ่มพนักงาน</a>
-                                    </div>
-                                </div>`;
+                    // newDiv.innerHTML = `
+                    //             <h3 class="text-center mb-2"> ${deName.value.trim()} </h3>
+                    //             <div class="w-100 d-flex flex-row flex-wrap align-items-stretch justify-content-center gap-5">
+                    //                                                     <div class="free-card">
+                    //                     <a data-bs-toggle="modal" data-bs-target="#employeeModal">เพิ่มพนักงาน</a>
+                    //                 </div>
+                    //             </div>`;
 
-                    const emCreateBtn = newDiv.querySelector("a");
-                    console.log(emCreateBtn);
-                    emCreateClickEvent(emCreateBtn);
+                    // const emCreateBtn = newDiv.querySelector("a");
+                    // console.log(emCreateBtn);
+                    // emCreateClickEvent(emCreateBtn);
 
-                    carousel1.appendChild(newDiv);
-                    carousel1.appendChild(document.createElement("hr"));
+                    // carousel1.appendChild(newDiv);
+                    // carousel1.appendChild(document.createElement("hr"));
                 } else {
                     window.hideLoading();
                     window.showToast("เกิดข้อผิดพลาดในการเพิ่มแผนก", "error");

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\MajorDepartment;
 use App\Models\Department;
 use App\Models\Employee;
 use Illuminate\Support\Facades\Storage;
@@ -11,9 +12,18 @@ use Exception;
 class EmployeeController extends Controller
 {
     //
-    function manage()
+    function manage(Request $request)
     {
-        $departments = Department::all()->sortBy('d_order');
+        $major = MajorDepartment::all();
+
+        $major_id = $request->major ?? $major->first()->id;
+        $departments = MajorDepartment::where('id', '=', $major_id)
+            ->first()
+            ->departments;
+
+        foreach ($major as $maj) {
+            $maj->translation = $maj->translation();
+        }
 
         // dd($departments);
         foreach ($departments as $department) {
@@ -23,7 +33,8 @@ class EmployeeController extends Controller
                 $employee->translation = $employee->translation();
             }
         }
-        return view('admin.employee.manage', compact('departments'));
+        // dd($departments);
+        return view('admin.employee.manage', compact('departments', 'major', 'major_id'));
     }
 
     function create(Request $request)

@@ -80,9 +80,7 @@ Route::get('/joinwithus', function () {
 });
 
 
-Route::get('/ourteam', function () {
-    return view('home.aboutus.ourteam');
-});
+Route::get('/ourteam', [DepartmentController::class, 'ourteam'])->name('ourteam');
 
 Route::get('/ourstory', function () {
     return view('home.aboutus.ourstory');
@@ -192,6 +190,13 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::put('/{id}', 'edit')->name('admin.department.edit');
         Route::delete('/{id}', 'delete')->name('admin.department.delete');
         Route::post('/reorder', 'reorder')->name('admin.department.reorder');
+    });
+
+    Route::prefix('major_department')->controller(DepartmentController::class)->group(function () {
+        Route::get('/', 'major_manage')->name('admin.major_department.manage');
+        Route::post('/', 'create_major')->name('admin.major_department.create');
+        Route::put('/{id}', 'edit_major')->name('admin.major_department.edit');
+        Route::delete('/{id}', 'delete_major')->name('admin.major_department.delete');
     });
 
     Route::prefix('privilege')->controller(PrivilegeController::class)->group(function () {

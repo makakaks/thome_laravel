@@ -6,6 +6,8 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\PageVariable;
 use App\Models\MajorDepartment;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,21 +19,21 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         MajorDepartment::create([
-            'icon' => 'fa-search',
+            // 'icon' => 'fa-search',
             'locale' => [
                 'en' => 'T. Home Inspector',
                 'th' => 'ตรวจบ้าน'
             ]
         ]);
         MajorDepartment::create([
-            'icon' => 'fa-hammer',
+            // 'icon' => 'fa-hammer',
             'locale' => [
                 'en' => 'T. Home Construction',
                 'th' => 'ต่อเติม'
             ]
         ]);
         MajorDepartment::create([
-            'icon' => 'fa-paint-brush',
+            // 'icon' => 'fa-paint-brush',
             'locale' => [
                 'en' => 'T. Home Interior',
                 'th' => 'ตกแต่ง'
@@ -46,6 +48,12 @@ class DatabaseSeeder extends Seeder
                 'house' => '',
                 'satisfaction' => ''
             ]
+        ]);
+
+        User::create([
+            'name' => "superadmin",
+            'username' => "superadmin",
+            'password' => Hash::make("superadmin"),
         ]);
     }
 }
