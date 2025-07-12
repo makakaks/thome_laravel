@@ -76,9 +76,7 @@ Route::get('/contactus', function () {
     return view('home.contact.contactus');
 });
 
-Route::get('/joinwithus', function () {
-    return view('home.contact.joinwithus');
-});
+Route::get('/joinwithus', [JobworkController::class, 'view_jobwork'])->name('joinwithus');
 
 
 Route::get('/ourteam', [DepartmentController::class, 'ourteam'])->name('ourteam');

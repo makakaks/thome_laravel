@@ -9,13 +9,13 @@ class JobworkController extends Controller
 {
     //
 
-    public function view_jobwork($id)
+    public function view_jobwork()
     {
         $jobs = Jobwork::all();
         foreach ($jobs as $item) {
             $item->translation = $item->translation();
         }
-        return view('jobwork.view', compact('jobs'));
+        return view('home.contact.joinwithus', compact('jobs'));
     }
 
 
