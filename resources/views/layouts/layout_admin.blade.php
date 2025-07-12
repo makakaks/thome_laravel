@@ -117,6 +117,12 @@
                     </a>
                 </li>
                 <li>
+                    <a href="/admin/work">
+                        <img src="https://static.thenounproject.com/png/3754647-200.png" class="icon"></i>
+                        รับสมัครงาน
+                    </a>
+                </li>
+                <li>
                     <a href="/admin/profile">
                         <img src="https://www.svgrepo.com/show/375092/reset-password.svg" class="icon"></i>
                         จัดการบัญชีผู้ใช้

@@ -7,6 +7,7 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\JobworkController;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cookie;
@@ -212,6 +213,13 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
         Route::get('/{id}/add_lang', 'add_lang_view')->name('admin.privilege.add_lang_view');
         Route::post('/{id}/add_lang', 'add_lang_store')->name('admin.privilege.add_lang_store');
+    });
+
+    Route::prefix('work')->controller(JobworkController::class)->group(function () {
+        Route::get('/', 'manage')->name('admin.jobwork.manage');
+        Route::post('/', 'create')->name('admin.jobwork.create');
+        Route::delete('/{id}', 'delete')->name('admin.jobwork.delete');
+        Route::put('/{id}', 'edit');
     });
 
     // Route::prefix('user')->controller(AdminController::class)->group(function () {
