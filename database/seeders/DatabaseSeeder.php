@@ -8,6 +8,7 @@ use App\Models\PageVariable;
 use App\Models\MajorDepartment;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Pastwork;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,7 +17,8 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+
+    public function create_major()
     {
         MajorDepartment::create([
             // 'icon' => 'fa-search',
@@ -42,7 +44,10 @@ class DatabaseSeeder extends Seeder
                 'th' => 'ตกแต่ง'
             ]
         ]);
+    }
 
+    public function create_page_variable()
+    {
         PageVariable::create([
             'page' => 'home',
             'var' => [
@@ -52,11 +57,46 @@ class DatabaseSeeder extends Seeder
                 'satisfaction' => ''
             ]
         ]);
+    }
 
+    public function create_user_variable()
+    {
         User::create([
-            'name' => "superadmin",
-            'username' => "superadmin",
-            'password' => Hash::make("superadmin"),
+            'name' => 'superadmin',
+            'username' => 'superadmin',
+            'password' => Hash::make('superadmin'),
         ]);
+    }
+
+    // public function create_page_project()
+    // {
+    //     $projects = [
+    //         'inspection',
+    //         'construction',
+    //         'interior',
+    //         'hbutler'
+    //     ];
+
+    //     foreach ($projects as $project) {
+    //         Pastwork::create([
+    //             'page' => $project,
+    //             'title' => [
+    //                 'en' => 'Project Title in English',
+    //                 'th' => 'ชื่อโครงการภาษาไทย'
+    //             ],
+    //             'detail' => [
+    //                 'en' => 'Project details in English',
+    //                 'th' => 'รายละเอียดโครงการภาษาไทย'
+    //             ],
+    //             'images' => []
+    //         ]);
+    //     }
+    // }
+
+    public function run()
+    {
+        $this->create_major();
+        $this->create_page_variable();
+        $this->create_user_variable();
     }
 }

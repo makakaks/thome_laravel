@@ -3,7 +3,7 @@
 @section('content')
     <link rel="stylesheet" href="/css/admin/article/manage.css">
     <link rel="stylesheet" href="/css/admin/faq/manage.css">
-    <style>่น
+    <style>
         .modal-content {
             top: 10%;
         }

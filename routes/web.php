@@ -126,6 +126,11 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::get('/', 'index')->name('admin.static_page.index');
         Route::get('/home', 'home')->name('admin.static_page.home');
         Route::post('/home', 'home_store')->name('admin.static_page.home_store');
+
+        Route::prefix('project/{pageName}')->group(function () {
+            Route::get('/', 'manage_project')->name('admin.static_page.manage_project');
+            Route::post('/create', 'create_project')->name('admin.static_page.create_project');
+        });
     });
 
     Route::prefix('article')->controller(ArticleController::class)->group(function () {
