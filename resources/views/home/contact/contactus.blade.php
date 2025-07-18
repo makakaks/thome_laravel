@@ -8,34 +8,6 @@
 
 <!-- Language Switcher Styles -->
 <style>
-    .language-switcher {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        z-index: 1001;
-        display: flex;
-        gap: 10px;
-    }
-    
-    .lang-btn {
-        padding: 8px 12px;
-        background: #667eea;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-        font-size: 14px;
-        transition: all 0.3s ease;
-    }
-    
-    .lang-btn:hover {
-        background: #764ba2;
-        transform: translateY(-1px);
-    }
-    
-    .lang-btn.active {
-        background: #28a745;
-    }
-
     /* Additional styles for loading and messages */
     .btn:disabled {
         opacity: 0.6;
@@ -288,19 +260,19 @@
 
     // Get current locale for JavaScript
     const currentLocale = '{{ app()->getLocale() }}';
-    
+
     // Subject mapping for both languages
     const subjectMapping = {
         'th': {
             'general': '{{ __("contact.subject_general") }} / General Inquiry',
-            'service': '{{ __("contact.subject_service") }} / Service Inquiry', 
+            'service': '{{ __("contact.subject_service") }} / Service Inquiry',
             'quote': '{{ __("contact.subject_quote") }} / Quote Request',
             'partnership': '{{ __("contact.subject_partnership") }} / Business Partnership',
             'other': '{{ __("contact.subject_other") }} / Other'
         },
         'en': {
             'general': 'General Inquiry / {{ __("contact.subject_general") }}',
-            'service': 'Service Inquiry / {{ __("contact.subject_service") }}', 
+            'service': 'Service Inquiry / {{ __("contact.subject_service") }}',
             'quote': 'Quote Request / {{ __("contact.subject_quote") }}',
             'partnership': 'Business Partnership / {{ __("contact.subject_partnership") }}',
             'other': 'Other / {{ __("contact.subject_other") }}'
@@ -319,13 +291,13 @@
         const field = document.getElementById(fieldId);
         const errorElement = document.getElementById(errorId);
         let isValid = true;
-        
+
         if (customValidator) {
             isValid = customValidator(field.value);
         } else {
             isValid = field.value.trim() !== '';
         }
-        
+
         if (!isValid) {
             field.classList.add('form-error');
             errorElement.style.display = 'block';
@@ -333,7 +305,7 @@
             field.classList.remove('form-error');
             errorElement.style.display = 'none';
         }
-        
+
         return isValid;
     }
 
@@ -344,13 +316,13 @@
 
     function validateForm() {
         let isValid = true;
-        
+
         isValid = validateField('name', 'name-error') && isValid;
         isValid = validateField('email', 'email-error', validateEmail) && isValid;
         isValid = validateField('phone', 'phone-error') && isValid;
         isValid = validateField('subject', 'subject-error') && isValid;
         isValid = validateField('message', 'message-error') && isValid;
-        
+
         const privacyCheckbox = document.getElementById('privacy');
         const privacyError = document.getElementById('privacy-error');
         if (!privacyCheckbox.checked) {
@@ -359,7 +331,7 @@
         } else {
             privacyError.style.display = 'none';
         }
-        
+
         return isValid;
     }
 
@@ -368,7 +340,7 @@
         const submitBtn = document.getElementById('submit-btn');
         const loadingSpinner = document.getElementById('loading-spinner');
         const submitText = document.getElementById('submit-text');
-        
+
         submitBtn.disabled = true;
         loadingSpinner.style.display = 'inline-block';
         submitText.textContent = localizedText.submitting;
@@ -379,7 +351,7 @@
         const submitBtn = document.getElementById('submit-btn');
         const loadingSpinner = document.getElementById('loading-spinner');
         const submitText = document.getElementById('submit-text');
-        
+
         submitBtn.disabled = false;
         loadingSpinner.style.display = 'none';
         submitText.textContent = localizedText.submitButton;
@@ -413,19 +385,19 @@
     // Handle form submission
     document.getElementById('contact-form').addEventListener('submit', function(e) {
         e.preventDefault();
-        
+
         if (!validateForm()) {
             return;
         }
-        
+
         showLoading();
-        
+
         const formData = new FormData(this);
         const data = {};
         for (const [key, value] of formData.entries()) {
             data[key] = value;
         }
-        
+
         // Prepare email template parameters
         const templateParams = {
             to_email: 'ananthaxb@gmail.com',
