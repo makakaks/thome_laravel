@@ -17,10 +17,12 @@ return [
     "articles" => "บทความ",
     "review_home" => "รีวิวบ้าน",
     "projects" => "ผลงาน",
+    "privilege" => "สิทธิพิเศษ",
 
     "about" => "เกี่ยวกับเรา",
     "ourstory" => "ประวัติของเรา",
     "ourteam" => "ทีมงานของเรา",
+    "ourteam_professor" => "ผู้เชี่ยวชาญ",
 
     "joinus" => "ร่วมงานกับเรา",
     "contact" => "ติดต่อเรา",

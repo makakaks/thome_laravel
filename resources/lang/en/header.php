@@ -4,10 +4,10 @@ return [
     "home" => "Home",
 
     "services" => "Services",
-    "hinspector" => "Home Inspection",
-    "hinterior" => "Interior Decoration",
-    "hconstruction" => "Renovation",
-    "hbutler" => "homebutler",
+    "hinspector" => "H. Inspection",
+    "hinterior" => "H. Interior",
+    "hconstruction" => "H. Construction",
+    "hbutler" => "Homebutler",
 
     "addon_services" => "Additional Services",
     "app_inspector" => "Self Home Inspection",
@@ -17,10 +17,12 @@ return [
     "articles" => "Articles",
     "review_home" => "Home Reviews",
     "projects" => "Projects",
+    "privilege" => "Privileges",
 
     "about" => "About Us",
     "ourstory" => "Our Story",
     "ourteam" => "Our Team",
+    "ourteam_professor" => "Experts",
 
     "joinus" => "Join Us",
     "contact" => "Contact Us",

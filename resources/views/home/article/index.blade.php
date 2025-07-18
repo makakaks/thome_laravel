@@ -6,19 +6,19 @@
         <div class="content-box">
 
             <div class="review-page" data-aos="fade-up">
-                <h1>บทความ</h1>
+                <h1>{{ __('article.page-title') }}</h1>
                 <p>
-                    ความรู้เกี่ยวกับ งานตรวจรับบ้านเเละคอนโดก่อนโอนกรรมสิทธิ์sadasdasasd
+                    {{ __('article.page-description') }}
                 </p>
 
                 <!-- Categories Section -->
                 <div class="search-part d-flex justify-content-center mb-3">
                     <form action="/article" method="GET" style="width: 60%;" class="d-flex justify-content-center gap-2">
-                        <input type="search" class="form-control flex-grow-1" placeholder="ค้นหาบทความ..."
+                        <input type="search" class="form-control flex-grow-1" placeholder="{{ __('article.search-placeholder') }}"
                             aria-label="ค้นหาบทความ" value="{{ request()->query('search') }}" name="search" id="search"
                             style="min-width: 200px;">
                         <button type="submit" style="width: fit-content;"
-                            class="form-control px-3 py-2 btn btn-outline-info">ค้นหา</button>
+                            class="form-control px-3 py-2 btn btn-outline-info">{{ __('article.search-button') }}</button>
                     </form>
                 </div>
                 <div class="categories" data-aos="fade-up" data-aos-duration="1500">
@@ -40,10 +40,9 @@
 
                 <!-- Review Cards -->
                 <div class="review-cards" id="review-cards">
-                    {{-- @for ($index = 1; $index <= 5; $index += 1) --}}
                     @if ($articles->isEmpty())
                         <div class="no-articles">
-                            <p>ไม่มีบทความในหมวดหมู่นี้</p>
+                            <p>{{ __('article.no-articles') }}</p>
                         </div>
                     @else
                         @foreach ($articles as $article)
@@ -62,20 +61,9 @@
                                         class="upload-date">{{ \Carbon\Carbon::parse($article->created_at)->locale(app()->getlocale())->isoFormat('D-MM-YYYY') }}
                                     </span>
                                 </div>
-                                {{-- <span
-                                    class="upload-date">{{ \Carbon\Carbon::parse($article->created_at)->locale(app()->getlocale())->isoFormat('D-MM-YYYY') }}
-                                    |
-                                    @foreach ($article->tags as $tag)
-                                        {{ $tag->name }}
-                                        @if (!$loop->last)
-                                            ,
-                                        @endif
-                                    @endforeach
-                                </span> --}}
                             </div>
                         @endforeach
                     @endif
-                    {{-- @endfor --}}
                 </div>
                 {{ $articles->links('vendor.pagination.default') }}
             </div>

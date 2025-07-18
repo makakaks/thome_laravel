@@ -20,6 +20,11 @@ class Employee extends Model
         return $this->belongsTo(Department::class);
     }
 
+    public function majorDepartment()
+    {
+        return $this->department()->majorDepartment();
+    }
+
     public function translations()
     {
         return $this->hasMany(EmployeeTranslation::class);

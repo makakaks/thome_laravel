@@ -58,9 +58,9 @@
                             class="fa-solid fa-caret-down"></i></span>
                 </a>
                 <ul class="dropdown-menu d-block">
-                    <li><a href="/hinspector" data-translate="nav.hinspector">{{ __('header.hinspector') }}</a></li>
-                    <li><a href="/hinterior" data-translate="nav.hinterior">{{ __('header.hinterior') }}</a></li>
-                    <li><a href="/hconstruction" data-translate="nav.hconstruction">{{ __('header.hconstruction') }}</a>
+                    <li><a href="/hinspector" >{{ __('header.hinspector') }}</a></li>
+                    <li><a href="/hinterior" >{{ __('header.hinterior') }}</a></li>
+                    <li><a href="/hconstruction" >{{ __('header.hconstruction') }}</a>
                     </li>
                     <li><a href="/hbutler" data-translate="nav.hbutler">{{ __('header.hbutler') }}</a></li>
                 </ul>
@@ -93,7 +93,8 @@
             </li> --}}
             <li><a href="/article" data-translate="nav.articles">{{ __('header.articles') }}</a></li>
             <li><a href="/review" data-translate="nav.reviewHome">{{ __('header.review_home') }}</a></li>
-            <li><a href="/projects_media.html" data-translate="nav.projects">{{ __('header.projects') }}</a></li>
+            <li><a href="/privilege">{{ __('header.privilege') }}</a></li>
+            {{-- <li><a href="/projects_media.html" data-translate="nav.projects">{{ __('header.projects') }}</a></li> --}}
             <!-- Dropdown Menu -->
             <li class="dropdown">
                 <a href="#a" class="menu-item" data-translate="nav.aboutUs">

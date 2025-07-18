@@ -13,6 +13,17 @@ use DOMDocument;
 
 class ReviewHomeController extends Controller
 {
+    static public function get_latest_houses($count = 5, $except_id = null)
+    {
+        $houses = ReviewHome::orderBy("created_at", "desc")->where('id', '!=', $except_id)->take($count)->get();
+
+        foreach ($houses as $house) {
+            $house->translation = $house->translation();
+            $house->project = $house->reviewHomeProject->translation();
+        }
+        return $houses;
+    }
+
     function index(Request $request)
     {
         $query = ReviewHome::query();
@@ -32,7 +43,7 @@ class ReviewHomeController extends Controller
             });
         }
 
-        $houses = $query->paginate(1)->appends($request->except('page'));
+        $houses = $query->paginate(9)->appends($request->except('page'));
 
         foreach ($houses as $house) {
             $house->translation = $house->translation();
@@ -45,7 +56,6 @@ class ReviewHomeController extends Controller
 
         return view('home.review_home.index', compact('houses', 'projects'));
     }
-
     public function show(Request $request)
     {
         $news_id = $request->news_id;
@@ -55,7 +65,15 @@ class ReviewHomeController extends Controller
         $house->project = $house->reviewHomeProject->translation();
         $house->hashtags = $house->reviewHomeHashtags->translation();
 
-        return view('home.review_home.show_review_home', compact('house'));
+        $latest_reviews = $this->get_latest_houses(3, $house->id);
+
+        $related_reviews = $house->reviewHomeProject->reviewHomes->where('id', '!=', $house->id)->take(3)->values();
+        foreach ($related_reviews as $related_review) {
+            $related_review->translation = $related_review->translation();
+        }
+
+
+        return view('home.review_home.show_review_home', compact('house', 'related_reviews', 'latest_reviews'));
     }
 
 
@@ -250,12 +268,11 @@ class ReviewHomeController extends Controller
             }
 
             foreach ($house->translations as $translation) {
-                if ($translation->locale != $request->lang){
+                if ($translation->locale != $request->lang) {
                     if (is_array($newImgUse)) {
                         $newImgUse = array_merge($newImgUse, is_array($this->extractImagePathsFromHtml($translation->content, $folderName)) ? $this->extractImagePathsFromHtml($translation->content, $folderName) : []);
                         $newImgUse = array_unique($newImgUse);
-                    }
-                    else {
+                    } else {
                         $newImgUse[] = $this->extractImagePathsFromHtml($translation->content, $folderName);
                     }
                 }
@@ -434,19 +451,5 @@ class ReviewHomeController extends Controller
         } catch (Exception $e) {
             return response()->json(['message' => 'Error updating tag ID: ' . $e->getMessage()], 500);
         }
-    }
-
-    static public function get_latest_houses($count = 5)
-    {
-        $houses = ReviewHome::latest()->take($count)->get();
-
-        foreach ($houses as $house) {
-            $house->translation = $house->translation();
-            $house->projects = $house->houseTags->map(function ($project) {
-                return $project->translation();
-            });
-        }
-
-        return $houses;
     }
 }

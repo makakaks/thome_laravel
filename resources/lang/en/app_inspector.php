@@ -1,0 +1,28 @@
+<?php
+
+return [
+    "newapp-title" => "New",
+    "newapp-header" => "Self-Home Inspection Application",
+    "newapp-description" => "Inspect your home by yourself with built-in reporting. No experience needed—video tutorials included in the app.",
+    "newapp-button" => "Use for Free!",
+    "hero-title" => "T. Home Inspection - Home Inspection Service",
+    "hero-description" => "A platform that helps homeowners and buyers inspect home quality before purchase.",
+    "hero-button" => "Access the App",
+    "features-title" => "📌 Key Features of the App",
+    "feature1-title" => "🛠️ Home Inspection System",
+    "feature1-description" => "Add defects found, such as roof leaks, wall cracks, and electrical issues.",
+    "feature2-title" => "📑 Inspection Reports",
+    "feature2-description" => "Generate summary reports and categorize issues for easy understanding.",
+    "feature3-title" => "📊 Issue Summary",
+    "feature3-description" => "View a table of defects with status: “Fixed” or “Pending”.",
+    "feature4-title" => "🔍 Home Inspection Guide",
+    "feature4-description" => "Step-by-step inspection guidance from experts.",
+    "categories-title" => "📊 Inspection Categories",
+    "category1" => "🏠 Building Structure",
+    "category2" => "🏡 Roof",
+    "category3" => "🚰 Sanitation",
+    "category4" => "⚡ Electrical System",
+    "category5" => "💧 Leakage",
+    "cta-title" => "Start inspecting your home today!",
+    "cta-button" => "Use the App",
+];

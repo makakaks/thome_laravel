@@ -21,7 +21,7 @@
 }
 
 .review-page h1 {
-    font-size: 48px;
+    font-size: 24px;
     font-weight: 800;
     color: #1a1a1a;
     margin-bottom: 30px;
@@ -41,12 +41,12 @@
 }
 
 .review-page p {
-    font-size: 22px;
-    color: #333;
+    font-size: 18px;
+    color: #555;
     max-width: 900px;
     margin: 0 auto;
-    line-height: 1.9;
-    font-weight: 300;
+    /* font-weight: 300; */
+    font-weight: bold;
     margin-bottom: 30px;
 }
 
@@ -971,6 +971,6 @@ hr {
 }
 
 
-.categories a{
+.categories a {
     text-decoration: none;
 }

@@ -7,13 +7,17 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\JobworkController;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Cookie;
 use PHPUnit\Framework\Test;
 use App\Http\Controllers\HouseController;
 use App\Http\Controllers\ReviewHomeController;
+use App\Http\Controllers\PrivilegeController;
+use App\Http\Controllers\StaticPageController;
 use App\Models\Faq;
+use App\Models\PageVariable;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,7 +29,14 @@ use App\Models\Faq;
 |
 */
 
-Route::get('/lang/{locale}', [TestController::class, 'setLocale'])->name('lang.change');
+Route::get('/lang/{locale}', function ($locale) {
+    if (! in_array($locale, ['en', 'th', 'cn'])) {
+        abort(400);
+    }
+    Cookie::queue(Cookie::make('locale', $locale, 60 * 24 * 365));
+    // Session::put('locale', $locale);
+    return redirect()->back();
+})->name('lang.change');
 
 Route::get('/', function () {
     $latestArticles = ArticleController::get_latest_articles(6);
@@ -37,7 +48,11 @@ Route::get('/', function () {
             return $tag->translation();
         });
     }
-    return view('home.index', compact('faqs', 'latestArticles'));
+
+    $pageVariables = PageVariable::where('page', 'home')->first()->toArray();
+    $var = $pageVariables['var'] ?? []; // Default value if not set
+
+    return view('home.index', compact('faqs', 'latestArticles', 'var'));
 });
 
 Route::get('/hinspector', function () {
@@ -61,14 +76,10 @@ Route::get('/contactus', function () {
     return view('home.contact.contactus');
 });
 
-Route::get('/joinwithus', function () {
-    return view('home.contact.joinwithus');
-});
+Route::get('/joinwithus', [JobworkController::class, 'view_jobwork'])->name('joinwithus');
 
 
-Route::get('/ourteam', function () {
-    return view('home.aboutus.ourteam');
-});
+Route::get('/ourteam', [DepartmentController::class, 'ourteam'])->name('ourteam');
 
 Route::get('/ourstory', function () {
     return view('home.aboutus.ourstory');
@@ -91,18 +102,12 @@ Route::prefix('addon_service')->group(function () {
         return view('home.addon_service.checklist');
     });
 });
-
-Route::get('/testkub', function () {
-    return view('home.article.test_article');
-});
-
 // Route::get('review_home/{id}', function ($id) {
 //     return view('home.article.review_home', ['id' => $id]);
 // });
 
 Route::prefix('article')->controller(ArticleController::class)->group(function () {
     Route::get('/', 'index');
-    Route::get('/test_paginate', 'test_paginate')->name('article.test_paginate');
     Route::get('/detail', 'show_article')->name('article.show');
 });
 
@@ -111,7 +116,23 @@ Route::prefix('review')->controller(ReviewHomeController::class)->group(function
     Route::get('/detail', 'show')->name('review_home.show');
 });
 
+Route::prefix('privilege')->controller(PrivilegeController::class)->group(function () {
+    Route::get('/', 'index')->name('review_home.index');
+    Route::get('/detail', 'show')->name('review_home.show');
+});
+
 Route::prefix('admin')->middleware('auth')->group(function () {
+    Route::prefix('static_page')->controller(StaticPageController::class)->group(function () {
+        Route::get('/', 'index')->name('admin.static_page.index');
+        Route::get('/home', 'home')->name('admin.static_page.home');
+        Route::post('/home', 'home_store')->name('admin.static_page.home_store');
+
+        Route::prefix('project/{pageName}')->group(function () {
+            Route::get('/', 'manage_project')->name('admin.static_page.manage_project');
+            Route::post('/create', 'create_project')->name('admin.static_page.create_project');
+        });
+    });
+
     Route::prefix('article')->controller(ArticleController::class)->group(function () {
         Route::get('/', 'manage')->name('admin.article.manage');
         Route::delete('/{id}', 'delete')->name('admin.article.delete');
@@ -175,12 +196,40 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::post('/reorder', 'reorder')->name('admin.department.reorder');
     });
 
-    Route::prefix('user')->controller(AdminController::class)->group(function () {
-        Route::get('/','user_manage')->name('admin.user,manage');
+    Route::prefix('major_department')->controller(DepartmentController::class)->group(function () {
+        Route::get('/', 'major_manage')->name('admin.major_department.manage');
+        Route::post('/', 'create_major')->name('admin.major_department.create');
+        Route::put('/{id}', 'edit_major')->name('admin.major_department.edit');
+        Route::delete('/{id}', 'delete_major')->name('admin.major_department.delete');
     });
 
+    Route::prefix('privilege')->controller(PrivilegeController::class)->group(function () {
+        Route::get('/', 'manage')->name('admin.privilege.manage');
+        Route::delete('/{id}', 'delete')->name('admin.privilege.delete');
+
+        Route::get('/create', 'create_view')->name('admin.privilege.create_view');
+        Route::post('/create', 'create_store')->name('admin.privilege.create_store');
+
+        Route::get('/{id}/edit', 'edit_view')->name('admin.privilege.edit_view');
+        Route::put('/{id}/edit', 'edit_store')->name('admin.privilege.edit_store');
+        Route::put('/{id}/edit_id', 'edit_id')->name('admin.privilege.edit_id');
+
+        Route::get('/{id}/add_lang', 'add_lang_view')->name('admin.privilege.add_lang_view');
+        Route::post('/{id}/add_lang', 'add_lang_store')->name('admin.privilege.add_lang_store');
+    });
+
+    Route::prefix('work')->controller(JobworkController::class)->group(function () {
+        Route::get('/', 'manage')->name('admin.jobwork.manage');
+        Route::post('/', 'create')->name('admin.jobwork.create');
+        Route::delete('/{id}', 'delete')->name('admin.jobwork.delete');
+        Route::put('/{id}', 'edit');
+    });
+
+    // Route::prefix('user')->controller(AdminController::class)->group(function () {
+    //     Route::get('/', 'user_manage')->name('admin.user,manage');
+    // });
+
     Route::post('/upload_image', [AdminController::class, 'upload_image'])->name('admin.upload');
-    Route::get('/change_password', [AdminController::class, 'change_password_view'])->name('admin.change_password');
 });
 
 
@@ -220,4 +269,4 @@ Route::prefix('api')->group(function () {
 // });
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

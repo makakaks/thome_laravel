@@ -31,8 +31,7 @@
         <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     @endif
 
-
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{{ asset('css/component/header_admin.css') }}">
 </head>
 
@@ -68,6 +67,12 @@
                     </a>
                 </li>
                 <li>
+                    <a href="/admin/static_page">
+                        <i class="bi bi-file-earmark icon"></i>
+                        Static Page
+                    </a>
+                </li>
+                <li>
                     <a href="/admin/article">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -94,6 +99,12 @@
                     </a>
                 </li>
                 <li>
+                    <a href="/admin/privilege">
+                        <i class="bi bi-star-fill icon"></i>
+                        สิทธิพิเศษ
+                    </a>
+                </li>
+                <li>
                     <a href="/admin/employee">
                         <img src="https://cdn-icons-png.flaticon.com/512/1134/1134182.png" class="icon"></i>
                         โครงสร้างพนักงาน
@@ -103,6 +114,12 @@
                     <a href="/admin/manage_faq">
                         <img src="https://static.thenounproject.com/png/610769-200.png" class="icon"></i>
                         คำถามที่พบบ่อย
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/work">
+                        <img src="https://static.thenounproject.com/png/3754647-200.png" class="icon"></i>
+                        รับสมัครงาน
                     </a>
                 </li>
                 <li>

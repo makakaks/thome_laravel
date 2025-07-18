@@ -99,6 +99,13 @@ body.hide-over {
     color: #666;
 }
 
+.bi::before {
+    width: 20px;
+    height: 20px;
+    line-height: 0.7 !important;
+    font-size: 1.15rem;
+}
+
 .sidebar-nav {
     display: flex;
     flex-direction: column;
@@ -223,4 +230,8 @@ a {
 .col-1 {
     flex: 0 0 auto;
     width: 8.33333333%;
+}
+
+header h1 {
+    margin-top: 20px;
 }

@@ -21,10 +21,9 @@
                         <div class="logo-container">
                             <img src="/img/s2.png" alt="T. HOME CONSTRUCTION Logo" class="hero-logo">
                         </div>
-                        <h1 class="hero-title">บริการตกแต่งบ้านคุณภาพ</h1>
-                        <div class="hero-description">ต.ตกเเต่ง เราบริการแบบ One Service Solution ทุกอย่างครบจบที่เดียว!
-                            ออกแบบรวมตกแต่ง ราคาเริ่มต้นเพียง 10,000 บาท/ตร.ม.</div>
-                        <a href="/Contactus.php" class="hero-btn">ติดต่อเรา</a>
+                        <h1 class="hero-title">{{ __('hinterior.hero-title') }}</h1>
+                        <div class="hero-description">{{ __('hinterior.hero-description') }}</div>
+                        <a href="/contactus" class="hero-btn">{{ __('hinterior.contact-btn') }}</a>
                     </div>
                 </div>
                 <div class="carousel-item h-100 p-0">
@@ -63,7 +62,7 @@
                         </p>
                         <hr>
                         <br> -->
-        <h1>เลือกตามสไตล์การออกแบบ</h1>
+        <h1>{{ __('hinterior.choose-style-title') }}</h1>
         <br>
         <div class="categories aos-init aos-animate" data-aos="fade-up" data-aos-duration="1500">
             <button class="category-btn active" data-category="all">All</button>
