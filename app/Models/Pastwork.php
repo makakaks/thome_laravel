@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Storage;
 
 class Pastwork extends Model
 {
@@ -17,6 +18,16 @@ class Pastwork extends Model
         'detail' => 'array',
         'images' => 'array',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($project) {
+
+            Storage::deleteDirectory('public/project/' . $project->page . '/' . $project->id); // ลบไดเรกทอรีที่เก็บภาพของบทความ
+        });
+    }
 
     public function translation($locale = null)
     {

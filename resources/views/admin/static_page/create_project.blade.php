@@ -6,7 +6,13 @@
 
     <div class="container">
         <header>
-            <h1>สร้าง project หน้า <span>{{ $pageName }}</span></h1>
+            <h1>
+                @if (isset($project))
+                    แก้ไข
+                @else
+                    สร้าง
+                @endif
+                project หน้า <span>{{ $pageName }}</span></h1>
         </header>
 
         <div class="body">
@@ -106,9 +112,11 @@
             <div class="text-center">
                 <button btn-type="submit" class="btn btn-success px-5 py-2" style="font-size: 2rem;">บันทึก</button>
             </div>
-            <div class="d-none">
-                <span proj="true">{{$project->id}}</span>
-            </div>
+            @if (isset($project))
+                <div class="d-none">
+                    <span proj="true">{{ $project->id }}</span>
+                </div>
+            @endif
         </div>
     </div>
 

@@ -59,28 +59,19 @@
                                         <!-- จะถูกเติมด้วย JavaScript -->
                                         @foreach ($projects as $project)
                                             <tr data-id="{{ $project->id }}">
-                                                <div class="d-none">
-                                                    @foreach ($project->translations as $translation)
-                                                        <none class="lang-item">
-                                                            <lang>{{ $translation['locale'] }}</lang>
-                                                            <question>{{ $translation['title'] }}</question>
-                                                            <answer>{{ $translation['detail'] }}</answer>
-                                                        </none>
-                                                    @endforeach
-                                                </div>
                                                 <td>
                                                     <img src="{{ $project->coverPageImg }}" alt="" width="100%">
                                                 </td>
                                                 <td>{{ $project->translation['title'] }}</td>
                                                 <td>{{ $project->translation['detail'] }}</td>
                                                 <td>
-                                                    <button class="btn btn-success add-lang-btn"
+                                                    {{-- <button class="btn btn-success add-lang-btn"
                                                         data-id="{{ $project['id'] }}" data-bs-toggle="modal"
-                                                        data-bs-target="#staticBackdrop">
+                                                        data-bs-target="#createBackdrop">
                                                         เพิ่มภาษา
-                                                    </button>
-                                                    <button class="btn btn-edit" data-id="{{ $project['id'] }}"
-                                                        data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                                    </button> --}}
+                                                    <button class="btn btn-success" data-id="{{ $project['id'] }}" btn-type="edit-lang">
+                                                        {{-- data-bs-toggle="modal" data-bs-target="#createBackdrop"> --}}
                                                         แก้ไขภาษา
                                                     </button>
                                                     <a class="btn btn-info"
@@ -96,6 +87,15 @@
                                                         <button type="submit" class="btn btn-danger"
                                                             onclick="return confirm('ต้องการลบใช่ไหม');">ลบ</button>
                                                     </form>
+                                                </td>
+                                                <td class="d-none">
+                                                    @foreach ($project->translations as $translation)
+                                                        <none class="lang-item">
+                                                            <lang>{{ $translation['locale'] }}</lang>
+                                                            <title>{{ $translation['title'] }}</title>
+                                                            <detail>{{ $translation['detail'] }}</detail>
+                                                        </none>
+                                                    @endforeach
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -146,7 +146,6 @@
                                                             <div>
                                                                 ยังไม่มีภาษาอังกฤษ
                                                             </div>
-
                                                             <button class="btn btn-success" btn-type="tag-addlang">
                                                                 เพิ่มภาษา
                                                             </button>
@@ -195,22 +194,19 @@
             </div>
         </section>
 
-        {{-- <div class="modal fade" id="createBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        <div class="modal fade" id="createBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
             aria-labelledby="createBackdropLabel" aria-hidden="true">
-            <form action="/admin/static_page/project/{{ $pageName }}" method="POST">
+            <form method="POST">
+                @method('PUT')
                 @csrf
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="createBackdropLabel">สร้างโปรเจคใหม่</h1>
+                            <h1 class="modal-title fs-5" id="createBackdropLabel">แก้ไขภาษา <span></span> ของโปรเจค</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <div class="form-group mb-3">
-                                <label>รูปภาพหน้าปก</label>
-                                <input type="file" accept="image/*" name="coverPageImg" class="form-control mb-2"
-                                    placeholder="" required>
-                            </div>
+                            <input type="text" class="d-none" name="locale">
                             <div class="form-group mb-3">
                                 <label>ชื่อผลงาน</label>
                                 <input type="text" name="title" class="form-control mb-2"
@@ -218,37 +214,19 @@
                             </div>
                             <div class="form-group mb-3">
                                 <label>รายละเอียด</label>
-                                <input type="text" name="title" class="form-control mb-2"
-                                    placeholder="กรุณากรอกรายละเอียด" required>
-                            </div>
-                            <div class="form-group mb-3">
-                                <label>รูปภาพที่เกี่ยวข้อง</label>
-                                <input type="file" accept="image/*" name="title" class="form-control mb-2"
-                                    placeholder="" required type="relate-images">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="relate-images">รูปภาพที่เกี่ยวข้อง</label>
-                                <div class="relate-images">
-                                    <!-- Images will be displayed here -->
-
-                                </div>
-                                <div>
-                                    <label class="btn btn-outline-secondary" for="inputFile">
-                                        <span class="fa fa-plus"></span>
-                                        <span>เพิ่มรูปภาพ</span>
-                                        <input id="inputFile" class="file-upload multiple-upload" type="file" accept="image/*" style="display: none;"/>
-                                    </label>
-                                </div>
+                                <textarea name="detail" id="" class="form-control mb-2" placeholder="กรุณากรอกรายละเอียด" required></textarea>
+                                {{-- <textarea name="detail" class="form-control mb-2"
+                                    placeholder="กรุณากรอกรายละเอียด" required> --}}
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
-                            <button type="submit" class="btn btn-primary submit" data-bs-dismiss="modal">สร้าง</button>
+                            <button type="submit" class="btn btn-primary submit" data-bs-dismiss="modal">แก้ไข</button>
                         </div>
                     </div>
                 </div>
             </form>
-        </div> --}}
+        </div>
 
 
         <div class="modal fade" id="tagBackdrop" data-bs-backdrop="tag" data-bs-keyboard="false" tabindex="-1"

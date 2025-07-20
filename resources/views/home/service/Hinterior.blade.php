@@ -15,7 +15,7 @@
             </div>
             <div class="carousel-inner h-100">
                 <div class="carousel-item active h-100">
-                    <img src="https://assets.architecturaldigest.in/photos/62026064b5d9eefa7e4e2ddf/4:3/w_1439,h_1079,c_limit/How%20to%20furnish%20your%20home%20on%20a%20budget.jpg"
+                    <img src="/img/ปกPSD.png"
                         class="hero-bg" alt="...">
                     <div class="hero-content">
                         <div class="logo-container">
@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <div class="carousel-item h-100 p-0">
-                    <img src="https://www.marthastewart.com/thmb/LaYmyiA1c-J0kvd0ERCL5-30ch4=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/spanish-art-deco-home-tour-living-room-0120-2000-e206e51ef737424aaa6eab5f500f5b84.jpg"
+                    <img src="/img/after_review/interrior-bg1.jpg"
                         class="hero-bg" alt="...">
                 </div>
             </div>

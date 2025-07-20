@@ -166,24 +166,28 @@ class StaticPageController extends Controller
 
     public function create_project(Request $request, $pageName)
     {
+        $request->validate([
+            'tag' => 'required|exists:past_work_tags,id',
+            'coverPageImg' => 'required|string',
+            'title' => 'required|string',
+            'detail' => 'required|string',
+            'images' => 'required|array',
+        ]);
+
+
+        $tag = PastWorkTag::findOrFail($request->input('tag'));
+        if ($tag->page !== $pageName) {
+            return response()->json(['message' => 'Tag does not belong to this page'], 400);
+        }
+
+        $project = $tag->pastworks()->create([
+            'page' => $pageName,
+            'title' => ['th' => $request->input('title')],
+            'detail' => ['th' => $request->input('detail')],
+        ]);
         try {
-            $request->validate([
-                'tag' => 'required|exists:past_work_tags,id',
-                'coverPageImg' => 'required|string',
-                'title' => 'required|string',
-                'detail' => 'required|string',
-                'images' => 'required|array',
-            ]);
-
-
-            $tag = PastWorkTag::findOrFail($request->input('tag'));
-            if ($tag->page !== $pageName) {
-                return response()->json(['message' => 'Tag does not belong to this page'], 400);
-            }
-
             $images = $request->input('images');
-
-            $folderName = 'project/' . $pageName . '/';
+            $folderName = 'project/' . $pageName . '/' . $project->id . '/';
 
             $coverPageImg = $request->input('coverPageImg');
             $fileName = basename($coverPageImg);
@@ -198,18 +202,18 @@ class StaticPageController extends Controller
                     Storage::move('public/temp_uploads/' . $fileName, 'public/' . $folderName . $fileName);
                     $images[$index] = "/storage" . "/" . $folderName . $fileName;
                 }
+                else if($coverPageImg == "/storage" . "/" . $folderName . $fileName) {
+                    $images[$index] = $coverPageImg;
+                }
             }
 
-            $tag->pastworks()->create([
-                'coverPageImg' => $coverPageImg,
-                'page' => $pageName,
-                'title' => ['th' => $request->input('title')],
-                'detail' => ['th' => $request->input('detail')],
-                'images' => $images,
-            ]);
+            $project->images = $images;
+            $project->coverPageImg = $coverPageImg;
+            $project->save();
 
-            return response()->json(['message' => 'Project created successfully.'], 200);
+            return response()->json(['message' => $images], 200);
         } catch (Exception $e) {
+            $project->delete();
             return  response()->json(['message' => 'Error creating project: ' . $e->getMessage()], 500);
         }
     }
@@ -226,7 +230,7 @@ class StaticPageController extends Controller
 
             $project = Pastwork::where('id', $id)->firstOrFail();
 
-            $folderName = 'project/' . $pageName . '/';
+            $folderName = 'project/' . $pageName . '/' . $project->id . '/';
             $oldCoverPage = $project->coverPageImg;
             $newCoverName = basename($request->input('coverPageImg'));
             $updateCoverPage = $oldCoverPage;
@@ -253,7 +257,7 @@ class StaticPageController extends Controller
 
             $oldImages = $project->images;
             foreach ($oldImages as $old) {
-                if (!in_array($old, $images)){
+                if (!in_array($old, $images)) {
                     $fileName = basename($old);
                     if (Storage::exists("public/$folderName$fileName")) {
                         Storage::delete("public/$folderName$fileName");
@@ -265,9 +269,35 @@ class StaticPageController extends Controller
             $project->coverPageImg = $updateCoverPage;
             $project->tag = $request->input('tag');
             $project->save();
-
         } catch (Exception $e) {
             return response()->json(['message' => 'Error editing project: ' . $e->getMessage()], 500);
+        }
+    }
+
+    public function edit_project_lang(Request $request, $pageName, $id)
+    {
+        try {
+            $request->validate([
+                'locale' => 'required|string|max:5',
+                'detail' => 'required|string',
+                'title' => 'required|string',
+            ]);
+
+            $project = Pastwork::findOrFail($id);
+            if ($project->page !== $pageName) {
+                return redirect()->back()->with('error', 'Project does not belong to this page');
+            }
+
+            $title = $project->title;
+            $detail = $project->detail;
+            $title[$request->locale] = $request->title;
+            $detail[$request->locale] = $request->detail;
+            $project->title = $title;
+            $project->detail = $detail;
+            $project->save();
+            return redirect()->back()->with('status', 'Project language edited successfully');
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', 'Error editing project language: ' . $e->getMessage());
         }
     }
 
@@ -318,6 +348,20 @@ class StaticPageController extends Controller
             return response()->json(['message' => 'Tag created successfully.'], 200);
         } catch (Exception $e) {
             return response()->json(['message' => 'Error creating tag: ' . $e->getMessage()], 500);
+        }
+    }
+
+    function delete_project($pageName, $id)
+    {
+        try {
+            $project = Pastwork::findOrFail($id);
+            if ($project->page !== $pageName) {
+                return response()->json(['message' => 'Project does not belong to this page'], 400);
+            }
+            $project->delete();
+            return redirect()->back()->with('status', 'Project deleted successfully');
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', 'Error deleting project: ' . $e->getMessage());
         }
     }
 

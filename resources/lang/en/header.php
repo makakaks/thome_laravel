@@ -4,15 +4,15 @@ return [
     "home" => "Home",
 
     "services" => "Services",
-    "hinspector" => "H. Inspection",
-    "hinterior" => "H. Interior",
-    "hconstruction" => "H. Construction",
-    "hbutler" => "Homebutler",
+    "hinspector" => "HOME INSPECTION",
+    "hinterior" => "INTERIOR DESIGN",
+    "hconstruction" => "HOME CONSTRUCTION",
+    "hbutler" => "HOMEBUTLER ",
 
     "addon_services" => "Additional Services",
-    "app_inspector" => "Self Home Inspection",
+    "app_inspector" => "Self Inspect",
     "cal_electric" => "Electricity Calculator",
-    "checklist" => "Home Spec Comparison",
+    "checklist" => "Compare House",
 
     "articles" => "Articles",
     "review_home" => "Home Reviews",

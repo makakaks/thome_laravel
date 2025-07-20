@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('pastworks', function (Blueprint $table) {
             $table->id();
             $table->enum('page', ['hinspector', 'hinterior', 'hconstruction', 'hbutler', 'Other']);
-            $table->string('coverPageImg');
+            $table->string('coverPageImg')->nullable();
             $table->jsonb('title');
             $table->jsonb('detail');
             $table->jsonb('images')->nullable();

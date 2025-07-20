@@ -6,13 +6,14 @@ const pageName = document.querySelector("header h1 span").textContent.trim();
 const searchInput = document.getElementById("search");
 const filterSelect = document.getElementById("articles-filter");
 
-const modalContent = document.querySelector(".modal-content");
-const modalContainer = document.querySelector("#staticBackdrop");
+const createBackdrop = document.getElementById("createBackdrop");
+const modalContent = createBackdrop.querySelector(".modal-content");
 const editBtns = document.querySelectorAll(".btn-edit");
 const addLangBtn = document.querySelectorAll(".add-lang-btn");
 const addFaqBtn = document.getElementById("add-article");
 
 let tagSelector;
+var myModal = new bootstrap.Modal(document.getElementById('createBackdrop'));
 const confirmDialog = new ConfirmDialog();
 
 // ค้นหาและกรองบทความ
@@ -39,14 +40,17 @@ function deleteArticle() {
                     '<button class="confirm-btn active confirm-yes" id="confirmYes"> ลบ </button>',
                     async () => {
                         window.showLoading();
-                        await fetch(`/admin/static_page/project/${pageName}/${id}`, {
-                            method: "DELETE",
-                            headers: {
-                                "X-CSRF-TOKEN": document.querySelector(
-                                    'meta[name="csrf-token"]'
-                                ).content,
-                            },
-                        }).then((res) => {
+                        await fetch(
+                            `/admin/static_page/project/${pageName}/${id}`,
+                            {
+                                method: "DELETE",
+                                headers: {
+                                    "X-CSRF-TOKEN": document.querySelector(
+                                        'meta[name="csrf-token"]'
+                                    ).content,
+                                },
+                            }
+                        ).then((res) => {
                             if (!res.ok) {
                                 window.showToast(
                                     "ไม่สามารถลบบทความได้",
@@ -358,7 +362,6 @@ function searchListener() {
 //     });
 // }
 
-
 function initCarusel() {
     const tableHeader = document.querySelector(".table-header");
     const addTagBtn = document.querySelector("#add-tag");
@@ -375,7 +378,7 @@ function initCarusel() {
         ) {
             addTagBtn.style.display = "inline-block";
             addArticleBtn.style.display = "none";
-            navigation.textContent = "← จัดการ Faq";
+            navigation.textContent = "← จัดการ Project";
             navigation.setAttribute("data-bs-slide", "prev");
         } else {
             addTagBtn.style.display = "none";
@@ -409,19 +412,22 @@ function initTagManage() {
 
                 window.showLoading();
 
-                await fetch(`/admin/static_page/project/${pageName}/edit_tag/${tagId}`, {
-                    method: "PUT",
-                    headers: {
-                        "content-Type": "application/json",
-                        "X-CSRF-TOKEN": document.querySelector(
-                            'meta[name="csrf-token"]'
-                        ).content,
-                    },
-                    body: JSON.stringify({
-                        locale: dataLocale,
-                        title: tagName,
-                    }),
-                }).then(async (res) => {
+                await fetch(
+                    `/admin/static_page/project/${pageName}/edit_tag/${tagId}`,
+                    {
+                        method: "PUT",
+                        headers: {
+                            "content-Type": "application/json",
+                            "X-CSRF-TOKEN": document.querySelector(
+                                'meta[name="csrf-token"]'
+                            ).content,
+                        },
+                        body: JSON.stringify({
+                            locale: dataLocale,
+                            title: tagName,
+                        }),
+                    }
+                ).then(async (res) => {
                     window.hideLoading();
                     if (!res.ok) {
                         window.showToast("ไม่สามารแก้ไขได้", "error");
@@ -437,7 +443,13 @@ function initTagManage() {
         );
     }
 
-    async function confirmAddLang(superParent, parentDiv, dataLocale, tagId, btn) {
+    async function confirmAddLang(
+        superParent,
+        parentDiv,
+        dataLocale,
+        tagId,
+        btn
+    ) {
         confirmDialog.confirmAction(
             `เพิ่มภาษา ${dataLocale}`,
             `<div class="mt-3">
@@ -456,19 +468,22 @@ function initTagManage() {
 
                 window.showLoading();
 
-                await fetch(`/admin/static_page/project/${pageName}/edit_tag/${tagId}`, {
-                    method: "PUT",
-                    headers: {
-                        "content-Type": "application/json",
-                        "X-CSRF-TOKEN": document.querySelector(
-                            'meta[name="csrf-token"]'
-                        ).content,
-                    },
-                    body: JSON.stringify({
-                        locale: dataLocale,
-                        title: tagName,
-                    }),
-                }).then(async (res) => {
+                await fetch(
+                    `/admin/static_page/project/${pageName}/edit_tag/${tagId}`,
+                    {
+                        method: "PUT",
+                        headers: {
+                            "content-Type": "application/json",
+                            "X-CSRF-TOKEN": document.querySelector(
+                                'meta[name="csrf-token"]'
+                            ).content,
+                        },
+                        body: JSON.stringify({
+                            locale: dataLocale,
+                            title: tagName,
+                        }),
+                    }
+                ).then(async (res) => {
                     window.hideLoading();
                     if (!res.ok) {
                         window.showToast("ไม่สามารถเพิ่มแท็กได้", "error");
@@ -483,7 +498,12 @@ function initTagManage() {
                     const newBtn = document.createElement("button");
                     newBtn.setAttribute("btn-type", "tag-edit");
                     newBtn.addEventListener("click", async () => {
-                        await confirmEdit(superParent, parentDiv, dataLocale, tagId);
+                        await confirmEdit(
+                            superParent,
+                            parentDiv,
+                            dataLocale,
+                            tagId
+                        );
                     });
                     newBtn.className = "btn btn-warning";
                     newBtn.innerText = "แก้ไข";
@@ -513,7 +533,13 @@ function initTagManage() {
                 const parentDiv = btn.parentNode.querySelector("div");
                 const dataLocale = superParent.getAttribute("data-locale");
                 btn.addEventListener("click", async () => {
-                    await confirmAddLang(superParent, parentDiv, dataLocale, tagId, btn);
+                    await confirmAddLang(
+                        superParent,
+                        parentDiv,
+                        dataLocale,
+                        tagId,
+                        btn
+                    );
                 });
             }
         );
@@ -532,14 +558,17 @@ function initTagManage() {
                     '<button class="confirm-btn active confirm-yes" id="confirmYes"> ลบ </button>',
                     async () => {
                         window.showLoading();
-                        await fetch(`/admin/static_page/project/${pageName}/delete_tag/${tagId}`, {
-                            method: "DELETE",
-                            headers: {
-                                "X-CSRF-TOKEN": document.querySelector(
-                                    'meta[name="csrf-token"]'
-                                ).content,
-                            },
-                        }).then(async (res) => {
+                        await fetch(
+                            `/admin/static_page/project/${pageName}/delete_tag/${tagId}`,
+                            {
+                                method: "DELETE",
+                                headers: {
+                                    "X-CSRF-TOKEN": document.querySelector(
+                                        'meta[name="csrf-token"]'
+                                    ).content,
+                                },
+                            }
+                        ).then(async (res) => {
                             window.hideLoading();
                             if (!res.ok) {
                                 window.showToast("ไม่สามารถลบแท็กได้", "error");
@@ -547,7 +576,10 @@ function initTagManage() {
                                     console.log(data);
                                 });
                             } else {
-                                window.showToast("ลบแท็กเรียบร้อยแล้ว", "success");
+                                window.showToast(
+                                    "ลบแท็กเรียบร้อยแล้ว",
+                                    "success"
+                                );
                                 superParent.remove();
                             }
                         });
@@ -556,6 +588,55 @@ function initTagManage() {
             });
         });
     });
+}
+
+
+function editProjectLang() {
+    // const
+    const tr = document.querySelectorAll(".item-1 tbody tr");
+
+    tr.forEach((row) => {
+        row.querySelector("button[btn-type='edit-lang']").addEventListener("click", () => {
+            confirmDialog.confirmAction("ยืนยันการแก้ไขบทความ",
+                `<div class="mt-3">
+                    <div class="form-group mb-3">
+                        <label>เลือกภาษา:</label>
+                        <select class="form-select select-lang">
+                            <option value="th">ไทย</option>
+                            <option value="en">อังกฤษ</option>
+                            <option value="cn">จีน</option>
+                        </select>
+                    </div>
+                </div>`,
+                "ไม่",
+                "ยืนยัน",
+                "",
+                async () => {
+                    const rowId = row.getAttribute("data-id");
+                    const data = {}
+                    Array.from(row.querySelectorAll('.d-none .lang-item')).forEach((item) => {
+                        data[item.querySelector("lang").textContent] = {
+                            title: item.querySelector("title").textContent,
+                            detail: item.querySelector("detail").textContent,
+                        }
+                    })
+
+                    let lang = document.querySelector(".select-lang").value;
+                    myModal.show();
+                    modalContent.querySelector(".modal-header h1 span").textContent = lang;
+                    modalContent.querySelector("input[name='locale']").value = lang;
+
+                    if (!data[lang]){
+                        window.showToast("สร้างภาษา " + lang + " ใหม่", "info");
+                        lang = "th";
+                    }
+                    modalContent.setAttribute("data-id", rowId);
+                    modalContent.querySelector("input[name='title']").value = data[lang].title;
+                    modalContent.querySelector("textarea[name='detail']").value = data[lang].detail;
+                    createBackdrop.querySelector("form").setAttribute("action", `/admin/static_page/project/${pageName}/edit_lang/${rowId}`);
+                })
+        })
+    })
 }
 
 // Event Listeners
@@ -568,4 +649,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     initCarusel();
     initTagManage();
+
+    editProjectLang();
+
+    document.querySelectorAll("textarea").forEach((textarea) => {
+        textarea.addEventListener("input", () => {
+            textarea.style.height = "5px";
+            textarea.style.height = textarea.scrollHeight + "px";
+        });
+    });
 });
