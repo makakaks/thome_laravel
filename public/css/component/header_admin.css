@@ -33,6 +33,17 @@ body.hide-over {
     max-width: none !important;
 }
 
+header {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+header h1 {
+    color: #2c3e50;
+    font-size: 2.2rem;
+    margin-top: 20px;
+}
+
 .sidebar {
     width: 280px;
     background-color: #fff;

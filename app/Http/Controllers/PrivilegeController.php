@@ -229,17 +229,6 @@ class PrivilegeController extends Controller
                 }
                 $newImgUse[] = basename($img->getAttribute('src'));
             }
-
-            foreach ($privilege->translations as $translation) {
-                if ($translation->locale != $request->lang) {
-                    if (is_array($newImgUse)) {
-                        $newImgUse = array_merge($newImgUse, is_array($this->extractImagePathsFromHtml($translation->content, $folderName)) ? $this->extractImagePathsFromHtml($translation->content, $folderName) : []);
-                        $newImgUse = array_unique($newImgUse);
-                    } else {
-                        $newImgUse[] = $this->extractImagePathsFromHtml($translation->content, $folderName);
-                    }
-                }
-            }
             $updatedContent = $doc->saveHTML();
 
 
@@ -252,8 +241,10 @@ class PrivilegeController extends Controller
                 $oldSrc = $oldImg->getAttribute('src');
                 $oldName = basename($oldSrc);
 
-                if (!in_array($oldName, $newImgUse) && Str::startsWith($oldSrc, "storage/$folderName/")) {
-                    Storage::delete(Str::replaceFirst('/storage', 'public', $oldSrc));
+                if (!in_array($oldName, $newImgUse)) {
+                    if (Storage::exists("public/$folderName$oldName")) {
+                        Storage::delete("public/$folderName$oldName");
+                    }
                 }
             }
 

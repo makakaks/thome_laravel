@@ -17,6 +17,18 @@ export default class ResizeImage {
             const maxWidth = 800;
             const MAX_FILE_SIZE = this.fileSizeMap[fileSize];
 
+            // เช็คขนาด base64 ถ้าเล็กกว่าหรือเท่ากับ MAX_FILE_SIZE ให้ return เลย
+            const base64Length = base64.length - (base64.indexOf(',') + 1);
+            const padding = (base64.endsWith('==') ? 2 : base64.endsWith('=') ? 1 : 0);
+            const byteSize = base64Length * 0.75 - padding;
+            if (byteSize <= MAX_FILE_SIZE) {
+                return resolve({
+                    base64,
+                    size: byteSize,
+                    quality: 1.0,
+                });
+            }
+
             img.onload = async () => {
                 const scale = maxWidth / img.width;
                 const newWidth = maxWidth;
@@ -90,6 +102,9 @@ export default class ResizeImage {
             const file = event.target.files[0];
             const MAX_FILE_SIZE = this.fileSizeMap[fileSize];
             const originalSize = file.size;
+            if (originalSize <= MAX_FILE_SIZE) {
+                return
+            }
             console.log(
                 "📥 ไฟล์ที่อัปโหลด:",
                 originalSize / (1024 * 1024),

@@ -129,7 +129,15 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
         Route::prefix('project/{pageName}')->group(function () {
             Route::get('/', 'manage_project')->name('admin.static_page.manage_project');
-            Route::post('/create', 'create_project')->name('admin.static_page.create_project');
+            Route::get('/create', 'create_project_view')->name('admin.static_page.create_project_view');
+            Route::get('/edit/{id}', 'edit_project_view')->name('admin.static_page.edit_project_view');
+            Route::post('/', 'create_project')->name('admin.static_page.create_project');
+            Route::delete('/{id}', 'delete_project')->name('static_page.faq.delete_project');
+            Route::put('/{id}', 'edit_project')->name('admin.static_page.edit_project');
+
+            Route::post('/add_tag', 'create_tag')->name('admin.faq.add_tag');
+            Route::put('/edit_tag/{id}', 'edit_tag')->name('admin.faq.edit_tag');
+            Route::delete('/delete_tag/{id}', 'delete_tag')->name('admin.faq.delete_tag');
         });
     });
 
