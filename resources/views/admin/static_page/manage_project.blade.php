@@ -10,6 +10,9 @@
         }
     </style>
     <div class="container">
+        <div>
+            <a href="/admin/static_page/" class="btn btn-success">กลับไป</a>
+        </div>
         <header>
             <h1>จัดการหน้า <span>{{ $pageName }}</span></h1>
         </header>
