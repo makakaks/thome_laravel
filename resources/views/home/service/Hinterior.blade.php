@@ -70,7 +70,7 @@
         <div class="review-cards">
             @foreach ($projects as $project)
                 <a class="card" data-category="{{ $project->tag->translation['title'] }}" href="/hinterior/project/{{ $project->id }}">
-                    <img src="{{ $project->coverPageImg }}" alt="House Review 1">
+                    <img src="{{ $project->coverPageImg }}">
                     <p>{{ $project->translation['title'] }}</p>
                 </a>
             @endforeach

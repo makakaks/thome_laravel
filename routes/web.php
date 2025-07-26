@@ -57,50 +57,12 @@ Route::get('/', function () {
     return view('home.index', compact('faqs', 'latestArticles', 'var'));
 });
 
-// Route::get('/hinspector', function () {
-//     $projects = PastWork::where('page', 'hinspector')->get();
-//     $tags = PastWorkTag::where('page', 'hinspector')->get();
-//     foreach ($projects as $project) {
-//         $project->translation = $project->translation();
-//         $project->tag = $project->pastWorkTag;
-//         $project->tag->translation = $project->tag->translation();
-//     }
-//     foreach ($tags as $tag) {
-//         $tag->translation = $tag->translation();
-//     }
-//     return view('home.service.Hinspector', compact('projects', 'tags'));
-// });
-
-// Route::get('/hinterior', function () {
-//     $projects = PastWork::where('page', 'hinterior')->get();
-//     $tags = PastWorkTag::where('page', 'hinterior')->get();
-//     foreach ($projects as $project) {
-//         $project->translation = $project->translation();
-//         $project->tag = $project->pastWorkTag;
-//         $project->tag->translation = $project->tag->translation();
-//     }
-//     foreach ($tags as $tag) {
-//         $tag->translation = $tag->translation();
-//     }
-//     return view('home.service.Hinterior', compact('projects', 'tags'));
-// });
-
-// Route::get('/hconstruction', function () {
-//     $projects = PastWork::where('page', 'hconstruction')->get();
-//     $tags = PastWorkTag::where('page', 'hconstruction')->get();
-//     foreach ($projects as $project) {
-//         $project->translation = $project->translation();
-//         $project->tag = $project->pastWorkTag;
-//         $project->tag->translation = $project->tag->translation();
-//     }
-//     foreach ($tags as $tag) {
-//         $tag->translation = $tag->translation();
-//     }
-//     return view('home.service.Hconstruction', compact('projects', 'tags'));
-// });
+Route::get('/hinspector', function () {
+    return view('home.service.Hinspector');
+});
 
 Route::group([], function () {
-    Route::prefix('{path}')->whereIn('path', ['hinspector', 'hinterior', 'hconstruction'])->group(function () {
+    Route::prefix('{path}')->whereIn('path', ['hinterior', 'hconstruction'])->group(function () {
         Route::get('/', function ($path) {
             $projects = PastWork::where('page', $path)->get();
             $tags = PastWorkTag::where('page', $path)->get();
@@ -114,7 +76,7 @@ Route::group([], function () {
             }
 
             $viewName = match ($path) {
-                'hinspector' => 'home.service.Hinspector',
+                // 'hinspector' => 'home.service.Hinspector',
                 'hinterior' => 'home.service.Hinterior',
                 'hconstruction' => 'home.service.Hconstruction',
                 default => abort(404),
