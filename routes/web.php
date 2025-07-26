@@ -300,6 +300,16 @@ Route::prefix('api')->group(function () {
     });
 });
 
+Route::post('/contact/submit', [ContactController::class, 'store'])->name('contact.submit');
+
+// Admin routes for managing contact messages
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin/Mail/contact-messages', [ContactController::class, 'index'])->name('admin.contact.index');
+    Route::get('/admin/Mail/contact-messages/{id}', [ContactController::class, 'show'])->name('admin.contact.show');
+    Route::patch('/admin/Mail/contact-messages/{id}/status', [ContactController::class, 'updateStatus'])->name('admin.contact.update-status');
+});
+
+
 // Route::prefix('test')->controller(TestController::class)->group(function () {
 //     Route::get('/create', 'create_article')->name('test.create_article');
 //     Route::get('/create_tag', 'create_tag')->name('test.create_tag');

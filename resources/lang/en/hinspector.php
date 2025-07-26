@@ -2,31 +2,35 @@
 
 return [
     // Hero Section
-    "hero_title" => "Inspect the readiness of houses and condos before transfer of",
-    "hero_title_highlight" => " ownership",
-    "hero_subtitle" => "Thailand's #1 home inspection company with the highest customer referrals, providing inspection services for houses and condos before ownership transfer",
-    "btn_pricing" => "Service Rates",
+    "hero_title" => "RANKED #1 IN THAILAND T.HOME INSPECTOR the most frequently recommended",
+    "hero_title_highlight" => " by client",
+    "hero_subtitle" => "A Handover Inspection is a detailed, visual and functional assessment of a newly completed property.",
+    "btn_pricing" => "Home Inspection Prices",
     "btn_sample_report" => "Sample Report",
 
     // Services Section
-    "services_title" => "Why Choose T.Home Inspection Trust Tech Team",
-    "trust_title" => "Trust",
-    "trust_description" => "Leading home inspection company in Thailand that customers trust the most to inspect homes in various top brand projects across the country",
+    "services_title" => "Why Trust T.HOME INSPECTOR With Your Home Inspection?",
+    "trust_title" => "Trusted",
+    "trust_description" => "High quality home inspection form a trust Thailand company. T.HOME INSPECTOR is a leading, certified inspection firm with over 10 years of experience in delivering comprehensive inspection solutions for residential.",
     "tech_title" => "Tech",
-    "tech_description" => "Modern inspection equipment with infrared cameras to detect leaks invisible to the naked eye and drones to inspect roof work on every house at no additional cost. Complete inspection equipment for every team",
+    "tech_description" => "We provide accurate, comprehensive inspections using the latest technologies Thermal Camera and Drone, ensuring adherence to the highest standards of quality and compliance. We built and use our own inspection software",
     "team_title" => "Team",
-    "team_description" => "We work systematically and professionally. Our experienced technician team specializes in home inspection, trained according to company standards. Our team is not employees of real estate companies who inspect their own work, and we don't subcontract. Home inspection is our \"main profession, not a side job\"",
+    "team_description" => "We make every inspection a team effort. Each inspector has a particular area of expertise making the end result accurate. We bring a team of professionals – all experts in their fields – to the home for a faster, more thorough inspection.",
 
     // Service Description
-    "service_description_title" => "Our Home Inspection Services",
-    "service_description_text" => "Quality controlled by engineers certified as Certified Professional Inspector (CPI) from InterNACH, a leading world-class home inspection association",
+    "service_description_title" => "At T.HOME INSPECTOR, we:",
+    "service_description_text" => "Are staffed with industry-trained experts
+Provide accurate, comprehensive inspections using the latest technologies.
+Provide comprehensive inspection reports 
+Work exclusively for the buyer—not the developer or contractor—giving you a fully impartial assessment with no hidden interests.",
     "service_feature_1" => "Inspection by professional engineers",
     "service_feature_2" => "Use of modern inspection tools",
     "service_feature_3" => "Detailed reports with illustrations",
     "service_feature_4" => "Recommendations for problem solving",
 
     // Inspection Scope
-    "inspection_scope_title" => "Inspection Scope",
+    "inspection_scope_title" => "Our Scope Of Inspection ",
+    "inspection_scope_description" => "We provide a comprehensive inspection service that covers all critical aspects of your property, ensuring that every detail is thoroughly evaluated.",
     "electrical_title" => "Electrical System",
     "electrical_description" => "Inspect electrical systems inside the house, operation of electrical leakage protection systems, electrical outlets wiring, ground wire resistance values, operation of light switches and lighting",
     "sanitary_title" => "Sanitary System",
@@ -43,14 +47,14 @@ return [
 
     // Process Section
     "process_title" => "Our Service Process",
-    "process_step_1_title" => "1. Contact to Schedule Home Inspection",
-    "process_step_1_description" => "Contact our team, agree on appointment date and time, service fees through LINE Official @t.home and pay service fees to confirm inspection queue",
-    "process_step_2_title" => "2. First Round Inspection",
-    "process_step_2_description" => "Team conducts inspection according to home inspection scope and issues inspection report as PDF file to homeowner via email (delivered within 3-5 days)",
-    "process_step_3_title" => "3. Fix According to First Round Report",
-    "process_step_3_description" => "Project fixes defects according to home inspection report and estimates time for completion. Then notify the date ready for second round inspection to homeowner to schedule with T.Home Inspection again",
-    "process_step_4_title" => "4. Second Round Inspection",
-    "process_step_4_description" => "Team conducts inspection after project/contractor has completed fixing defects according to points specified in the report. Re-check points that need fixing from first round and create second round inspection report for homeowner via email",
+    "process_step_1_title" => "1. Schedule an inspection",
+    "process_step_1_description" => "Call or text us and our admin team will be there to answer your questions and schedule your inspection. Pick available time slots you'd like to schedule and pay for your inspection.",
+    "process_step_2_title" => "2. Inspection & Report",
+    "process_step_2_description" => "Perform on-site visual & functional inspection including electrical systems, plumbing, leaking, roof and all finishings. After we complete your inspection, you will receive a report with photos and descriptions of each defect, sorted by room and severity. Provided in PDF format within 3-5 days of completion.",
+    "process_step_3_title" => "3. Rectify Defect",
+    "process_step_3_description" => "Once the developer completes rectification, we can return for a second visit to verify corrections, ensuring your home is 100% ready.",
+    "process_step_4_title" => "4. Optional Reinspection After Rectification",
+    "process_step_4_description" => "We can return once the developer claims the issues are fixed to ensure all defects were properly resolved.",
     "process_step_5_title" => "5. Fix According to Second Round Report",
     "process_step_5_description" => "Project fixes defects according to second round inspection report (if there are remaining or additional items)",
     "process_step_6_title" => "6. Next Round Inspection*",
@@ -60,7 +64,7 @@ return [
     "pricing_title" => "Home and Condo Inspection Service Rates",
     "tab_house" => "House",
     "tab_condo" => "Condo",
-    "house_types" => "Detached House / Semi-Detached / Townhome",
+    "house_types" => "House Condominium/ Single House / Townhome",
     "condo_types" => "Condominium",
     "size" => "Size",
     "usable_area" => "Usable Area<br>(sq.m.)",

@@ -1,5 +1,13 @@
 @extends('layouts.layout_home')
 @section('content')
+<<<<<<< HEAD
+<!DOCTYPE html>
+<html lang="{{ app()->getLocale() }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+=======
+>>>>>>> 0a47fd713d3e7de58f5fc343202ce85344193cca
     <title>{{ __('joinus.page_title') }}</title>
     <!-- EmailJS SDK -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -378,7 +386,10 @@
                 padding: 40px 20px;
                 gap: 40px;
             }
+<<<<<<< HEAD
+=======
 
+>>>>>>> 0a47fd713d3e7de58f5fc343202ce85344193cca
             .join-us-content h1 {
                 font-size: 2.5rem;
             }
@@ -408,7 +419,10 @@
             .join-us-content h1 {
                 font-size: 2rem;
             }
+<<<<<<< HEAD
+=======
 
+>>>>>>> 0a47fd713d3e7de58f5fc343202ce85344193cca
             .apply-job h1 {
                 font-size: 2rem;
             }
@@ -449,6 +463,10 @@
                 <p><strong>{{ __('joinus.civil_engineer_location') }}</strong></p>
                 <p><strong>{{ __('joinus.civil_engineer_requirements') }}</strong></p>
                 <button class="apply-btn" onclick="openJobModal('civil-engineer')">{{ __('joinus.apply_now') }}</button>
+<<<<<<< HEAD
+            </div>
+        </div>
+=======
             </div> --}}
             @foreach ($jobs as $job)
                 <div class="job-listing">
@@ -461,6 +479,7 @@
             @endforeach
         </div>
     </div>
+>>>>>>> 0a47fd713d3e7de58f5fc343202ce85344193cca
 
     <!-- Job Application Modal -->
     <div id="jobModal" class="modal">
@@ -786,6 +805,34 @@ ${localizedText.contactApplicant} ${data.email} or ${data.phone} ${localizedText
                     if (this.value.trim() !== "") {
                         this.style.borderColor = "#e9ecef"
                     }
+<<<<<<< HEAD
+
+                    if (errorMessage.style.display === "block") {
+                        closeErrorMessage()
+                    }
+                }
+            })
+
+            // Form validation on input
+            document.addEventListener("DOMContentLoaded", () => {
+                const inputs = document.querySelectorAll("input[required], select[required]")
+
+                inputs.forEach((input) => {
+                    input.addEventListener("blur", function() {
+                        if (this.value.trim() === "") {
+                            this.style.borderColor = "#dc3545"
+                        } else {
+                            this.style.borderColor = "#e9ecef"
+                        }
+                    })
+
+                    input.addEventListener("input", function() {
+                        if (this.value.trim() !== "") {
+                            this.style.borderColor = "#e9ecef"
+                        }
+                    })
+=======
+>>>>>>> 0a47fd713d3e7de58f5fc343202ce85344193cca
                 })
             })
         })

@@ -116,6 +116,7 @@
     <section class="inspection-scope">
         <div class="inspection-container">
             <h2 class="inspection-title">{{ __('hinspector.inspection_scope_title') }}</h2>
+            <p class ="inspection-description">{{ __('hinspector.inspection_scope_description') }}</p>
             <div class="inspection-grid">
                 <!-- แถวบน: 3 การ์ด -->
                 <div class="inspection-row top-row">
@@ -579,26 +580,26 @@
                     </tbody>
                 </table>
 
-                <div class="notes-section">
-                    <div class="notes-layout">
-                        <h3 class="notes-title-vertical">{{ __('hinspector.notes') }}</h3>
-                        <div class="notes-grid">
-                            <div class="note-item">
-                                <span class="note-number">1</span>
-                                <span class="note-text">{!! __('hinspector.note_1') !!}</span>
-                            </div>
-                            <div class="note-item">
-                                <span class="note-number">2</span>
-                                <span class="note-text">{!! __('hinspector.note_2') !!}</span>
-                            </div>
-                            <div class="note-item">
-                                <span class="note-number">3</span>
-                                <span class="note-text">{{ __('hinspector.note_3') }}</span>
-                            </div>
-                            <div class="note-item">
-                                <span class="note-number">4</span>
-                                <span class="note-text">{{ __('hinspector.note_4') }}</span>
-                            </div>
+            <div class="notes-section">
+                <h3 class="notes-title-vertical">{{ __('hinspector.notes') }}</h3>
+
+                <div class="notes-layout">
+                    <div class="notes-grid">
+                        <div class="note-item">
+                            <span class="note-number">1</span>
+                            <span class="note-text">{!! __('hinspector.note_1') !!}</span>
+                        </div>
+                        <div class="note-item">
+                            <span class="note-number">2</span>
+                            <span class="note-text">{!! __('hinspector.note_2') !!}</span>
+                        </div>
+                        <div class="note-item">
+                            <span class="note-number">3</span>
+                            <span class="note-text">{{ __('hinspector.note_3') }}</span>
+                        </div>
+                        <div class="note-item">
+                            <span class="note-number">4</span>
+                            <span class="note-text">{{ __('hinspector.note_4') }}</span>
                         </div>
                     </div>
                 </div>
