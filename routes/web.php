@@ -16,6 +16,7 @@ use App\Http\Controllers\HouseController;
 use App\Http\Controllers\ReviewHomeController;
 use App\Http\Controllers\PrivilegeController;
 use App\Http\Controllers\StaticPageController;
+use App\Http\Controllers\ContactController;
 use App\Models\PastWork;
 use App\Models\PastWorkTag;
 use App\Models\Faq;
