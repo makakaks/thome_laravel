@@ -16,6 +16,8 @@ use App\Http\Controllers\HouseController;
 use App\Http\Controllers\ReviewHomeController;
 use App\Http\Controllers\PrivilegeController;
 use App\Http\Controllers\StaticPageController;
+use App\Models\PastWork;
+use App\Models\PastWorkTag;
 use App\Models\Faq;
 use App\Models\PageVariable;
 /*
@@ -55,16 +57,82 @@ Route::get('/', function () {
     return view('home.index', compact('faqs', 'latestArticles', 'var'));
 });
 
-Route::get('/hinspector', function () {
-    return view('home.service.Hinspector');
-});
+// Route::get('/hinspector', function () {
+//     $projects = PastWork::where('page', 'hinspector')->get();
+//     $tags = PastWorkTag::where('page', 'hinspector')->get();
+//     foreach ($projects as $project) {
+//         $project->translation = $project->translation();
+//         $project->tag = $project->pastWorkTag;
+//         $project->tag->translation = $project->tag->translation();
+//     }
+//     foreach ($tags as $tag) {
+//         $tag->translation = $tag->translation();
+//     }
+//     return view('home.service.Hinspector', compact('projects', 'tags'));
+// });
 
-Route::get('/hinterior', function () {
-    return view('home.service.Hinterior');
-});
+// Route::get('/hinterior', function () {
+//     $projects = PastWork::where('page', 'hinterior')->get();
+//     $tags = PastWorkTag::where('page', 'hinterior')->get();
+//     foreach ($projects as $project) {
+//         $project->translation = $project->translation();
+//         $project->tag = $project->pastWorkTag;
+//         $project->tag->translation = $project->tag->translation();
+//     }
+//     foreach ($tags as $tag) {
+//         $tag->translation = $tag->translation();
+//     }
+//     return view('home.service.Hinterior', compact('projects', 'tags'));
+// });
 
-Route::get('/hconstruction', function () {
-    return view('home.service.Hconstruction');
+// Route::get('/hconstruction', function () {
+//     $projects = PastWork::where('page', 'hconstruction')->get();
+//     $tags = PastWorkTag::where('page', 'hconstruction')->get();
+//     foreach ($projects as $project) {
+//         $project->translation = $project->translation();
+//         $project->tag = $project->pastWorkTag;
+//         $project->tag->translation = $project->tag->translation();
+//     }
+//     foreach ($tags as $tag) {
+//         $tag->translation = $tag->translation();
+//     }
+//     return view('home.service.Hconstruction', compact('projects', 'tags'));
+// });
+
+Route::group([], function () {
+    Route::prefix('{path}')->whereIn('path', ['hinspector', 'hinterior', 'hconstruction'])->group(function () {
+        Route::get('/', function ($path) {
+            $projects = PastWork::where('page', $path)->get();
+            $tags = PastWorkTag::where('page', $path)->get();
+            foreach ($projects as $project) {
+                $project->translation = $project->translation();
+                $project->tag = $project->pastWorkTag;
+                $project->tag->translation = $project->tag->translation();
+            }
+            foreach ($tags as $tag) {
+                $tag->translation = $tag->translation();
+            }
+
+            $viewName = match ($path) {
+                'hinspector' => 'home.service.Hinspector',
+                'hinterior' => 'home.service.Hinterior',
+                'hconstruction' => 'home.service.Hconstruction',
+                default => abort(404),
+            };
+            return view($viewName, compact('projects', 'tags'));
+        });
+
+        Route::get('/project/{id}', function ($path, $id) {
+            $project = PastWork::find($id);
+            if (!$project || $project->page !== $path) {
+                abort(404);
+            }
+            $project->translation = $project->translation();
+            $project->tag = $project->pastWorkTag;
+            $project->tag->translation = $project->tag->translation();
+            return view('home.service.view_project', compact('project'));
+        });
+    });
 });
 
 Route::get('/hbutler', function () {
@@ -129,7 +197,16 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
         Route::prefix('project/{pageName}')->group(function () {
             Route::get('/', 'manage_project')->name('admin.static_page.manage_project');
-            Route::post('/create', 'create_project')->name('admin.static_page.create_project');
+            Route::get('/create', 'create_project_view')->name('admin.static_page.create_project_view');
+            Route::get('/edit/{id}', 'edit_project_view')->name('admin.static_page.edit_project_view');
+            Route::post('/', 'create_project')->name('admin.static_page.create_project');
+            Route::delete('/{id}', 'delete_project')->name('static_page.faq.delete_project');
+            Route::put('/{id}', 'edit_project')->name('admin.static_page.edit_project');
+            Route::put('/edit_lang/{id}', 'edit_project_lang')->name('admin.static_page.edit_project_lang');
+
+            Route::post('/add_tag', 'create_tag')->name('admin.faq.add_tag');
+            Route::put('/edit_tag/{id}', 'edit_tag')->name('admin.faq.edit_tag');
+            Route::delete('/delete_tag/{id}', 'delete_tag')->name('admin.faq.delete_tag');
         });
     });
 

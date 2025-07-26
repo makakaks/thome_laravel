@@ -15,7 +15,7 @@
             </div>
             <div class="carousel-inner h-100">
                 <div class="carousel-item active h-100">
-                    <img src="https://assets.architecturaldigest.in/photos/62026064b5d9eefa7e4e2ddf/4:3/w_1439,h_1079,c_limit/How%20to%20furnish%20your%20home%20on%20a%20budget.jpg"
+                    <img src="/img/ปกPSD.png"
                         class="hero-bg" alt="...">
                     <div class="hero-content">
                         <div class="logo-container">
@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <div class="carousel-item h-100 p-0">
-                    <img src="https://www.marthastewart.com/thmb/LaYmyiA1c-J0kvd0ERCL5-30ch4=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/spanish-art-deco-home-tour-living-room-0120-2000-e206e51ef737424aaa6eab5f500f5b84.jpg"
+                    <img src="/img/after_review/interrior-bg1.jpg"
                         class="hero-bg" alt="...">
                 </div>
             </div>
@@ -56,26 +56,25 @@
 
 
     <div class="review-page aos-init aos-animate" data-aos="fade-up">
-        <!-- <h1>ผลงานออกแบบตกแต่งภายใน</h1>
-                        <p>ต.ตกเเต่ง เราบริการแบบ One Service Solution ทุกอย่างครบจบที่เดียว! <br>
-                            ออกแบบรวมตกแต่ง ราคาเริ่มต้นเพียง 10,000 บาท/ตร.ม.<br>
-                        </p>
-                        <hr>
-                        <br> -->
         <h1>{{ __('hinterior.choose-style-title') }}</h1>
         <br>
         <div class="categories aos-init aos-animate" data-aos="fade-up" data-aos-duration="1500">
             <button class="category-btn active" data-category="all">All</button>
-            <button class="category-btn" data-category="Modern">Modern</button>
+            @foreach ($tags as $tag)
+                <button class="category-btn" data-category="{{ $tag->translation['title'] }}">{{ $tag->translation['title'] }}</button>
+            @endforeach
+            {{-- <button class="category-btn" data-category="Modern">Modern</button>
             <button class="category-btn" data-category="Modern Luxury">Modern Luxury</button>
-            <button class="category-btn" data-category="Modern Classic">Modern Classic</button>
+            <button class="category-btn" data-category="Modern Classic">Modern Classic</button> --}}
         </div>
         <div class="review-cards">
-            <a class="card" data-category="Modern" href="https://thomeinspector1.netlify.app/after_review_interior1">
-                <img src="/img/after_review/interrior-bg1.jpg" alt="House Review 1">
-                <p>Bangkok Boulevard Ramintra109</p>
-            </a>
-            <a class="card" data-category="Modern" href="https://thomeinspector1.netlify.app/after_review_interior2">
+            @foreach ($projects as $project)
+                <a class="card" data-category="{{ $project->tag->translation['title'] }}" href="/hinterior/project/{{ $project->id }}">
+                    <img src="{{ $project->coverPageImg }}" alt="House Review 1">
+                    <p>{{ $project->translation['title'] }}</p>
+                </a>
+            @endforeach
+            {{-- <a class="card" data-category="Modern" href="https://thomeinspector1.netlify.app/after_review_interior2">
                 <img src="/img/after_review/interrior-bg2.jpg" alt="House Review 1">
                 <p>Nantawan Pinklao</p>
             </a>
@@ -112,7 +111,7 @@
                 href="https://thomeinspector1.netlify.app/after_review_interior9">
                 <img src="/img/after_review/interrior-bg9.jpg" alt="House Review 9">
                 <p>THE CITY Pinklao-sirinthorn</p>
-            </a>
+            </a> --}}
         </div>
     </div>
     <div class="video-carousel aos-init" data-aos="fade-up" data-aos-anchor-placement="top-bottom">

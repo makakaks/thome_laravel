@@ -13,13 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pastworks', function (Blueprint $table) {
+        Schema::create('past_work_tags', function (Blueprint $table) {
             $table->id();
-            $table->string('page');
-            $table->string('coverPageImg');
-            $table->jsonb('title')->nullable();
-            $table->jsonb('detail')->nullable();
-            $table->jsonb('images')->nullable();
+            $table->enum('page', ['hinspector', 'hinterior', 'hconstruction', 'hbutler', 'Other']);
+            $table->jsonb('title');
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pastworks');
+        Schema::dropIfExists('past_work_tags');
     }
 };

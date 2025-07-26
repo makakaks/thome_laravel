@@ -19,7 +19,7 @@
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
         </div>
 
-        <div>
+        <div class="d-none">
             <x-input-label for="username" :value="'ชื่อผู้ใช้'" />
             <x-text-input id="username" name="username" type="username" class="mt-1 block w-full" :value="old('username', $user->username)" required autocomplete="username" />
             <x-input-error class="mt-2" :messages="$errors->get('username')" />
