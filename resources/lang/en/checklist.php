@@ -1,29 +1,64 @@
 <?php
 
 return [
-    "title" => "Checklist Before Buying a House",
-    "desc1" => "This checklist helps you compare different home options before making a decision.",
-    "desc2" => "Simply enter the project details, and the system will help you compare.",
-    "desc3" => "It includes key aspects such as:",
-    "list_project" => "Project Information",
-    "list_sanitary" => "Sanitary",
-    "list_roofing" => "Roofing",
-    "list_electric" => "Electrical System",
-    "why_title" => "Why compare houses before buying?",
-    "why_desc" => "Comparing houses helps you make a confident purchase decision regarding structure, price, location, and facilities.",
-    "section_title" => "🏡 Why is it important to compare houses before buying?",
-    "card1_title" => "💰 Compare Prices",
-    "card1_desc" => "Helps you know if the house price you are considering is reasonable compared to similar houses in the same area.",
-    "card2_title" => "📍 Location and Transportation",
-    "card2_desc" => "Consider the distance from work, school, or various facilities to choose the best location.",
-    "card3_title" => "🏗️ Structure and Material Quality",
-    "card3_desc" => "Check if the house has a strong structure, uses quality materials, and meets construction standards.",
-    "card4_title" => "📜 Contract Terms and Financing",
-    "card4_desc" => "Compare loan conditions, interest rates, and additional costs such as common fees or home insurance.",
-    "card5_title" => "🚪 Safety and Environment",
-    "card5_desc" => "Check the security system and the surrounding environment to ensure it is suitable for living.",
-    "card6_title" => "📋 Value Assessment",
-    "card6_desc" => "A good-looking house may not be the best fit. Comparing information helps you make a well-informed decision.",
-    "cta_title" => "Start comparing your houses before making a purchase decision!",
-    "cta_btn" => "Start Comparing Houses",
+    // Page Meta
+    "page_title" => "Home Inspection Checklist",
+    
+    // Header Section
+    "checklist_title" => "Complete Home Inspection Checklist",
+    "info_professional" => "Professional home inspection service to ensure your property meets all safety standards",
+    "info_comprehensive" => "Comprehensive evaluation covering all critical aspects of your home",
+    "info_detailed" => "Detailed report with recommendations and priority assessments",
+    
+    // Categories
+    "inspection_categories" => "Inspection Categories",
+    "category_documentation" => "Project Documentation & Permits",
+    "category_sanitary" => "Sanitary & Plumbing Systems",
+    "category_roofing" => "Roofing & Structural Elements",
+    "category_electrical" => "Electrical Systems & Safety",
+    
+    // Contact Info
+    "need_help" => "Need Help?",
+    "available_24_7" => "Available 24/7",
+    "professional_service" => "Professional Home Inspection Service",
+    "trusted_experts" => "Trusted by thousands of homeowners",
+    
+    // Hero Section
+    "hero_title" => "Why Choose Professional Home Inspection?",
+    "hero_subtitle" => "Protect your investment with our comprehensive inspection service. Get peace of mind knowing every detail of your property has been thoroughly evaluated by certified professionals.",
+    "compare_houses_btn" => "Compare Houses Now",
+    
+    // Services Section
+    "services_title" => "Our Comprehensive Inspection Services",
+    "services_subtitle" => "We provide thorough inspections covering every aspect of your property",
+    "service_structural_title" => "Structural Assessment",
+    "service_structural_desc" => "Complete evaluation of foundation, walls, and structural integrity to ensure your home is built to last.",
+    "service_electrical_title" => "Electrical Systems",
+    "service_electrical_desc" => "Thorough inspection of wiring, panels, and electrical safety to prevent hazards and ensure compliance.",
+    "service_plumbing_title" => "Plumbing & Water",
+    "service_plumbing_desc" => "Complete plumbing system evaluation including pipes, fixtures, and water pressure testing.",
+    "service_hvac_title" => "HVAC Systems",
+    "service_hvac_desc" => "Heating, ventilation, and air conditioning system inspection for optimal comfort and efficiency.",
+    "service_safety_title" => "Safety & Security",
+    "service_safety_desc" => "Comprehensive safety evaluation including smoke detectors, security systems, and emergency exits.",
+    "service_documentation_title" => "Documentation",
+    "service_documentation_desc" => "Detailed inspection report with photos, recommendations, and priority action items.",
+    
+    // Statistics Section
+    "stats_title" => "Trusted by Thousands",
+    "stats_subtitle" => "Our track record speaks for itself",
+    "stat_homes" => "Homes Inspected",
+    "stat_satisfaction" => "% Satisfaction Rate",
+    "stat_experience" => "Years Experience",
+    "stat_support" => "Hour Support",
+    
+    // CTA Section
+    "cta_title" => "Ready to Inspect Your Dream Home?",
+    "cta_subtitle" => "Don't leave your biggest investment to chance. Get professional inspection today.",
+    "cta_button" => "Start Comparison Now",
+    
+    // Common
+    "loading" => "Loading...",
+    "success" => "Success!",
+    "error" => "Error occurred"
 ];

@@ -1978,23 +1978,3 @@
     </script>
 </body>
 </html>
-
-Perfect! I've successfully added the Thai-English language toggle functionality to your existing Laravel Blade template. Here's what I've added:
-
-## **Key Features Added:**
-
-### **1. Language Toggle Button**
-- Fixed position toggle button with Thai and English flags
-- Smooth hover animations and active states
-- Responsive design for mobile devices
-
-### **2. Bilingual Content System**
-- All text content now has both Thai and English versions
-- Uses `data-lang` attributes and CSS classes for language switching
-- Maintains proper display types (block, inline, flex, grid)
-
-### **3. Language Persistence**
-- Saves user's language preference in localStorage
-- Automatically loads saved language on page refresh
-
-### **4. Comple
