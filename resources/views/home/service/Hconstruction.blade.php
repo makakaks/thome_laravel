@@ -118,16 +118,25 @@
         <br>
         <div class="categories aos-init aos-animate" data-aos="fade-up" data-aos-duration="1500">
             <button class="category-btn active" data-category="all">{{ __('hconstruction.category-all') }}</button>
-            <button class="category-btn" data-category="Modern">{{ __('hconstruction.category-modern') }}</button>
-            <button class="category-btn" data-category="Modern Luxury">{{ __('hconstruction.category-modern-luxury') }}</button>
-            <button class="category-btn" data-category="Modern Classic">{{ __('hconstruction.category-modern-classic') }}</button>
+            @foreach ($tags as $tag)
+                <button class="category-btn" data-category="{{ $tag->translation['title'] }}">{{ $tag->translation['title'] }}</button>
+            @endforeach
+            {{-- <button class="category-btn" data-category="Modern">{{ __('hconstruction.category-modern') }}</button>
+            <button class="category-btn"
+                data-category="Modern Luxury">{{ __('hconstruction.category-modern-luxury') }}</button>
+            <button class="category-btn"
+                data-category="Modern Classic">{{ __('hconstruction.category-modern-classic') }}</button> --}}
         </div>
         <div class="review-cards">
-            <a class="card" data-category="Modern" href="https://thomeinspector1.netlify.app/after_review_interior1">
-                <img src="/img/after_review/interrior-bg1.jpg" alt="House Review 1">
-                <p>{{ __('hconstruction.review1-title') }}</p>
-            </a>
-            <a class="card" data-category="Modern" href="https://thomeinspector1.netlify.app/after_review_interior2">
+            @foreach ($projects as $project)
+                <a class="card" data-category="{{ $project->tag->translation['title'] }}"
+                    href="/hconstruction/project/{{ $project->id }}">
+                    <img src="{{ $project->coverPageImg }}">
+                    <p>{{ $project->translation['title'] }}</p>
+                </a>
+            @endforeach
+
+            {{-- <a class="card" data-category="Modern" href="https://thomeinspector1.netlify.app/after_review_interior2">
                 <img src="/img/after_review/interrior-bg2.jpg" alt="House Review 2">
                 <p>{{ __('hconstruction.review2-title') }}</p>
             </a>
@@ -164,7 +173,7 @@
                 href="https://thomeinspector1.netlify.app/after_review_interior9">
                 <img src="/img/after_review/interrior-bg9.jpg" alt="House Review 9">
                 <p>{{ __('hconstruction.review9-title') }}</p>
-            </a>
+            </a> --}}
         </div>
     </div>
 
